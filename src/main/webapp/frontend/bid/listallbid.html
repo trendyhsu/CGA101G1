@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+
+    
+
+<script src ="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: "/CGA101G1/BidProductServlet",
+            type: "POST",
+            success: function(data){
+                showAllBid(data);
+            }
+        })
+    });
+function showAllBid(data){
+    let bids = JSON.parse(data);
+    for(let bid of bids){
+        let div = document.querySelector("#div1");
+        let div2 = document.createElement("div");
+        div2.innerHTML=`<table class='bid'>
+  <tr><th>申請單編號</th><td>${bid.bidApplyListNo}</td></tr>
+  <tr><th>一般商品編號</th><td>${bid.productNo}</td></tr>
+  <tr><th>競標商品名稱</th><td>${bid.bidName}</td></tr>
+  <tr><th>競標商品敘述</th><td>${bid.bidProdDescription}</td></tr>
+  <tr><th>得標會員編號</th><td>${bid.buyerNo}</td></tr>
+  <tr><th>會員編號</th><td>${bid.sellerNo}</td></tr>
+  <tr><th>上架底價</th><td>${bid.initialPrice}</td></tr>
+  <tr><th>競標商品狀態</th><td>${bid.bidState}</td></tr>
+  <tr><th>起標時間</th><td>${bid.bidLaunchedTime}</td></tr>
+  <tr><th>截標時間</th><td>${bid.bidSoldTime}</td></tr>
+  <tr><th>最高出價紀錄</th><td>${bid.bidWinnerPrice}</td></tr>
+  <tr><th>最低增額</th><td>${bid.bidPriceIncrement}</td></tr>
+  <tr><th>訂單狀態</th><td>${bid.orderState}</td></tr>
+  <tr><th>取貨方式</th><td>${bid.pickupMethod}</td></tr>
+  <tr><th>運費</th><td>${bid.shoppingFee}</td></tr>
+  <tr><th>物流編號</th><td>${bid.trackingNum}</td></tr>
+  <tr><th>領貨時間</th><td>${bid.pickupTime}</td></tr>
+  <tr><th>收件人姓名</th><td>${bid.receiverName}</td></tr>
+  <tr><th>收件人地址</th><td>${bid.receiverAddress}</td></tr>
+  <tr><th>收件人電話</th><td>${bid.receiverPhone}</td></tr>
+  <img src=/CGA101G1/BidPicServlet?bidProductNo=${bid.bidProductNo} width="200" height="200">
+</table>`;
+    div.append(div2);
+    
+    $.ajax({
+        url:`/CGA101G1/BidPicGetLengthServlet?bidProductNo=${bid.bidProductNo}`,
+        type:"POST",
+        success:function(data){
+        	showAllPic(data);
+        }
+    })
+    
+
+    }
+}
+function showAllPic(data){
+	let pics = JSON.parse(data);
+	let div2 = document.createElement("div");
+	let bidProdPicHTML = "";
+		for (let i = 0; i < pics.length; i++) {
+			bidProdPicHTML += `
+				<img src=/CGA101G1/BidPicServlet2?bidProdPicNo=${pics[i].bidProdPicNo} width="300" height="300">
+			`;
+		}
+	div2.innerHTML=bidProdPicHTML;
+	let div = document.querySelector("#div1");
+	div.append(div2);
+	
+}
+</script>
+</body>
+</html>

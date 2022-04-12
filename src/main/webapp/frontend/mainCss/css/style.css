@@ -1,0 +1,769 @@
+:root{
+    --blue:rgb(179,205,204);
+    --black:rgb(84,117,147);
+    --light-color:#666;
+    --darkBlue:rgb(47, 54, 96);
+    --orange:rgb(204, 109, 61);
+    --box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
+    --space:#160c2d;
+}
+
+section{
+    padding:2rem 9%; /*大圖片位子*/
+}
+
+section:nth-child(even){ /*偶數section*/
+    background: #eee;
+}
+
+.sub-heading{
+    text-align: center;
+    color:var(--black);
+    font-size:2rem;
+    padding-top:1rem;
+}
+
+.heading{
+    text-align: center;
+    color:var(--darkBlue);
+    font-size:3rem;
+    padding-bottom:2rem;
+    text-transform: uppercase;
+}
+
+.heading_News{
+    text-align: center;
+    color:var(--darkBlue);
+    font-size:3rem;
+    padding-top:1rem;
+    padding-bottom:2rem;
+    text-transform: uppercase;
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    font-size: 1.7rem;
+    color:#fff;
+    background: var(--black);
+    border-radius: .5rem;
+    cursor: pointer;
+    padding:.8rem 3rem;
+}
+
+.btn:hover{
+    background-color: var(--blue);
+    letter-spacing: .1rem;
+}
+/*-------------------ShoppingCart----------------------*/
+
+#shopping-cart{
+    width:20%;
+    height:25%;
+    position:fixed;
+        top:12%;
+        right:-110%;
+    z-index:1008;
+    display:none;
+    background-color: rgba(102,102,102,.7)
+}
+#shopping-cart.active{
+    right:0;
+    display:flex;
+    transition: .5s;
+}
+/*------LOGIN------------------------------------------*/
+/*整個畫面*/
+#login-form{
+    position:fixed;
+    top:-110%; left:0; /*目前為隱藏*/
+    height:100%; width:100%;
+    z-index: 1006;
+    background: var(--space);
+    padding: 0 1rem;
+    background-image: linear-gradient(rgba(0,0,0 ,0.5),rgba(0,0,0, 0.5)),
+                    url("..\\..\\images\\astronaut.gif");
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* background-position: center; */
+    cursor: url("..\\..\\images\\alien.gif"),default;
+}
+/*畫面啟用*/
+#login-form.active{
+    top:0;
+}
+/*右上角的叉叉*/
+#login-form #login-close{
+    position:absolute;
+    color:#fff;
+    cursor:pointer;
+    top:2rem; right:3rem;
+    font-size: 5rem;
+}
+#login-form .form-box{
+    /* border:2px solid red; */
+    width:350px;
+    height:450px;
+    position:relative;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: center;
+    overflow: hidden;
+    
+}
+
+#login-form .button-box{
+    /* border:2px solid yellowgreen; */
+    width:fit-content;
+    box-shadow: 0 0 1rem .3rem #4c6292;
+    border-radius: 3rem;
+    position: relative;
+    margin: 3rem 0;
+    overflow: hidden;
+}
+
+#login-form .toggle-btn{
+    /* border:2px solid pink; */
+    color:#fff;
+    background: transparent;
+    font-size: 2.5rem;
+    margin:0 1.5rem;
+    padding:.2rem .5rem;
+    cursor: pointer;
+    position: relative;
+    border-radius: 3rem;
+}
+
+#login-form #btn{
+    width:45%;
+    height:100%;
+    background: linear-gradient(to right, #192a56, #7192db);
+    position: absolute;
+        top:0;
+        left:0;
+    transition: .5s;
+    border-radius: 3rem;
+}
+
+#login-form .input-group{
+    /* border:2px solid blue; */
+    height:80%;
+    width:80%;
+    color:#fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-right:100px; */
+}
+#login{
+    position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-35%); 
+}
+#register{
+    position: absolute;
+        top:50%;
+        left:150%;
+        transform: translate(-50%,-35%); 
+}
+
+
+#login-form .form-box .input-group .input-div{
+    /* border:2px solid yellow; */
+    width:100%;
+    margin:1.5rem 3rem;
+    border-bottom:2px solid #fff; 
+    padding-bottom: .5rem;  
+    position: relative;
+}
+
+#login-form .form-box .input-group i{
+    font-size: 3rem;
+}
+
+#login-form .form-box .input-group .input-field{
+    font-size: 2rem;
+    outline: none;
+    background: transparent;
+    color:#fff;
+    margin-left:.6rem;
+}
+
+#login-form .form-box .input-group .input-field::placeholder{
+    color:var(--blue);
+    font-size: 2rem;
+}
+#login-form .form-box .input-group .others{
+    margin:1.5rem 0;
+    display: flex;
+    align-items: center;
+    /* border:2px solid purple; */
+}
+#login-form .form-box .input-group .others span{
+    font-size: 1.5rem;
+    margin-left:1rem;
+}
+
+#login-form .form-box .input-group .submit-btn{
+    background: linear-gradient(to right, #192a56, #7192db);
+    width:30%;
+    font-size: 1.7rem;
+    border-radius: 3rem;
+    margin:2rem 0;
+    color:#fff;
+    padding: .5rem 1rem;
+}
+
+
+
+/*----------------------------------查詢頁面---------------------------------*/
+
+#search-form{
+    position:fixed;
+    top:-110%; left:0; /*目前為隱藏*/
+    height:100%; width:100%;
+    z-index: 1004;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+/*點選查詢後，浮出查詢視窗*/
+#search-form.active{
+    top:0;
+}
+
+/*查詢盒子*/
+#search-form #search-box{ 
+    width:50rem;
+    border-bottom: .1rem solid #fff;
+    padding:1rem 0;
+    color:var(--blue); /*輸入搜尋的文字顏色*/
+    font-size: 3rem;
+    text-transform: none;
+    background: none;   
+    /* border:2px solid white; */
+}
+
+#search-form .search-group{
+    display: flex;
+    align-items: center;
+}
+
+#search-form .search-group div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;  
+}
+
+/*查詢預設字的顏色*/
+#search-form #search-box::placeholder{
+    color:var(--blue); 
+}
+
+/*查詢輸入列的X，建議改掉*/
+#search-form #search-box::-webkit-search-cancel-button{
+    -webkit-appearance: none; 
+}
+
+/*放大鏡*/
+#search-form label{
+    color:#fff;
+    cursor:pointer;
+    font-size: 3rem;
+    margin-bottom:2rem;
+}
+
+#search-form label:hover{
+    color:var(--blue);
+}
+
+#search-form #advanced{
+    color:#fff;
+    font-size: 1.7rem;
+    width: fit-content;
+    margin:1rem .5rem;
+    padding:0 .5rem;
+    background: var(--black);
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+/*右上角的叉叉*/
+#search-form #search-close{
+    position:absolute;
+    color:#fff;
+    cursor:pointer;
+    top:2rem; right:3rem;
+    font-size: 5rem;
+}
+/*----------------------------------進階查詢頁面------------------------------*/
+/*點選查詢後，浮出查詢視窗*/
+#advanced-search-form{
+    position:fixed; 
+    right:-110%; top:0;  /*目前為隱藏*/
+    height:100%; width:100%;
+    z-index: 1008;
+    background: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+#advanced-search-form.active{
+    right:0;
+}
+
+#advanced-search-form #search-select{
+    /* border:2px solid blue; */
+    width:fit-content;
+    position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+}
+
+/* #advanced-search-form .search-type{
+    border: 2px dotted var(--light-color);
+} */
+
+#advanced-search-form #search-select .search-type span.list-title{ /*標題及底下線條*/
+    color:#fff;
+    border-bottom: 4px solid;
+    font-size:3rem;
+}
+
+#search-select .search-type .checkbox-group label input[type="checkbox"]{
+    display:none;
+}
+
+#search-select .search-type .checkbox-group label input[type="checkbox"]:checked ~ span{
+    background: rgb(138, 191, 241);
+    color:#fff;
+    box-shadow: 0 1px 7px rgb(138, 191, 241);
+}
+
+#advanced-search-form #search-select .search-type .checkbox-group{
+    /* border:2px solid darkorange; */
+    margin:.5rem 0;
+    width:fit-content;
+}
+
+
+#search-select .search-type .checkbox-group label span{
+    color:#999;
+    cursor:pointer;
+    font-size:2rem;    
+    background: var(--darkBlue);
+    border-radius: 3rem ;
+    margin:1.5rem 0;
+    padding:.2rem 1rem;
+    user-select: none;
+    position:relative;
+    display: inline-block;
+    overflow: hidden;
+
+}
+
+#advanced-search-form #search-select label:hover{
+    color:var(--blue);
+}
+
+/*右上角的叉叉*/
+#advanced-search-form #advanced-search-close{
+    position:absolute;
+    color:#fff;
+    cursor:pointer;
+    top:2rem; right:3rem;
+    font-size: 5rem;
+}
+
+#advanced-search-form .advanced-btn-group{
+    border:2px solid red;
+    width:15rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left:80%; 
+    top:80%;
+}
+
+#advanced-search-form .advanced-btn-group div button{
+    border-radius: 2rem;
+    color:var(--black);
+    font-size: 3rem;
+} 
+#advanced-search-form .advanced-btn-group div button i{
+    color:var(--black);
+}
+#advanced-search-form .advanced-reset{
+     /* border:2px solid yellow; */
+    border-radius: 2rem;
+    color:var(--black);
+    font-size: 3rem;
+    padding:0 1rem;
+    margin:1rem 0;
+}
+
+/*--------------------------------------------------------------------------*/
+.home .home-slider .slide{
+    display:flex;
+    align-items: center; /*文字跑去圖片左邊中間*/
+    flex-wrap:wrap;
+    gap:2rem; /*文字與圖片中的間隔*/
+    padding-top:9rem; /*與上方列間距*/
+}
+
+.home .home-slider .slide .content{
+    flex:1 1 45rem; /*文字框大小*/
+}
+
+.home .home-slider .slide .image{
+    flex:1 1 45rem; /*圖片框大小*/
+}
+
+.home .home-slider .slide .image img{
+    width:100%;
+}
+
+.home .home-slider .slide .content span{
+    color:var(--black);
+    font-size: 2.5rem;
+    font-weight: bolder;
+    
+  
+}
+
+.home .home-slider .slide .content h3{
+    color:var(--darkBlue);
+    font-size: 7rem;
+}
+
+.home .home-slider .slide .content p{
+    color:var(--light-color);
+    font-size: 2.2rem;
+    padding: .5rem 0; /*敘述內容的上下空白*/
+    line-height: 1.5;
+}
+
+.swiper-pagination-bullet-active{ /*幻燈片底下小圓圓*/
+    background:var(--blue);
+}
+
+.items .box-container{ /*Popular Items的排列*/
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap:1.5rem;
+}
+
+.items .box-container .box{ /*Popular Items商品外框*/
+    padding:2.5rem;
+    background: #fff;
+    border-radius: .5rem;
+    border:.1rem solid rgba(0,0,0,.2);
+    box-shadow:var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.items .box-container .box .fa-heart,
+.items .box-container .box .fa-eye{
+    position: absolute;
+    top:1.5rem;
+    background: #eee;
+    border-radius: 50%;
+    height:5rem;
+    width:5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.items .box-container .box .fa-heart:hover,
+.items .box-container .box .fa-eye:hover{
+    background:var(--blue);
+    color:#fff;
+}
+
+.items .box-container .box .fa-heart{
+    left:-15rem;
+    top:7.3rem;
+}
+
+.items .box-container .box .fa-eye{
+    left:-15rem;
+}
+
+.items .box-container .box:hover .fa-heart{
+    left:1.5rem;
+    top:7.3rem;
+}
+
+.items .box-container .box:hover .fa-eye{
+    left:1.5rem;
+}   
+
+.items .box-container .box img{
+    height:17rem;
+    margin:1rem 0;
+}
+
+.items .box-container .box h3{ /*商品名稱*/
+    color:var(--darkBlue);
+    font-size: 2.5rem;
+}
+
+.items .box-container .box .stars{
+    padding:1rem 0;
+}
+
+.items .box-container .box .stars i{
+    font-size: 1.7rem;
+    color:var(--orange);
+}
+
+.items .box-container .box span{
+    color: var(--orange);
+    font-weight: bolder;
+    margin-right: 1rem;
+    font-size: 2.5rem;
+}
+
+/*自己做slider*/
+.news .news-slider .slide{
+    display:flex;
+    align-items:center; /*文字與圖片位置置中*/
+    flex-wrap:wrap;
+    /* padding-top:9rem; 與上方列間距 */
+    gap:2rem; /*文字與圖片中的間隔*/
+    /* border:2px solid blue; */
+
+}
+.news .news-slider .slide .bg_image1{
+    flex:1 1 45rem; /*圖片框大小*/
+    width:inherit;
+    height:inherit;
+    background-image: linear-gradient( rgba(179,205,204,0.6),rgba(47,54,96,0.8)),
+                  url("../../images/dokidoki.jpg");
+    background-repeat: no-repeat;
+    /* border:3px solid yellow; */
+    
+}
+
+.news .news-slider .slide .bg_image1 .content{
+    flex:1 1 45rem; /*文字框大小*/
+    border:2px solid black;
+    position: absolute;
+        top: 80%;
+        left: 40%;
+        transform: translate(-50%,-50%);
+    background-color: rgba(47,54,96,0.5);
+    border-radius: 5rem;
+}
+.news .news-slider .slide .bg_image2{
+    flex:1 1 45rem; /*圖片框大小*/
+    width:inherit;
+    height:inherit;
+    background-image: linear-gradient(rgba(47,54,96,0.5), rgba(204,109,61,0.2)),
+                  url("../../images/MHR.jpg");
+    background-repeat: no-repeat;
+    /* border:3px solid yellow; */
+    
+}
+
+.news .news-slider .slide .bg_image2 .content{
+    flex:1 1 45rem; /*文字框大小*/
+    /* border:2px solid black; */
+    position: absolute;
+        top: 80%;
+        left: 30%;
+        transform: translate(-50%,-50%);
+    background-color: rgba(0,0,0,.4);
+    border-radius: 5rem;
+}
+
+
+.news .news-slider .slide .bg_image3{
+    flex:1 1 45rem; /*圖片框大小*/
+    width:inherit;
+    height:inherit;
+    background-image: linear-gradient(rgba(102,102,102,0.5), rgba(179,205,204,0.8)),
+                  url("../../images/AmongUs.png");
+    /* border:3px solid yellow; */
+    
+}
+
+.news .news-slider .slide .bg_image3 .content{
+    flex:1 1 45rem; /*文字框大小*/
+    /* border:2px solid black; */
+    position: absolute;
+        top: 80%;
+        left: 30%;
+        transform: translate(-50%,-50%);
+    background-color: rgba(0,0,0,.4);
+    border-radius: 5rem;
+}
+
+.news .news-slider .slide .content span{
+    color:var(--blue);
+    font-size: 2.5rem;
+    font-weight: bolder;
+    
+  
+}
+
+.news .news-slider .slide .content h3{
+    color:var(--blue);
+    font-size: 7rem;
+}
+
+.news .news-slider .slide .content p{
+    color:var(--blue);
+    font-size: 2.2rem;
+    padding: .5rem 0; /*敘述內容的上下空白*/
+    line-height: 1.5;
+}
+
+/*自己做slider*/
+/*onSale區域*/
+.sale .box-container{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap:1.5rem;
+}
+
+.sale .box-container .box{
+    background: #fff;
+    border:.1rem solid rgba(0,0,0,.2);
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.sale .box-container .box .image{
+    height: 25rem;
+    width: 100%;
+    padding:1.5rem;
+    overflow: hidden;
+    position:relative;
+}
+
+.sale .box-container .box .image img{
+    height: 100%;
+    width: 100%;
+    border-radius: .5rem;
+    object-fit: cover; /*調整圖片適應外框*/
+}
+
+.sale .box-container .box .image .fa-heart{
+    position: absolute;
+    top:2.5rem; right:2.5rem;
+    height:5rem;
+    width:5rem;
+    line-height:5rem;
+    text-align: center;
+    font-size:2rem;
+    background: #fff;
+    border-radius: 50%;
+    color:var(--black);
+}
+
+.sale .box-container .box .image .fa-heart:hover{
+    background-color: var(--blue);
+    color:var(--orange);
+}
+
+.sale .box-container .box .content{
+    padding:2rem;
+    padding-top:0;
+}
+
+.sale .box-container .box .content .stars{
+    padding-bottom:1rem;
+}
+
+.sale .box-container .box .content .stars i{
+    font-size:1.7rem;
+    color:var(--orange);
+}
+
+.sale .box-container .box .content h3{
+    color:var(--black);
+    font-size: 2.5rem;
+}
+
+.sale .box-container .box .content p{
+    color:var(--light-color);
+    font-size: 1.6rem;
+    padding:.5rem 0;
+    line-height: 1.5;
+}
+
+.sale .box-container .box .content .price{
+    color:var(--orange);
+    margin-left: 1rem; 
+    font-size: 2.5rem;
+}
+
+
+
+
+/*media queries*/
+@media(max-width:991px){
+    html{
+        font-size: 55%;
+    }
+    
+    header{
+        padding:1rem 2rem;
+    }
+
+    section{
+        padding:2rem;
+    }
+}
+
+@media(max-width:768px){
+ 
+    /*縮到一定範圍時，改變搜尋頁面寬，*/
+    #search-form #search-box{
+        width:90%;
+        margin: 0 1rem;
+    }
+
+    /*幻燈片文字*/
+    .home .home-slider .slide .content h3{
+        font-size: 5rem;
+    }
+}
+
+@media(max-width:991px){
+    html{
+        font-size: 50%;
+    }
+
+    .items .box-container .box img{
+        height:auto;
+        width:100%;
+    }
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+
