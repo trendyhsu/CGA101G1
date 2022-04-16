@@ -17,7 +17,7 @@
 					<div class="col-lg-9 main-chart">
 					
 					
-	<form action="<%=request.getContextPath()%>/BidPicUploadServlet" method="post" enctype="multipart/form-data">
+	<form action="<%=request.getContextPath()%>/BidPicGetOne" method="post" enctype="multipart/form-data">
 	<input type="text" value="31001" name="bidProductNo">
 	<input type="file" name="file1">
 	<input type="submit" value="上傳圖片">	

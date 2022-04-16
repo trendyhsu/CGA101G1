@@ -1,4 +1,4 @@
-package com.bidproduct.controller;
+package com.bidpic.controller;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bidproduct.model.BidProductDAO_interface;
-import com.bidproduct.model.BidProductJDBCDAO;
-import com.bidproduct.model.BidProductVO;
+import com.bidpic.model.BidPicDAO_interface;
+import com.bidpic.model.BidPicJDBCDAO;
+import com.bidpic.model.BidPicService;
+import com.bidpic.model.BidPicVO;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class BidProductServlet
+ * Servlet implementation class BidPicGetLengthServlet
  */
-@WebServlet("/BidProductServlet")
-public class BidProductServlet extends HttpServlet {
+@WebServlet("/BidPicGetAllServlet")
+public class BidPicGetAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BidProductServlet() {
+    public BidPicGetAllServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,13 +44,13 @@ public class BidProductServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
+		BidPicService bidPicSvc = new BidPicService();
+		List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductNo);
 		Writer out = response.getWriter();
-		BidProductDAO_interface dao = new BidProductJDBCDAO();
-		List<BidProductVO> list = dao.getAll();
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
 		out.write(json);
-		
 	}
 
 }

@@ -13,12 +13,19 @@
 <%@include file="/backend/share.jsp"%>
 <%@include file="assets/headerCDN.txt"%>
 
+<%
+// 取得來自 BidProductEditServlet 的 BidProductVO
+BidProductVO bidProductVO = (BidProductVO) request.getAttribute("bidProductVO");
+BidPicService bidPicSvc = new BidPicService();
+List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductVO.getBidProductNo());
+pageContext.setAttribute("list",list);
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>二手遊戲驗收管理</title>
+<title>修改競標商品</title>
 
 <style>
 table {
@@ -29,7 +36,6 @@ table {
 
 table, th, td {
 	border-bottom: 1px solid #CCC;
-	font-weight:bold;
 }
 
 th, td {
@@ -39,7 +45,6 @@ th, td {
 img{
 padding: 10px
 }
-
 h3{
 font-weight: bold;
 color: #547492;
@@ -56,7 +61,7 @@ color: #547492;
 		<table id="table-1">
 			<tr>
 				<td>
-			 		<h3>二手遊戲驗收管理</h3>
+			 		<h3>修改競標商品資料</h3>
 				</td>
 			</tr>
 		</table>
@@ -74,13 +79,16 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/insert_with_pics"
+			action="<%=request.getContextPath()%>/bidProductEditUpdate"
 			name="form1">
 			<table>
 				<tr>
+					<td>競標商品編號</td>
+					<td>${bidProductVO.bidProductNo}</td>
+				</tr>
+				<tr>
 					<td>申請單編號</td>
-					<td><input type="number" name="sellerNo" size="45"
-						value="34001"/ disabled="disabled"></td>
+					<td>${bidProductVO.bidApplyListNo}</td>
 				<tr>
 					<td>一般商品編號</td>
 					<td><input type="text" name="productNo" size="45"
@@ -98,8 +106,7 @@ color: #547492;
 				</tr>
 				<tr>
 					<td>賣家編號</td>
-					<td><input type="number" name="sellerNo" size="45"
-						value="11001"/ disabled="disabled"></td>
+					<td>${bidProductVO.sellerNo}</td>
 				</tr>
 				<tr>
 					<td>起標價</td>
@@ -121,23 +128,136 @@ color: #547492;
 					<td><input name="bidSoldTime" id="bidSoldTime" type="text"
 						value="${bidProductVO.bidSoldTime}"></td>
 				</tr>
-<!-- 	上傳圖片區 -->
-				<tr style="position: absolute; left: 450px;top: 36px">
-					<td>
-	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
-					</td>
+				<tr>
+					<td>得標價</td>
+					<td>${bidProductVO.bidWinnerPrice}</td>
 				</tr>
 				<tr>
-					<td>
+					<td>得標會員編號</td>
+					<td>${bidProductVO.buyerNo}</td>
+				</tr>
+				<tr>
+					<td>競標狀態</td>
+					<td><select size="1" name="bidState">
+							<option value="0"
+								<c:if test="${bidProductVO.bidState == 0}"><c:out value="selected"></c:out></c:if>>競標中</option>
+							<option value="1"
+								<c:if test="${bidProductVO.bidState == 1}"><c:out value="selected"></c:out></c:if>>截標</option>
+							<option value="2"
+								<c:if test="${bidProductVO.bidState == 2}"><c:out value="selected"></c:out></c:if>>流標</option>
+							<option value="3"
+								<c:if test="${bidProductVO.bidState == 3}"><c:out value="selected"></c:out></c:if>>棄標</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>收件人姓名</td>
+					<td><input type="text" name="receiverName" size="45"
+						value="${bidProductVO.receiverName}" /></td>
+				</tr>
+				<tr>
+					<td>收件人地址</td>
+					<td><input type="text" name="receiverAddress" size="45"
+						value="${bidProductVO.receiverAddress}" /></td>
+				</tr>
+				<tr>
+					<td>收件人電話</td>
+					<td><input type="text" name="receiverPhone" size="45"
+						value="${bidProductVO.receiverPhone}" /></td>
+				</tr>
+				<tr>
+					<td>商品狀態</td>
+					<td><select size="1" name="orderState">
+							<option value="0"
+								<c:if test="${bidProductVO.orderState == 0}"><c:out value="selected"></c:out></c:if>>未出貨</option>
+							<option value="1"
+								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>已出貨</option>
+							<option value="2"
+								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+							<option value="3"
+								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>作廢</option>
+					</select></td>
+				</tr>
+
+			</table>
+			<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">
+			<input type="hidden"name="bidApplyListNo" value="${bidProductVO.bidApplyListNo}">
+			<input type="hidden" name="sellerNo"value="${bidProductVO.sellerNo}">
 			<input type="submit" value="修改">
 			<input type="reset" value="重設">
-					</td>
-				</tr>
-			</table>
-		</form>
-<div id="picPreview" style="position: absolute; top: 90px ; left:450px;display: flex; width: 550px ;flex-wrap:wrap;"></div>
 
+		</form>
+		
+<!-- 		圖片顯示區及刪除 -->
+
+	<div id="delete-form" style="position: absolute; left: 450px ;top: 10px" >
+		<form method="post" ACTION="<%=request.getContextPath()%>/BidPicDeleteServlet" onsubmit="return checkConfirm();" style="display: flex;align-items: center">
+			<br>
+				<c:if test="${list.size() != 0}">
+				<c:forEach var="bidPicVO" items="${list}">
+					<img src="<%=request.getContextPath()%>/BidPicGetOneByProdPicNo?bidProdPicNo=${bidPicVO.bidProdPicNo}" height="128px" width="128px">
+					<input type="hidden" name="bidProdPicNo" value="${bidPicVO.bidProdPicNo}">
+					<input type="checkbox" name="bidProdPicNos" value="${bidPicVO.bidProdPicNo}" class="delete_checkbox">
+				</c:forEach>
+		
+					<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">
+					<input type="hidden" name="bidApplyListNo"value="${bidProductVO.bidApplyListNo}">
+					<input type="hidden" name="productNo"value="${bidProductVO.productNo}">
+					<input type="hidden" name="bidName"value="${bidProductVO.bidName}">
+					<input type="hidden" name="bidProdDescription"value="${bidProductVO.bidProdDescription}">
+					<input type="hidden" name="sellerNo"value="${bidProductVO.sellerNo}">
+					<input type="hidden" name="initialPrice"value="${bidProductVO.initialPrice}">
+					<input type="hidden" name="bidPriceIncrement"value="${bidProductVO.bidPriceIncrement}">
+					<input type="hidden" name="bidLaunchedTime"value="${bidProductVO.bidLaunchedTime}">
+					<input type="hidden" name="bidSoldTime"value="${bidProductVO.bidSoldTime}">
+					<input type="hidden" name="bidWinnerPrice"value="${bidProductVO.bidWinnerPrice}">
+					<input type="hidden" name="buyerNo"value="${bidProductVO.buyerNo}">
+					<input type="hidden" name="bidState"value="${bidProductVO.bidState}">
+					<input type="hidden" name="orderState"value="${bidProductVO.orderState}">
+					<input type="hidden"name="receiverName" value="${bidProductVO.receiverName}">
+					<input type="hidden" name="receiverAddress"value="${bidProductVO.receiverAddress}">
+					<input type="hidden" name="receiverPhone"value="${bidProductVO.receiverPhone}">
+					<input type="submit" value="刪除圖片">				
+				</c:if>
+			<br>
+		</FORM>
+	</div>
+
+<!-- 	上傳圖片區 -->
+	<div style="position: absolute; left: 450px ;top: 180px">
+		<form id="upload" action="<%=request.getContextPath()%>/BidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
+	        <input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
+  					<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">
+					<input type="hidden" name="bidApplyListNo"value="${bidProductVO.bidApplyListNo}">
+					<input type="hidden" name="productNo"value="${bidProductVO.productNo}">
+					<input type="hidden" name="bidName"value="${bidProductVO.bidName}">
+					<input type="hidden" name="bidProdDescription"value="${bidProductVO.bidProdDescription}">
+					<input type="hidden" name="sellerNo"value="${bidProductVO.sellerNo}">
+					<input type="hidden" name="initialPrice"value="${bidProductVO.initialPrice}">
+					<input type="hidden" name="bidPriceIncrement"value="${bidProductVO.bidPriceIncrement}">
+					<input type="hidden" name="bidLaunchedTime"value="${bidProductVO.bidLaunchedTime}">
+					<input type="hidden" name="bidSoldTime"value="${bidProductVO.bidSoldTime}">
+					<input type="hidden" name="bidWinnerPrice"value="${bidProductVO.bidWinnerPrice}">
+					<input type="hidden" name="buyerNo"value="${bidProductVO.buyerNo}">
+					<input type="hidden" name="bidState"value="${bidProductVO.bidState}">
+					<input type="hidden" name="orderState"value="${bidProductVO.orderState}">
+					<input type="hidden"name="receiverName" value="${bidProductVO.receiverName}">
+					<input type="hidden" name="receiverAddress"value="${bidProductVO.receiverAddress}">
+					<input type="hidden" name="receiverPhone"value="${bidProductVO.receiverPhone}">
+					
+					<input type="submit" value="上傳圖片" class="button">
+		</form>
+		<div id="picPreview" style="position: absolute; top: 70px ; display: flex; flex-wrap: wrap; width: 400px"></div>
+	</div>
 </div>
+
+
+	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
+<%
+	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String bidLaunchedTime = df.format(bidProductVO.getBidLaunchedTime());
+	String bidSoldTime = df.format(bidProductVO.getBidSoldTime());
+%>
+	
 
 	<%@ include file="assets/jsCDN.txt"%>
 
@@ -148,7 +268,7 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : new Date() // value: new Date(), 會帶入現在時間
+			value : '<%=bidLaunchedTime%>', // value: new Date(), 會帶入現在時間
 		});
 		$.datetimepicker.setLocale("zh");
 		$("#bidSoldTime").datetimepicker({
@@ -156,7 +276,7 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : new Date()
+			value : '<%=bidSoldTime%>'
 		// value:   new Date(), 會帶入現在時間
 		// rtl: false,                    // false   預設顯示方式   true timepicker和datepicker位置變換
 		// format:    'Y/m/d H:i',        // 設定時間年月日時分的格式 如: 2016/11/15 18:00

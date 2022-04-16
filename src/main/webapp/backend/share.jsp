@@ -106,9 +106,9 @@
 							class="fa fa-cogs"></i> <span>競標管理系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="<%=request.getContextPath()%>/backend/bid/addBid.jsp">二手遊戲驗收管理</a></li>
-							<li><a href="<%=request.getContextPath()%>/backend/bid/addBidPic.jsp">二手上架</a></li>
-							<li><a href="#">查看競標商品</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBidApplyList">二手遊戲驗收管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/bid/addBid.jsp">競標上架</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">查看競標商品</a></li>
 							<li><a href="#">競標訂單管理</a></li>
 						</ul></li>
 
@@ -184,21 +184,21 @@
       MAIN CONTENT 內容寫在這裡面
       *********************************************************************************************************************************************************** -->
 		<!--main content start-->
-		<section id="main-content">
-			<section class="wrapper">
+<!-- 		<section id="main-content"> -->
+<!-- 			<section class="wrapper"> -->
 
-				<div class="row">
+<!-- 				<div class="row"> -->
 
-					<div class="col-lg-9 main-chart">
+<!-- 					<div class="col-lg-9 main-chart"> -->
 
-						<!-- 內容寫在這裡面 -->
+<!-- <!-- 						內容寫在這裡面 --> -->
 
-					</div>
-					<!-- /col-lg-9 END SECTION MIDDLE -->
+<!-- 					</div> -->
+<!-- <!-- 					/col-lg-9 END SECTION MIDDLE --> -->
 
-				</div>
-			</section>
-		</section>
+<!-- 				</div> -->
+<!-- 			</section> -->
+<!-- 		</section> -->
 
 		<!--main content end-->
 

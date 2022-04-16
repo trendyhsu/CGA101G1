@@ -13,9 +13,9 @@
     /* ---------------------------------------------- /*
      * Pre load
     /* ---------------------------------------------- */
-    // CRE.PreLoad = function() {
-    //     document.getElementById("loading").style.display = "none";
-    // }
+    CRE.PreLoad = function() {
+        document.getElementById("loading").style.display = "none";
+    }
 
     /*--------------------
       * Menu toogle header

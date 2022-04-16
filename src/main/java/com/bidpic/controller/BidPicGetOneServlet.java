@@ -23,12 +23,12 @@ import com.bidpic.model.BidPicVO;
 /**
  * Servlet implementation class BidPicUploadServlet
  */
-@WebServlet("/BidPicServlet")
+@WebServlet("/BidPicGetOne")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-public class BidPicServlet extends HttpServlet {
+public class BidPicGetOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BidPicServlet() {
+    public BidPicGetOneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,24 +36,24 @@ public class BidPicServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("image/gif");
 		
 		ServletOutputStream out = response.getOutputStream();
 		Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
-		BidPicDAO_interface dao = new BidPicJDBCDAO();
-		BidPicVO bidPicVO = dao.findFirstPicByBidProductNo(bidProductNo);
+		BidPicService bidPicSvc = new BidPicService();
+		BidPicVO bidPicVO = bidPicSvc.getMainBidPicByBidProductNo(bidProductNo);
 		out.write(bidPicVO.getBidProdPicContent());
 		
-		
+		// 暫時上傳時需開啟
 //		response.setCharacterEncoding("UTF-8");
 //		Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
 //		Part file = request.getPart("file1");

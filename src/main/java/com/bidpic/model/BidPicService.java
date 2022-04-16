@@ -18,7 +18,7 @@ public class BidPicService {
 	public BidPicVO addBidPic(Integer bidProductNo, byte[] bidProdPicContent) {
 		BidPicVO bidPicVO = new BidPicVO();
 		
-		bidPicVO.setBidProdPicNo(bidProductNo);
+		bidPicVO.setBidProductNo(bidProductNo);
 		bidPicVO.setBidProdPicContent(bidProdPicContent);
 		dao.insert(bidPicVO);
 		

@@ -23,12 +23,12 @@ import com.bidpic.model.BidPicVO;
 /**
  * Servlet implementation class BidPicUploadServlet
  */
-@WebServlet("/BidPicServlet2")
+@WebServlet("/BidPicGetOneByProdPicNo")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-public class BidPicServlet2 extends HttpServlet {
+public class BidPicGetOneByProdPicNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BidPicServlet2() {
+    public BidPicGetOneByProdPicNoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,21 +36,23 @@ public class BidPicServlet2 extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("image/gif");
 		
-		ServletOutputStream out = response.getOutputStream();
-		BidPicDAO_interface dao = new BidPicJDBCDAO();
 		Integer bidProdPicNo = Integer.parseInt(request.getParameter("bidProdPicNo"));
-		BidPicVO bidPicVO2 = dao.findByPrimaryKey(bidProdPicNo);
+		
+		BidPicService bidPicSvc = new BidPicService();
+		BidPicVO bidPicVO2 = bidPicSvc.getOneBidPic(bidProdPicNo);
+		
+		ServletOutputStream out = response.getOutputStream();
 		out.write(bidPicVO2.getBidProdPicContent());
 		
 		
