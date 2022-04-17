@@ -12,7 +12,7 @@ public class BidProductService {
 
 	public BidProductVO addBidProduct(Integer bidApplyListNo, Integer productNo, String bidName,
 			String bidProdDescription, Integer sellerNo, Integer initialPrice, Integer bidState,
-			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer bidPriceIncrement) {
+			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer bidPriceIncrement, Integer orderState) {
 
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setBidApplyListNo(bidApplyListNo);
@@ -25,14 +25,15 @@ public class BidProductService {
 		bidProductVO.setBidLaunchedTime(bidLaunchedTime);
 		bidProductVO.setBidSoldTime(bidSoldTime);
 		bidProductVO.setBidPriceIncrement(bidPriceIncrement);
+		bidProductVO.setOrderState(orderState);
 		dao.insert(bidProductVO);
 
 		return bidProductVO;
 	}
 
 	// 預留給 Struts 2 或 Spring MVC 用
-	public void addBidProduct(BidProductVO bidProductVO) {
-		dao.insert(bidProductVO);
+	public Integer addBidProduct(BidProductVO bidProductVO) {
+		return dao.insert(bidProductVO);
 	}
 
 	public BidProductVO updateBidProduct(Integer bidProductNo, Integer bidApplyListNo, Integer productNo,

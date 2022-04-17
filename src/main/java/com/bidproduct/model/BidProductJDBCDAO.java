@@ -17,7 +17,7 @@ import com.utils.DButil;
 
 public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface {
 
-	private static final String INSERT_STMT = "INSERT INTO bidproduct (BidApplyListNo, ProductNo, BidName, BidProdDescription, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidPriceIncrement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO bidproduct (BidApplyListNo, ProductNo, BidName, BidProdDescription, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidPriceIncrement, OrderState) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String UPDATE_STMT = "UPDATE bidproduct SET BidApplyListNo=?, ProductNo=?, BidName=?, BidProdDescription=?, BuyerNo=?, SellerNo=?, InitialPrice=?, BidState=?, BidLaunchedTime=?, BidSoldTime=?, BidWinnerPrice=?, BidPriceIncrement=?, OrderState=?, ReceiverName=?, ReceiverAddress=?, ReceiverPhone=? WHERE BidProductNo = ?";
 
@@ -42,7 +42,7 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	private static final String UPDATE_ONE_STMT_BY_BACKEND = "UPDATE bidproduct SET BidApplyListNo=?, ProductNo=?, BidName=?, BidProdDescription=?, InitialPrice=?, BidState=?, BidLaunchedTime=?, BidSoldTime=?, BidPriceIncrement=?, OrderState=?, ReceiverName=?, ReceiverAddress=?, ReceiverPhone=? WHERE BidProductNo = ?";
 
 	@Override
-	public void insert(BidProductVO bidProductVO) {
+	public Integer insert(BidProductVO bidProductVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -62,8 +62,15 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			pstmt.setTimestamp(8, bidProductVO.getBidLaunchedTime());
 			pstmt.setTimestamp(9, bidProductVO.getBidSoldTime());
 			pstmt.setInt(10, bidProductVO.getBidPriceIncrement());
+			pstmt.setInt(11, bidProductVO.getOrderState());
 
 			pstmt.executeUpdate();
+			
+			// 印出現在新增的競標商品編號 用於新增該圖片
+			ResultSet rs = pstmt.getGeneratedKeys();
+			Integer nextBidProductNo = rs.getInt(1);
+			rs.close();
+			return nextBidProductNo;
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors

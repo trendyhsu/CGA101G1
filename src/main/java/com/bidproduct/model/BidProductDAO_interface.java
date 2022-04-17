@@ -7,7 +7,7 @@ import com.connection.model.ConnectionDAO;
 
 public interface BidProductDAO_interface extends ConnectionDAO {
 	// BidProductDAO_interface 定義介面
-	public void insert(BidProductVO bidProductVO);
+	public Integer insert(BidProductVO bidProductVO);
 
 	public void update(BidProductVO bidProductVO);
 

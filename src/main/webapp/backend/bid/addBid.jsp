@@ -74,52 +74,52 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/insert_with_pics"
-			name="form1">
+			action="<%=request.getContextPath()%>/BidProductInsert"
+			name="form1" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>申請單編號</td>
-					<td><input type="number" name="sellerNo" size="45"
-						value="34001"/ disabled="disabled"></td>
+					<td><input type="number" name="bidApplyListNo" size="45"
+						value="34001"></td>
 				<tr>
 					<td>一般商品編號</td>
 					<td><input type="text" name="productNo" size="45"
-						value="${bidProductVO.productNo}" /></td>
+						value="21001" /></td>
 				</tr>
 				<tr>
 					<td>商品名稱</td>
 					<td><input type="text" name="bidName" size="45"
-						value="${bidProductVO.bidName}" /></td>
+						value="測試測試" /></td>
 				</tr>
 				<tr>
 					<td>商品敘述</td>
 					<td><textArea name="bidProdDescription"
-							id="bidProdDescription" rows="6" cols="45" style="resize:none;">${bidProductVO.bidProdDescription}</textArea></td>
+							id="bidProdDescription" rows="6" cols="45" style="resize:none;">測試測試</textArea></td>
 				</tr>
 				<tr>
 					<td>賣家編號</td>
 					<td><input type="number" name="sellerNo" size="45"
-						value="11001"/ disabled="disabled"></td>
+						value="11001"></td>
 				</tr>
 				<tr>
 					<td>起標價</td>
 					<td><input type="number" name="initialPrice" size="45" min="0"
-						value="${bidProductVO.initialPrice}" /></td>
+						value="<%= (""==null)? "0" : "500"%>" /></td>
 				</tr>
 				<tr>
 					<td>最低增額</td>
 					<td><input type="number" name="bidPriceIncrement" size="45"
-						min="0" value="${bidProductVO.bidPriceIncrement}" /></td>
+						min="0" value="<%= (2>1)? "50" : "10"%>" /></td>
 				</tr>
 				<tr>
 					<td>起標時間</td>
 					<td><input name="bidLaunchedTime" id="bidLaunchedTime"
-						type="text" value="${bidProductVO.bidLaunchedTime}"></td>
+						type="text" value="2022-04-20 10:00:00"></td>
 				</tr>
 				<tr>
 					<td>截標時間</td>
 					<td><input name="bidSoldTime" id="bidSoldTime" type="text"
-						value="${bidProductVO.bidSoldTime}"></td>
+						value="2022-04-30 10:00:00"></td>
 				</tr>
 <!-- 	上傳圖片區 -->
 				<tr style="position: absolute; left: 450px;top: 36px">
@@ -129,7 +129,7 @@ color: #547492;
 				</tr>
 				<tr>
 					<td>
-			<input type="submit" value="修改">
+			<input type="submit" value="新增">
 			<input type="reset" value="重設">
 					</td>
 				</tr>

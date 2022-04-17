@@ -106,7 +106,7 @@
 							class="fa fa-cogs"></i> <span>競標管理系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBidApplyList">二手遊戲驗收管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBidApplyList.jsp">二手遊戲驗收管理</a></li>
 							<li><a href="<%=request.getContextPath()%>/backend/bid/addBid.jsp">競標上架</a></li>
 							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">查看競標商品</a></li>
 							<li><a href="#">競標訂單管理</a></li>
