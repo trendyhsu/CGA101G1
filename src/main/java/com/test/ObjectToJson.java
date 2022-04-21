@@ -22,10 +22,6 @@ import javax.sql.DataSource;
 
 import com.google.gson.Gson;
 
-/**
- * Servlet implementation class ObjectToJson
- * �o�O���ӫ~�`��������T
- */
 @WebServlet("/ObjectToJson")
 public class ObjectToJson extends HttpServlet {
 

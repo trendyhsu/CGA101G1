@@ -61,7 +61,7 @@ public class MailService {
 
 	public static void main(String args[]) {
 
-		String to = "cathyl1u123425@gmail.com";
+		String to = "the38245691@gmail.com";
 
 		String subject = "星巴克今天有夠多人";
 
