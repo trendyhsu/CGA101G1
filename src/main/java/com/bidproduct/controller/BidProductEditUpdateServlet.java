@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 
-@WebServlet("/bidProductEditUpdate")
+@WebServlet("/bid/bidProductEditUpdate")
 public class BidProductEditUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 競標商品編號
 			Integer bidProductNo = null;
 			try {
-				bidProductNo = Integer.parseInt(request.getParameter("bidProductNo").trim());
+				bidProductNo = Integer.valueOf(request.getParameter("bidProductNo").trim());
 			} catch (NumberFormatException e) {
 				errorMsgs.add("競標商品編號需為數字");
 			}
@@ -47,7 +47,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 申請單編號
 			Integer bidApplyListNo = null;
 			try {
-				bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo").trim());
+				bidApplyListNo = Integer.valueOf(request.getParameter("bidApplyListNo").trim());
 
 			} catch (NumberFormatException e) {
 				errorMsgs.add("申請單編號需為數字");
@@ -55,7 +55,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 商品編號
 			Integer productNo = null;
 			try {
-				productNo = Integer.parseInt(request.getParameter("productNo").trim());
+				productNo = Integer.valueOf(request.getParameter("productNo").trim());
 			} catch (NumberFormatException e) {
 				productNo = 0;
 				errorMsgs.add("商品編號需為數字");
@@ -75,7 +75,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 判斷起標價
 			Integer initialPrice = null;
 			try {
-				initialPrice = Integer.parseInt(request.getParameter("initialPrice").trim());
+				initialPrice = Integer.valueOf(request.getParameter("initialPrice").trim());
 			} catch (NumberFormatException e) {
 				initialPrice = 0;
 				errorMsgs.add("起標價需為數字");
@@ -88,7 +88,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 判斷競標狀態
 			Integer bidState = null;
 			try {
-				bidState = Integer.parseInt(request.getParameter("bidState").trim());
+				bidState = Integer.valueOf(request.getParameter("bidState").trim());
 			} catch (NumberFormatException e) {
 				bidState = 0;
 				errorMsgs.add("競標狀態格式錯誤(0:未結束 1:截標 2:流標)");
@@ -101,7 +101,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 判斷最低出價
 			Integer bidPriceIncrement = null;
 			try {
-				bidPriceIncrement = Integer.parseInt(request.getParameter("bidPriceIncrement").trim());
+				bidPriceIncrement = Integer.valueOf(request.getParameter("bidPriceIncrement").trim());
 			} catch (NumberFormatException e) {
 				bidPriceIncrement = 0;
 				errorMsgs.add("最低增額應為數字");
@@ -142,7 +142,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 判斷商品狀態
 			Integer orderState = null;
 			try {
-				orderState = Integer.parseInt(request.getParameter("orderState").trim());
+				orderState = Integer.valueOf(request.getParameter("orderState").trim());
 			} catch (NumberFormatException e) {
 				orderState = 0;
 				errorMsgs.add("競標商品狀態應為數字(0:未出貨 1:已出貨 2:已收貨 4:作廢)");

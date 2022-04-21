@@ -13,11 +13,12 @@ import java.util.List;
 
 import com.bidrecord.model.BidRecordVO;
 import com.connection.model.ConnectionDAO;
+import com.mysql.cj.xdevapi.Statement;
 import com.utils.DButil;
 
 public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface {
 
-	private static final String INSERT_STMT = "INSERT INTO bidproduct (BidApplyListNo, ProductNo, BidName, BidProdDescription, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidPriceIncrement, OrderState) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO bidproduct (BidApplyListNo, ProductNo, BidName, BidProdDescription, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidPriceIncrement, OrderState) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String UPDATE_STMT = "UPDATE bidproduct SET BidApplyListNo=?, ProductNo=?, BidName=?, BidProdDescription=?, BuyerNo=?, SellerNo=?, InitialPrice=?, BidState=?, BidLaunchedTime=?, BidSoldTime=?, BidWinnerPrice=?, BidPriceIncrement=?, OrderState=?, ReceiverName=?, ReceiverAddress=?, ReceiverPhone=? WHERE BidProductNo = ?";
 
@@ -34,6 +35,8 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	private static final String GET_ALL_STMT_BIDSTATE_NEED_CHANGE = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidState = 0 AND BidSoldTime <= NOW()";
 	// 更新競標狀態
 	private static final String UPDATE_BIDSTATE = "UPDATE bidproduct SET BidState = ? WHERE BidProductNo = ?";
+	// 更新競標狀態(有買家 有出價者)
+	private static final String UPDATE_BIDSTATE_HAVE_BUYER = "UPDATE bidproduct SET BuyerNo = ?, BidState = ?, BidWinnerPrice = ? WHERE BidProductNo = ?";
 	// 更改收件資訊與商品狀態
 	private static final String UPDATE_RECEIVER_AND_PRODSTATE = "UPDATE bidproduct SET OrderState=?, ReceiverName = ?, ReceiverAddress = ?, ReceiverPhone = ? WHERE BidProductNo = ?";
 	// 查詢已截標 30分鐘後沒有付款 將 BidState 改為 棄標
@@ -48,10 +51,10 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 		PreparedStatement pstmt = null;
 
 		try {
-
+			String columns[] = { "BidProductNo" };
 			Class.forName(getDriver());
 			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT,columns);
 			pstmt.setInt(1, bidProductVO.getBidApplyListNo());
 			pstmt.setInt(2, bidProductVO.getProductNo());
 			pstmt.setString(3, bidProductVO.getBidName());
@@ -65,10 +68,13 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			pstmt.setInt(11, bidProductVO.getOrderState());
 
 			pstmt.executeUpdate();
-			
+			Integer nextBidProductNo = null;
 			// 印出現在新增的競標商品編號 用於新增該圖片
 			ResultSet rs = pstmt.getGeneratedKeys();
-			Integer nextBidProductNo = rs.getInt(1);
+			if (rs.next()) {
+				nextBidProductNo = rs.getInt(1);
+				System.out.println("自動增加欄位號碼為: " + nextBidProductNo);
+			}
 			rs.close();
 			return nextBidProductNo;
 		} catch (ClassNotFoundException e) {
@@ -563,6 +569,47 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	}
 
 	@Override
+	public void updateBidStateHaveBuyer(BidProductVO bidProductVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+
+			pstmt = con.prepareStatement(UPDATE_BIDSTATE_HAVE_BUYER);
+
+			pstmt.setInt(1, bidProductVO.getBuyerNo());
+			pstmt.setInt(2, bidProductVO.getBidState());
+			pstmt.setInt(3, bidProductVO.getBidWinnerPrice());
+			pstmt.setInt(4, bidProductVO.getBidProductNo());
+
+			pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
 	public void updateReceiverAndOrderState(BidProductVO bidProductVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -669,6 +716,56 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updateByBackend(BidProductVO bidProductVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+	
+		try {
+	
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+	
+			pstmt = con.prepareStatement(UPDATE_ONE_STMT_BY_BACKEND);
+			pstmt.setInt(1, bidProductVO.getBidApplyListNo());
+			pstmt.setInt(2, bidProductVO.getProductNo());
+			pstmt.setString(3, bidProductVO.getBidName());
+			pstmt.setString(4, bidProductVO.getBidProdDescription());
+			pstmt.setInt(5, bidProductVO.getInitialPrice());
+			pstmt.setInt(6, bidProductVO.getBidState());
+			pstmt.setTimestamp(7, bidProductVO.getBidLaunchedTime());
+			pstmt.setTimestamp(8, bidProductVO.getBidSoldTime());
+			pstmt.setInt(9, bidProductVO.getBidPriceIncrement());
+			pstmt.setInt(10, bidProductVO.getOrderState());
+			pstmt.setString(11, bidProductVO.getReceiverName());
+			pstmt.setString(12, bidProductVO.getReceiverAddress());
+			pstmt.setString(13, bidProductVO.getReceiverPhone());
+			pstmt.setInt(14, bidProductVO.getBidProductNo());
+	
+			pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -816,56 +913,6 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			System.out.print(bidProductVO.getReceiverAddress() + " , ");
 			System.out.println(bidProductVO.getReceiverPhone() + " , ");
 			System.out.println("------------------------");
-		}
-	}
-
-	@Override
-	public void updateByBackend(BidProductVO bidProductVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(getDriver());
-			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
-
-			pstmt = con.prepareStatement(UPDATE_ONE_STMT_BY_BACKEND);
-			pstmt.setInt(1, bidProductVO.getBidApplyListNo());
-			pstmt.setInt(2, bidProductVO.getProductNo());
-			pstmt.setString(3, bidProductVO.getBidName());
-			pstmt.setString(4, bidProductVO.getBidProdDescription());
-			pstmt.setInt(5, bidProductVO.getInitialPrice());
-			pstmt.setInt(6, bidProductVO.getBidState());
-			pstmt.setTimestamp(7, bidProductVO.getBidLaunchedTime());
-			pstmt.setTimestamp(8, bidProductVO.getBidSoldTime());
-			pstmt.setInt(9, bidProductVO.getBidPriceIncrement());
-			pstmt.setInt(10, bidProductVO.getOrderState());
-			pstmt.setString(11, bidProductVO.getReceiverName());
-			pstmt.setString(12, bidProductVO.getReceiverAddress());
-			pstmt.setString(13, bidProductVO.getReceiverPhone());
-			pstmt.setInt(14, bidProductVO.getBidProductNo());
-
-			pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
 		}
 	}
 

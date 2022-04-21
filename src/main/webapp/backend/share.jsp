@@ -36,6 +36,9 @@
 
 <script
 	src="<%=request.getContextPath()%>/backend/assets/js/chart-master/Chart.js"></script>
+	
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -86,7 +89,7 @@
 							class="fa fa-dashboard"></i> <span>首頁</span>
 					</a></li>
 
-					<li class="sub-menu"><a href="javascript:;"> <i
+					<li class="sub-menu"><a href="javascript:void(0)" onclick=""> <i
 							class="fa fa-desktop"></i> <span>使用者管理</span>
 					</a>
 						<ul class="sub">
@@ -221,9 +224,6 @@
 		src="<%=request.getContextPath()%>/backend/assets/js/jquery.sparkline.js"></script>
 
 
-	<!--common script for all pages-->
-	<script
-		src="<%=request.getContextPath()%>/backend/assets/js/common-scripts.js"></script>
 
 	<!-- <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="assets/js/gritter-conf.js"></script> -->
@@ -233,30 +233,10 @@
 		src="<%=request.getContextPath()%>/backend/assets/js/sparkline-chart.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/backend/assets/js/zabuto_calendar.js"></script>
-
-	<script type="text/javascript">
-		$(document)
-				.ready(
-						function() {
-							var unique_id = $.gritter
-									.add({
-										// (string | mandatory) the heading of the notification
-										title : 'Welcome to Dashgum!',
-										// (string | mandatory) the text inside the notification
-										text : 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
-										// (string | optional) the image to display on the left
-										image : 'assets/img/ui-sam.jpg',
-										// (bool | optional) if you want it to fade out on its own or just sit there
-										sticky : true,
-										// (int | optional) the time you want it to be alive for before fading out
-										time : '',
-										// (string | optional) the class name you want to apply to that specific message
-										class_name : 'my-sticky-class'
-									});
-
-							return false;
-						});
-	</script>
+	<script 
+		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script	
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script type="application/javascript">
 		
@@ -293,6 +273,126 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
+		/*---LEFT BAR ACCORDION----*/
+$(function() {
+    $('#nav-accordion').dcAccordion({
+        eventType: 'click',
+        autoClose: true,
+        saveState: true,
+        disableLink: true,
+        speed: 'slow',
+        showCount: false,
+        autoExpand: true,
+//        cookie: 'dcjq-accordion-1',
+        classExpand: 'dcjq-current-parent'
+    });
+});
+
+var Script = function () {
+
+
+//    sidebar dropdown menu auto scrolling
+
+    jQuery('#sidebar .sub-menu > a').click(function () {
+    	console.log("hello");
+        var o = ($(this).offset());
+        console.log(o);
+        diff = 250 - o.top;
+        if(diff>0)
+            $("#sidebar").scrollTo("-="+Math.abs(diff),500);
+        else
+            $("#sidebar").scrollTo("+="+Math.abs(diff),500);
+    });
+
+//    sidebar toggle
+
+    $(function() {
+        function responsiveView() {
+            var wSize = $(window).width();
+            if (wSize <= 768) {
+                $('#container').addClass('sidebar-close');
+                $('#sidebar > ul').hide();
+            }
+
+            if (wSize > 768) {
+                $('#container').removeClass('sidebar-close');
+                $('#sidebar > ul').show();
+            }
+        }
+        $(window).on('load', responsiveView);
+        $(window).on('resize', responsiveView);
+    });
+
+    $('.fa-bars').click(function () {
+        if ($('#sidebar > ul').is(":visible") === true) {
+            $('#main-content').css({
+                'margin-left': '0px'
+            });
+            $('#sidebar').css({
+                'margin-left': '-210px'
+            });
+            $('#sidebar > ul').hide();
+            $("#container").addClass("sidebar-closed");
+        } else {
+            $('#main-content').css({
+                'margin-left': '210px'
+            });
+            $('#sidebar > ul').show();
+            $('#sidebar').css({
+                'margin-left': '0'
+            });
+            $("#container").removeClass("sidebar-closed");
+        }
+    });
+
+// custom scrollbar
+    $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+
+    $("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
+
+// widget tools
+
+    jQuery('.panel .tools .fa-chevron-down').click(function () {
+        var el = jQuery(this).parents(".panel").children(".panel-body");
+        if (jQuery(this).hasClass("fa-chevron-down")) {
+            jQuery(this).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+            el.slideUp(200);
+        } else {
+            jQuery(this).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+            el.slideDown(200);
+        }
+    });
+
+    jQuery('.panel .tools .fa-times').click(function () {
+        jQuery(this).parents(".panel").parent().remove();
+    });
+
+
+//    tool tips
+
+    $('.tooltips').tooltip();
+
+//    popovers
+
+    $('.popovers').popover();
+
+
+
+// custom bar chart
+
+    if ($(".custom-bar-chart")) {
+        $(".bar").each(function () {
+            var i = $(this).find(".value").html();
+            $(this).find(".value").html("");
+            $(this).find(".value").animate({
+                height: i
+            }, 2000)
+        })
+    }
+
+
+}();
+
 	</script>
 
 

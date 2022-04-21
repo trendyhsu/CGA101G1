@@ -20,7 +20,7 @@ public class BidApplyListJDBCDAO extends DButil implements BidApplyListDAO_inter
 	private static final String GET_ALL_STMT = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist";
 	private static final String GET_ONE_STMT = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE BidApplyListNo = ?";
 	private static final String GET_ALL_STMT_MEMNO = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE MemNo = ?";
-
+	private static final String UPDATE_ONE_STMT_APPLYSTATE = "UPDATE bidapplylist set ApplyState=? WHERE BidApplyListNo=?";
 	@Override
 	public void insert(BidApplyListVO bidApplyListVO) {
 
@@ -459,6 +459,45 @@ public class BidApplyListJDBCDAO extends DButil implements BidApplyListDAO_inter
 			System.out.print(bidApplyListVO.getBidSoldTime() + " , ");
 			System.out.println(bidApplyListVO.getBidApplyListNo() + " , ");
 			System.out.println("-------------------");
+		}
+	}
+
+	@Override
+	public void updateApplyState(BidApplyListVO bidApplyListVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(UPDATE_ONE_STMT_APPLYSTATE);
+
+			pstmt.setInt(1, bidApplyListVO.getApplyState());
+			pstmt.setInt(2, bidApplyListVO.getBidApplyListNo());
+
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 	}
 

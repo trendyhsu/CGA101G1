@@ -9,8 +9,8 @@
 <%-- <%@include file="/backend/bid/assets/headerCDN.txt" %> --%>
 
 <%
-BidProductService bidSvc = new BidProductService();
-List<BidProductVO> list = bidSvc.getAll();
+BidProductService bidsBidProductSvc = new BidProductService();
+List<BidProductVO> list = bidsBidProductSvc.getAll();
 pageContext.setAttribute("list", list);
 %>
 
@@ -36,9 +36,11 @@ color: #547492;
 
 </head>
 <body>
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
 
-	<div id="bid-content"
-		style="position: absolute; left: 230px; top: 80px ; width: 80%">
+	<div id="bid-content">
 		
 		<table id="table-1">
 			<tr>
@@ -110,7 +112,7 @@ color: #547492;
 						</c:if> <c:if test="${bidProductVO.bidState == 2}" var="condition">
 							<c:out value="2<br>流標" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 3}" var="condition">
-							<c:out value="2<br>棄標" escapeXml="false"></c:out>
+							<c:out value="3<br>棄標" escapeXml="false"></c:out>
 						</c:if></td>
 					<td>${bidProductVO.receiverName}</td>
 					<td>${bidProductVO.receiverAddress}</td>
@@ -126,14 +128,14 @@ color: #547492;
 						</c:if></td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/BidRecordGetOneByBidProductNo"
+							ACTION="<%=request.getContextPath()%>/bid/bidRecordGetOneByBidProductNo"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="查看"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
 					</td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bidProductEdit"
+							ACTION="<%=request.getContextPath()%>/bid/bidProductEdit"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改">
 							<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
@@ -153,6 +155,10 @@ color: #547492;
 		<%@ include file="page2.file"%>
 	</div>
 
+	</section>
 
+	<!--main content end-->
+
+</section>
 </body>
 </html>

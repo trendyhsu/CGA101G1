@@ -28,7 +28,8 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 
 	// 使用 bidProductNo 更新競標狀態
 	public void updateBidState(BidProductVO bidProductVO);
-
+	// 使用 bidProductNo 更新競標狀態(有出價者 需要更新 買家 最高出價 以及 競標狀態)
+	public void updateBidStateHaveBuyer(BidProductVO bidProductVO);
 	// 更改收件資訊與商品狀態
 	public void updateReceiverAndOrderState(BidProductVO bidProductVO);
 	// 查詢已截標 ( BidState = 1 ) 30分鐘後沒有付款 將 BidState 改為 棄標

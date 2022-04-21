@@ -49,9 +49,11 @@ color: #547492;
 </style>
 </head>
 <body>
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
 
-	<div id="bid-content"
-		style="position: absolute; left: 230px; top: 80px ;width: 80%;">
+	<div id="bid-content">
 		
 		<table id="table-1">
 			<tr>
@@ -101,6 +103,10 @@ color: #547492;
 <%@ include file="page2.file" %>
 <a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">回競標商品列表</a>
 </div>
+	</section>
 
+	<!--main content end-->
+
+</section>
 </body>
 </html>

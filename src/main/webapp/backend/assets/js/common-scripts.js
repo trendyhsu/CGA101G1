@@ -27,8 +27,6 @@ var Script = function () {
             $("#sidebar").scrollTo("+="+Math.abs(diff),500);
     });
 
-
-
 //    sidebar toggle
 
     $(function() {

@@ -18,12 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.bidapplylist.model.BidApplyListService;
+import com.bidapplylist.model.BidApplyListVO;
 import com.bidpic.model.BidPicService;
 import com.bidpic.model.BidPicVO;
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 
-@WebServlet("/BidProductInsert")
+@WebServlet("/bid/bidProductInsert")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class BidProductInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,7 +48,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 申請單編號
 			Integer bidApplyListNo = null;
 			try {
-				bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo").trim());
+				bidApplyListNo = Integer.valueOf(request.getParameter("bidApplyListNo").trim());
 
 			} catch (NumberFormatException e) {
 				errorMsgs.add("申請單編號需為數字");
@@ -55,7 +57,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 商品編號
 			Integer productNo = null;
 			try {
-				productNo = Integer.parseInt(request.getParameter("productNo").trim());
+				productNo = Integer.valueOf(request.getParameter("productNo").trim());
 			} catch (NumberFormatException e) {
 				productNo = 0;
 				errorMsgs.add("商品編號需為數字");
@@ -64,7 +66,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 賣家編號
 			Integer sellerNo = null;
 			try {
-				sellerNo = Integer.parseInt(request.getParameter("sellerNo").trim());
+				sellerNo = Integer.valueOf(request.getParameter("sellerNo").trim());
 			} catch (NumberFormatException e) {
 				sellerNo = 0;
 				errorMsgs.add("賣家編號需為數字");
@@ -91,7 +93,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 判斷起標價
 			Integer initialPrice = null;
 			try {
-				initialPrice = Integer.parseInt(request.getParameter("initialPrice").trim());
+				initialPrice = Integer.valueOf(request.getParameter("initialPrice").trim());
 			} catch (NumberFormatException e) {
 				initialPrice = 0;
 				errorMsgs.add("起標價需為數字");
@@ -107,7 +109,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 判斷最低出價
 			Integer bidPriceIncrement = null;
 			try {
-				bidPriceIncrement = Integer.parseInt(request.getParameter("bidPriceIncrement").trim());
+				bidPriceIncrement = Integer.valueOf(request.getParameter("bidPriceIncrement").trim());
 			} catch (NumberFormatException e) {
 				bidPriceIncrement = 0;
 				errorMsgs.add("最低增額應為數字");
@@ -200,6 +202,13 @@ public class BidProductInsertServlet extends HttpServlet {
 				bidPicVO.setBidProdPicContent(picList.get(i));
 				bidPicSvc.addBidPic(bidPicVO);
 			}
+			
+			// 修改BidApplyList 的 ApplyState 為 1 已上架
+			BidApplyListService bidApplyListSvc = new BidApplyListService();
+			BidApplyListVO bidApplyListVO = new BidApplyListVO();
+			bidApplyListVO.setApplyState(new Integer(1));
+			bidApplyListVO.setBidApplyListNo(bidApplyListNo);
+			bidApplyListSvc.updateApplyState(bidApplyListVO);
 			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/backend/bid/listAllBid.jsp";

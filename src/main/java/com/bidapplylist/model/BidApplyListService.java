@@ -54,29 +54,33 @@ public class BidApplyListService {
 
 		return dao.findByPrimaryKey(bidApplyListNo);
 	}
-	
+
 	// 預留給 Struts 2 用的
 	public void updateBidApplyList(BidApplyListVO bidApplyListVO) {
 		dao.update(bidApplyListVO);
 	}
-	
+
 	public void deleteBidApplyList(Integer bidApplyListNo) {
 		dao.delete(bidApplyListNo);
 	}
-	
+
 	// 用 BidApplyListNo 取得一筆資料
 	public BidApplyListVO getOneBidApplyList(Integer bidApplyListNo) {
 		return dao.findByPrimaryKey(bidApplyListNo);
 	}
-	
+
 	// 用 MemNo 取得所有資料
 	public List<BidApplyListVO> getAllBidApplyListByMemNo(Integer memNo) {
 		return dao.findByMemNo(memNo);
 	}
-	
+
 	// 取得所有 BidApplyList
-	public List<BidApplyListVO> getAll(){
+	public List<BidApplyListVO> getAll() {
 		return dao.getAll();
+	}
+
+	public void updateApplyState(BidApplyListVO bidApplyListVO) {
+		dao.updateApplyState(bidApplyListVO);
 	}
 
 }

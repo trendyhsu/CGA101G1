@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bidrecord.model.BidRecordService;
 import com.bidrecord.model.BidRecordVO;
 
-@WebServlet("/BidRecordGetOneByBidProductNo")
+@WebServlet("/bid/bidRecordGetOneByBidProductNo")
 public class BidRecordGetOneByBidProductNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class BidRecordGetOneByBidProductNoServlet extends HttpServlet {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer bidProductNo = null;
 				try {
-					bidProductNo = Integer.parseInt(request.getParameter("bidProductNo").trim());
+					bidProductNo = Integer.valueOf(request.getParameter("bidProductNo").trim());
 				} catch (NumberFormatException e) {
 					errorMsgs.add("競標商品編號需為數字");
 				}

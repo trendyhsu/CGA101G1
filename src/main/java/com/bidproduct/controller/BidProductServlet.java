@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class BidProductServlet
  */
-@WebServlet("/BidProductServlet")
+@WebServlet("/bid/bidProduct")
 public class BidProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
