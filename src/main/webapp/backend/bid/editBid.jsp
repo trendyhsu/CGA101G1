@@ -1,17 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="com.bidpic.model.BidPicVO"%>
 <%@page import="com.bidpic.model.BidPicService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.bidproduct.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%@include file="/backend/share.jsp"%>
-<%@include file="assets/headerCDN.txt"%>
 
 <%
 // 取得來自 BidProductEditServlet 的 BidProductVO
@@ -29,20 +28,22 @@ pageContext.setAttribute("list",list);
 
 <style>
 table {
-	background-color: white;
+/* 	background-color: white; */
 	margin-bottom: 5px;
 	font-size: 13px;
+	color:black;
 }
 
 table, th, td {
 	border-bottom: 1px solid #CCC;
+	font-weight:bold;
 }
 
 th, td {
 	padding: 5px;
 	text-align: left;
 }
-img{
+.uploadedImg{
 padding: 10px
 }
 h3{
@@ -53,10 +54,11 @@ color: #547492;
 
 </head>
 <body>
+<section id="main-content">
+	<section class="wrapper">
 
 
-	<div id="bid-content"
-		style="position: absolute; left: 230px; top: 80px">
+	<div id="bid-content">
 
 		<table id="table-1">
 			<tr>
@@ -79,7 +81,7 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/bidProductEditUpdate"
+			action="<%=request.getContextPath()%>/bid/bidProductEditUpdate"
 			name="form1">
 			<table>
 				<tr>
@@ -170,10 +172,12 @@ color: #547492;
 							<option value="0"
 								<c:if test="${bidProductVO.orderState == 0}"><c:out value="selected"></c:out></c:if>>未出貨</option>
 							<option value="1"
-								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>已出貨</option>
+								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
 							<option value="2"
-								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>已出貨</option>
 							<option value="3"
+								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+							<option value="4"
 								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>作廢</option>
 					</select></td>
 				</tr>
@@ -189,12 +193,12 @@ color: #547492;
 		
 <!-- 		圖片顯示區及刪除 -->
 
-	<div id="delete-form" style="position: absolute; left: 450px ;top: 10px" >
-		<form method="post" ACTION="<%=request.getContextPath()%>/BidPicDeleteServlet" onsubmit="return checkConfirm();" style="display: flex;align-items: center">
+	<div id="delete-form" style="position: relative; left: 480px ;bottom: 750px" >
+		<form method="post" ACTION="<%=request.getContextPath()%>/bid/bidPicDelete" onsubmit="return checkConfirm();" style="display: flex;align-items: center">
 			<br>
 				<c:if test="${list.size() != 0}">
 				<c:forEach var="bidPicVO" items="${list}">
-					<img src="<%=request.getContextPath()%>/BidPicGetOneByProdPicNo?bidProdPicNo=${bidPicVO.bidProdPicNo}" height="128px" width="128px">
+					<img src="<%=request.getContextPath()%>/bid/bidPicGetOneByProdPicNo?bidProdPicNo=${bidPicVO.bidProdPicNo}" height="128px" width="128px" class="uploadedImg">
 					<input type="hidden" name="bidProdPicNo" value="${bidPicVO.bidProdPicNo}">
 					<input type="checkbox" name="bidProdPicNos" value="${bidPicVO.bidProdPicNo}" class="delete_checkbox">
 				</c:forEach>
@@ -223,8 +227,8 @@ color: #547492;
 	</div>
 
 <!-- 	上傳圖片區 -->
-	<div style="position: absolute; left: 450px ;top: 180px">
-		<form id="upload" action="<%=request.getContextPath()%>/BidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
+	<div style="position: relative; left: 500px ;bottom: 700px">
+		<form id="upload" action="<%=request.getContextPath()%>/bid/bidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
 	        <input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
   					<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">
 					<input type="hidden" name="bidApplyListNo"value="${bidProductVO.bidApplyListNo}">
@@ -246,11 +250,15 @@ color: #547492;
 					
 					<input type="submit" value="上傳圖片" class="button">
 		</form>
-		<div id="picPreview" style="position: absolute; top: 70px ; display: flex; flex-wrap: wrap; width: 400px"></div>
+		<div id="picPreview" style="position: absolute ;top: 80px ; display: flex; flex-wrap: wrap; width: 400px"></div>
 	</div>
 </div>
 
+	</section>
 
+	<!--main content end-->
+
+</section>
 	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
 <%
 	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -258,9 +266,6 @@ color: #547492;
 	String bidSoldTime = df.format(bidProductVO.getBidSoldTime());
 %>
 	
-
-	<%@ include file="assets/jsCDN.txt"%>
-
 	<script type="text/javascript">
 		$.datetimepicker.setLocale("zh");
 		$("#bidLaunchedTime").datetimepicker({
@@ -378,6 +383,7 @@ color: #547492;
 		    $("#picPreview").empty() // 清空當下預覽
 		    previewfile(this.files) // this即為<input>元素
 		})
+
 	</script>
 </body>
 </html>

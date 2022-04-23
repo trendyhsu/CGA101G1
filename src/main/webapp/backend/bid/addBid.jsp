@@ -1,18 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="com.bidapplylist.model.BidApplyListVO"%>
+<%@page import="com.bidapplylist.model.BidApplyListService"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="com.bidpic.model.BidPicVO"%>
 <%@page import="com.bidpic.model.BidPicService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.bidproduct.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%@include file="/backend/share.jsp"%>
-<%@include file="assets/headerCDN.txt"%>
 
+<%
+Integer bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo").trim());
+BidApplyListService bidApplyListSvc = new BidApplyListService();
+BidApplyListVO bidApplyListVO = bidApplyListSvc.getOneBidApplyList(bidApplyListNo);
+pageContext.setAttribute("bidApplyListVO", bidApplyListVO);
+%>
 
 <!DOCTYPE html>
 <html>
@@ -22,9 +29,10 @@
 
 <style>
 table {
-	background-color: white;
+/* 	background-color: white; */
 	margin-bottom: 5px;
 	font-size: 13px;
+	color:black;
 }
 
 table, th, td {
@@ -36,7 +44,7 @@ th, td {
 	padding: 5px;
 	text-align: left;
 }
-img{
+.uploadedImg{
 padding: 10px
 }
 
@@ -48,10 +56,11 @@ color: #547492;
 
 </head>
 <body>
+<section id="main-content">
+	<section class="wrapper">
 
 
-	<div id="bid-content"
-		style="position: absolute; left: 230px; top: 80px">
+	<div id="bid-content">
 
 		<table id="table-1">
 			<tr>
@@ -74,72 +83,85 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/insert_with_pics"
-			name="form1">
+			action="<%=request.getContextPath()%>/bid/bidProductInsert"
+			name="form1" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td>申請單編號</td>
-					<td><input type="number" name="sellerNo" size="45"
-						value="34001"/ disabled="disabled"></td>
+					<td><input type="number" name="bidApplyListNo"
+						value="${bidApplyListVO.bidApplyListNo}"></td>
 				<tr>
 					<td>一般商品編號</td>
-					<td><input type="text" name="productNo" size="45"
-						value="${bidProductVO.productNo}" /></td>
+					<td><input type="text" name="productNo" size="20"
+						value="<%=2>1 ? "21001" : "21002"%>" /></td>
 				</tr>
 				<tr>
 					<td>商品名稱</td>
-					<td><input type="text" name="bidName" size="45"
-						value="${bidProductVO.bidName}" /></td>
+					<td><input type="text" name="bidName" size="20"
+						value="${bidApplyListVO.bidName}" /></td>
 				</tr>
 				<tr>
 					<td>商品敘述</td>
 					<td><textArea name="bidProdDescription"
-							id="bidProdDescription" rows="6" cols="45" style="resize:none;">${bidProductVO.bidProdDescription}</textArea></td>
+							id="bidProdDescription" rows="10" cols="22" style="resize:none;">${bidApplyListVO.bidProdDescription}</textArea></td>
 				</tr>
 				<tr>
 					<td>賣家編號</td>
 					<td><input type="number" name="sellerNo" size="45"
-						value="11001"/ disabled="disabled"></td>
+						value="${bidApplyListVO.memNo}"></td>
 				</tr>
 				<tr>
 					<td>起標價</td>
 					<td><input type="number" name="initialPrice" size="45" min="0"
-						value="${bidProductVO.initialPrice}" /></td>
+						value="${bidApplyListVO.initialPrice}" /></td>
 				</tr>
 				<tr>
 					<td>最低增額</td>
 					<td><input type="number" name="bidPriceIncrement" size="45"
-						min="0" value="${bidProductVO.bidPriceIncrement}" /></td>
+						min="0" value="${bidApplyListVO.bidPriceIncrement}" /></td>
 				</tr>
 				<tr>
 					<td>起標時間</td>
 					<td><input name="bidLaunchedTime" id="bidLaunchedTime"
-						type="text" value="${bidProductVO.bidLaunchedTime}"></td>
+						type="text" value="${bidApplyListVO.bidLaunchedTime}"></td>
 				</tr>
 				<tr>
 					<td>截標時間</td>
 					<td><input name="bidSoldTime" id="bidSoldTime" type="text"
-						value="${bidProductVO.bidSoldTime}"></td>
-				</tr>
-<!-- 	上傳圖片區 -->
-				<tr style="position: absolute; left: 450px;top: 36px">
-					<td>
-	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
-					</td>
+						value="${bidApplyListVO.bidSoldTime}"></td>
 				</tr>
 				<tr>
 					<td>
-			<input type="submit" value="修改">
+			<input type="submit" value="新增">
 			<input type="reset" value="重設">
+					</td>
+				</tr>
+<!-- 	上傳圖片區 -->
+				<tr>
+					<td>
+	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile"
+	        		style="position: relative; left:480px ;bottom: 530px;">
 					</td>
 				</tr>
 			</table>
 		</form>
-<div id="picPreview" style="position: absolute; top: 90px ; left:450px;display: flex; width: 550px ;flex-wrap:wrap;"></div>
+		<div id="picPreview" style="display: flex; width: 400px ;flex-wrap:wrap;
+		position: relative; left:480px ;bottom: 530px"></div>
 
-</div>
+	</div>
 
-	<%@ include file="assets/jsCDN.txt"%>
+	</section>
+
+	<!--main content end-->
+
+</section>
+	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
+<%
+	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String bidLaunchedTime = df.format(bidApplyListVO.getBidLaunchedTime());
+	String bidSoldTime = df.format(bidApplyListVO.getBidSoldTime());
+%>
+
 
 	<script type="text/javascript">
 		$.datetimepicker.setLocale("zh");
@@ -148,7 +170,7 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : new Date() // value: new Date(), 會帶入現在時間
+			value : '<%=bidLaunchedTime%>' // value: new Date(), 會帶入現在時間
 		});
 		$.datetimepicker.setLocale("zh");
 		$("#bidSoldTime").datetimepicker({
@@ -156,7 +178,7 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : new Date()
+			value : '<%=bidSoldTime%>'
 		// value:   new Date(), 會帶入現在時間
 		// rtl: false,                    // false   預設顯示方式   true timepicker和datepicker位置變換
 		// format:    'Y/m/d H:i',        // 設定時間年月日時分的格式 如: 2016/11/15 18:00

@@ -1,0 +1,804 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏商品列表</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="../mainCss/css/allStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/style.css">
+    <link rel="stylesheet" href="../mainCss/css/headerStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/footerStyle.css">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
+    <!-- Bootstrap-icons CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
+    <!--Magnific-Popup CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/magnific/magnific-popup.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
+</head>
+
+<body>
+
+    <!-- header section starts-->
+
+    <header>
+
+        <div class="logo-div">
+            <img src=".\\images\\logo.png" alt="">
+            <a href="#" class="logo">帕Game</a>
+        </div>
+
+
+        <nav class="navbar">
+            <!-- 上方標籤列 -->
+            <a class="active" href="#home">首頁</a>
+            <a href="#" class="nav-link">遊戲新聞</a>
+            <a href="#content" class="nav-link">遊戲商城</a>
+            <a href="#" class="nav-link">二手競標商城</a>
+            <a href="#" class="nav-link">遊戲討論區</a>
+            <a href="#items">熱門商品</a>
+        </nav>
+
+        <div class="icons">
+            <!--右上方小icon區-->
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+        </div>
+
+    </header>
+
+    <!-- header section ends-->
+
+    <!--Login starts-->
+
+    <div action="" id="login-form">
+        <i class="fas fa-times" id="login-close"></i>
+
+
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+
+            <form id="login" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>Remeber Password</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+
+            <form id="register" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-envelope"></i>
+                    <input type="email" class="input-field" placeholder="E-mail" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>I agree to the terms & conditions</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Login ends -->
+
+    <!-- search form starts-->
+
+    <form action="" id="search-form">
+        <div class="search-group">
+
+            <div>
+                <input type="search" placeholder="search here..." name="" id="search-box">
+                <input type="button" id="advanced" value="&#x21FE;Advanced search">
+                <!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
+            </div>
+            <label for="search-box" class="fas fa-search"></label>
+
+        </div>
+
+
+        <i class="fas fa-times" id="search-close"></i>
+    </form>
+
+    <!-- search form ends-->
+
+    <!-- advanced search form starts -->
+
+    <form action="" id="advanced-search-form">
+
+        <i class="fas fa-times" id="advanced-search-close"></i>
+
+        <div id="search-select">
+            <div class="search-type">
+                <span class="list-title">Condition</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>New </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Used </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Platforms</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>PS5 </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Nintendo Switch </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                        <span>Xbox </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check4" class="check" value="PS5">
+                        <span>PS4 </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Items Type</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>Game Software </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Hardware </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                        <span>Figures </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Game Type</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="RPG">
+                        <span>RPG </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Strategy">
+                        <span>Strategy</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Gal-Game">
+                        <span>Gal-Game </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check4" class="check" value="FPS">
+                        <span>FPS </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check9" class="check" value="Simulation">
+                        <span>Simulation </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check6" class="check" value="Action">
+                        <span>Action </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check7" class="check" value="Adventure">
+                        <span>Adventure </span>
+                    </label>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="advanced-btn-group">
+            <div>
+                <input type="button" class="advanced-reset" value="&#x21BA;Reset">
+            </div>
+            <div>
+                <!-- <i class="fas fa-solid fa-rocket"></i> -->
+                <button type="submit"><i class="fas fa-solid fa-rocket"></i>Submit</button>
+                <!-- <input type="button" class="advanced-submit" value="&#x21C0;Submit"> -->
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+
+    <!-- advanced search form ends -->
+
+    <!-- shopping-cart div starts -->
+    <div id="shopping-cart">
+        <span>Monopoly</span>
+    </div>
+    <!-- shopping-cart div ends -->
+    <!-- Main -->
+    <main>
+        <!-- Breadcrumb -->
+        <div class="py-3 bg-gray-100">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 my-2">
+                        <h1 class="m-0 h4 text-center text-lg-start">Wishlist</h1>
+                    </div>
+                    <div class="col-6 my-2">
+                        <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+                            <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i
+                                        class="bi bi-home"></i>Home</a></li>
+                            <li class="breadcrumb-item text-nowrap active" aria-current="page">Wishlist</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb -->
+        <!-- Cart Table -->
+        <div class="py-6">
+            <div class="box-container">
+                <div class="product-name" style="font-size: large; text-align: center;">
+                    我的最愛列表
+                </div>
+            </div>
+            <div class="container" id="app">
+                <!-- Cart Table -->
+                <div class="table-content table-responsive cart-table-content">
+                    <table class="table table-bordered align-middle">
+                        <thead>
+                            <tr class="text-uppercase text-nowrap">
+                                <th style="width: 80px;" class="text-dark fw-500"></th>
+                                <th class="text-dark fw-500">遊戲名稱</th>
+                                <th style="width: 120px;" class="text-dark fw-500">價錢</th>
+                                <!-- <th style="width: 120px;" class="text-dark fw-500">Qty</th>
+                                <th style="width: 120px;" class="text-dark fw-500">Subtotal</th> -->
+                                <th style="width: 230px;" class="text-dark text-end fw-500 ">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, index) in jsonData" :key="index">
+                                <td class="product-thumbnail">
+                                    <a class="text-reset"
+                                        :href="`/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo"><img
+                                            :src=item.picList[0].imageUrl class="img-fluid" width="60" alt=""></a>
+                                </td>
+                                <td class="product-name"><a class="text-reset"
+                                        href="product-details.html">{{item.productName}}</a></td>
+                                <td class="product-price-cart"><span class="amount">{{item.productPrice}}</span></td>
+                                <!-- <td class="product-quantity">
+                                    <div class="cart-qty d-inline-flex">
+                                        <div class="dec qty-btn">-</div>
+                                        <input class="cart-qty-input form-control" type="text" name="qtybutton"
+                                            value="1">
+                                        <div class="inc qty-btn">+</div>
+                                    </div>
+                                </td> -->
+                                <!-- <td class="product-subtotal">$110.00</td> -->
+                                <td class="product-remove text-end text-nowrap">
+                                    <a :href="`/CGA101G1/product/deleteMemFavor?ProductNo=`+item.productNo"
+                                        class="btn btn-sm btn-outline-dark text-nowrap px-3"><i
+                                            class="bi bi-x lh-1"></i></a>
+                                    <a href="shopping-cart.html"
+                                        class="btn btn-sm btn-outline-primary text-nowrap px-3"><i
+                                            class="bi bi-cart lh-1 me-md-1"></i> <span
+                                            class="d-none d-md-inline-block">ADD TO CART</span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Table -->
+    </main>
+    <!-- End Main -->
+
+    <!-- items section starts -->
+    <!-- items section ends -->
+
+    <!-- News section starts -->
+    <!-- News section ends -->
+
+    <!-- onSale items section starts -->
+    <!-- 
+    <section class="sale" id="sale">
+        <h3 class="sub-heading"> On Sale </h3>
+        <h1 class="heading"> today's speciality </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\MHR.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\DontStarveTogether.jpeg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹商品介紹商品介紹商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\PrisonArchitect.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹商品介紹商品介紹商品介紹商品介紹商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\pieces.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\ATRI.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\dokidoki.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\nekopara.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\timestop.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\threecolor.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>全球最大駭客組織「匿名者」（Anonymous）也加入制裁俄羅斯行列！他們宣布最新「戰果」，表示已經駭進俄羅斯電視台，甚至是俄羅斯航太總署（Roscosmos），癱瘓對方的間諜衛星。</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+    <!-- onSale items section ends -->
+
+    <!-- footer section starts -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>會員專區</h3>
+                <a href="#">會員登入</a>
+                <a href="#">會員註冊</a>
+                <a href="#">訂單管理</a>
+                <a href="#">二手遊戲申請上架單管理</a>
+            </div>
+
+            <div class="box">
+                <h3>快速連結</h3>
+                <a href="#">首頁</a>
+                <a href="#">遊戲商城</a>
+                <a href="#">二手競標商城</a>
+                <a href="#">遊戲討論區</a>
+            </div>
+
+            <div class="box">
+                <h3>聯絡我們</h3>
+                <a href="#">+123-456-7890</a>
+                <a href="#">+111-222-3333</a>
+                <a href="#">shailhanas@gmail.com</a>
+                <a href="#">anasbhai@gmail.com</a>
+            </div>
+
+            <div class="box">
+                <h3>關於我們</h3>
+                <a href="#">管理團隊</a>
+                <a href="#">創始理念</a>
+                <a href="#">insuagram</a>
+                <a href="#">linkedin</a>
+            </div>
+        </div>
+
+        <div class="credit">copyright@2021 by <span>mr .web designer</span></div>
+
+    </section>
+
+
+
+
+
+
+
+    <!-- footer section ends -->
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!-- 外來區 -->
+    <!-- jquery -->
+    <script src="../mainCss/assets/js/jquery-3.5.1.min.js"></script>
+    <!-- appear -->
+    <script src="../mainCss/assets/vendor/appear/jquery.appear.js"></script>
+    <!--bootstrap-->
+    <script src="../mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- owl-carousel -->
+    <script src="../mainCss/assets/vendor/slick/slick.min.js"></script>
+    <!-- magnific -->
+    <script src="../mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+    <!-- isotope -->
+    <script src="../mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!-- count-down -->
+    <script src="../mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
+    <!-- Theme Js -->
+    <script src="../mainCss/assets/js/custom.js"></script>
+    <!-- 外來區over -->
+    <!-- custom js file link-->
+    <script src=".\\js\\script.js"></script>
+
+    <script>
+        const App = {
+            data() {
+                return {
+                    // jsonUrl: 'https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c',
+                    jsonData: [], // 初始資料
+                    picData: [],
+                    // renderData: [], // 建立每頁顯示資料
+                    // pageBaseNum: 6,  // 每頁顯示資料數量
+                    // nowPage: 0, // 初始、現在頁數
+                }
+            },
+            methods: {
+                // renderingPage() {
+                //     for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
+                //         this.renderData.push(
+                //             (this.jsonData.slice
+                //                 (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
+                //             )
+                //         );
+                //     }
+                // },
+                getProductData() {
+                    // const apiUrl = 'https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c';
+                    const apiUrl = '/CGA101G1/product/ShowMemFavoritelist';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取ProductData的狀態：" + response.status); //狀態碼
+                            // console.log(response.data);
+                            // console.log(response.data.data.XML_Head.Infos.Info);
+                            this.jsonData = response.data;//塞進去
+                            console.log("datastore讀取資料ok");
+                            this.getPicData();
+                            this.renderingPage();
+                        });
+                },
+                getPicData() {
+                    const apiUrl = '/CGA101G1/product/GetAllCovers';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取pic的狀態：" + response.status); //狀態碼
+
+                            this.picData = response.data;//塞進去
+                            this.insertPic(this.picData);
+
+                        });
+                },
+                insertPic(picData) {
+                    console.log("insertPic開始");
+                    for (j = 0; j < this.jsonData.length; j++) {
+                        this.jsonData[j].picList = [];
+                        for (i = 0; i < picData.length; i++) {
+                            if (picData[i].productNo == this.jsonData[j].productNo) {
+                                this.jsonData[j].picList.push(picData[i]);
+                            }
+                        }
+                    }
+                    this.picData = [];
+                    console.log("insert完畢");
+                },
+
+                // previousPage() {
+                //     if (this.nowPage != 0) { // 頁數初始值為 0 
+                //         this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
+                //     }
+                // },
+                // nextPage() {
+                //     if (this.nowPage < this.totalPage - 1) {
+                //         this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
+                //     }
+                // },
+                // skipPage(pageNum) {
+                //     this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
+                // }
+            },
+            // computed: {
+            //     totalPage() {
+            //         return Math.ceil(this.jsonData.length / this.pageBaseNum); // 依每頁數量計算總頁數
+            //     }
+            // },
+            created() {
+                this.getProductData();
+            }
+        };
+
+        /* app.component('card-template', {
+             props: ['readData', 'nowPage'],
+             template: `
+     <div class="col-sm-6 col-lg-4" v-for="(item, index) in readData[nowPage]" :key="index" style="height:60em">
+         <div class="product-card-1" style="height:90%">
+             <div class="product-card-image">
+                                         <div class="badge-ribbon">
+                                             <span class="badge bg-danger">Sale</span>
+                                         </div>
+                                         <div class="product-action">
+                                             <a :href="`+ "`" + `/HomeTest/AddProduct2Fav?ProductNo=` + "`" + "+" + "item.ProductNo" + `" class="btn btn-outline-primary">
+                                                 <i class="bi bi-heart"></i>
+                                             </a>
+                                             <a href="shop-compare.html" class="btn btn-outline-primary">
+                                                 <i class="bi bi-arrow-left-right"></i>
+                                             </a>
+                                             <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
+                                                 href="javascript:void(0)" class="btn btn-outline-primary">
+                                                 <i class="bi bi-eye-fill"></i>
+                                             </a>
+                                         </div>
+                                         <div class="product-media"> 
+                                             <a :href="`+ "`" + `/HomeTest/frontend/product/HomePageinProduct.html?ProductNo=` + "`" + "+" + "item.ProductNo" + `">
+                                                 <img class="img-fluid"
+                                                 :src=item.imageUrl  style="height: 80%;">
+                                             </a>
+                                             <div class="product-cart-btn">
+                                                 <a href="shopping-cart.html" class="btn btn-primary btn-sm w-100">
+                                                     <i class="bi bi-cart"></i>
+                                                     Add to cart
+                                                 </a>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="product-card-info">
+                                         <div class="rating-star text">
+                                             <i class="bi bi-star-fill active"></i>
+                                             <i class="bi bi-star-fill active"></i>
+                                             <i class="bi bi-star-fill active"></i>
+                                             <i class="bi bi-star-fill active"></i>
+                                             <i class="bi bi-star"></i>
+                                         </div>
+                                         <h6 class="product-title">
+                                             <a href="shop-fw-without-filtres.html">{{item.ProductName}}</a>
+                                         </h6>
+                                         <div class="product-price">
+                                             <span class="text-primary">{{item.ProductPrice}}</span>
+                                             
+                                         </div>
+ 
+                                     </div>
+                                 </div>
+     </div>
+   `,
+         })
+ 
+         app.component('pagination-list', {
+             props: ['pages', 'nowPage', 'totalPage'],
+             methods: {
+                 previousPage() {  // 下一頁
+                     this.$emit('previousPage');
+                 },
+                 nextPage() {  // 上一頁
+                     this.$emit('nextPage');
+                 },
+                 skipPage(pageNum) { // 跳頁
+                     this.$emit('skipPage', pageNum);
+                 },
+             },
+             template: `
+       <ul class="pagination" id="pageid">
+       
+         <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
+         
+         <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
+         
+         <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
+         
+         <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
+ 
+         <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+         
+       </ul>
+   `,
+         })
+ */
+        Vue.createApp(App).mount('#app');
+    </script>
+</body>
+
+</html>

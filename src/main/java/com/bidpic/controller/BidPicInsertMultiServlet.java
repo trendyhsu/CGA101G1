@@ -19,7 +19,7 @@ import javax.servlet.http.Part;
 import com.bidpic.model.BidPicService;
 import com.bidpic.model.BidPicVO;
 
-@WebServlet("/BidPicInsertMulti")
+@WebServlet("/bid/bidPicInsertMulti")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class BidPicInsertMultiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class BidPicInsertMultiServlet extends HttpServlet {
 			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			BidPicService bidPicSvc = new BidPicService();
 			BidPicVO bidPicVO = new BidPicVO();
-			Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo").trim());
+			Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo").trim());
 			
 			System.out.println(bidProductNo);
 			

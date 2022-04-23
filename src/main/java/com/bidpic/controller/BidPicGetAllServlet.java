@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class BidPicGetLengthServlet
  */
-@WebServlet("/BidPicGetAllServlet")
+@WebServlet("/bid/bidPicGetAll")
 public class BidPicGetAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,7 +44,7 @@ public class BidPicGetAllServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
+		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo"));
 		BidPicService bidPicSvc = new BidPicService();
 		List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductNo);
 		Writer out = response.getWriter();

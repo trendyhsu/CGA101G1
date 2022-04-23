@@ -94,17 +94,14 @@
 						</c:if></td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bidrecord/bidrecord2.do"
+							ACTION="<%=request.getContextPath()%>/bid/bidRecordGetOneByBidProductNo"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="查看"> <input type="hidden"
-								name="bidProductNo" value="${bidProductVO.bidProductNo}">
-							<input type="hidden" name="action"
-								value="getOne_For_Display_By_BidProdNo">
+							<input type="submit" value="查看"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
 					</td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bidProductEdit"
+							ACTION="<%=request.getContextPath()%>/bid/bidProductEdit"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改">
 							<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
@@ -112,10 +109,9 @@
 					</td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bid/bid.do"
+							ACTION="<%=request.getContextPath()%>/xxxx"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="撥付"> <input type="hidden"
-								name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							<input type="submit" value="撥付"> <input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 							<input type="hidden" name="action" value="pay">
 						</FORM>
 					</td>

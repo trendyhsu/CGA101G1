@@ -12,7 +12,7 @@ public class BidProductService {
 
 	public BidProductVO addBidProduct(Integer bidApplyListNo, Integer productNo, String bidName,
 			String bidProdDescription, Integer sellerNo, Integer initialPrice, Integer bidState,
-			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer bidPriceIncrement) {
+			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer bidPriceIncrement, Integer orderState) {
 
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setBidApplyListNo(bidApplyListNo);
@@ -25,14 +25,15 @@ public class BidProductService {
 		bidProductVO.setBidLaunchedTime(bidLaunchedTime);
 		bidProductVO.setBidSoldTime(bidSoldTime);
 		bidProductVO.setBidPriceIncrement(bidPriceIncrement);
+		bidProductVO.setOrderState(orderState);
 		dao.insert(bidProductVO);
 
 		return bidProductVO;
 	}
 
 	// 預留給 Struts 2 或 Spring MVC 用
-	public void addBidProduct(BidProductVO bidProductVO) {
-		dao.insert(bidProductVO);
+	public Integer addBidProduct(BidProductVO bidProductVO) {
+		return dao.insert(bidProductVO);
 	}
 
 	public BidProductVO updateBidProduct(Integer bidProductNo, Integer bidApplyListNo, Integer productNo,
@@ -84,34 +85,48 @@ public class BidProductService {
 	}
 
 	// 使用 buyerNo 取得所有競標商品
-	public List<BidProductVO> getAllByMemNo(Integer buyerNo) {
+	public List<BidProductVO> getAllByBuyNo(Integer buyerNo) {
 		return dao.findByBuyerNo(buyerNo);
+	}
+
+	// 使用 sellerNo 取得所有競標商品
+	public List<BidProductVO> getAllBySellerNo(Integer sellerNo) {
+		return dao.findBySellerNo(sellerNo);
 	}
 
 	// 使用 bidName 查詢所有 符合 bidName 的商品
 	public List<BidProductVO> getAllByBidName(String BidName) {
 		return dao.findByBidName(BidName);
 	}
+
 	// 查詢競標商品 BidState 等於 0 (競標中) 而且 截標時間小於目前時間 ( 為了改成流標 )
-	public List<BidProductVO> getByBidStateAndSoldTime(){
+	public List<BidProductVO> getByBidStateAndSoldTime() {
 		return dao.findByBidStateAndSoldTime();
 	}
+
 	// 使用 bidProductNo 更新競標狀態
 	public void updateBidState(BidProductVO bidProductVO) {
 		dao.updateBidState(bidProductVO);
 	}
+
+	// 使用 bidProductNo 更新競標狀態 ( 有買家 )
+	public void updateBidStateHaveBuyer(BidProductVO bidProductVO) {
+		dao.updateBidStateHaveBuyer(bidProductVO);
+	}
+
 	// 更改收件資訊與商品狀態
 	public void updateReceiverAndOrderState(BidProductVO bidProductVO) {
 		dao.updateReceiverAndOrderState(bidProductVO);
 	}
+
 	// 查詢已截標 ( BidState = 1 ) 30分鐘後沒有付款 將 BidState 改為 棄標
-	public List<BidProductVO> getByBidStateAndOrderState(){
+	public List<BidProductVO> getByBidStateAndOrderState() {
 		return dao.findByBidStateAndOrderState();
 	}
+
 	// 後臺更新競標資訊
 	public void updateByBackend(BidProductVO bidProductVO) {
 		dao.updateByBackend(bidProductVO);
 	}
-	
 
 }

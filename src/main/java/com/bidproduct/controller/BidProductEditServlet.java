@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 
-@WebServlet("/bidProductEdit")
+@WebServlet("/bid/bidProductEdit")
 public class BidProductEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class BidProductEditServlet extends HttpServlet {
 
 		try {
 			// 1.接收請求參數
-			Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
+			Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo"));
 
 			// 2.開始查詢資料
 			BidProductService bidSvc = new BidProductService();

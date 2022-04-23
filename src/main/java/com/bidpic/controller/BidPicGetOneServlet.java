@@ -23,7 +23,7 @@ import com.bidpic.model.BidPicVO;
 /**
  * Servlet implementation class BidPicUploadServlet
  */
-@WebServlet("/BidPicGetOne")
+@WebServlet("/bid/bidPicGetOne")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class BidPicGetOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -48,14 +48,14 @@ public class BidPicGetOneServlet extends HttpServlet {
 		response.setContentType("image/gif");
 		
 		ServletOutputStream out = response.getOutputStream();
-		Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
+		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo"));
 		BidPicService bidPicSvc = new BidPicService();
 		BidPicVO bidPicVO = bidPicSvc.getMainBidPicByBidProductNo(bidProductNo);
 		out.write(bidPicVO.getBidProdPicContent());
 		
 		// 暫時上傳時需開啟
 //		response.setCharacterEncoding("UTF-8");
-//		Integer bidProductNo = Integer.parseInt(request.getParameter("bidProductNo"));
+//		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo"));
 //		Part file = request.getPart("file1");
 //		InputStream in = file.getInputStream();
 //		byte[] buf = new byte[in.available()];

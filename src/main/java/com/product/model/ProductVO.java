@@ -82,4 +82,5 @@ public class ProductVO implements java.io.Serializable{
 	public void setUpcNum(String upcNum) {
 		this.upcNum = upcNum;
 	}
+
 }
