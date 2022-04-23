@@ -1010,9 +1010,12 @@
                 },
                 sendData() {
                     productSales = this.$refs.innerComponent.number;
-                    totalPrice = (this.$refs.innerComponent.number * this.jsonData[0].productPrice);
-                    productNo = (this.jsonData[0].productNo);
-                    productName = (this.jsonData[0].productName);
+                    totalPrice = (this.$refs.innerComponent.number * this.jsonData.productPrice);
+                    productNo = (this.jsonData.productNo);
+                    productName = (this.jsonData.productName);
+
+
+                    console.log(productSales + "," + totalPrice + "," + productNo + "," + productName);
 
                     axios({
                         method: 'post',
