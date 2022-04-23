@@ -34,6 +34,13 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 		         //OK    1          2               3            
 
 		
+		private static final String GET_AllCovers = 
+				"select ProductNo,ProductPicNO,ProductPicContent FROM productpic where ProductPicNO in(select min(ProductPicNO) FROM productpic group by ProductNo);";
+			         //OK    1          2               3  
+		
+		
+		
+		
 		private static final String GET_ONE = 
 			"select ProductNo,ProductPicNO,ProductPicContent from productpic where ProductNo = ?";
 //OK	                  1           2               3                                             4
@@ -216,7 +223,7 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 				productPicVO = new ProductPicVO();
 				
 				String imgurl=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/product/OutPicByServerlet?ProductPicNO="+rs.getString(2);
-//				String imgurl="http://localhost:8081/CGA101G1/product/OutPicByServerlet?ProductPicNO="+rs.getString(2);		
+	
 				productPicVO.setProductNo(rs.getInt("ProductNo"));
 				productPicVO.setProductPicNo(rs.getInt("ProductPicNo"));
 				productPicVO.setImageUrl(imgurl);
@@ -283,5 +290,66 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public List<ProductPicVO> getAllCovers(HttpServletRequest request) {
+		List<ProductPicVO> list = new ArrayList<>();
+		ProductPicVO productPicVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_AllCovers);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productPicVO = new ProductPicVO();
+//				System.out.println(rs.getString(2));
+				
+				String imgurl=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/product/OutPicByServerlet?ProductPicNO="+rs.getString(2);
+//				System.out.println(imgurl);
+				productPicVO.setProductNo(rs.getInt("ProductNo"));
+				productPicVO.setProductPicNo(rs.getInt("ProductPicNo"));
+				productPicVO.setImageUrl(imgurl);
+				list.add(productPicVO);
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }

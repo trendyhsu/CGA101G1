@@ -1,0 +1,1062 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POP.Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="../mainCss/css/allStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/style.css">
+    <link rel="stylesheet" href="../mainCss/css/headerStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/footerStyle.css">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
+    <!-- Bootstrap-icons CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
+    <!--Magnific-Popup CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/magnific/magnific-popup.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
+    <style>
+        #carouselExampleControls {
+            position: relative;
+            left: 25%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header section starts-->
+
+    <header>
+
+        <div class="logo-div">
+            <img src=".\\images\\logo.png" alt="">
+            <a href="#" class="logo">帕Game</a>
+        </div>
+
+
+        <nav class="navbar">
+            <!-- 上方標籤列 -->
+            <a class="active" href="#home">home</a>
+            <a href="#pd_description" class="nav-link">遊戲詳情</a>
+            <a href="#pd_information" class="nav-link">遊戲規格</a>
+            <a href="#pd_review" class="nav-link">遊戲留言區</a>
+            <a href="#items">items</a>
+            <a href="#news">news</a>
+            <a href="#sale">sale</a>
+            <a href="#review">review</a>
+            <a href="#order">order</a>
+        </nav>
+
+        <div class="icons">
+            <!--右上方小icon區-->
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+        </div>
+
+    </header>
+
+    <!-- header section ends-->
+
+    <!--Login starts-->
+
+    <div action="" id="login-form">
+        <i class="fas fa-times" id="login-close"></i>
+
+
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+
+            <form id="login" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>Remeber Password</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+
+            <form id="register" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-envelope"></i>
+                    <input type="email" class="input-field" placeholder="E-mail" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>I agree to the terms & conditions</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Login ends -->
+
+    <!-- search form starts-->
+
+    <form action="" id="search-form">
+        <div class="search-group">
+
+            <div>
+                <input type="search" placeholder="search here..." name="" id="search-box">
+                <input type="button" id="advanced" value="&#x21FE;Advanced search">
+                <!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
+            </div>
+            <label for="search-box" class="fas fa-search"></label>
+
+        </div>
+
+
+        <i class="fas fa-times" id="search-close"></i>
+    </form>
+
+    <!-- search form ends-->
+
+    <!-- advanced search form starts -->
+
+    <form action="" id="advanced-search-form">
+
+        <i class="fas fa-times" id="advanced-search-close"></i>
+
+        <div id="search-select">
+            <div class="search-type">
+                <span class="list-title">Condition</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>New </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Used </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Platforms</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>PS5 </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Nintendo Switch </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                        <span>Xbox </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check4" class="check" value="PS5">
+                        <span>PS4 </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Items Type</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>Game Software </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Hardware </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                        <span>Figures </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Game Type</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="RPG">
+                        <span>RPG </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Strategy">
+                        <span>Strategy</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Gal-Game">
+                        <span>Gal-Game </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check4" class="check" value="FPS">
+                        <span>FPS </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check9" class="check" value="Simulation">
+                        <span>Simulation </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check6" class="check" value="Action">
+                        <span>Action </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check7" class="check" value="Adventure">
+                        <span>Adventure </span>
+                    </label>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="advanced-btn-group">
+            <div>
+                <input type="button" class="advanced-reset" value="&#x21BA;Reset">
+            </div>
+            <div>
+                <!-- <i class="fas fa-solid fa-rocket"></i> -->
+                <button type="submit"><i class="fas fa-solid fa-rocket"></i>Submit</button>
+                <!-- <input type="button" class="advanced-submit" value="&#x21C0;Submit"> -->
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+
+    <!-- advanced search form ends -->
+
+    <!-- shopping-cart div starts -->
+    <div id="shopping-cart">
+        <span>Monopoly</span>
+    </div>
+    <!-- shopping-cart div ends -->
+
+    <!-- home section starts-->
+
+    <!-- Main -->
+    <main id="app">
+        <!-- Breadcrumb -->
+        <div class="py-3 bg-gray-100">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 my-2">
+                        <h1 class="m-0 h4 text-center text-lg-start">Shop</h1>
+                    </div>
+                    <div class="col-lg-6 my-2">
+                        <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+                            <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i
+                                        class="bi bi-home"></i>Home</a></li>
+                            <li class="breadcrumb-item text-nowrap active" aria-current="page">Product</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb -->
+        <!-- Product Details -->
+        <section class="product-details py-6">
+            <div class="container">
+                <div class="row align-items-start">
+                    <!-- Product Gallery 在col-lg-6刪掉sticky-lg-top -->
+                    <div class="col-lg-6 lightbox-gallery product-gallery ">
+                        <div class="slick-carousel product-slider border rounded" data-slick='{
+                                "slidesToShow": 1,
+                                "slidesToScroll": 1,
+                                "arrows": false,
+                                "fade": true,
+                                "asNavFor": ".product-thumb"
+                            }'>
+                            <!-- 商品大圖相片 要開-->
+                            <div>
+                                <a class="gallery-link"
+                                    href="`data:image/png;base64,${jsonData.Pics[0].productPicContentBase64}`"><i
+                                        class="bi bi-arrows-fullscreen"></i></a>
+                                <img :src="`data:image/png;base64,${jsonData.Pics[0].productPicContentBase64}`"
+                                    class="img-fluid" title="" alt="" style="width:80%">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Product Gallery -->
+                    <!-- Product Details  商品內容 -->
+                    <div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0">
+                        <div class="product-detail">
+                            <div class="products-brand pb-2">
+                                <span>Game Name</span>
+                            </div>
+                            <div class="products-title mb-2">
+                                <h4 class="h4">{{jsonData.productName}}</h4>
+                            </div>
+                            <div class="rating-star text small pb-4">
+                                <i class="bi bi-star-fill active"></i>
+                                <i class="bi bi-star-fill active"></i>
+                                <i class="bi bi-star-fill active"></i>
+                                <i class="bi bi-star-fill active"></i>
+                                <i class="bi bi-star"></i>
+                                <small>(4 Reviews )</small>
+                            </div>
+                            <div class="product-description">
+                                <p>{{jsonData.itemProdDescription}}
+                                </p>
+                            </div>
+
+
+                            <!-- 購買及價格設定 要開-->
+                            <div class="product-price fs-3 fw-500 mb-2">
+                                <span class="text-primary">NT.{{jsonData.productPrice}}</span>
+                            </div>
+                            <!-- 加入購物車 要開-->
+                            <div class="product-detail-actions d-flex flex-wrap pt-3">
+                                <div class="cart-qty me-3 mb-3">
+                                    <button type="button" @click="getComponentInfo">+</button>
+                                    <card ref="innerComponent"></card>
+                                    <button type="button" @click="subtraction">-</button>
+                                </div>
+                                <div class="cart-button mb-3 d-flex">
+                                    <a @click="sendData()" class="btn btn-dark me-3">
+                                        <i class="bi bi-cart"></i>
+                                        Add to cart
+                                    </a>
+                                    <!-- 原本是jsonData[0].productNo -->
+                                    <a :href="`/CGA101G1/product/AddProduct2FavFromAlone?ProductNo=`+jsonData.productNo"
+                                        class="btn btn-outline-dark me-3">
+                                        <i class="bi bi-heart"></i>
+                                    </a>
+                                    <a href="shop-compare.html" class="btn btn-outline-dark">
+                                        <i class="bi bi-arrow-left-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- 購買跟問問題 -->
+                            <div class="product-info-buttons nav pt-4">
+                                <!-- <a href="javascript:void(0);" class="me-3" data-bs-toggle="modal"
+                                    data-bs-target="#px_size_chart_modal"><i class="bi bi-scissors"></i>Size guide</a> -->
+                                <a href="javascript:void(0);" class="" data-bs-toggle="modal"
+                                    data-bs-target="#px_shipping_modal"><i class="bi bi-truck me-2"></i>Shipping</a>
+                                <a href="javascript:void(0);" class="ms-auto" data-bs-toggle="modal"
+                                    data-bs-target="#px_ask_modal"><i class="bi bi-envelope ms-auto"></i>Ask
+                                    about
+                                    product</a>
+                            </div>
+                            <!-- 商品的分類 要開-->
+                            <div class="pt-3 border-top mt-3 small">
+                                <p class="theme-link mb-2">
+                                    <label class="m-0 text-dark">支援平台:</label>
+                                    <a href="javascript:void(0);">{{jsonData.gamePlatformNo}} 要改</a>
+                                </p>
+                                <p class="theme-link mb-2">
+                                    <label class="m-0 text-dark">Categories:</label>
+                                    <a href="javascript:void(0);">{{jsonData.gameTypeNo}} 要改</a>
+                                </p>
+                                <p class="theme-link m-0">
+                                    <label class="m-0 text-dark">Share:</label>
+                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
+                                        <i class="bi bi-instagram"></i>
+                                    </a>
+                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="pt-4">
+                                <img class="img-fluid" src="../mainCss/assets/img/payment-details.png" title="" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Product Details -->
+                    <!-- </div> -->
+                </div>
+
+        </section>
+        <!-- End Product Details -->
+
+        <!-- 商品規格 -->
+        <section name="pd_information" id="pd_information">
+            <h3 class="sub-heading"> 實機照片 </h3>
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 50%;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img :src="`data:image/png;base64,${jsonData.Pics[1].productPicContentBase64}`" class="d-block"
+                            alt="..." style="width: 100%;">
+                    </div>
+                    <div class="carousel-item">
+                        <img :src="`data:image/png;base64,${jsonData.Pics[2].productPicContentBase64}`" class="d-block"
+                            alt="..." style="width: 100%;">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <h1 class="heading"> Game Platform </h1>
+            <div class="idpostion"></div>
+            <div class="pd-collapse-row">
+                <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="pd_information">遊戲規格
+                            <i class="bi bi-chevron-up"></i></a> -->
+                <div class="collapse show">
+                    <div class="pd-collapse-box">
+                        <table class="table text-sm small m-0 table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th class="fw-500 text-dark px-0">平台：</th>
+                                    <td class="text-muted">Switch</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-500 text-dark px-0">Size:</th>
+                                    <td class="text-muted "> 15.8GB</td>
+                                </tr>
+                                <!-- <tr>
+                                    <th class="fw-500 text-dark px-0">Weight</th>
+                                    <td class="text-muted ">Ut enim ad minim venialo quis nostrud
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-500 text-dark px-0">Material</th>
+                                    <td class="text-muted ">100% Cotton.</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 評論區 -->
+        <section name="pd_information" id="pd_review">
+            <div class="idpostion"></div>
+            <div class="pd-collapse-row">
+                <h3 class="sub-heading"> 評論區 </h3>
+                <h1 class="heading"> Review </h1>
+
+                <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="pd_review">評論區 <i class="bi bi-chevron-up"></i></a> -->
+                <div class="collapse show">
+                    <div class="pd-collapse-box">
+                        <div class="row align-items-end">
+                            <div class="col-sm-6">
+                                <div class="rating-star small">
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star"></i>
+                                    <span>4.85/5 (400 Reviews)</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-sm-end">
+                                <a href="javascript:void(0);" class="me-4">View all</a>
+                                <a data-bs-toggle="collapse" href="#pd_add_review" role="button" aria-expanded="false"
+                                    aria-controls="pd_add_review">Write a
+                                    review</a>
+                            </div>
+                            <div class="col-12 collapse" id="pd_add_review">
+                                <div class="my-4 p-3 bg-gray-100 border">
+                                    <form>
+                                        <div class="row g-2">
+                                            <div class="col-sm-6">
+                                                <label class="form-label">Name</label>
+                                                <input type="text" name="name" class="form-control form-control-sm">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label">Email</label>
+                                                <input type="text" name="email" class="form-control form-control-sm">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <label class="form-label m-0 pe-3 w-100">Rating</label>
+                                                <div class="rating-star">
+                                                    <i class="bi small bi-star-fill"></i>
+                                                    <i class="bi small bi-star-fill"></i>
+                                                    <i class="bi small bi-star-fill"></i>
+                                                    <i class="bi small bi-star-fill"></i>
+                                                    <i class="bi small bi-star-fill"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <label class="form-label">Review Title</label>
+                                                <input type="text" name="review" class="form-control form-control-sm">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <label class="form-label">Body of Review
+                                                    (1500)</label>
+                                                <textarea rows="5" class="form-control"></textarea>
+                                            </div>
+                                            <div class="col-sm-12 pt-2">
+                                                <button class="btn btn-primary">Submit
+                                                    Review</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex review-box border-top mt-3 pt-3">
+                            <div>
+                                <div class="review-image sm">
+                                    <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <h6 class="m-0">Nancy Bayer</h6>
+                                <div class="rating-star small">
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star"></i>
+                                    <span>13 April 2012</span>
+                                </div>
+                                <p class="m-0 pt-2 small">Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                                    dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex review-box border-top mt-3 pt-3">
+                            <div>
+                                <div class="review-image sm">
+                                    <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <h6 class="m-0">Nancy Bayer</h6>
+                                <div class="rating-star small">
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star"></i>
+                                    <span>13 April 2012</span>
+                                </div>
+                                <p class="m-0 pt-2 small">Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                                    dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex review-box border-top mt-3 pt-3">
+                            <div>
+                                <div class="review-image sm">
+                                    <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
+                                </div>
+                            </div>
+                            <div class="col ps-3">
+                                <h6 class="m-0">Nancy Bayer</h6>
+                                <div class="rating-star small">
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star-fill active"></i>
+                                    <i class="bi small bi-star"></i>
+                                    <span>13 April 2012</span>
+                                </div>
+                                <p class="m-0 pt-2 small">Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                                    dolore magna aliqua.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+
+
+        <!-- 商品詳情over -->
+
+    </main>
+    <!-- End Main -->
+
+
+
+
+
+    <!-- onSale items section starts -->
+
+    <!-- <section class="sale" id="sale">
+        <h3 class="sub-heading"> On Sale </h3>
+        <h1 class="heading"> today's speciality </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\MHR.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>全球最大駭客組織「匿名者」（Anonymous）也加入制裁俄羅斯行列！他們宣布最新「戰果」，表示已經駭進俄羅斯電視台，甚至是俄羅斯航太總署（Roscosmos），癱瘓對方的間諜衛星。</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\DontStarveTogether.jpeg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹商品介紹商品介紹商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\PrisonArchitect.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹商品介紹商品介紹商品介紹商品介紹商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\pieces.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\ATRI.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\dokidoki.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\nekopara.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\timestop.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <p>商品介紹</p>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="image">
+                    <img src=".\\images\\threecolor.jpg" alt="">
+                    <a href="#" class="fas fa-heart"></a>
+                </div>
+                <div class="content">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h3>delicious food</h3>
+                    <a href="#" class="btn">add to cart</a>
+                    <span class="price">$12.99</span>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+    <!-- onSale items section ends -->
+
+    <!-- footer section starts -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>locations</h3>
+                <a href="#">india</a>
+                <a href="#">japan</a>
+                <a href="#">russia</a>
+                <a href="#">USA</a>
+                <a href="#">france</a>
+            </div>
+
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="#">home</a>
+                <a href="#">dishes</a>
+                <a href="#">about</a>
+                <a href="#">menu</a>
+                <a href="#">review</a>
+                <a href="#">order</a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <a href="#">+123-456-7890</a>
+                <a href="#">+111-222-3333</a>
+                <a href="#">shailhanas@gmail.com</a>
+                <a href="#">anasbhai@gmail.com</a>
+                <a href="#">mumbai, india - 400104</a>
+            </div>
+
+            <div class="box">
+                <h3>follow us</h3>
+                <a href="#">facebook</a>
+                <a href="#">twitter</a>
+                <a href="#">insuagram</a>
+                <a href="#">linkedin</a>
+            </div>
+        </div>
+
+        <div class="credit">copyright@2021 by <span>mr .web designer</span></div>
+
+    </section>
+
+
+
+
+
+
+
+    <!-- footer section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 外來區 -->
+    <!-- jquery -->
+    <script src="../mainCss/assets/js/jquery-3.5.1.min.js"></script>
+    <!-- appear -->
+    <script src="../mainCss/assets/vendor/appear/jquery.appear.js"></script>
+    <!--bootstrap-->
+    <script src="../mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- owl-carousel -->
+    <script src="../mainCss/assets/vendor/slick/slick.min.js"></script>
+    <!-- magnific -->
+    <script src="../mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+    <!-- isotope -->
+    <script src="../mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!-- count-down -->
+    <script src="../mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
+    <!-- Theme Js -->
+    <script src="../mainCss/assets/js/custom.js"></script>
+    <!-- 外來區over -->
+    <!-- custom js file link -->
+    <script src=".\\js\\script.js"></script>
+
+    <script>
+
+
+
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    // jsonUrl: 'https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c',
+                    jsonData: [[], []], // 初始資料
+                    // jsonData: [],
+                    images: [],
+                    ProductName: "",
+
+                }
+            },
+            methods: {
+                getProductData() {
+                    let getUrlString = location.href;
+                    let url = new URL(getUrlString);
+                    let myURL = url.searchParams.get('ProductNo');
+                    console.log(myURL);
+
+
+                    const apiUrl = 'http://localhost:8081/CGA101G1/product/OneProductDetail?ProductNo=' + myURL;
+
+                    console.log("這是產品詳情：" + apiUrl);
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取ProductData的狀態：" + response.status); //狀態碼
+                            console.log(response.data);
+                            this.jsonData = response.data;//塞進去
+                            this.jsonData.Pics = [];
+                            console.log("datastore讀取資料ok");
+                            console.log(this.jsonData);
+                            console.log("開始存圖片")
+                            this.getPicData();
+
+                        });
+                },
+                getPicData() {
+                    let getUrlString = location.href;
+                    let url = new URL(getUrlString);
+                    let myURL = url.searchParams.get('ProductNo');
+                    console.log(myURL);
+                    const apiUrl = 'http://localhost:8081/CGA101G1/product/ProductPicAll?ProductNo=' + myURL;
+                    console.log("這是產品圖片詳情：" + apiUrl);
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取pic的狀態：" + response.status); //狀態碼
+                            this.images = response.data;//塞進去
+                            console.log("取pic的狀態讀取資料ok");
+
+                            response.data.forEach(element => {
+                                this.jsonData.Pics.push(element);
+                            });
+                        });
+                },
+                getComponentInfo() {
+
+                    this.$refs.innerComponent.number += 1
+                },
+                openModal() {
+                    this.bsModal.show();
+                },
+                subtraction() {
+
+                    if (this.$refs.innerComponent.number > 1) {
+                        this.$refs.innerComponent.number -= 1;
+                    }
+
+
+                },
+                sendData() {
+                    productSales = this.$refs.innerComponent.number;
+                    totalPrice = (this.$refs.innerComponent.number * this.jsonData[0].productPrice);
+                    productNo = (this.jsonData[0].productNo);
+                    productName = (this.jsonData[0].productName);
+
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8081/HomeTest/Add2ShoppingCart?ProductNo=' + `${productNo}` + '&ProductSales=' + `${productSales}` + '&ProductTotalPrice=' + `${totalPrice}` + '&ProductName=' + `${productName}`,
+                        // 請更新
+                    })
+                        .then((response) => console.log(response))
+
+
+                }
+
+
+            },
+            created() {
+                this.getProductData();
+            }
+        })
+
+        app.component('card', {
+            data() {
+                return {
+                    number: 1,
+                }
+            },
+            template: `
+      <div class="card" style="width: 5rem;">
+        <div class="card-body">
+          <p class="card-text">{{ number }}</p>
+        </div>
+      </div>
+    `,
+            props: ['item']
+        }).mount('#app');
+
+
+
+
+
+
+
+
+    </script>
+
+    <script src="../mainCss/assets/js/custom.js"></script>
+</body>
+
+</html>

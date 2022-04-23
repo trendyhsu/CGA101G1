@@ -25,10 +25,6 @@ public class ProductDAO implements ProductDAO_interface{
 		private static final String GET_ALL = 
 			"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product order by productNo";
 		         //    1          2               3             4            5           6                7             8         9
-	
-		
-		private static final String compare = 
-				"select ProductNo from product where ProductNo = ?;";//如果網頁的新增修改bug沒有修好就不用這個
 
 		
 		private static final String GET_ONE = 
@@ -36,6 +32,11 @@ public class ProductDAO implements ProductDAO_interface{
 //	                  1           2               3             4         5              6          7               8            9                                    10
 		
 
+		private static final String GETAllInSell = 
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product where ProductState = 1 order by productNo ";
+			         //    1          2               3             4            5           6                7             8         9
+
+		
 		
 		//		                    產品修改也要上架
 		private static final String UpdateAndSold = 
@@ -459,7 +460,68 @@ public class ProductDAO implements ProductDAO_interface{
 		return list;
 	}
 
+	@Override
+	public List<ProductVO> getAllInSell() {
+		List<ProductVO> list = new ArrayList<>();
+		ProductVO productVO = null;
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GETAllInSell);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				productVO = new ProductVO();
+				productVO.setProductNo(rs.getInt("ProductNo"));
+				productVO.setGameTypeNo(rs.getInt("GameTypeNo"));
+				productVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
+				productVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
+				productVO.setProductName(rs.getString("ProductName"));
+				productVO.setProductPrice(rs.getInt("ProductPrice"));
+				productVO.setProductState(rs.getInt("ProductState"));
+				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
+				productVO.setUpcNum(rs.getString("UpcNum"));
+				list.add(productVO);
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
 	
 
