@@ -44,7 +44,7 @@ public class BidProductInsertServlet extends HttpServlet {
 		try {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			BidProductVO bidProductVO = new BidProductVO();
-			
+
 			// 申請單編號
 			Integer bidApplyListNo = null;
 			try {
@@ -102,7 +102,7 @@ public class BidProductInsertServlet extends HttpServlet {
 				errorMsgs.add("起標價應在0 - 100000之間");
 			}
 			System.out.println(initialPrice);
-			
+
 			// 定義bidState為0
 			Integer bidState = new Integer(0);
 
@@ -149,8 +149,7 @@ public class BidProductInsertServlet extends HttpServlet {
 
 			// 設定OrderState為0
 			Integer OrderState = new Integer(0);
-			
-			
+
 			// 將取得資料裝入 bidProductVO 物件
 			bidProductVO.setBidApplyListNo(bidApplyListNo);
 			bidProductVO.setProductNo(productNo);
@@ -163,7 +162,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			bidProductVO.setBidSoldTime(bidSoldTime);
 			bidProductVO.setBidPriceIncrement(bidPriceIncrement);
 			bidProductVO.setOrderState(OrderState);
-			
+
 			// 將取得圖片資料裝入 List<byte[]> 物件
 			Collection<Part> list = request.getParts();
 			List<byte[]> picList = new ArrayList<byte[]>();
@@ -193,7 +192,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 新增競標商品資料 並回傳新商品編號
 			BidProductService bidProductSvc = new BidProductService();
 			Integer nextBidProductNo = bidProductSvc.addBidProduct(bidProductVO);
-			
+
 			// 新增圖片資料
 			BidPicService bidPicSvc = new BidPicService();
 			for (int i = 0; i < picList.size(); i++) {
@@ -202,14 +201,11 @@ public class BidProductInsertServlet extends HttpServlet {
 				bidPicVO.setBidProdPicContent(picList.get(i));
 				bidPicSvc.addBidPic(bidPicVO);
 			}
-			
+
 			// 修改BidApplyList 的 ApplyState 為 1 已上架
 			BidApplyListService bidApplyListSvc = new BidApplyListService();
-			BidApplyListVO bidApplyListVO = new BidApplyListVO();
-			bidApplyListVO.setApplyState(new Integer(1));
-			bidApplyListVO.setBidApplyListNo(bidApplyListNo);
-			bidApplyListSvc.updateApplyState(bidApplyListVO);
-			
+			bidApplyListSvc.updateApplyState(bidApplyListNo, new Integer(1));
+
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/backend/bid/listAllBid.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交listAllBid.jsp

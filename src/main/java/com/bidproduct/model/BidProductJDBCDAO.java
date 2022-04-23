@@ -29,6 +29,8 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	private static final String GET_ONE_STMT = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidProductNo = ?";
 	// 使用 buyerNo 查詢所有 buyerNo 得標商品
 	private static final String GET_ALL_STMT_BUYERNO = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BuyerNo = ?";
+	// 使用 sellerNo 查詢所有 buyerNo 得標商品
+	private static final String GET_ALL_STMT_SELLERNO = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE SellerNo = ?";
 	// 使用 bidName 查詢所有 符合 bidName 的商品
 	private static final String GET_ALL_STMT_BIDNAME = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidName LIKE ?  OR BidProdDescription LIKE ?";
 	// 查詢競標商品 BidState 等於 0 (競標中) 而且 截標時間小於目前時間 ( 為了改成流標 )
@@ -338,6 +340,75 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 
 			pstmt = con.prepareStatement(GET_ALL_STMT_BUYERNO);
 			pstmt.setInt(1, buyerNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bidProductVO = new BidProductVO();
+				bidProductVO.setBidProductNo(rs.getInt("BidProductNo"));
+				bidProductVO.setBidApplyListNo(rs.getInt("BidApplyListNo"));
+				bidProductVO.setProductNo(rs.getInt("ProductNo"));
+				bidProductVO.setBidName(rs.getString("BidName"));
+				bidProductVO.setBidProdDescription(rs.getString("BidProdDescription"));
+				bidProductVO.setBuyerNo(rs.getInt("BuyerNo"));
+				bidProductVO.setSellerNo(rs.getInt("SellerNo"));
+				bidProductVO.setInitialPrice(rs.getInt("InitialPrice"));
+				bidProductVO.setBidState(rs.getInt("BidState"));
+				bidProductVO.setBidLaunchedTime(rs.getTimestamp("BidLaunchedTime"));
+				bidProductVO.setBidSoldTime(rs.getTimestamp("BidSoldTime"));
+				bidProductVO.setBidWinnerPrice(rs.getInt("BidWinnerPrice"));
+				bidProductVO.setBidPriceIncrement(rs.getInt("BidPriceIncrement"));
+				bidProductVO.setOrderState(rs.getInt("OrderState"));
+				bidProductVO.setReceiverName(rs.getString("ReceiverName"));
+				bidProductVO.setReceiverAddress(rs.getString("ReceiverAddress"));
+				bidProductVO.setReceiverPhone(rs.getString("ReceiverPhone"));
+				list.add(bidProductVO);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<BidProductVO> findBySellerNo(Integer sellerNo) {
+		List<BidProductVO> list = new ArrayList<BidProductVO>();
+		BidProductVO bidProductVO = new BidProductVO();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+
+			pstmt = con.prepareStatement(GET_ALL_STMT_SELLERNO);
+			pstmt.setInt(1, sellerNo);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

@@ -1,8 +1,7 @@
 <%@page import="com.bidproduct.model.BidProductVO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.bidproduct.model.BidProductService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="/frontend/fronthead.jsp" %>
@@ -16,7 +15,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>出價商品追蹤</title>
+<title>我的上架中競標商品</title>
 <style type="text/css">
 table{
 font-weight: bold;
@@ -44,7 +43,7 @@ float: right;
 		<table id="table-1">
 			<tr>
 
-			 		<h3>我的競標商品</h3>
+			 		<h3>我的上架中競標商品</h3>
 
 			</tr>
 		</table>
@@ -61,14 +60,16 @@ float: right;
 		<table class="showPanel" style="table-layout: fixed; color: black ;">
 			<tr align='center' valign="middle">
 				<th style="width: 10%">競標商品編號</th>
-				<th style="width: 20%">商品名稱</th>
+				<th style="width: 15%">商品名稱</th>
 				<th>賣家編號</th>
 				<th>起標價</th>
 				<th>最低增額</th>
-				<th>最高出價</th>
 				<th>起標時間</th>
 				<th>截標時間</th>
 				<th>競標狀態</th>
+				<th>商品狀態</th>
+				<th>取回</th>
+				<th>重新上架</th>
 			</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidProductVO" items="${list}" begin="<%=pageIndex%>"
@@ -80,13 +81,6 @@ float: right;
 					<td>${bidProductVO.sellerNo}</td>
 					<td>${bidProductVO.initialPrice}</td>
 					<td>${bidProductVO.bidPriceIncrement}</td>
-					<td>
-						<c:forEach var="bidRecordVO" items="${bidRecordVOByProductNos}">
-                    		<c:if test="${bidProductVO.bidProductNo==bidRecordVO.bidProductNo}">
-	                    		${bidRecordVO.bidPrice}
-                    		</c:if>
-                		</c:forEach>
-					</td>
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidProductVO.bidLaunchedTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidProductVO.bidSoldTime}"
@@ -100,8 +94,35 @@ float: right;
 						</c:if> <c:if test="${bidProductVO.bidState == 3}" var="condition">
 							<c:out value="3<br>棄標" escapeXml="false"></c:out>
 						</c:if></td>
+					<td><c:if test="${bidProductVO.orderState == 0}">
+							<c:out value="0<br>未出貨" escapeXml="false"></c:out>
+						</c:if> <c:if test="${bidProductVO.orderState == 1}">
+							<c:out value="1<br>訂單處理中" escapeXml="false"></c:out>
+						</c:if> <c:if test="${bidProductVO.orderState == 2}">
+							<c:out value="2<br>已出貨" escapeXml="false"></c:out>
+						</c:if> <c:if test="${bidProductVO.orderState == 3}">
+							<c:out value="3<br>已收貨" escapeXml="false"></c:out>
+						</c:if><c:if test="${bidProductVO.orderState == 4}">
+							<c:out value="4<br>作廢" escapeXml="false"></c:out>
+						</c:if></td>
 					<td>
-
+						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/bid/bidProductGetBack"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="取回"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+						</FORM>
+						</c:if>
+					</td>
+					<td>
+						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/bid/bidProductRelist"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="重新上架"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+						</FORM>
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 			

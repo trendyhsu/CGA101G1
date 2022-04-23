@@ -31,6 +31,9 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/slick/slick.css">
         <!-- Style CSS -->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/frontend/mainCss/assets/css/style01.css">
+        
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+        
     </head>
     
 
@@ -51,7 +54,7 @@
             <a class="active" href="#home">首頁</a>
             <a href="#pd_review" class="nav-link">遊戲新聞</a>
             <a href="#pd_description" class="nav-link">遊戲商城</a>
-            <a href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
+            <a href="<%=request.getContextPath()%>/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
             <a href="#pd_review" class="nav-link">遊戲討論區</a>
         </nav>
 
@@ -336,13 +339,13 @@
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="<%=request.getContextPath()%>/frontend/bid/mybid.jsp">
+                                        href="<%=request.getContextPath()%>/bid/bidApplyListMemNo">
                                         <i class="bi bi-alarm me-2"></i>出價商品追蹤
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="<%=request.getContextPath()%>/frontend/bid/mybidorder.jsp">
+                                        href="<%=request.getContextPath()%>/bid/bidProductWonByMemNo">
                                         <i class="bi bi-bag me-2"></i>得標商品查詢
                                     </a>
                                 </li>
@@ -354,7 +357,7 @@
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="<%=request.getContextPath()%>/frontend/bid/mysellingbid.jsp">
+                                        href="<%=request.getContextPath()%>/bid/bidProductSeller">
                                         <i class="bi bi-bell me-2"></i>我的上架中競標商品
                                     </a>
                                 </li>

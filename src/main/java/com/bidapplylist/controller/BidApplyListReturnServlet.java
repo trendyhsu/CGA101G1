@@ -37,11 +37,8 @@ public class BidApplyListReturnServlet extends HttpServlet {
 			/*************************** 2.開始修改資料 *****************************************/
 
 			BidApplyListService bidApplyListSvc = new BidApplyListService();
-			BidApplyListVO bidApplyListVO = new BidApplyListVO();
-			// 設定申請單編號 及 退貨狀態2
-			bidApplyListVO.setBidApplyListNo(bidApplyListNo);
-			bidApplyListVO.setApplyState(2);
-			bidApplyListSvc.updateApplyState(bidApplyListVO);
+
+			bidApplyListSvc.updateApplyState(bidApplyListNo,new Integer(2));
 			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			request.setAttribute("successMsg", "編號"+bidApplyListNo+"商品已退貨");

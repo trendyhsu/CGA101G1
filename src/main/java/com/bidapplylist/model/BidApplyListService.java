@@ -79,7 +79,13 @@ public class BidApplyListService {
 		return dao.getAll();
 	}
 
-	public void updateApplyState(BidApplyListVO bidApplyListVO) {
+	public void updateApplyState(Integer bidApplyListNo, Integer applyState) {
+		BidApplyListVO bidApplyListVO = new BidApplyListVO();
+		
+		// 設定申請單編號 及 退貨狀態
+		bidApplyListVO.setBidApplyListNo(bidApplyListNo);
+		bidApplyListVO.setApplyState(applyState);
+		
 		dao.updateApplyState(bidApplyListVO);
 	}
 
