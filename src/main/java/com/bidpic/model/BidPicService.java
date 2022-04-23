@@ -31,9 +31,9 @@ public class BidPicService {
 	}
 	
 	// 預留給 Struts 2 或 Spring MVC 用
-	public void addBidPic(BidPicVO bidPicVO) {
-		dao.insert(bidPicVO);
-	}
+//	public void addBidPic(BidPicVO bidPicVO) {
+//		dao.insert(bidPicVO);
+//	}
 	
 	
 	public BidPicVO updateBidPic(Integer bidProdPicNo, Integer bidProductNo, byte[] bidProdPicContent) {
@@ -48,9 +48,9 @@ public class BidPicService {
 	}
 	
 	// 預留給 Struts 2 用的
-	public void updateBidPic(BidPicVO bidPicVO) {
-		dao.update(bidPicVO);
-	}
+//	public void updateBidPic(BidPicVO bidPicVO) {
+//		dao.update(bidPicVO);
+//	}
 	
 	public void deleteBidPic(Integer bidProdPicNo) {
 		dao.delete(bidProdPicNo);

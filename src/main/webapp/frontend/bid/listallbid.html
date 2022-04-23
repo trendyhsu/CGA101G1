@@ -885,10 +885,11 @@
 
     function displayData(data) {
       let str = '';
+      let i = 1;
       data.forEach((bid) => {
         let now = moment().valueOf();
         console.log(now);
-        let bidSoldTime = Date.parse(bid.bidSoldTime) < now ?"已結束" : bid.bidSoldTime ;
+        let bidSoldTime = Date.parse(bid.bidSoldTime) < now ? (bid.bidState=1?"流標":"棄標"): moment(Date.parse(bid.bidSoldTime)-now).format('DD HH:mm:ss');
         console.log(bidSoldTime);
         let leftSecond = bidSoldTime - now;
         let leftMinute = leftSecond / 60;
@@ -901,7 +902,7 @@
                 <div class="product-card-1">
                     <div class="product-card-image">
                         <div class="badge-ribbon">
-                            <span class="badge bg-danger">競標剩餘時間 : ${bidSoldTime}</span>
+                            <span class="badge bg-danger">競標剩餘時間 :${bidSoldTime}</span>
                         </div>
 
                         <div class="product-media">
@@ -924,8 +925,8 @@
                             </div>
                         </div>
                     </div>`;
-      });
-      content.innerHTML = str;
+                });
+                content.innerHTML = str;
     }
 
     function pageBtn(page) {
@@ -967,12 +968,14 @@
 };
 init();
 
+
 // 搜尋功能新增
 document.getElementById("button-addon2").addEventListener('click', search);
 	function search() {
 		let keyword = document.getElementById("searchbar2").value;
 		console.log(keyword);
 		}
+
 
   </script>
 

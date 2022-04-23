@@ -1,4 +1,4 @@
-package com.bidproduct.controller;
+package com.bidrecord.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;

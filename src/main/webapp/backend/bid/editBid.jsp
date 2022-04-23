@@ -193,7 +193,7 @@ color: #547492;
 		
 <!-- 		圖片顯示區及刪除 -->
 
-	<div id="delete-form" style="position: absolute; left: 750px ;top: 80px" >
+	<div id="delete-form" style="position: relative; left: 480px ;bottom: 750px" >
 		<form method="post" ACTION="<%=request.getContextPath()%>/bid/bidPicDelete" onsubmit="return checkConfirm();" style="display: flex;align-items: center">
 			<br>
 				<c:if test="${list.size() != 0}">
@@ -227,7 +227,7 @@ color: #547492;
 	</div>
 
 <!-- 	上傳圖片區 -->
-	<div style="position: absolute; left: 760px ;top: 240px">
+	<div style="position: relative; left: 500px ;bottom: 700px">
 		<form id="upload" action="<%=request.getContextPath()%>/bid/bidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
 	        <input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
   					<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">

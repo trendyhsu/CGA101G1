@@ -2,31 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="com.bidapplylist.model.BidApplyListVO"%>
-<%@page import="com.bidapplylist.model.BidApplyListService"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.sql.Timestamp"%>
-<%@page import="com.bidpic.model.BidPicVO"%>
-<%@page import="com.bidpic.model.BidPicService"%>
-<%@ page import="com.bidproduct.model.*"%>
-<%@ page import="java.util.*"%>
-
-<%@include file="/backend/share.jsp"%>
-
-<%
-Integer bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo").trim());
-BidApplyListService bidApplyListSvc = new BidApplyListService();
-BidApplyListVO bidApplyListVO = bidApplyListSvc.getOneBidApplyList(bidApplyListNo);
-pageContext.setAttribute("bidApplyListVO", bidApplyListVO);
-%>
+<%@include file="/frontend/fronthead.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>二手遊戲驗收管理</title>
-
+<title>競標商品申請</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <style>
 table {
 /* 	background-color: white; */
@@ -52,24 +35,35 @@ h3{
 font-weight: bold;
 color: #547492;
 }
-</style>
+input{
+	border-style:solid;
+	border-color: gray;
+	border-radius: 5px;
+	width: 170px
+}
+textarea {
+	border-style:solid;
+	border-color: gray;
+	border-radius: 5px;
+}
 
+</style>
 </head>
 <body>
-<section id="main-content">
-	<section class="wrapper">
+<!-- End Profile Menu -->
+<!-- Content 主要內容區 要修改的部分都塞在這個裡面 -->
+<!-- 內容直接寫在<div class="table-responsive fs-md mb-4">裡面 -->
+   <div class="col-lg-9 col-xxl-9">
+	   <div class="table-responsive fs-md mb-4">
 
-
-	<div id="bid-content">
-
-		<table id="table-1">
-			<tr>
-				<td>
-			 		<h3>二手遊戲驗收管理</h3>
-				</td>
-			</tr>
-		</table>
-
+		<div id="bid-content">
+			<table id="table-1">
+				<tr>
+					<td>
+				 		<h3>競標商品申請</h3>
+					</td>
+				</tr>
+			</table>
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
@@ -87,28 +81,29 @@ color: #547492;
 			name="form1" enctype="multipart/form-data">
 			<table>
 				<tr>
-					<td>申請單編號</td>
-					<td><input type="number" name="bidApplyListNo"
-						value="${bidApplyListVO.bidApplyListNo}"></td>
-				<tr>
-					<td>一般商品編號</td>
-					<td><input type="text" name="productNo" size="20"
-						value="<%=2>1 ? "21001" : "21002"%>" /></td>
-				</tr>
-				<tr>
 					<td>商品名稱</td>
-					<td><input type="text" name="bidName" size="20"
-						value="${bidApplyListVO.bidName}" /></td>
+					<td><input type="text" name="bidName" 
+						value="" /></td>
 				</tr>
 				<tr>
 					<td>商品敘述</td>
 					<td><textArea name="bidProdDescription"
-							id="bidProdDescription" rows="10" cols="22" style="resize:none;">${bidApplyListVO.bidProdDescription}</textArea></td>
+							id="bidProdDescription" rows="10" cols="22" style="resize:none;"></textArea></td>
 				</tr>
 				<tr>
-					<td>賣家編號</td>
-					<td><input type="number" name="sellerNo" size="45"
-						value="${bidApplyListVO.memNo}"></td>
+					<td>遊戲公司</td>
+					<td><input type="text" name="gameCompanyNo" 
+						value="" /></td>
+				</tr>
+				<tr>
+					<td>遊戲類型</td>
+					<td><input type="text" name="gameTypeNo" 
+						value="" /></td>
+				</tr>
+				<tr>
+					<td>遊戲平台</td>
+					<td><input type="text" name="gamePlatformNo" 
+						value="" /></td>
 				</tr>
 				<tr>
 					<td>起標價</td>
@@ -118,12 +113,12 @@ color: #547492;
 				<tr>
 					<td>最低增額</td>
 					<td><input type="number" name="bidPriceIncrement" size="45"
-						min="0" value="${bidApplyListVO.bidPriceIncrement}" /></td>
+						min="0" value="" /></td>
 				</tr>
 				<tr>
 					<td>起標時間</td>
 					<td><input name="bidLaunchedTime" id="bidLaunchedTime"
-						type="text" value="${bidApplyListVO.bidLaunchedTime}"></td>
+						type="text" value=""></td>
 				</tr>
 				<tr>
 					<td>截標時間</td>
@@ -136,41 +131,33 @@ color: #547492;
 			<input type="reset" value="重設">
 					</td>
 				</tr>
-<!-- 	上傳圖片區 -->
-				<tr>
-					<td>
-	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile"
-	        		style="position: relative; left:480px ;bottom: 530px;">
-					</td>
-				</tr>
 			</table>
 		</form>
-		<div id="picPreview" style="display: flex; width: 400px ;flex-wrap:wrap;
-		position: relative; left:480px ;bottom: 530px"></div>
-
 	</div>
 
-	</section>
-
-	<!--main content end-->
-
-</section>
-	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
-<%
-	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String bidLaunchedTime = df.format(bidApplyListVO.getBidLaunchedTime());
-	String bidSoldTime = df.format(bidApplyListVO.getBidSoldTime());
-%>
-
-
+	</div>
+</div>
+                    <!-- End Content -->
+               	</div>
+            </div>
+        </div>
+        <!--Table -->
+    </main>
+    <!-- End Main -->
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
+	$("#bidLaunchedTime").click(function () {
+		console.log("hello");
+	})
 		$.datetimepicker.setLocale("zh");
 		$("#bidLaunchedTime").datetimepicker({
 			theme : '', // theme: 'dark', 
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : '<%=bidLaunchedTime%>' // value: new Date(), 會帶入現在時間
+			value : new Date() // value: new Date(), 會帶入現在時間
 		});
 		$.datetimepicker.setLocale("zh");
 		$("#bidSoldTime").datetimepicker({
@@ -178,8 +165,8 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : '<%=bidSoldTime%>'
-		// value:   new Date(), 會帶入現在時間
+			value : new Date()
+		// value:   new Date() 會帶入現在時間
 		// rtl: false,                    // false   預設顯示方式   true timepicker和datepicker位置變換
 		// format:    'Y/m/d H:i',        // 設定時間年月日時分的格式 如: 2016/11/15 18:00
 		// formatTime:    'H:i',          // 設定時間時分的格式
@@ -233,53 +220,8 @@ color: #547492;
 		// enterLikeTab: true,            // tab按鍵均可使datetimepicker關閉  true點選回車鍵可使datetimepicker關閉 false點選回車鍵不可使datetimepicker關閉 
 		// showApplyButton: false         // 相當於確定按鈕  true顯示  false隱藏
 		});
-		
-		
-		var filereader_support = typeof FileReader != 'undefined';
 
-		if (!filereader_support) {
-			alert("No FileReader support");
-		}
-
-		acceptedTypes = {
-				'image/png' : true,
-				'image/jpeg' : true,
-				'image/gif' : true
-		};
-		
-		
-		function previewImage() {
-			var upfile = document.getElementById("upfile");
-			upfile.addEventListener("change", function(event) {
-				var files = event.target.files || event.dataTransfer.files;
-				for (var i = 0; i < files.length; i++) {
-					previewfile(files[i])
-				}
-			}, false);
-		}
-		
-		function previewfile(file) {
-			if (filereader_support === true && acceptedTypes[file.type] === true) {
-				var reader = new FileReader();
-				reader.onload = function(event) {
-					var image = new Image();
-					image.src = event.target.result;
-					image.width = 128;
-					picPreview.appendChild(image);
-				};
-				reader.readAsDataURL(file);
-			} else {
-				picPreview.innerHTML += "<p>" + "filename: <strong>" + file.name
-						+ "</strong><br>" + "ContentTyp: <strong>" + file.type
-						+ "</strong><br>" + "size: <strong>" + file.size
-						+ "</strong> bytes</p>";
-			}
-		}
-		// 當upload重新選擇 清空舊有資料
-		$("#upload").change(function(){
-		    $("#picPreview").empty() // 清空當下預覽
-		    previewfile(this.files) // this即為<input>元素
-		})
 	</script>
 </body>
 </html>
+<%@include file="/frontend/frontfoot.jsp" %>

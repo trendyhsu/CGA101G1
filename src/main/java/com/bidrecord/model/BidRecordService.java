@@ -43,9 +43,9 @@ public class BidRecordService {
 	}
 
 	// 預留給 Struts 2 用的
-	public void updateBidRecord(BidRecordVO bidRecordVO) {
-		dao.update(bidRecordVO);
-	}
+//	public void updateBidRecord(BidRecordVO bidRecordVO) {
+//		dao.update(bidRecordVO);
+//	}
 
 	public void deleteBidRecord(Integer bidRecordNo) {
 		dao.delete(bidRecordNo);

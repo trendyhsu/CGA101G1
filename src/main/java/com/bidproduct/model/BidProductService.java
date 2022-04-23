@@ -85,8 +85,13 @@ public class BidProductService {
 	}
 
 	// 使用 buyerNo 取得所有競標商品
-	public List<BidProductVO> getAllByMemNo(Integer buyerNo) {
+	public List<BidProductVO> getAllByBuyNo(Integer buyerNo) {
 		return dao.findByBuyerNo(buyerNo);
+	}
+
+	// 使用 sellerNo 取得所有競標商品
+	public List<BidProductVO> getAllBySellerNo(Integer sellerNo) {
+		return dao.findBySellerNo(sellerNo);
 	}
 
 	// 使用 bidName 查詢所有 符合 bidName 的商品

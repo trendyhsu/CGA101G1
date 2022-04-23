@@ -59,9 +59,7 @@
     <!-- End Footer -->
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <!-- 外來區 -->
-    <!-- jquery -->
-    <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
+
     <!-- appear -->
     <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script>
     <!--bootstrap-->
@@ -76,9 +74,18 @@
     <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
     <!-- Theme Js -->
     <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/custom.js"></script>
-    <!-- 外來區over -->
+
     <!-- custom js file link-->
     <script src="<%=request.getContextPath()%>/frontend/mainCss/js/script.js"></script>
+    
+    <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+    
+   	<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 外來區 -->
+    <!-- jquery -->
+    <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
+    <!-- 外來區over -->
+    
 </body>
 <!-- end body -->
 
