@@ -11,4 +11,5 @@ public interface ProductPicDAO_interface {
     public List<ProductPicVO> findByPrimaryKeyInBase64(Integer productPicNo);
     public ProductPicVO findByPrimaryKeyInByte(Integer productPicNo);
     public List<ProductPicVO> getAll(HttpServletRequest request);
+    public List<ProductPicVO> getAllCovers(HttpServletRequest request);
 }

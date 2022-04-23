@@ -89,5 +89,16 @@ public class ProductService {
 		return dao.getAll();
 		
 	} 
+	
+	
+	//查詢正在販售的產品
+	public List<ProductVO> GetAllSelledProducts(){
+		return dao.getAllInSell();
+		
+	} 
+	
+	public ProductVO GetOne(Integer productNo) {
+		return dao.findByPrimaryKey(productNo);
+	}
 
 }
