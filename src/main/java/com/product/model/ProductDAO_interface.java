@@ -13,6 +13,8 @@ public interface ProductDAO_interface {
 	public void updateNotSold(ProductVO ProductVO);
 
 	public ProductVO findByPrimaryKey(Integer ProductNo);
+	
+	public List<ProductVO> findByTop3MaxPrimaryKey();
 
 	public List<ProductVO> getAll();
 
