@@ -62,8 +62,8 @@ public class BidProductGetOneServlet extends HttpServlet {
 		BidRecordVO bidRecordVO = bidRecordSvc.getHighestByBidProductNo(bidProductNo);
 		
 		// 取得一手商品VO
-		ProductDAO_interface productDAO = new ProductDAO();
-		ProductVO productVO = productDAO.findByPrimaryKey(bidProductVO.getProductNo());
+		ProductService productSvc = new ProductService();
+		ProductVO productVO = productSvc.GetOne(bidProductVO.getProductNo());
 		
 		// 創建JSONObject物件 裝入上述三個物件
 		JSONObject bidAll = new JSONObject();

@@ -537,6 +537,7 @@
         let bidRecordVO = all.bidRecordVO;
         let productVO = all.productVO;
         let bidPrice = "目前尚未有出價紀錄";
+        console.log(productVO);
         if(bidRecordVO){
             bidPrice = bidRecordVO.bidPrice;
         }
@@ -566,7 +567,7 @@
                             </div>
                             <!-- 購買及價格設定 -->
                             <div class="product-price fs-3 fw-500 mb-2">
-                                <del class="text-muted fs-6">起標價：$ ${bidProductVO.initialPrice}</del>
+                                <span class="text-primary" id="initialPrice">起標價：$ <span id="initialPriceSpan">${bidProductVO.initialPrice}</span></span>
                                 <br>
                                 <span class="text-primary" id="nowPrice">目前出價：$ <span id="bidPirceSpan">${bidPrice}</span></span>
                                 <br>
@@ -587,12 +588,14 @@
                                     <button class="btn btn-dark me-3" id="bidSubmit">
                                         直接出價
                                     </button>
+                                    <button class="btn btn-danger me-3" id="productSubmit">
+                                        跳轉一手商品
+                                    </button>
                                 </div>
                             </div>
                             <!-- 恭喜xxx得標的部分 -->
                             <div class="product-info-buttons nav pt-4" style = "font-size:1.5rem; color:red;"id="congratulation">
-                                <a href="javascript:void(0);" class="" data-bs-toggle="modal"
-                                    data-bs-target="#px_shipping_modal"><i class="bi bi-truck me-2"></i>恭喜得標</a>
+
                             </div>
                             <!-- 商品的分類 -->
                             <div class="pt-3 border-top mt-3 small">
@@ -642,7 +645,15 @@
         // 一手商品跳轉
             if(productVO){
                 productUpc = productVO.upcNum;
-                
+                let productSubmit = document.querySelector("#productSubmit");
+                productSubmit.addEventListener("click",function(){
+                    window.location=`/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=${productVO.productNo}`;
+                })
+            }else{
+                let productSubmit = document.querySelector("#productSubmit");
+                productSubmit.classList.remove("btn-danger");
+                productSubmit.classList.add("btn-dark");
+                productSubmit.disabled="disabled";
             }
 
         // 得標恭喜
@@ -701,11 +712,11 @@ websocket.onopen = function() {
 //接收到訊息的回撥方法
 websocket.onmessage = function(event) {
     let bidRecordVOs = JSON.parse(event.data);
-    let nowPrice = document.querySelector("#nowPrice");
+    let bidPirceSpan = document.querySelector("#bidPirceSpan");
     for(bidr of bidRecordVOs){
 
         if (bidr.bidProductNo == bidProductNo){
-            nowPrice.innerHTML = `$ ${bidr.bidPrice}`;
+            bidPirceSpan.innerHTML = bidr.bidPrice;
         }
     }
 }
@@ -729,17 +740,14 @@ function send(event) {
     let bidInput = document.querySelector("#bidInput").value;
     let bidPirceSpan = document.querySelector("#bidPirceSpan").innerHTML;
     let bidPriceIncrementSpan = document.querySelector("#bidPriceIncrementSpan").innerHTML;
-    console.log(bidPirceSpan);
-    console.log(bidPriceIncrementSpan);
-    console.log(bidInput);
-    if( isNaN(bidPirceSpan)){
-        bidPrice=0;
-    }
-    if(bidInput < +bidPirceSpan+(+bidPriceIncrementSpan)){
-        console.log("出價錯誤");
+    let bidinitialPriceSpan = document.querySelector("#initialPriceSpan").innerHTML;
+
+    let bidPrice = isNaN(bidPirceSpan) ? bidinitialPriceSpan : bidPirceSpan;
+
+    if ( bidInput < +bidPrice+(+bidPriceIncrementSpan) ){
+        window.alert("出價請大於最低出價要求");
     }else{
-        // websocket.send(bidInput);
-        console.log("過關")
+        websocket.send(bidInput);
     }
 }
 
