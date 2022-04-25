@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.test.Cartdetail;
 
 
 
@@ -80,8 +81,8 @@ public class ShoppingCartRemoveAll extends HttpServlet {
 		Cartdetail cartdetail = new Cartdetail();
 		cartdetail.setProductName(request.getParameter("ProductName"));
 		cartdetail.setProductNo(request.getParameter("ProductNo"));
-		cartdetail.setProductSales(Integer.parseInt(request.getParameter("ProductSales")) + 0.0);
-		cartdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")) + 0.0);
+		cartdetail.setProductSales(Integer.parseInt(request.getParameter("ProductSales")));
+		cartdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")));
 
 		return cartdetail;
 

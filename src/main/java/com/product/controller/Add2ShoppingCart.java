@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.test.Cartdetail;
 
 
 /**
@@ -53,8 +54,8 @@ public class Add2ShoppingCart extends HttpServlet {
 			orderdetail.setProductName(request.getParameter("ProductName"));
 			orderdetail.setProductNo(request.getParameter("ProductNo"));
 			orderdetail.setProductSales(request.getParameter("ProductSales") == null ? 1
-					: Integer.parseInt(request.getParameter("ProductSales")) + 0.0);
-			orderdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")) + 0.0);
+					: Integer.parseInt(request.getParameter("ProductSales")));
+			orderdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")));
 			
 			System.out.println(orderdetail.getProductName());
 			System.out.println(orderdetail.getProductNo());
@@ -106,8 +107,8 @@ public class Add2ShoppingCart extends HttpServlet {
 		Cartdetail cartdetail=new Cartdetail();
 		cartdetail.setProductName(request.getParameter("ProductName"));
 		cartdetail.setProductNo(request.getParameter("ProductNo"));
-		cartdetail.setProductSales(Integer.parseInt(request.getParameter("ProductSales"))+0.0);
-		cartdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")) + 0.0);
+		cartdetail.setProductSales(Integer.parseInt(request.getParameter("ProductSales")));
+		cartdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")) );
 		
 		return cartdetail ;
 		
@@ -124,71 +125,3 @@ public class Add2ShoppingCart extends HttpServlet {
 
 }
 
-class Cartdetail {
-	private Integer orderNo;
-	private String productName;
-	private String productNo;
-	private Double productSales;
-	private Double productTotalPrice;
-
-
-	public Integer getOrderNo() {
-		return orderNo;
-	}
-
-	public void setOrderNo(Integer orderNo) {
-		this.orderNo = orderNo;
-	}
-	
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public String getProductNo() {
-		return productNo;
-	}
-
-	public void setProductNo(String productNo) {
-		this.productNo = productNo;
-	}
-
-	public Double getProductSales() {
-		return productSales;
-	}
-
-	public void setProductSales(Double productSales) {
-		this.productSales = productSales;
-	}
-
-	public Double getProductTotalPrice() {
-		return productTotalPrice;
-	}
-
-	public void setProductTotalPrice(Double productTotalPrice) {
-		this.productTotalPrice = productTotalPrice;
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(orderNo, productNo);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cartdetail other = (Cartdetail) obj;
-		return Objects.equals(orderNo, other.orderNo) && Objects.equals(productNo, other.productNo);
-	}
-	
-
-}

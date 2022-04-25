@@ -29,7 +29,7 @@ public class OrderDAO implements OrderDAO_interface{
 		//查某個人最新的訂單
 		private static final String FindNewetOrderByMem=
 				"Select max(orderNo),MemNo FROM cga101g1.order where MemNo = ? ;";
-		              //     1          2                                    
+		              //     1          2                                   
 
 		
 		
@@ -796,11 +796,9 @@ public class OrderDAO implements OrderDAO_interface{
 
 			while (rs.next()) {
 				// productVO 也稱為 Domain objects
-				orderVO = new OrderVO();
-				
+				orderVO = new OrderVO();				
 				orderVO.setMemNo(rs.getInt("MemNo"));
-				orderVO.setMemCouponNo(rs.getInt("MemCouponNo"));
-				orderVO.setOrderTotalPrice(rs.getInt("OrderTotalPrice"));
+				orderVO.setOrderNo(rs.getInt("max(orderNo)"));
 			
 			}
 
