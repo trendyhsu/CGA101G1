@@ -55,15 +55,12 @@
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">home</a>
-            <a href="#pd_description" class="nav-link">遊戲詳情</a>
-            <a href="#pd_information" class="nav-link">遊戲規格</a>
-            <a href="#pd_review" class="nav-link">遊戲留言區</a>
-            <a href="#items">items</a>
-            <a href="#news">news</a>
-            <a href="#sale">sale</a>
-            <a href="#review">review</a>
-            <a href="#order">order</a>
+            <a class="active" href="#home">首頁</a>
+            <a href="#" class="nav-link">遊戲新聞</a>
+            <a href="/CGA101G1/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
+            <a href="#" class="nav-link">二手競標商城</a>
+            <a href="#" class="nav-link">遊戲討論區</a>
+            <a href="#items">熱門商品</a>
         </nav>
 
         <div class="icons">
@@ -71,8 +68,8 @@
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
             <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
+            <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
     </header>
@@ -1019,7 +1016,7 @@
 
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8081/HomeTest/Add2ShoppingCart?ProductNo=' + `${productNo}` + '&ProductSales=' + `${productSales}` + '&ProductTotalPrice=' + `${totalPrice}` + '&ProductName=' + `${productName}`,
+                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${productNo}` + '&ProductSales=' + `${productSales}` + '&ProductTotalPrice=' + `${totalPrice}` + '&ProductName=' + `${productName}`,
                         // 請更新
                     })
                         .then((response) => console.log(response))
