@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.test.Cartdetail;
 
-/**
- * Servlet implementation class ShoppingCartModAdd
- */
+
 @WebServlet("/product/shoppingCartModAdd")
 public class ShoppingCartModAdd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -50,8 +49,8 @@ public class ShoppingCartModAdd extends HttpServlet {
 			orderdetail.setProductName(request.getParameter("ProductName"));
 			orderdetail.setProductNo(request.getParameter("ProductNo"));
 			orderdetail.setProductSales(request.getParameter("ProductSales") == null ? 1
-					: Integer.parseInt(request.getParameter("ProductSales")) + 0.0);
-			orderdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")) + 0.0);
+					: Integer.parseInt(request.getParameter("ProductSales")));
+			orderdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")));
 			
 			System.out.println(orderdetail.getProductName());
 			System.out.println(orderdetail.getProductNo());
@@ -113,8 +112,8 @@ public class ShoppingCartModAdd extends HttpServlet {
 		Cartdetail cartdetail=new Cartdetail();
 		cartdetail.setProductName(request.getParameter("ProductName"));
 		cartdetail.setProductNo(request.getParameter("ProductNo"));
-		cartdetail.setProductSales(Integer.parseInt(request.getParameter("ProductSales"))+0.0);
-		cartdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")) + 0.0);
+		cartdetail.setProductSales(Integer.parseInt(request.getParameter("ProductSales")));
+		cartdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")));
 		
 		return cartdetail ;
 		
