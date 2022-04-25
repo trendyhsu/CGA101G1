@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bidproduct.model.BidProductDAO_interface;
 import com.bidproduct.model.BidProductJDBCDAO;
+import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 import com.google.gson.Gson;
 
@@ -44,8 +45,8 @@ public class BidProductServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		Writer out = response.getWriter();
-		BidProductDAO_interface dao = new BidProductJDBCDAO();
-		List<BidProductVO> list = dao.getAll();
+		BidProductService bidProductSvc = new BidProductService();
+		List<BidProductVO> list = bidProductSvc.getAll();
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
 		out.write(json);

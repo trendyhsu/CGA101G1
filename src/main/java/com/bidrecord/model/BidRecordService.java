@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class BidRecordService {
+	
 	private BidRecordDAO_interface dao;
 
 	public BidRecordService() {
@@ -43,9 +44,9 @@ public class BidRecordService {
 	}
 
 	// 預留給 Struts 2 用的
-	public void updateBidRecord(BidRecordVO bidRecordVO) {
-		dao.update(bidRecordVO);
-	}
+//	public void updateBidRecord(BidRecordVO bidRecordVO) {
+//		dao.update(bidRecordVO);
+//	}
 
 	public void deleteBidRecord(Integer bidRecordNo) {
 		dao.delete(bidRecordNo);

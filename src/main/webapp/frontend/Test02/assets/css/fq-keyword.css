@@ -1,0 +1,123 @@
+/*----------------------------KeyWord-----------------------*/
+#formQuery {
+    /* border: 2px solid red; */
+    /* height: 400px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+#formQuery ul {
+    /* border: 2px solid purple; */
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    padding-left: 0;
+
+}
+
+#formQuery ul li {
+    margin: 5px 0;
+}
+
+
+#formQuery label {
+    /* border: 2px solid green; */
+    white-space: nowrap;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#formQuery input {
+    font-size: 1.8rem;
+    border: 1px solid var(--light-color);
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+#formQuery input:focus {
+    outline: none;
+    background: #ccc;
+
+}
+
+#formQuery .cusBtn {
+    width: 120px;
+    margin-top: 1rem;
+    display: block;
+    padding: 0.8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: 0.5rem;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    background: var(--space);
+    font-weight: bold;
+}
+
+#formQuery .cusBtn:hover {
+    background: var(--black);
+    transform: scale(1.05);
+}
+
+#formQuery .cusBtn:active {
+    box-shadow: inset var(--box-shadow);
+    transform: scale(1);
+}
+
+#formQuery .cusBtn i {
+    margin-right: 3px;
+}
+
+h3.funcTitle02 {
+    font-weight: bold;
+}
+
+h3.funcTitle02 i {
+    animation: rotation 5s infinite linear;
+
+}
+
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+/*----------------------KeyWord回傳結果------------------*/
+h4.funcTitle02 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    /* border: 2px solid red; */
+}
+
+#KeyWordTable th,
+#KeyWordTable td {
+    font-size: 1.6rem;
+    /* border: 2px solid red; */
+
+
+}
+
+#KeyWordTable tr td:first-of-type,
+#KeyWordTable tr th:first-of-type {
+    /* border: 2px solid blue; */
+    width: 200px;
+}
+
+
+#KeyWordTable tbody tr td:last-of-type {
+    /* border: 2px solid red; */
+    white-space: nowrap;
+    width: 150px;
+}

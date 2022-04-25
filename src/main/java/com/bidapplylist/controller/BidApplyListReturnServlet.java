@@ -33,18 +33,26 @@ public class BidApplyListReturnServlet extends HttpServlet {
 		try {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer bidApplyListNo = Integer.valueOf(request.getParameter("bidApplyListNo").trim());
-			
-			/*************************** 2.開始修改資料 *****************************************/
 
+			// 判斷該申請單
 			BidApplyListService bidApplyListSvc = new BidApplyListService();
-			BidApplyListVO bidApplyListVO = new BidApplyListVO();
-			// 設定申請單編號 及 退貨狀態2
-			bidApplyListVO.setBidApplyListNo(bidApplyListNo);
-			bidApplyListVO.setApplyState(2);
-			bidApplyListSvc.updateApplyState(bidApplyListVO);
-			
+			BidApplyListVO bidApplyListVO = bidApplyListSvc.getOneBidApplyList(bidApplyListNo);
+			if (bidApplyListVO.getApplyState() == 2) {
+				errorMsgs.add("申請單編號 " + bidApplyListNo + " 狀態已退貨，無法重複退貨!");
+			}
+
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = request.getRequestDispatcher("/backend/bid/listAllBidApplyList.jsp");
+				failureView.forward(request, response);
+				return; // 程式中斷
+			}
+			/*************************** 2.開始修改資料 *****************************************/
+			// 設置狀態為已退貨2
+
+			bidApplyListSvc.updateApplyState(bidApplyListNo, new Integer(2));
+
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			request.setAttribute("successMsg", "編號"+bidApplyListNo+"商品已退貨");
+			request.setAttribute("successMsg", "編號" + bidApplyListNo + "商品已退貨");
 			String url = "/backend/bid/listAllBidApplyList.jsp";
 			// 修改成功後,轉交listAllBidApplyList.jsp
 			RequestDispatcher successView = request.getRequestDispatcher(url);

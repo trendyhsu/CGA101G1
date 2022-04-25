@@ -77,6 +77,15 @@ color: #547492;
 				</c:forEach>
 			</ul>
 		</c:if>
+<%-- 錯誤表列 --%>
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 			<li style="color:red">${message.value}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
 		
 <!-- 		主要修改資訊區 -->
 
@@ -172,13 +181,13 @@ color: #547492;
 							<option value="0"
 								<c:if test="${bidProductVO.orderState == 0}"><c:out value="selected"></c:out></c:if>>未出貨</option>
 							<option value="1"
-								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
+								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
 							<option value="2"
-								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>已出貨</option>
+								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已出貨</option>
 							<option value="3"
-								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>取回處理中</option>
 							<option value="4"
-								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>作廢</option>
+								<c:if test="${bidProductVO.orderState == 4}"><c:out value="selected"></c:out></c:if>>已重新申請上架</option>
 					</select></td>
 				</tr>
 
@@ -193,7 +202,7 @@ color: #547492;
 		
 <!-- 		圖片顯示區及刪除 -->
 
-	<div id="delete-form" style="position: absolute; left: 750px ;top: 80px" >
+	<div id="delete-form" style="position: relative; left: 480px ;bottom: 750px" >
 		<form method="post" ACTION="<%=request.getContextPath()%>/bid/bidPicDelete" onsubmit="return checkConfirm();" style="display: flex;align-items: center">
 			<br>
 				<c:if test="${list.size() != 0}">
@@ -227,7 +236,7 @@ color: #547492;
 	</div>
 
 <!-- 	上傳圖片區 -->
-	<div style="position: absolute; left: 760px ;top: 240px">
+	<div style="position: relative; left: 500px ;bottom: 700px">
 		<form id="upload" action="<%=request.getContextPath()%>/bid/bidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
 	        <input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
   					<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">
