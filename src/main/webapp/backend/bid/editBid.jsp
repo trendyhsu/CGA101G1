@@ -101,9 +101,16 @@ color: #547492;
 					<td>申請單編號</td>
 					<td>${bidProductVO.bidApplyListNo}</td>
 				<tr>
-					<td>一般商品編號</td>
-					<td><input type="text" name="productNo" size="45"
-						value="${bidProductVO.productNo}" /></td>
+		<jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
+					<td>一般商品名稱</td>
+					<td>
+				       <select size="1" name="productNo">
+	         				<c:forEach var="productVO" items="${productSvc.GetAllProducts()}" > 
+	          					<option value="${productVO.productNo}" ${(productVO.upcNum == bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} > ${productVO.productName}
+	         				</c:forEach>
+	         					<option value="0" ${(productVO.upcNum != bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} >無對應遊戲
+	       				</select>
+					</td>
 				</tr>
 				<tr>
 					<td>商品名稱</td>

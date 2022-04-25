@@ -111,8 +111,8 @@ color: black;
 							placeholder="" value="" required>
 				</div>
 				<input class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#dist" placeholder="請輸入郵遞區號" />
-				<select id="city" placeholder="請選擇縣市" name="receiverAddressCity"></select>
-				<select id="dist" placeholder="請選擇鄉鎮區" name="receiverAddressDist"></select>
+				<select id="city" placeholder="請選擇縣市" name="receiverAddressCity" required></select>
+				<select id="dist" placeholder="請選擇鄉鎮區" name="receiverAddressDist" required></select>
 				
 				<div class="mb-3">
 					<label for="receiverAddressDetail"><span class="info">收件人住址</span></label>

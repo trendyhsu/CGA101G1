@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.bidapplylist.model.BidApplyListService;
+import com.gameplatformtype.model.GamePlatformTypeService;
 
 public class BidProductVO implements Serializable {
 	// 建立承接 bidproduct 表格的 Value Object

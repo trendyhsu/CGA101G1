@@ -101,16 +101,12 @@ color: #547492;
 					<td>一般商品編號</td>
 					<td>
 						<select size="1" name="productNo" style="width:180px">
-    							<c:forEach var="product" items="${productList}">
-						<c:choose>
-						    <c:when test="${(bidApplyListVO.upcNum == product.upcNum)}">
-									<option value="${product.productNo}" ${(bidApplyListVO.upcNum==product.upcNum)? 'selected':'' } >${product.productName}
-						    </c:when>
-						    <c:otherwise>
-						    	<option value="0">無對應遊戲
-						    </c:otherwise>
-						</c:choose>
+  								<c:forEach var="product" items="${productList}">
+						    		<c:if test="${(bidApplyListVO.upcNum == product.upcNum)}">
+										<option value="${product.productNo}" ${(bidApplyListVO.upcNum==product.upcNum)? 'selected':'' } >${product.productName}
+									</c:if>
 								</c:forEach>
+					    			<option value="0">無對應遊戲
 						</select>
 					</td>
 				</tr>

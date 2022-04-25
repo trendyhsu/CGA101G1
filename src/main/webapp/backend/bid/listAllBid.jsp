@@ -63,7 +63,7 @@ color: #547492;
 			<tr align='center' valign="middle">
 				<th>競標商品編號</th>
 				<th>申請單編號</th>
-				<th>一般商品編號</th>
+				<th>一般商品名稱</th>
 				<th>商品名稱</th>
 				<th>商品敘述</th>
 				<th>賣家編號</th>

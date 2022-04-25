@@ -66,9 +66,9 @@ float: right;
 				<th>申請單編號</th>
 				<th>商品名稱</th>
 				<th>商品敘述</th>
-				<th>遊戲公司編號</th>
-				<th>遊戲種類編號</th>
-				<th>遊戲平台編號</th>
+				<th>遊戲公司</th>
+				<th>遊戲種類</th>
+				<th>遊戲平台</th>
 				<th>起標價格</th>
 				<th>最低增額</th>
 				<th>起標時間</th>
@@ -89,8 +89,8 @@ float: right;
 							${bidApplyListVO.bidProdDescription}</div>
 					</td>
 					<td>${bidApplyListVO.gameCompanyNo}</td>
-					<td>${bidApplyListVO.gameTypeNo}</td>
-					<td>${bidApplyListVO.gamePlatformNo}</td>
+					<td>${bidApplyListVO.gameTypeVO.gameTypeName}</td>
+					<td>${bidApplyListVO.gamePlatformTypeVO.gamePlatformName}</td>
 					<td>${bidApplyListVO.initialPrice}</td>
 					<td>${bidApplyListVO.bidPriceIncrement}</td>
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidApplyListVO.bidLaunchedTime}"
