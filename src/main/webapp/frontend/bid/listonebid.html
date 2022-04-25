@@ -535,16 +535,17 @@
         let all = JSON.parse(data);
         let bidProductVO = all.bidProductVO;
         let bidRecordVO = all.bidRecordVO;
+        let productVO = all.productVO;
         let bidPrice = "目前尚未有出價紀錄";
+        if(bidRecordVO){
+            bidPrice = bidRecordVO.bidPrice;
+        }
 
         let bidLaunchedTime = moment(bidProductVO.bidLaunchedTime).format('YYYY-MM-DD HH:mm:ss');
         let bidSoldTime = moment(bidProductVO.bidSoldTime).format('YYYY-MM-DD HH:mm:ss');
         console.log(bidLaunchedTime);
         console.log(bidSoldTime);
 
-        if(bidRecordVO){
-            bidPrice = bidRecordVO.bidPrice;
-        }
         let div = document.querySelector("#mainContent");
         div.innerHTML=`
                         <div class="product-detail">
@@ -567,9 +568,9 @@
                             <div class="product-price fs-3 fw-500 mb-2">
                                 <del class="text-muted fs-6">起標價：$ ${bidProductVO.initialPrice}</del>
                                 <br>
-                                <span class="text-primary" id="nowPrice">目前出價：$ ${bidPrice}</span>
+                                <span class="text-primary" id="nowPrice">目前出價：$ <span id="bidPirceSpan">${bidPrice}</span></span>
                                 <br>
-                                <span class="text-primary">最低出價增額：$ ${bidProductVO.bidPriceIncrement}</span>
+                                <span class="text-primary">最低出價增額：$ <span id="bidPriceIncrementSpan">${bidProductVO.bidPriceIncrement}</span></span>
                                 <br>
                                 <span class="text-primary">開始時間：${bidLaunchedTime}</span>
                                 <br>
@@ -589,7 +590,7 @@
                                 </div>
                             </div>
                             <!-- 恭喜xxx得標的部分 -->
-                            <div class="product-info-buttons nav pt-4">
+                            <div class="product-info-buttons nav pt-4" style = "font-size:1.5rem; color:red;"id="congratulation">
                                 <a href="javascript:void(0);" class="" data-bs-toggle="modal"
                                     data-bs-target="#px_shipping_modal"><i class="bi bi-truck me-2"></i>恭喜得標</a>
                             </div>
@@ -623,10 +624,32 @@
             if ($count_timer.length > 0) {
                 $('.count-down').countdown({ regional: regionalVar });
             }
+            let now = moment().valueOf();
+
+        // 判斷直接出價按鈕是否可按
+
+            if(Date.parse(bidProductVO.bidSoldTime)< now){
+                setInterval(() => {
+                    document.querySelector(".count-down").innerHTML=`<div class="mb-3" style="font-size:2rem">已結束</div>`
+                    document.querySelector("#bidSubmit").disabled="disabled";
+                }, 1000);
+            }
 
         // 送出按鈕監聽出價及更新
             let bidSubmit = document.getElementById("bidSubmit");
             bidSubmit.addEventListener("click",send);
+
+        // 一手商品跳轉
+            if(productVO){
+                productUpc = productVO.upcNum;
+                
+            }
+
+        // 得標恭喜
+            if(bidProductVO.buyerNo){
+                console.log("qqq");
+                document.querySelector("#congratulation").innerHTML=`恭喜 ${bidProductVO.buyerNo} 會員得標`;
+            }
         }
 
 $.ajax({
@@ -660,7 +683,10 @@ function showAllPic(data){
 var websocket = null;
 //判斷當前瀏覽器是否支援WebSocket
 if ('WebSocket' in window) {
-    websocket = new WebSocket(`ws://localhost:8081/CGA101G1/bid/webSocket/${bidProductNo}`);
+    let host = window.location.host;
+    let path = window.location.pathname;
+	let webCtx = path.substring(0, path.indexOf('/', 1));
+    websocket = new WebSocket(`ws://${host}${webCtx}/bid/webSocket/${bidProductNo}`);
 } else {
     alert('當前瀏覽器 Not support websocket')
 }
@@ -701,7 +727,20 @@ function closeWebSocket() {
 //傳送訊息
 function send(event) {
     let bidInput = document.querySelector("#bidInput").value;
-    websocket.send(bidInput);
+    let bidPirceSpan = document.querySelector("#bidPirceSpan").innerHTML;
+    let bidPriceIncrementSpan = document.querySelector("#bidPriceIncrementSpan").innerHTML;
+    console.log(bidPirceSpan);
+    console.log(bidPriceIncrementSpan);
+    console.log(bidInput);
+    if( isNaN(bidPirceSpan)){
+        bidPrice=0;
+    }
+    if(bidInput < +bidPirceSpan+(+bidPriceIncrementSpan)){
+        console.log("出價錯誤");
+    }else{
+        // websocket.send(bidInput);
+        console.log("過關")
+    }
 }
 
 </script>

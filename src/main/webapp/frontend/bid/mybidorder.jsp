@@ -107,9 +107,11 @@ float: right;
 						</c:if></td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bid/bidCkeckOut"
+							ACTION="<%=request.getContextPath()%>/frontend/bid/bidcheckout.jsp"
 							style="margin-bottom: 0px;">
+							<c:if test="${bidProductVO.orderState == 0}">
 							<input type="submit" value="結帳"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							</c:if>
 						</FORM>
 					</td>
 				</tr>
@@ -130,3 +132,4 @@ float: right;
     <!-- End Main -->
 </body>
 </html>
+<%@include file="/frontend/frontfoot.jsp" %>

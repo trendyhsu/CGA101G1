@@ -64,66 +64,87 @@ textarea {
 					</td>
 				</tr>
 			</table>
-		<%-- 錯誤表列 --%>
-		<c:if test="${not empty errorMsgs}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
+			
+<%-- 錯誤表列 --%>
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 			<li style="color:red">${message.value}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
 		
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/bid/bidProductInsert"
-			name="form1" enctype="multipart/form-data">
+			action="<%=request.getContextPath()%>/bid/bidApplyListInsert"
+			name="form1">
 			<table>
 				<tr>
 					<td>商品名稱</td>
-					<td><input type="text" name="bidName" 
-						value="" /></td>
+					<td>
+					<input type="text" name="bidName" value="${param.bidName}" />
+					</td>
+					<td>${errorMsgs.bidName}</td>
 				</tr>
 				<tr>
 					<td>商品敘述</td>
-					<td><textArea name="bidProdDescription"
-							id="bidProdDescription" rows="10" cols="22" style="resize:none;"></textArea></td>
+					<td><textArea name="bidProdDescription" id="bidProdDescription" rows="10" cols="22" 
+					style="resize:none">${param.bidProdDescription}</textArea>
+					</td>
+					<td>${errorMsgs.bidProdDescription}</td>
 				</tr>
 				<tr>
 					<td>遊戲公司</td>
-					<td><input type="text" name="gameCompanyNo" 
-						value="" /></td>
+					<td><input type="text" name="gameCompanyNo" value="${param.gameCompanyNo}" />
+					</td>
+					<td>${errorMsgs.gameCompanyNo}</td>
 				</tr>
 				<tr>
 					<td>遊戲類型</td>
-					<td><input type="text" name="gameTypeNo" 
-						value="" /></td>
+					<td><input type="text" name="gameTypeNo" value="${param.gameTypeNo}" />
+					</td>
+					<td>${errorMsgs.gameTypeNo}</td>
 				</tr>
 				<tr>
 					<td>遊戲平台</td>
-					<td><input type="text" name="gamePlatformNo" 
-						value="" /></td>
+					<td><input type="text" name="gamePlatformNo" value="${param.gamePlatformNo}" />
+					</td>
+					<td>${errorMsgs.gamePlatformNo}</td>
 				</tr>
 				<tr>
 					<td>起標價</td>
 					<td><input type="number" name="initialPrice" size="45" min="0"
-						value="${bidApplyListVO.initialPrice}" /></td>
+						value="${param.initialPrice}" />
+					</td>
+					<td>${errorMsgs.initialPrice}</td>
 				</tr>
 				<tr>
 					<td>最低增額</td>
 					<td><input type="number" name="bidPriceIncrement" size="45"
-						min="0" value="" /></td>
+						min="0" value="${param.bidPriceIncrement}" />
+					</td>
+					<td>${errorMsgs.bidPriceIncrement}</td>
+				</tr>
+				<tr>
+					<td>UPC編號</td>
+					<td><input name="upcNum" id="upcNum" type="text"
+						value="${param.upcNum}">
+					</td>
+					<td>${errorMsgs.upcNum}</td>
 				</tr>
 				<tr>
 					<td>起標時間</td>
-					<td><input name="bidLaunchedTime" id="bidLaunchedTime"
-						type="text" value=""></td>
+					<td><input name="bidLaunchedTime" id="bidLaunchedTime" type="text">
+					</td>
+					<td>${errorMsgs.bidLaunchedTime}</td>
 				</tr>
 				<tr>
 					<td>截標時間</td>
-					<td><input name="bidSoldTime" id="bidSoldTime" type="text"
-						value="${bidApplyListVO.bidSoldTime}"></td>
+					<td><input name="bidSoldTime" id="bidSoldTime" type="text">
+					</td>
+					<td>${errorMsgs.bidSoldTime}</td>
 				</tr>
 				<tr>
 					<td>
@@ -144,13 +165,26 @@ textarea {
         <!--Table -->
     </main>
     <!-- End Main -->
+    
+<% 
+  java.sql.Date bidLaunchedTime = null;
+  try {
+	  bidLaunchedTime = java.sql.Date.valueOf(request.getParameter("bidLaunchedTime").trim());
+   } catch (Exception e) {
+	   bidLaunchedTime = new java.sql.Date(System.currentTimeMillis());
+   }
+  java.sql.Date bidSoldTime = null;
+  try {
+	  bidSoldTime = java.sql.Date.valueOf(request.getParameter("bidSoldTime").trim());
+   } catch (Exception e) {
+	   bidSoldTime = new java.sql.Date(System.currentTimeMillis());
+   }
+%>
+
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
-	$("#bidLaunchedTime").click(function () {
-		console.log("hello");
-	})
 		$.datetimepicker.setLocale("zh");
 		$("#bidLaunchedTime").datetimepicker({
 			theme : '', // theme: 'dark', 

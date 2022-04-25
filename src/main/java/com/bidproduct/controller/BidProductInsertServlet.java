@@ -147,21 +147,8 @@ public class BidProductInsertServlet extends HttpServlet {
 			}
 			System.out.println(bidSoldTime);
 
-			// 設定OrderState為0
-			Integer OrderState = new Integer(0);
-
-			// 將取得資料裝入 bidProductVO 物件
-			bidProductVO.setBidApplyListNo(bidApplyListNo);
-			bidProductVO.setProductNo(productNo);
-			bidProductVO.setBidName(bidName);
-			bidProductVO.setBidProdDescription(bidProdDescription);
-			bidProductVO.setSellerNo(sellerNo);
-			bidProductVO.setInitialPrice(initialPrice);
-			bidProductVO.setBidState(bidState);
-			bidProductVO.setBidLaunchedTime(bidLaunchedTime);
-			bidProductVO.setBidSoldTime(bidSoldTime);
-			bidProductVO.setBidPriceIncrement(bidPriceIncrement);
-			bidProductVO.setOrderState(OrderState);
+			// 設定orderState為0
+			Integer orderState = new Integer(0);
 
 			// 將取得圖片資料裝入 List<byte[]> 物件
 			Collection<Part> list = request.getParts();
@@ -191,15 +178,14 @@ public class BidProductInsertServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 ***************************************/
 			// 新增競標商品資料 並回傳新商品編號
 			BidProductService bidProductSvc = new BidProductService();
-			Integer nextBidProductNo = bidProductSvc.addBidProduct(bidProductVO);
+			Integer nextBidProductNo = bidProductSvc.addBidProduct(bidApplyListNo, productNo, bidName,
+					bidProdDescription, sellerNo, initialPrice, bidState,
+					bidLaunchedTime, bidSoldTime, bidPriceIncrement, orderState);
 
 			// 新增圖片資料
 			BidPicService bidPicSvc = new BidPicService();
 			for (int i = 0; i < picList.size(); i++) {
-				BidPicVO bidPicVO = new BidPicVO();
-				bidPicVO.setBidProductNo(nextBidProductNo);
-				bidPicVO.setBidProdPicContent(picList.get(i));
-				bidPicSvc.addBidPic(bidPicVO);
+				bidPicSvc.addBidPic(nextBidProductNo, picList.get(i));
 			}
 
 			// 修改BidApplyList 的 ApplyState 為 1 已上架

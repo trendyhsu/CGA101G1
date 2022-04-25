@@ -10,47 +10,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bidproduct.model.BidProductDAO_interface;
-import com.bidproduct.model.BidProductJDBCDAO;
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 import com.google.gson.Gson;
 
-/**
- * Servlet implementation class BidProductServlet
- */
-@WebServlet("/bid/bidProduct")
-public class BidProductServlet extends HttpServlet {
+@WebServlet("/bid/bidProductSearch")
+public class BidProductSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BidProductServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		String keyword = request.getParameter("keyword");
 		Writer out = response.getWriter();
 		BidProductService bidProductSvc = new BidProductService();
-		List<BidProductVO> list = bidProductSvc.getAll();
+		List<BidProductVO> list = bidProductSvc.getAllByBidName(keyword);
+		
+		System.out.println(list);
+		if(list.size()==0) {
+			list = bidProductSvc.getAll();
+		}
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
 		out.write(json);
-		
 	}
 
 }

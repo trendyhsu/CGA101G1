@@ -19,32 +19,22 @@ import com.bidproduct.model.BidProductVO;
 public class BidPicDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
-		
+
 		List<String> errorMsgs = new LinkedList<String>();
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			/*************************** 1.接收請求參數 ***************************************/
-			// 取得多選圖片的陣列 用 for 迴圈取得bidProPicNo 刪除
-			BidPicService bidPicSvc = new BidPicService();
-			String[] bidProdPicNos = request.getParameterValues("bidProdPicNos");
-			if (bidProdPicNos != null) {
-				for (String bidProdPicNo : bidProdPicNos) {
-					bidPicSvc.deleteBidPic(new Integer(bidProdPicNo));
-				}
-			}
 
-			// 讀取 BidVO 資料 封裝後再丟回editBid.jsp頁面
+			// 讀取 BidProductVO 資料 封裝後再丟回editBid.jsp頁面
 			// 競標商品編號
 			Integer bidProductNo = null;
 			try {
@@ -199,9 +189,20 @@ public class BidPicDeleteServlet extends HttpServlet {
 			bidProductVO.setReceiverAddress(receiverAddress);
 			bidProductVO.setReceiverPhone(receiverPhone);
 			
-			/***************************3.刪除完成,準備轉交(Send the Success view)***********/
+			/*************************** 2.開始刪除資料 *****************************************/
+			
+			// 取得多選圖片的陣列 用 for 迴圈取得bidProPicNo 刪除
+			BidPicService bidPicSvc = new BidPicService();
+			String[] bidProdPicNos = request.getParameterValues("bidProdPicNos");
+			if (bidProdPicNos != null) {
+				for (String bidProdPicNo : bidProdPicNos) {
+					bidPicSvc.deleteBidPic(new Integer(bidProdPicNo));
+				}
+			}
 
-			request.setAttribute("bidProductVO", bidProductVO);		
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+
+			request.setAttribute("bidProductVO", bidProductVO);
 			String url = "/backend/bid/editBid.jsp";
 			// 刪除成功後,轉交回送出刪除的來源網頁
 			RequestDispatcher successView = request.getRequestDispatcher(url);

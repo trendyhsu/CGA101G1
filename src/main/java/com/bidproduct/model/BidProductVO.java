@@ -3,6 +3,8 @@ package com.bidproduct.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.bidapplylist.model.BidApplyListService;
+
 public class BidProductVO implements Serializable {
 	// 建立承接 bidproduct 表格的 Value Object
 	
@@ -158,5 +160,10 @@ public class BidProductVO implements Serializable {
 	public void setReceiverPhone(String receiverPhone) {
 		this.receiverPhone = receiverPhone;
 	}
+    public com.bidapplylist.model.BidApplyListVO getBidApplyListVO() {
+    	com.bidapplylist.model.BidApplyListService bidApplyListSvc = new BidApplyListService();
+    	com.bidapplylist.model.BidApplyListVO bidApplyListVO = bidApplyListSvc.getOneBidApplyList(bidApplyListNo);
+	    return bidApplyListVO;
+    }
 	
 }
