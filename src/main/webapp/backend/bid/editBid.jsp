@@ -77,6 +77,15 @@ color: #547492;
 				</c:forEach>
 			</ul>
 		</c:if>
+<%-- 錯誤表列 --%>
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 			<li style="color:red">${message.value}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
 		
 <!-- 		主要修改資訊區 -->
 
@@ -92,9 +101,16 @@ color: #547492;
 					<td>申請單編號</td>
 					<td>${bidProductVO.bidApplyListNo}</td>
 				<tr>
-					<td>一般商品編號</td>
-					<td><input type="text" name="productNo" size="45"
-						value="${bidProductVO.productNo}" /></td>
+		<jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
+					<td>一般商品名稱</td>
+					<td>
+				       <select size="1" name="productNo">
+	         				<c:forEach var="productVO" items="${productSvc.GetAllProducts()}" > 
+	          					<option value="${productVO.productNo}" ${(productVO.upcNum == bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} > ${productVO.productName}
+	         				</c:forEach>
+	         					<option value="0" ${(productVO.upcNum != bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} >無對應遊戲
+	       				</select>
+					</td>
 				</tr>
 				<tr>
 					<td>商品名稱</td>
@@ -172,13 +188,13 @@ color: #547492;
 							<option value="0"
 								<c:if test="${bidProductVO.orderState == 0}"><c:out value="selected"></c:out></c:if>>未出貨</option>
 							<option value="1"
-								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
+								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
 							<option value="2"
-								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>已出貨</option>
+								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已出貨</option>
 							<option value="3"
-								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>取回處理中</option>
 							<option value="4"
-								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>作廢</option>
+								<c:if test="${bidProductVO.orderState == 4}"><c:out value="selected"></c:out></c:if>>已重新申請上架</option>
 					</select></td>
 				</tr>
 

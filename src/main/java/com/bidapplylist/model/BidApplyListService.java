@@ -25,15 +25,18 @@ public class BidApplyListService {
 		bidApplyListVO.setInitialPrice(initialPrice);
 		bidApplyListVO.setBidPriceIncrement(bidPriceIncrement);
 		bidApplyListVO.setUpcNum(upcNum);
+		bidApplyListVO.setBidLaunchedTime(bidLaunchedTime);
+		bidApplyListVO.setBidSoldTime(bidSoldTime);
+		bidApplyListVO.setApplyState(applyState);
 		dao.insert(bidApplyListVO);
 
 		return bidApplyListVO;
 	}
 
 	// 預留給 Struts 2 或 Spring MVC 用
-	public void addBidApplyList(BidApplyListVO bidApplyListVO) {
-		dao.insert(bidApplyListVO);
-	}
+//	public void addBidApplyList(BidApplyListVO bidApplyListVO) {
+//		dao.insert(bidApplyListVO);
+//	}
 
 	public BidApplyListVO updateBidApplyList(Integer bidApplyListNo, Integer memNo, String bidName,
 			String bidProdDescription, Integer gameCompanyNo, Integer gameTypeNo, Integer gamePlatformNo,
@@ -56,9 +59,9 @@ public class BidApplyListService {
 	}
 
 	// 預留給 Struts 2 用的
-	public void updateBidApplyList(BidApplyListVO bidApplyListVO) {
-		dao.update(bidApplyListVO);
-	}
+//	public void updateBidApplyList(BidApplyListVO bidApplyListVO) {
+//		dao.update(bidApplyListVO);
+//	}
 
 	public void deleteBidApplyList(Integer bidApplyListNo) {
 		dao.delete(bidApplyListNo);

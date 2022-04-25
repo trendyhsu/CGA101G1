@@ -56,6 +56,8 @@ float: right;
 				</c:forEach>
 			</ul>
 		</c:if>
+		<%-- 成功表列 --%>
+		<p style="color: red;">${successMsg}</p>
 
 		<table class="showPanel" style="table-layout: fixed; color: black ;">
 			<tr align='center' valign="middle">
@@ -101,26 +103,34 @@ float: right;
 						</c:if> <c:if test="${bidProductVO.orderState == 2}">
 							<c:out value="2<br>已出貨" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 3}">
-							<c:out value="3<br>已收貨" escapeXml="false"></c:out>
+							<c:out value="3<br>取回處理中" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 4}">
-							<c:out value="4<br>作廢" escapeXml="false"></c:out>
+							<c:out value="4<br>已重新申請上架" escapeXml="false"></c:out>
 						</c:if></td>
 					<td>
 						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bid/bidProductGetBack"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="取回"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
-						</FORM>
+							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/bid/bidProductGetBack"
+									style="margin-bottom: 0px;">
+									<input type="submit" value="取回">
+									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
+								</FORM>
+							</c:if>
 						</c:if>
 					</td>
 					<td>
 						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bid/bidProductRelist"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="重新上架"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
-						</FORM>
+							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/bid/bidProductRelist"
+									style="margin-bottom: 0px;">
+									<input type="submit" value="重新上架">
+									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
+								</FORM>
+							</c:if>
 						</c:if>
 					</td>
 				</tr>

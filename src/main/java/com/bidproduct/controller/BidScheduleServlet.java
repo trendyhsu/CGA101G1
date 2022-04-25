@@ -38,7 +38,7 @@ public class BidScheduleServlet extends HttpServlet {
 	public void init() {
 		timer = new Timer();
 		// 設定何時開始
-		Calendar cal = new GregorianCalendar(2022, Calendar.MARCH, 13, 0, 0, 0);
+		Calendar cal = new GregorianCalendar(2022, Calendar.MARCH, 24, 0, 0, 0);
 
 		// 截標後把原本競標狀態 0.進行中 更改競標狀態為 1.截標 或 2.流標
 		TimerTask changeBidState = new TimerTask() {
@@ -71,26 +71,23 @@ public class BidScheduleServlet extends HttpServlet {
 					try {
 						bidWinnerPrice = bidRecordVO.getBidPrice();
 						buyerNo = bidRecordVO.getMemNo();
-						bidProductVO.setBidState(1);
+						bidState = new Integer(1);
 
 						// 沒有人出價的狀況 查詢會得到null
 					} catch (NullPointerException ne) {
 						bidWinnerPrice = null;
 						buyerNo = null;
 						haveBid = false;
-						bidProductVO.setBidState(2);
+						bidState = new Integer(2);
 					}
-
-					bidProductVO.setBidWinnerPrice(bidWinnerPrice);
-					bidProductVO.setBuyerNo(buyerNo);
 
 					// 用 haveBid 判斷現在有無出價的狀況
 					if (haveBid == true) {
 						// 修改 bidState, buyerNo, bidWinnerPrice 
-						bidProductSvc.updateBidStateHaveBuyer(bidProductVO);
+						bidProductSvc.updateBidStateHaveBuyer(bidState,buyerNo,bidWinnerPrice,bidProductNo);
 					} else {
 						// 修改 bidState就可
-						bidProductSvc.updateBidState(bidProductVO);
+						bidProductSvc.updateBidState(bidState,bidProductNo);
 					}
 
 				}

@@ -41,6 +41,8 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	private static final String UPDATE_BIDSTATE_HAVE_BUYER = "UPDATE bidproduct SET BuyerNo = ?, BidState = ?, BidWinnerPrice = ? WHERE BidProductNo = ?";
 	// 更改收件資訊與商品狀態
 	private static final String UPDATE_RECEIVER_AND_PRODSTATE = "UPDATE bidproduct SET OrderState=?, ReceiverName = ?, ReceiverAddress = ?, ReceiverPhone = ? WHERE BidProductNo = ?";
+	// 更改orderState用來更新取回以及重新上架的狀態
+	private static final String UPDATE_ORDERSTATE_FOR_GETBACK_AND_RELIST = "UPDATE bidproduct SET OrderState=? WHERE BidProductNo = ?";
 	// 查詢已截標 30分鐘後沒有付款 將 BidState 改為 棄標
 	private static final String GET_ALL_STMT_BIDSTATE_NEED_CHANGE_TO_THREE = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidState = 1 AND OrderState = 0 AND DATE_ADD(BidSoldTime, INTERVAL 30 MINUTE) <= NOW()";
 	// 後臺更新競標資訊
@@ -984,6 +986,45 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			System.out.print(bidProductVO.getReceiverAddress() + " , ");
 			System.out.println(bidProductVO.getReceiverPhone() + " , ");
 			System.out.println("------------------------");
+		}
+	}
+
+	@Override
+	public void updateOrderStateGetbackAndRelist(BidProductVO bidProductVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+
+			pstmt = con.prepareStatement(UPDATE_ORDERSTATE_FOR_GETBACK_AND_RELIST);
+
+			pstmt.setInt(1, bidProductVO.getOrderState());
+			pstmt.setInt(2, bidProductVO.getBidProductNo());
+
+			pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
 		}
 	}
 

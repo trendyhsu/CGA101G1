@@ -357,6 +357,12 @@
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
+                                        href="<%=request.getContextPath()%>/bid/bidApplyListSeller">
+                                        <i class="bi bi-card-checklist me-2"></i>我的申請單
+                                    </a>
+                                </li>
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
                                         href="<%=request.getContextPath()%>/bid/bidProductSeller">
                                         <i class="bi bi-bell me-2"></i>我的上架中競標商品
                                     </a>

@@ -751,7 +751,6 @@
     <script src ="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 
-
     <!-- <script>
         
         $(document).ready(function(){
@@ -813,11 +812,12 @@
     </script> -->
 
 <script type="module">
-    function init(){
+
     // API 說明：https://api.kcg.gov.tw/ServiceList/Detail/9c8e1450-e833-499c-8320-29b36b7ace5c
     // API 路徑：https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c
     // 備用 API：https://raw.githubusercontent.com/hexschool/KCGTravel/master/datastore_search.json
-    const jsonUrl = "/CGA101G1/bid/bidProduct";
+    let jsonUrl = "/CGA101G1/bid/bidProduct";
+    function init(){
     const content = document.getElementById('content');
     const pageid = document.getElementById('pageid');
     let jsonData = {};
@@ -887,9 +887,10 @@
       let str = '';
       let i = 1;
       data.forEach((bid) => {
+        moment.locale('zh-tw');
         let now = moment().valueOf();
         console.log(now);
-        let bidSoldTime = Date.parse(bid.bidSoldTime) < now ? (bid.bidState=1?"流標":"棄標"): moment(Date.parse(bid.bidSoldTime)-now).format('DD HH:mm:ss');
+        let bidSoldTime = Date.parse(bid.bidSoldTime) < now ? ( bid.bidState === 1 ? "截標" : (bid.bidState === 2)? "流標" : "棄標" ): moment(Date.parse(bid.bidSoldTime)).format('YYYY-MM-DD HH:mm:SS');
         console.log(bidSoldTime);
         let leftSecond = bidSoldTime - now;
         let leftMinute = leftSecond / 60;
@@ -902,7 +903,7 @@
                 <div class="product-card-1">
                     <div class="product-card-image">
                         <div class="badge-ribbon">
-                            <span class="badge bg-danger">競標剩餘時間 :${bidSoldTime}</span>
+                            <span class="badge bg-danger">競標截止時間 :${bidSoldTime}</span>
                         </div>
 
                         <div class="product-media">
@@ -920,7 +921,7 @@
                                     <a href="/CGA101G1/frontend/bid/listonebid.html?bidProductNo=${bid.bidProductNo}">${bid.bidName}</a>
                                 </h6>
                                 <div class="product-price">
-                                        <span class="text-primary">$${bid.initialPrice}</span>
+                                        <span class="text-primary">起標價 $ ${bid.initialPrice}</span>
                                 </div>
                             </div>
                         </div>
@@ -973,10 +974,9 @@ init();
 document.getElementById("button-addon2").addEventListener('click', search);
 	function search() {
 		let keyword = document.getElementById("searchbar2").value;
-		console.log(keyword);
+		jsonUrl = `/CGA101G1/bid/bidProductSearch?keyword=${keyword}`;
+        init();
 		}
-
-
   </script>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>

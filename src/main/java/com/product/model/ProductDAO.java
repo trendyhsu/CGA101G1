@@ -30,6 +30,15 @@ public class ProductDAO implements ProductDAO_interface{
 		private static final String GET_ONE = 
 			"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product where productNo = ?";
 //	                  1           2               3             4         5              6          7               8            9                                    10
+	
+		
+		
+		
+		private static final String GET_NewestONE = 
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product order by 1 desc limit 3";
+//		                    1           2               3             4         5              6          7               8            9                                 
+
+		
 		
 
 		private static final String GETAllInSell = 
@@ -488,6 +497,74 @@ public class ProductDAO implements ProductDAO_interface{
 				productVO.setUpcNum(rs.getString("UpcNum"));
 				list.add(productVO);
 			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductVO> findByTop3MaxPrimaryKey() {
+		
+		
+		List<ProductVO> list = new ArrayList<>();
+		ProductVO productVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_NewestONE);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// productVO 也稱為 Domain objects
+				productVO = new ProductVO();
+				productVO.setProductNo(rs.getInt("ProductNo"));
+				productVO.setGameTypeNo(rs.getInt("GameTypeNo"));
+				productVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
+				productVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
+				productVO.setProductName(rs.getString("ProductName"));
+				productVO.setProductPrice(rs.getInt("ProductPrice"));
+				productVO.setProductState(rs.getInt("ProductState"));
+				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
+				productVO.setUpcNum(rs.getString("UpcNum"));
+				list.add(productVO);
+			}
+
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "

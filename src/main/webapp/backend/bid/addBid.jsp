@@ -1,3 +1,5 @@
+<%@page import="com.product.model.ProductVO"%>
+<%@page import="com.product.model.ProductService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,6 +21,11 @@ Integer bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo")
 BidApplyListService bidApplyListSvc = new BidApplyListService();
 BidApplyListVO bidApplyListVO = bidApplyListSvc.getOneBidApplyList(bidApplyListNo);
 pageContext.setAttribute("bidApplyListVO", bidApplyListVO);
+// 一般商品取得所有
+ProductService productSvc = new ProductService();
+List<ProductVO> productList = productSvc.GetAllProducts();
+pageContext.setAttribute("productList", productList);
+
 %>
 
 <!DOCTYPE html>
@@ -92,8 +99,16 @@ color: #547492;
 						value="${bidApplyListVO.bidApplyListNo}"></td>
 				<tr>
 					<td>一般商品編號</td>
-					<td><input type="text" name="productNo" size="20"
-						value="<%=2>1 ? "21001" : "21002"%>" /></td>
+					<td>
+						<select size="1" name="productNo" style="width:180px">
+  								<c:forEach var="product" items="${productList}">
+						    		<c:if test="${(bidApplyListVO.upcNum == product.upcNum)}">
+										<option value="${product.productNo}" ${(bidApplyListVO.upcNum==product.upcNum)? 'selected':'' } >${product.productName}
+									</c:if>
+								</c:forEach>
+					    			<option value="0">無對應遊戲
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>商品名稱</td>
