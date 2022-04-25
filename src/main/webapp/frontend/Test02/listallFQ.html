@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1"></div>
+
+    
+
+<script src ="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: "/CGA101G1/FQKeyWordServlet",
+            type: "POST",
+            success: function(data){
+                showAllBid(data);
+            }
+        })
+    });
+function showAllBid(data){
+    let bids = JSON.parse(data);
+    for(let bid of bids){
+        let div = document.querySelector("#div1");
+        let div2 = document.createElement("div");
+        div2.innerHTML=`<table class='bid'>
+  <tr><th>關鍵字編號</th><td>${bid.fqKeyWordNo}</td></tr>
+  <tr><th>關鍵字</th><td>${bid.fqKeyWordContent}</td></tr>
+  <tr><th>回應內容</th><td>${bid.answerContent}</td></tr>
+</table>`;
+    div.append(div2);
+    
+
+    
+
+    }
+}
+
+</script>
+</body>
+</html>

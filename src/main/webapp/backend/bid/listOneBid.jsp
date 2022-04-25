@@ -14,8 +14,26 @@
 <meta charset="UTF-8">
 <title>單一競標商品</title>
 
+<style type="text/css">
+th{
+	border-bottom-style:solid;
+	background-color: #b2cdcc;
+}
+td{
+	border-bottom-style:solid;
+}
+h3{
+font-weight: bold;
+color: #547492;
+}
+</style>
+
 </head>
 <body>
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+
 
 	<div id="bid-content"
 		style="position: absolute; left: 230px; top: 80px">
@@ -29,8 +47,8 @@
 			</ul>
 		</c:if>
 
-		<table class="showPanel" style="table-layout: fixed">
-			<tr>
+		<table class="showPanel" style="table-layout: fixed; color: black;">
+			<tr align='center' valign="middle">
 				<th>競標商品編號</th>
 				<th>申請單編號</th>
 				<th>一般商品編號</th>
@@ -52,7 +70,7 @@
 				<th>修改</th>
 				<th>代收金撥付</th>
 			</tr>
-				<tr>
+				<tr align='center' valign="middle">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td>${bidProductVO.bidApplyListNo}</td>
 					<td>${bidProductVO.productNo}</td>
@@ -86,11 +104,13 @@
 					<td><c:if test="${bidProductVO.orderState == 0}">
 							<c:out value="0<br>未出貨" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 1}">
-							<c:out value="1<br>已出貨" escapeXml="false"></c:out>
+							<c:out value="1<br>訂單處理中" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 2}">
-							<c:out value="2<br>已收貨" escapeXml="false"></c:out>
+							<c:out value="2<br>已出貨" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 3}">
-							<c:out value="3<br>作廢" escapeXml="false"></c:out>
+							<c:out value="3<br>取回處理中" escapeXml="false"></c:out>
+						</c:if><c:if test="${bidProductVO.orderState == 4}">
+							<c:out value="4<br>已重新申請上架" escapeXml="false"></c:out>
 						</c:if></td>
 					<td>
 						<FORM METHOD="post"
@@ -119,5 +139,11 @@
 		</table>
 		<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">回競標商品列表</a>
 	</div>
+	
+	</section>
+
+	<!--main content end-->
+
+</section>
 </body>
 </html>

@@ -65,7 +65,7 @@ color: #547492;
 			<p style="color: red;">${successMsg}</p>
 
 		<table class="showPanel" style="table-layout: fixed; color: black;">
-			<tr>
+			<tr align='center' valign="middle">
 				<th>申請單編號</th>
 				<th>賣家編號</th>
 				<th>商品名稱</th>
@@ -86,7 +86,7 @@ color: #547492;
 			<c:forEach var="bidApplyListVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 
-				<tr>
+				<tr align='center' valign="middle">
 					<td>${bidApplyListVO.bidApplyListNo}</td>
 					<td>${bidApplyListVO.memNo}</td>
 					<td>${bidApplyListVO.bidName}</td>
@@ -116,7 +116,8 @@ color: #547492;
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/backend/bid/addBid.jsp"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="上架"> <input type="hidden"name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
+							<input type="submit" value="上架">
+							<input type="hidden"name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
 					</td>
 					<td>

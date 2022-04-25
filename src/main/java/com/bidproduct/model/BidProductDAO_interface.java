@@ -20,6 +20,9 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 	// 使用 buyerNo 查詢所有 buyerNo 得標商品
 	public List<BidProductVO> findByBuyerNo(Integer buyerNo);
 
+	// 使用 sellerNo 查詢所有 sellerNo 得標商品
+	public List<BidProductVO> findBySellerNo(Integer sellerNo);
+
 	// 使用 bidName 查詢所有 符合 bidName 的商品
 	public List<BidProductVO> findByBidName(String bidName);
 
@@ -28,12 +31,19 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 
 	// 使用 bidProductNo 更新競標狀態
 	public void updateBidState(BidProductVO bidProductVO);
+
 	// 使用 bidProductNo 更新競標狀態(有出價者 需要更新 買家 最高出價 以及 競標狀態)
 	public void updateBidStateHaveBuyer(BidProductVO bidProductVO);
+
+	// 更改orderState用來更新取回以及重新上架的狀態
+	public void updateOrderStateGetbackAndRelist(BidProductVO bidProductVO);
+
 	// 更改收件資訊與商品狀態
 	public void updateReceiverAndOrderState(BidProductVO bidProductVO);
+
 	// 查詢已截標 ( BidState = 1 ) 30分鐘後沒有付款 將 BidState 改為 棄標
 	public List<BidProductVO> findByBidStateAndOrderState();
+
 	// 後臺更新競標資訊
 	public void updateByBackend(BidProductVO bidProductVO);
 

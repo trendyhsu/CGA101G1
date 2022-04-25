@@ -1,3 +1,5 @@
+<%@page import="com.product.model.ProductVO"%>
+<%@page import="com.product.model.ProductService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,6 +21,11 @@ Integer bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo")
 BidApplyListService bidApplyListSvc = new BidApplyListService();
 BidApplyListVO bidApplyListVO = bidApplyListSvc.getOneBidApplyList(bidApplyListNo);
 pageContext.setAttribute("bidApplyListVO", bidApplyListVO);
+// 一般商品取得所有
+ProductService productSvc = new ProductService();
+List<ProductVO> productList = productSvc.GetAllProducts();
+pageContext.setAttribute("productList", productList);
+
 %>
 
 <!DOCTYPE html>
@@ -56,10 +63,11 @@ color: #547492;
 
 </head>
 <body>
+<section id="main-content">
+	<section class="wrapper">
 
 
-	<div id="bid-content"
-		style="position: absolute; left: 230px; top: 80px">
+	<div id="bid-content">
 
 		<table id="table-1">
 			<tr>
@@ -87,22 +95,34 @@ color: #547492;
 			<table>
 				<tr>
 					<td>申請單編號</td>
-					<td><input type="number" name="bidApplyListNo" size="45"
+					<td><input type="number" name="bidApplyListNo"
 						value="${bidApplyListVO.bidApplyListNo}"></td>
 				<tr>
 					<td>一般商品編號</td>
-					<td><input type="text" name="productNo" size="45"
-						value="<%=2>1 ? "21001" : "21002"%>" /></td>
+					<td>
+						<select size="1" name="productNo" style="width:180px">
+    							<c:forEach var="product" items="${productList}">
+						<c:choose>
+						    <c:when test="${(bidApplyListVO.upcNum == product.upcNum)}">
+									<option value="${product.productNo}" ${(bidApplyListVO.upcNum==product.upcNum)? 'selected':'' } >${product.productName}
+						    </c:when>
+						    <c:otherwise>
+						    	<option value="0">無對應遊戲
+						    </c:otherwise>
+						</c:choose>
+								</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>商品名稱</td>
-					<td><input type="text" name="bidName" size="45"
+					<td><input type="text" name="bidName" size="20"
 						value="${bidApplyListVO.bidName}" /></td>
 				</tr>
 				<tr>
 					<td>商品敘述</td>
 					<td><textArea name="bidProdDescription"
-							id="bidProdDescription" rows="6" cols="45" style="resize:none;">${bidApplyListVO.bidProdDescription}</textArea></td>
+							id="bidProdDescription" rows="10" cols="22" style="resize:none;">${bidApplyListVO.bidProdDescription}</textArea></td>
 				</tr>
 				<tr>
 					<td>賣家編號</td>
@@ -129,26 +149,31 @@ color: #547492;
 					<td><input name="bidSoldTime" id="bidSoldTime" type="text"
 						value="${bidApplyListVO.bidSoldTime}"></td>
 				</tr>
-<!-- 	上傳圖片區 -->
-				<tr style="position: absolute; left: 480px;top: 36px">
-					<td>
-	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
-					</td>
-				</tr>
 				<tr>
 					<td>
 			<input type="submit" value="新增">
 			<input type="reset" value="重設">
 					</td>
 				</tr>
+<!-- 	上傳圖片區 -->
+				<tr>
+					<td>
+	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile"
+	        		style="position: relative; left:480px ;bottom: 530px;">
+					</td>
+				</tr>
 			</table>
 		</form>
-<div id="picPreview" style="position: absolute; top: 90px ; left:480px;display: flex; width: 550px ;flex-wrap:wrap;"></div>
+		<div id="picPreview" style="display: flex; width: 400px ;flex-wrap:wrap;
+		position: relative; left:480px ;bottom: 530px"></div>
 
-</div>
+	</div>
 
+	</section>
 
+	<!--main content end-->
 
+</section>
 	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
 <%
 	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

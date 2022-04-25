@@ -120,10 +120,10 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 				errorMsgs.add("請輸入起標時間!");
 			}
 			System.out.println(bidLaunchedTime);
-			if (bidLaunchedTime.before(new Timestamp(System.currentTimeMillis()))) {
-				bidLaunchedTime = new Timestamp(System.currentTimeMillis());
-				errorMsgs.add("起標時間早於目前時間，請重新輸入！");
-			}
+//			if (bidLaunchedTime.before(new Timestamp(System.currentTimeMillis()))) {
+//				bidLaunchedTime = new Timestamp(System.currentTimeMillis());
+//				errorMsgs.add("起標時間早於目前時間，請重新輸入！");
+//			}
 
 			// 判斷截標時間
 			java.sql.Timestamp bidSoldTime = null;
@@ -145,11 +145,11 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 				orderState = Integer.valueOf(request.getParameter("orderState").trim());
 			} catch (NumberFormatException e) {
 				orderState = 0;
-				errorMsgs.add("競標商品狀態應為數字(0:未出貨 1:已出貨 2:已收貨 4:作廢)");
+				errorMsgs.add("競標商品狀態應為數字(0:未出貨 1:訂單處理中 2:已出貨 3:取回處理中 4:已重新申請上架)");
 			}
 			if (orderState < 0 || orderState > 5) {
 				orderState = 0;
-				errorMsgs.add("競標商品狀態輸入錯誤(0:未出貨 1:已出貨 2:已收貨 4:作廢)");
+				errorMsgs.add("競標商品狀態輸入錯誤(0:未出貨 1:訂單處理中 2:已出貨 3:取回處理中 4:已重新申請上架)");
 			}
 			System.out.println(orderState);
 
@@ -199,8 +199,11 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			BidProductService bidSvc = new BidProductService();
-			bidSvc.updateByBackend(bidProductVO);
+			BidProductService bidProductSvc = new BidProductService();
+			bidProductSvc.updateByBackend(bidProductNo, bidApplyListNo, productNo
+					, bidName, bidProdDescription, initialPrice, bidState,
+					 bidPriceIncrement, bidLaunchedTime, bidSoldTime,
+					 orderState, receiverName, receiverAddress, receiverPhone);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			request.setAttribute("bidProductVO", bidProductVO); // 資料庫update成功後,正確的的bidProductVO物件,存入request

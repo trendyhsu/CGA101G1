@@ -1,0 +1,172 @@
+/*----------------------------KeyWord-----------------------*/
+.radio-group {
+    margin: 0 2rem;
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+}
+
+.radio-group .myRadio2 {
+    display: none;
+}
+
+
+
+.radio-group label {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background: var(--space);
+    cursor: pointer;
+    transition: background 0.1s;
+    margin: 0;
+}
+
+
+
+
+/* .radio-group label:not(:last-of-type) {
+    border-right: 1px solid #fff;
+} */
+
+.radio-group .myRadio2:checked+label {
+    background: #fff;
+    color: var(--space);
+}
+
+.formQuery {
+    /* border: 2px solid red; */
+    /* height: 400px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.formQuery ul {
+    /* border: 2px solid purple; */
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    padding-left: 0;
+
+}
+
+.formQuery ul li {
+    margin: 5px 0;
+    /* border: 2px solid green; */
+}
+
+.formQuery textarea {
+    resize: none;
+    width: 100%;
+}
+
+.formQuery label {
+    /* border: 2px solid green; */
+    white-space: nowrap;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.formQuery input[type="text"] {
+    font-size: 1.8rem;
+    border: 1px solid var(--light-color);
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.formQuery input:focus,
+.formQuery textarea:focus {
+    outline: none;
+    background: #ccc;
+
+}
+
+.formQuery input[type="file"] {
+    border: none;
+}
+
+.formQuery input[type="file"]:focus {
+    background: none;
+}
+
+.formQuery select {
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    width: 100%;
+    padding: 1px;
+}
+
+.formQuery .cusBtn {
+    width: 120px;
+    margin-top: 1rem;
+    display: block;
+    padding: 0.8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: 0.5rem;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    background: var(--space);
+    font-weight: bold;
+}
+
+.formQuery .cusBtn:hover {
+    background: var(--black);
+    transform: scale(1.05);
+}
+
+.formQuery .cusBtn:active {
+    box-shadow: inset var(--box-shadow);
+    transform: scale(1);
+}
+
+.formQuery .cusBtn i {
+    margin-right: 3px;
+}
+
+#form2 {
+    display: none;
+}
+
+h3.funcTitle02 {
+    font-weight: bold;
+}
+
+h3.funcTitle02 i {
+    animation: rotation 5s infinite linear;
+
+}
+
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+/*----------------------回傳結果------------------*/
+h4.funcTitle02 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    /* border: 2px solid red; */
+}
+
+#myTable {
+    font-size: 1.6rem;
+}
+
+#myTable th {
+    white-space: nowrap;
+}
