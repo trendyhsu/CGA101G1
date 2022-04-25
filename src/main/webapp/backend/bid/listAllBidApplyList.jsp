@@ -27,6 +27,8 @@ pageContext.setAttribute("list", list);
 th{
 	border-bottom-style:solid;
 	background-color: #b2cdcc;
+	vertical-align: middle;
+	text-align: center;
 }
 td{
 	border-bottom-style:solid;
@@ -68,13 +70,13 @@ color: #547492;
 			<tr align='center' valign="middle">
 				<th>申請單編號</th>
 				<th>賣家編號</th>
-				<th>商品名稱</th>
+				<th style="width: 15%">商品名稱</th>
 				<th>商品敘述</th>
-				<th>遊戲公司編號</th>
-				<th>遊戲種類編號</th>
-				<th>遊戲平台編號</th>
-				<th>起標價格</th>
-				<th>最低增額</th>
+				<th style="width: 6%">遊戲公司</th>
+				<th style="width: 6%">遊戲種類</th>
+				<th style="width: 6%">遊戲平台</th>
+				<th style="width: 6%">起標價格</th>
+				<th style="width: 6%">最低增額</th>
 				<th>起標時間</th>
 				<th>截標時間</th>
 				<th>UPC Number</th>
@@ -96,8 +98,8 @@ color: #547492;
 							${bidApplyListVO.bidProdDescription}</div>
 					</td>
 					<td>${bidApplyListVO.gameCompanyNo}</td>
-					<td>${bidApplyListVO.gameTypeNo}</td>
-					<td>${bidApplyListVO.gamePlatformNo}</td>
+					<td>${bidApplyListVO.gameTypeVO.gameTypeName}</td>
+					<td>${bidApplyListVO.gamePlatformTypeVO.gamePlatformName}</td>
 					<td>${bidApplyListVO.initialPrice}</td>
 					<td>${bidApplyListVO.bidPriceIncrement}</td>
 					<td><fmt:formatDate value="${bidApplyListVO.bidLaunchedTime}"

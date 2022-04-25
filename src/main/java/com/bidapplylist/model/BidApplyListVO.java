@@ -3,6 +3,11 @@ package com.bidapplylist.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.gameplatformtype.model.GamePlatformTypeService;
+import com.gameplatformtype.model.GamePlatformTypeVO;
+import com.gametype.model.GameTypeService;
+import com.gametype.model.GameTypeVO;
+
 public class BidApplyListVO implements Serializable{
 	// 建立承接 bidapplylist 表格的 Value Object
 	Integer bidApplyListNo;
@@ -99,5 +104,15 @@ public class BidApplyListVO implements Serializable{
 	}
 	public void setApplyState(Integer applyState) {
 		this.applyState = applyState;
+	}
+    public com.gameplatformtype.model.GamePlatformTypeVO getGamePlatformTypeVO(){
+    	com.gameplatformtype.model.GamePlatformTypeService gamePlatformTypeSvc = new GamePlatformTypeService();
+    	GamePlatformTypeVO gamePlatformTypeVO = gamePlatformTypeSvc.getOneGamePlatformType(gamePlatformNo);
+    	return gamePlatformTypeVO;
+    }
+    public com.gametype.model.GameTypeVO getGameTypeVO() {
+		com.gametype.model.GameTypeService gameTypeSvc = new GameTypeService();
+		GameTypeVO gameTypeVO = gameTypeSvc.getOneGameType(gameTypeNo);
+		return gameTypeVO;
 	}
 }

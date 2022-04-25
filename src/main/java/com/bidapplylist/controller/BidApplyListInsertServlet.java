@@ -41,7 +41,7 @@ public class BidApplyListInsertServlet extends HttpServlet {
 //		try {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			// 取得會員編號
-//			MemVO memVO = (memVO)request.getSession().getAttribute("memVO");
+			
 			Integer memNo = 11001;
 			
 			// 判斷商品名稱

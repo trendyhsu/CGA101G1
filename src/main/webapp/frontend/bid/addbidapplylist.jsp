@@ -35,7 +35,7 @@ h3{
 font-weight: bold;
 color: #547492;
 }
-input{
+input, select{
 	border-style:solid;
 	border-color: gray;
 	border-radius: 5px;
@@ -102,14 +102,26 @@ textarea {
 					<td>${errorMsgs.gameCompanyNo}</td>
 				</tr>
 				<tr>
+		<jsp:useBean id="gameTypeSvc" scope="page" class="com.gametype.model.GameTypeService" />
 					<td>遊戲類型</td>
-					<td><input type="text" name="gameTypeNo" value="${param.gameTypeNo}" />
+					<td>
+				       <select size="1" name="gameTypeNo" style="width: 170px">
+	         				<c:forEach var="gameTypeVO" items="${gameTypeSvc.all}" > 
+	          					<option value="${gameTypeVO.gameTypeNo}" ${(param.gameTypeNo == gameTypeVO.gameTypeNo) ? "selected" : ""}> ${gameTypeVO.gameTypeName}
+	         				</c:forEach>
+	       				</select>
 					</td>
 					<td>${errorMsgs.gameTypeNo}</td>
 				</tr>
+		<jsp:useBean id="gamePlatformTypeSvc" scope="page" class="com.gameplatformtype.model.GamePlatformTypeService" />
 				<tr>
 					<td>遊戲平台</td>
-					<td><input type="text" name="gamePlatformNo" value="${param.gamePlatformNo}" />
+					<td>
+				       <select size="1" name="gamePlatformNo" style="width: 170px">
+	         				<c:forEach var="gamePlatformTypeVO" items="${gamePlatformTypeSvc.all}" > 
+	          					<option value="${gamePlatformTypeVO.gamePlatformNo}" ${(param.gamePlatformNo == gamePlatformTypeVO.gamePlatformNo) ? "selected" : ""}> ${gamePlatformTypeVO.gamePlatformName}
+	         				</c:forEach>
+	       				</select>
 					</td>
 					<td>${errorMsgs.gamePlatformNo}</td>
 				</tr>
