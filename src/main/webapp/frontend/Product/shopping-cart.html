@@ -16,28 +16,30 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- custom css file link -->
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/css/allStyle.css">
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/css/style.css">
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/css/headerStyle.css">
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/css/footerStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/allStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/style.css">
+    <link rel="stylesheet" href="../mainCss/css/headerStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/footerStyle.css">
 
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/HomeTest/frontend/mainCss/assets/img/logo/favicon.ico">
+    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
     <!-- Fonts CSS -->
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/assets/vendor/fonts/fonts.css">
+    <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
     <!-- Bootstrap-icons CSS -->
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
     <!--Magnific-Popup CSS -->
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/assets/vendor/magnific/magnific-popup.css">
+    <link rel="stylesheet" href="../mainCss/assets/vendor/magnific/magnific-popup.css">
     <!-- Slick CSS -->
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/assets/vendor/slick/slick.css">
+    <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
     <!-- Style CSS -->
-    <link rel="stylesheet" href="/HomeTest/frontend/mainCss/assets/css/style01.css">
+    <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
 </head>
 
 <body>
@@ -63,7 +65,7 @@
             <!-- 上方標籤列 -->
             <a class="active" href="#home">首頁</a>
             <a href="#" class="nav-link">遊戲新聞</a>
-            <a href="#content" class="nav-link">遊戲商城</a>
+            <a href="/CGA101G1/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
             <a href="#" class="nav-link">二手競標商城</a>
             <a href="#" class="nav-link">遊戲討論區</a>
             <a href="#items">熱門商品</a>
@@ -74,8 +76,8 @@
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
             <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
+            <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
     </header>
@@ -337,11 +339,12 @@
                                 <td class="text-center product-quantity">
                                     <div class="cart-qty d-inline-flex">
                                         <a class="dec qty-btn"
-                                            :href="`http://localhost:8081/HomeTest/ShoppingCartReduce?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`">-</a>
+                                            :href="`/CGA101G1/product/shoppingCartReduce?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`">-</a>
                                         <input class="cart-qty-input form-control" type="text" name="qtybutton"
                                             :value="item.productSales">
+                                        <!-- 尚未測試++ -->
                                         <a class="inc qty-btn"
-                                            :href="`http://localhost:8081/HomeTest/ShoppingCartModAdd?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`">+</a>
+                                            :href="`/CGA101G1/product/shoppingCartModAdd?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`">+</a>
                                     </div>
                                 </td>
                                 <td class="text-center product-subtotal">{{item.productTotalPrice}}</td>
@@ -350,7 +353,7 @@
                                         class="btn btn-sm btn-outline-secondary text-nowrap px-3"><i
                                             class="bi bi-pencil-square lh-1"></i> <span
                                             class="d-none d-md-inline-block">Edit</span></a> -->
-                                    <a :href="`http://localhost:8081/HomeTest/ShoppingCartRemoveAll?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`"
+                                    <a :href="`/CGA101G1/product/shoppingCartRemoveAll?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`"
                                         class="btn btn-sm btn-outline-danger text-nowrap px-3"><i
                                             class="bi bi-x lh-1"></i> <span
                                             class="d-none d-md-inline-block">Remove</span></a>
@@ -421,7 +424,7 @@
                         </div>
                     </div> -->
                 </div>
-                <form class="card mt-5">
+                <form class="card mt-5" action="/CGA101G1/order/addtoOrderAndOrderlist" method="post">
                     <div class="card-header py-3">
                         <h6 class="m-0">請填寫訂購資料</h6>
                     </div>
@@ -430,7 +433,9 @@
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverName">收件人姓名</label>
                                 <input class="form-control" type="text" id="ReceiverName" required=""
-                                    name="ReceiverName">
+                                    name="ReceiverName" @change="nameCheck($event)">
+                                <div style="color: red;" :style="{visibility: nameInput ? 'visible' : 'hidden'}">
+                                    請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverPhone">電話</label>
@@ -438,15 +443,28 @@
                                     name="ReceiverPhone">
                             </div>
                             <div class="col-sm-6">
-                                <label class="form-label" for="ReceiverAddress">發票寄送地址</label>
-                                <input class="form-control" type="text" id="ReceiverAddress" required=""
-                                    name="ReceiverAddress">
+                                <label class="form-label" for="Rod">地址</label>
+                                <input class="js-demeter-tw-zipcode-selector form-select" data-city="#city4"
+                                    data-dist="#dist4" placeholder="請輸入郵遞區號" value="" hidden>
+                                <select id="city4" placeholder="請選擇縣市" class="form-select" name="city"></select>
+                                <select id="dist4" placeholder="請選擇鄉鎮區" class="form-select" name="dist"></select>
+                                <input class="form-control" type="text" id="Rod" required="" name="Rod"
+                                    @change="RodInputCheck($event)">
+                                <div style="color: red;" :style="{visibility: RodInput ? 'visible' : 'hidden'}">
+                                    請輸入正確格式的地址，不應包含特殊符號或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="PickupMethod">取貨方式</label>
-                                <select class="form-select" id="PickupMethod" required="" name="PickupMethod">
+                                <select class="form-select" id="PickupMethod" required="" name="PickupMethod"
+                                    @change="feeCheck($event)">
                                     <option value="0">宅配</option>
                                     <option value="1">超商取貨</option>
+                                </select>
+                                <label class="form-label" for="shippingFee">運費</label>
+                                <select class="form-select" id="shippingFee" disabled name="shippingFee"
+                                    :value="shippingFeeCal">
+                                    <option value="0">宅配運費:100元</option>
+                                    <option value="1">超商取貨運費:60元</option>
                                 </select>
                             </div>
                             <div class="col-sm-6">
@@ -465,13 +483,14 @@
                                     <div class="card-body ">
                                         <div class="form-group mb-3">
                                             <label class="form-label">優惠券</label>
-                                            <select class="form-select" id="MemCouponNo" required="" name="MemCouponNo"
-                                                v-model="selectCouponNo" Onchange="this.calCoupon()">
+                                            <select class="form-select" id="MemCouponNo" required=""
+                                                @change="getCoup($event)">
                                                 <option value="0">不使用優惠券</option>
                                                 <option v-for="(item, index) in coupons" :key="index"
-                                                    :value="item.couponTypeNo">
-                                                    {{item.discountPrice}}</option>
+                                                    :value="item.discountPrice+a+item.couponTypeNo">
+                                                    {{item.couponTypeNo}}：優惠金額-{{item.discountPrice}}</option>
                                             </select>
+                                            <input :value="memCouponNo" name="MemCouponNo" hidden>
                                         </div>
                                     </div>
                                 </div>
@@ -490,12 +509,16 @@
                                             </li>
                                             <li class="d-flex justify-content-between align-items-center mb-2">
                                                 <h6 class="me-2 text-body">優惠券折抵金額</h6><span
-                                                    class="text-end">{{selectCoupon}}</span>
+                                                    class="text-end">-{{this.selectCoupon}}</span>
+                                            </li>
+                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                <h6 class="me-2 text-body">運費</h6><span
+                                                    class="text-end">+{{this.shipFeeConfirm}}</span>
                                             </li>
                                             <li
                                                 class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                                <h6 class="me-2">折抵後總價</h6>
-                                                <input type="text" :value="totalPrice-selectCoupon"
+                                                <h6 class="me-2">最後所需支付總價</h6>
+                                                <input type="text" :value="totalPrice-selectCoupon+shipFeeConfirm"
                                                     name="OrderTotalPrice">
                                             </li>
                                         </ul>
@@ -503,7 +526,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <input type="submit" value="送出訂單" class="btn btn-primary">
+                                <input type="submit" value="送出訂單" class="btn btn-primary" readonly>
                             </div>
                         </div>
                     </div>
@@ -625,21 +648,21 @@
     </footer>
     <!-- End Footer -->
     <!-- jquery -->
-    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="../mainCss/assets/js/jquery-3.5.1.min.js"></script>
     <!-- appear -->
-    <script src="assets/vendor/appear/jquery.appear.js"></script>
+    <script src="../mainCss/assets/vendor/appear/jquery.appear.js"></script>
     <!--bootstrap-->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- owl-carousel -->
-    <script src="assets/vendor/slick/slick.min.js"></script>
+    <script src="../mainCss/assets/vendor/slick/slick.min.js"></script>
     <!-- magnific -->
-    <script src="assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+    <script src="../mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
     <!-- isotope -->
-    <script src="assets/vendor/isotope/isotope.pkgd.min.js"></script>
+    <script src="../mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
     <!-- count-down -->
-    <script src="assets/vendor/count-down/jquery.countdown.min.js"></script>
+    <script src="../mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
     <!-- Theme Js -->
-    <script src="assets/js/custom.js"></script>
+    <script src="../mainCss/assets/js/custom.js"></script>
 </body>
 <!-- end body -->
 
@@ -658,15 +681,20 @@
                 coupons: [],
                 selectCoupon: 0,
                 selectCouponNo: '',
+                memCouponNo: 0,
                 form: false,
-
-
+                a: ",",
+                //表單驗證用
+                nameInput: false,
+                RodInput: false,
+                shippingFeeCal: 0,
+                shipFeeConfirm: 100,
 
             }
         },
         methods: {
             getProductData() {
-                const apiUrl = 'http://localhost:8081/HomeTest/ShowCart';
+                const apiUrl = '/CGA101G1/product/showCart';
                 axios.get(apiUrl)
                     // 一定要用箭頭函示!!!!
                     .then((response) => {
@@ -695,18 +723,53 @@
                         console.log("coupons讀取資料ok");
                     });
             },
+            getCoup(e) {
+                this.memCouponNo = 0;
+                console.log(e.target.value);
+                this.selectCoupon = e.target.value.split(',')[0];
+                this.selectCouponNo = e.target.value.split(',')[1];
+                for (i = 0; i < this.coupons.length; i++) {
+                    if (this.coupons[i].couponTypeNo == (parseInt(this.selectCouponNo))) {
+                        this.memCouponNo = this.coupons[i].memCouponNo;
+                    }
+                }
+            },
+            nameCheck(e) {
+                this.nameInput = false;
+                const rules = new RegExp('[+-/^~{}:@$!%*?&0-9]')
+                console.log(e.target.value);
+                if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
+                    this.nameInput = true;
+                }
+            },
+            RodInputCheck(e) {
+                this.RodInput = false;
+                const rules = new RegExp('[+-/^~{}:@$!%*?&]')
+                console.log(e.target.value);
+                if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
+                    this.RodInput = true;
+                }
+            },
+            feeCheck(e) {
+
+                if (e.target.value == 1) {
+                    this.shippingFeeCal = 1;
+                    this.shipFeeConfirm = 60;
+
+                } else if (e.target.value == 0) {
+                    this.shippingFeeCal = 0;
+                    this.shipFeeConfirm = 100;
+
+                }
+            },
+
+
 
         },
         created() {
             this.getProductData();
             this.getMemCoupons();
             //想辦法取優惠券編號跟折扣金額
-        },
-        calCoupon(e) {
-
-            // 取編號跟錢，分離商品編號跟價錢再傳出去
-            console.log(e.target.value);
-
         },
 
     };
