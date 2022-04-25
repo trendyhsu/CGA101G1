@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class BidRecordService {
+	
 	private BidRecordDAO_interface dao;
 
 	public BidRecordService() {

@@ -199,8 +199,11 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			BidProductService bidSvc = new BidProductService();
-			bidSvc.updateByBackend(bidProductVO);
+			BidProductService bidProductSvc = new BidProductService();
+			bidProductSvc.updateByBackend(bidProductNo, bidApplyListNo, productNo
+					, bidName, bidProdDescription, initialPrice, bidState,
+					 bidPriceIncrement, bidLaunchedTime, bidSoldTime,
+					 orderState, receiverName, receiverAddress, receiverPhone);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			request.setAttribute("bidProductVO", bidProductVO); // 資料庫update成功後,正確的的bidProductVO物件,存入request

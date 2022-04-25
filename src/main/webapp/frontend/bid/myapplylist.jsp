@@ -1,54 +1,51 @@
 <%@page import="com.bidapplylist.model.BidApplyListVO"%>
-<%@page import="com.bidapplylist.model.BidApplyListService"%>
+<%@page import="com.bidproduct.model.BidProductVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.bidproduct.model.BidProductService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.bidproduct.model.*"%>
-<%@ page import="java.util.*"%>
-
-<%@include file="/backend/share.jsp"%>
-<%-- <%@include file="/backend/bid/assets/headerCDN.txt" %> --%>
+<%@include file="/frontend/fronthead.jsp" %>
 
 <%
-BidApplyListService bidApplyListSvc = new BidApplyListService();
-List<BidApplyListVO> list = bidApplyListSvc.getAll();
+List<BidApplyListVO> list = (List<BidApplyListVO>)request.getAttribute("bidApplyListVOs");
 pageContext.setAttribute("list", list);
-
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有競標商品申請單</title>
-
+<title>我的申請單狀態</title>
 <style type="text/css">
-th{
-	border-bottom-style:solid;
-	background-color: #b2cdcc;
-}
-td{
-	border-bottom-style:solid;
-}
-h3{
+table{
 font-weight: bold;
-color: #547492;
+}
+table tr td,th{
+border-bottom: solid;
+}
+th{
+background-color: #b2cdcc;
+}
+#pageNumber, #dataNumber{
+float: right;
 }
 </style>
-
 </head>
 <body>
-<!--main content start-->
-<section id="main-content">
-	<section class="wrapper">
+                    <!-- End Profile Menu -->
+                    <!-- Content 主要內容區 要修改的部分都塞在這個裡面 -->
+					<!-- 內容直接寫在<div class="table-responsive fs-md mb-4">裡面 -->
+                    <div class="col-lg-9 col-xxl-9">
+                        <div class="table-responsive fs-md mb-4">
 
 	<div id="bid-content">
 		
 		<table id="table-1">
 			<tr>
 
-			 		<h3>所有競標商品申請單</h3>
+			 		<h3>我的申請單</h3>
 
 			</tr>
 		</table>
@@ -67,7 +64,6 @@ color: #547492;
 		<table class="showPanel" style="table-layout: fixed; color: black;">
 			<tr align='center' valign="middle">
 				<th>申請單編號</th>
-				<th>賣家編號</th>
 				<th>商品名稱</th>
 				<th>商品敘述</th>
 				<th>遊戲公司編號</th>
@@ -79,8 +75,6 @@ color: #547492;
 				<th>截標時間</th>
 				<th>UPC Number</th>
 				<th>申請狀態</th>
-				<th>上架</th>
-				<th>退貨</th>
 			</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidApplyListVO" items="${list}" begin="<%=pageIndex%>"
@@ -88,7 +82,6 @@ color: #547492;
 
 				<tr align='center' valign="middle">
 					<td>${bidApplyListVO.bidApplyListNo}</td>
-					<td>${bidApplyListVO.memNo}</td>
 					<td>${bidApplyListVO.bidName}</td>
 					<td>
 						<div
@@ -100,9 +93,9 @@ color: #547492;
 					<td>${bidApplyListVO.gamePlatformNo}</td>
 					<td>${bidApplyListVO.initialPrice}</td>
 					<td>${bidApplyListVO.bidPriceIncrement}</td>
-					<td><fmt:formatDate value="${bidApplyListVO.bidLaunchedTime}"
+					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidApplyListVO.bidLaunchedTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td><fmt:formatDate value="${bidApplyListVO.bidSoldTime}"
+					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidApplyListVO.bidSoldTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${bidApplyListVO.upcNum}</td>
 					<td><c:if test="${bidApplyListVO.applyState == 0}" var="condition">
@@ -112,32 +105,21 @@ color: #547492;
 						</c:if> <c:if test="${bidApplyListVO.applyState == 2}" var="condition">
 							<c:out value="2<br>已退貨" escapeXml="false"></c:out>
 						</c:if></td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/backend/bid/addBid.jsp"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="上架">
-							<input type="hidden"name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
-						</FORM>
-					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bid/bidApplyListReturn"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="退貨">
-							<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
-						</FORM>
-					</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<%@ include file="page2.file"%>
 	</div>
-	</section>
 
-	<!--main content end-->
-
-</section>
-
+                        </div>
+					</div>
+                    <!-- End Content -->
+               	</div>
+            </div>
+        </div>
+        <!--Table -->
+    </main>
+    <!-- End Main -->
 </body>
 </html>
+<%@include file="/frontend/frontfoot.jsp" %>

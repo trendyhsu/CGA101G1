@@ -172,13 +172,13 @@ color: #547492;
 							<option value="0"
 								<c:if test="${bidProductVO.orderState == 0}"><c:out value="selected"></c:out></c:if>>未出貨</option>
 							<option value="1"
-								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
+								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>訂單處理中</option>
 							<option value="2"
-								<c:if test="${bidProductVO.orderState == 1}"><c:out value="selected"></c:out></c:if>>已出貨</option>
+								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已出貨</option>
 							<option value="3"
-								<c:if test="${bidProductVO.orderState == 2}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>取回處理中</option>
 							<option value="4"
-								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>作廢</option>
+								<c:if test="${bidProductVO.orderState == 4}"><c:out value="selected"></c:out></c:if>>已重新申請上架</option>
 					</select></td>
 				</tr>
 

@@ -11,9 +11,20 @@
 </head>
 <body>
     <button type="submit" id="test">送出</button>
+    <div data-countdown="2022/01/01"></div>
+    <div data-countdown="2023/01/01"></div>
+    <div data-countdown="2022/05/01"></div>
+    <div data-countdown="2022/08/01"></div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
     <script>
-
+$('[data-countdown]').each(function() {
+  var $this = $(this), finalDate = $(this).data('countdown');
+  $this.countdown(finalDate, function(event) {
+    $this.html(event.strftime('%D days %H:%M:%S'));
+  });
+});
     </script>
 </body>
 </html>
