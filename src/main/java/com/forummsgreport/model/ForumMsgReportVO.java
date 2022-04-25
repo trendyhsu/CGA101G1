@@ -60,4 +60,10 @@ public class ForumMsgReportVO implements java.io.Serializable {
 	public void setForumMsgReportTime(Timestamp forumMsgReportTime) {
 		this.forumMsgReportTime = forumMsgReportTime;
 	}
+	// for join forumMsg from forumMsg
+		public com.forummsg.model.ForumMsgVO getForumMsgVO() {
+			com.forummsg.model.ForumMsgService forumMsgSvc = new com.forummsg.model.ForumMsgService();
+			com.forummsg.model.ForumMsgVO forumMsgVO = forumMsgSvc.getOneForumMsg(forumMsgNo);
+			return forumMsgVO;
+		}
 }

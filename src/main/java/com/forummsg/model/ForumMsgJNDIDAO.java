@@ -30,7 +30,7 @@ public class ForumMsgJNDIDAO implements ForumMsgDAO_interface {
 	private static final String GET_ONE_STMT = 
 			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg WHERE ForumMsgNo = ?";
 	private static final String GET_ALL_STMT = 
-			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg ORDER BY ForumMsgNo";
+			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg ORDER BY ForumMsgNo DESC";
 	private static final String GET_ONE_FORUMPOST_FORUMMSG = 
 			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg WHERE ForumPostNo = ? ORDER BY ForumMsgNo";
 	

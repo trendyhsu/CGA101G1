@@ -30,12 +30,6 @@ public class ForumPostReportService {
 		dao.insert(forumPostReportVO);
 	}
 
-//	private Integer forumPostReportNo;
-//	private Integer forumPostNo;
-//	private Integer memNo;
-//	private Integer forumPostReportType;
-//	private String forumPostReportWhy;
-//	private Timestamp forumPostReportTime;
 
 	public ForumPostReportVO updateForumPostReport(Integer forumPostReportNo, Integer forumPostReportType) {
 

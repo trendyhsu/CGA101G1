@@ -22,7 +22,7 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 	private static final String GET_ONE_STMT = 
 			"SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
 	private static final String GET_ALL_STMT = 
-			"SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost ORDER BY ForumPostNo";
+			"SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost ORDER BY ForumPostNo DESC";
 	private static final String GET_ONE_FORUM_STMT = 
 			"SELECT ForumPostFeatured,ForumPostType,ForumPostTitle,MemNo,ForumPostTime FROM forumpost WHERE ForumNo = ?";
 	private static final String GET_ONE_MEM_STMT = 

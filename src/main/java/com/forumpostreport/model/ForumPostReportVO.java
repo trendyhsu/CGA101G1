@@ -60,4 +60,10 @@ public class ForumPostReportVO implements java.io.Serializable {
 	public void setForumPostReportTime(Timestamp forumPostReportTime) {
 		this.forumPostReportTime = forumPostReportTime;
 	}
+	// for join forumPostTitle from forumPost
+		public com.forumpost.model.ForumPostVO getForumPostVO() {
+			com.forumpost.model.ForumPostService forumPostSvc = new com.forumpost.model.ForumPostService();
+			com.forumpost.model.ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+			return forumPostVO;
+		}
 }

@@ -87,4 +87,11 @@ public class ForumPostVO implements java.io.Serializable {
 	public void setForumPostFeatured(Integer forumPostFeatured) {
 		this.forumPostFeatured = forumPostFeatured;
 	}
+
+	// for join forumName from forumNo
+	public com.forum.model.ForumVO getForumVO() {
+		com.forum.model.ForumService forumSvc = new com.forum.model.ForumService();
+		com.forum.model.ForumVO forumVO = forumSvc.getOneForum(forumNo);
+		return forumVO;
+	}
 }
