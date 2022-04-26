@@ -87,7 +87,16 @@ public class BidWebSocket {
 		
 		// 寄信通知原最高出價者 價格被超過了
 //		MailService mailService = new MailService();
-//		mailService.sendMail(message, bidProductNo, message);
+//		
+//		String to = "the38245691@gmail.com";
+//
+//		String subject = "您的出價被超過囉！";
+//
+//		String targetName = String.valueOf(bidrecordHighestVO.getMemNo());
+//		
+//		String messageText = "親愛的 " + targetName + " 帕GAME會員您好! " + "\n\n" + "在此通知您出價被超過了！";
+//		
+//		mailService.sendMail(to, subject, messageText);
 		
 		// insert 進資料庫
 		bidRecordSvc.addBidRecord(Integer.valueOf(bidProductNo), memNo, bidPrice, now);

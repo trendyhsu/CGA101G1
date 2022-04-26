@@ -38,7 +38,7 @@ public class BidScheduleServlet extends HttpServlet {
 	public void init() {
 		timer = new Timer();
 		// 設定何時開始
-		Calendar cal = new GregorianCalendar(2022, Calendar.MARCH, 24, 0, 0, 0);
+		Calendar cal = new GregorianCalendar(2022, Calendar.MARCH, 26, 0, 0, 0);
 
 		// 截標後把原本競標狀態 0.進行中 更改競標狀態為 1.截標 或 2.流標
 		TimerTask changeBidState = new TimerTask() {
@@ -94,27 +94,27 @@ public class BidScheduleServlet extends HttpServlet {
 			}
 		};
 
-		// 截標後三十分鐘把原本的收件狀態改為作廢 暫時沒空寫
-//        TimerTask changeOrderState = new TimerTask() {
+		// 截標後三十分鐘把原本的競標狀態改為棄標
+        TimerTask changeOrderState = new TimerTask() {
 
-//			@Override
-//			public void run() {
-//				List<BidVO> list = new ArrayList<>();
-//				BidService bidProductSvc = new BidService();
-//				
-//				Integer bidProdState = 0;
-//				
-//				list = bidProductSvc.取得方法 還沒寫;
-//				for (BidVO bidVO : list) {
-//					bidVO.setOrderState(3);
-//					bidSvc.更新狀態(bidVO);
-//				}
-//			}
-//        	
-//        };
+			@Override
+			public void run() {
+				List<BidProductVO> list = new ArrayList<>();
+				BidProductService bidProductSvc = new BidProductService();
+				
+				// 取得大於三十分鐘沒結帳的list
+				list = bidProductSvc.getByBidStateAndSoldTime();
+				
+				for (BidProductVO bidProductVO : list) {
+					// 將競標商品狀態改為狀態 3 棄標
+					bidProductSvc.updateBidState(new Integer(3), bidProductVO.getBidProductNo());
+				}
+			}
+        	
+        };
 
 		timer.scheduleAtFixedRate(changeBidState, cal.getTime(), 1000);
-//      timer.scheduleAtFixedRate(changeOrderState, cal.getTime(), 1000); 
+		timer.scheduleAtFixedRate(changeOrderState, cal.getTime(), 1000); 
 	}
 
 	@Override
