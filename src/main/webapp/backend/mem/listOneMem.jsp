@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"  %>
 
 <%
-    MemService memSvc = new MemService();
-	List<MemVO> list = memSvc.listAllMem();
-    pageContext.setAttribute("list",list);
+  MemVO memVO = (MemVO) request.getAttribute("memVO");//存入req的物件
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -34,7 +32,7 @@
 
 <style>
   table {
-	width: 800px;
+	width: 600px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -48,28 +46,19 @@
   }
 </style>
 
-</head>
-<body bgcolor='white'>
 
-<!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
+</head>
+<body>
+
 <table id="table-1">
 	<tr><td>
-		 <h3>所有會員資料</h3>
-<!-- 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4> -->
+		 <h3>會員資料</h3>
 	</td></tr>
 </table>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message.key} : ${message.value}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
 <table>
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/ChangeMemStatus" style="margin-bottom: 0px;">
+	<input type="hidden" name="memAccount"  value="${memVO.memAccount}">
 	<tr>
 		<th>會員編號</th>
 		<th>會員帳號</th>
@@ -87,13 +76,8 @@
 		<th>賣家功能狀態</th>
 		<th>修改送出</th>
 	</tr>
-<%-- 	<%@ include file="page1.file" %>  --%>
-	<c:forEach var="memVO" items="${list}" >
-<%-- 這行原本在上面 		begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/ChangeMemStatus" style="margin-bottom: 0px;">
-		<input type="hidden" name="memAccount"  value="${memVO.memAccount}">
-		<tr>
-			<td>${memVO.memNo}</td>
+	<tr>
+		<td>${memVO.memNo}</td>
 			<td>${memVO.memAccount}</td>
 			<td>
 				<select name="status">
@@ -115,11 +99,10 @@
 			<td>${memVO.memJoinTime}</td>
 			<td>${memVO.userStatus}</td>
 			<td><input type="submit" value="修改"></td>
-		</tr>
+	</tr>
 	</FORM>
-	</c:forEach>
 </table>
-<%-- <%@ include file="page2.file" %> --%>
+
 
 </body>
 </html>

@@ -1,12 +1,21 @@
 package com.memCoupon.model;
 
+import java.sql.Date;
+
 public class MemCouponVO {
 
 	private Integer memCouponNo;
 	private Integer couponTypeNo;
 	private Integer memNo;
 	private Integer couponState;
+	private Date couponDate;
 	
+	public Date getCouponDate() {
+		return couponDate;
+	}
+	public void setCouponDate(Date couponDate) {
+		this.couponDate = couponDate;
+	}
 	public Integer getMemCouponNo() {
 		return memCouponNo;
 	}

@@ -27,7 +27,7 @@ public class ChangeMemStatus extends HttpServlet {
 		Integer status=Integer.parseInt(opt);
 		MEM_SERVICE.memStatusEdit(memAccount, status);
 		/***************************3.修改完成,準備轉交(Send the Success view)*************/
-		String url = "/backend/mem/lookUpMem.jsp";
+		String url = "/backend/mem/listAllMem.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交index.html
 		successView.forward(request, response);
 		

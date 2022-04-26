@@ -26,7 +26,7 @@ public class MemPicEditServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//取得會員
-		MemVO memVO = (MemVO) request.getSession().getAttribute("member");
+		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
 		String memAccount = memVO.getMemAccount();
 		//讀取圖檔
 		BufferedReader br = request.getReader();

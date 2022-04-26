@@ -24,7 +24,7 @@ public class MemSelfInfoServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
 
-		MemVO mem =(MemVO)request.getSession().getAttribute("member");
+		MemVO mem =(MemVO)request.getSession().getAttribute("memVO");
 		MemVO memVO = MEM_SERVICE.showMemInfo(mem);
 		writePojo2Json(response, memVO);
 		

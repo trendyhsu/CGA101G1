@@ -21,10 +21,14 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 			+ "DiscountPrice= ? , CouponDeadline = ?, CouponQuantity= ?,CouponDescription= ?\r\n"
 			+ "WHERE CouponTypeNo= ?";
 	private static final String DELETE="DELETE FROM coupontype WHERE CouponTypeNo= ?";
+	
 	private static final String GETALL="SELECT CouponTypeNo, CouponName, DiscountPrice, CouponDeadline, CouponQuantity, couponDescription\r\n"
 			+ "FROM coupontype ORDER BY couponTypeNo;";
 	private static final String GETONE="SELECT couponTypeNo, couponName, discountPrice, couponDeadline, couponQuantity, CouponDescription\r\n"
 			+ "FROM coupontype WHERE couponTypeNo = ?;";
+	private static final String GET_ONE_NAME="SELECT couponTypeNo, couponName, discountPrice, couponDeadline, couponQuantity, CouponDescription\r\n"
+			+ "FROM coupontype WHERE couponName = ?;";
+	
 	@Override
 	public void insert(CouponTypeVO couponTypeVO) {
 		Connection con = null;
@@ -36,7 +40,7 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 			
 			ps.setString(1, couponTypeVO.getCouponName());
 			ps.setInt(2, couponTypeVO.getDiscountPrice());
-			ps.setObject(3, couponTypeVO.getCouponDeadline());
+			ps.setDate(3, couponTypeVO.getCouponDeadline());
 			ps.setInt(4, couponTypeVO.getCouponQuantity());
 			ps.setString(5, couponTypeVO.getCouponDescription());
 			ps.executeUpdate();
@@ -77,7 +81,7 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 			
 			ps.setString(1, couponTypeVO.getCouponName());
 			ps.setInt(2, couponTypeVO.getDiscountPrice());
-			ps.setObject(3, couponTypeVO.getCouponDeadline());
+			ps.setDate(3, couponTypeVO.getCouponDeadline());
 			ps.setInt(4, couponTypeVO.getCouponQuantity());
 			ps.setString(5, couponTypeVO.getCouponDescription());
 			ps.setInt(6, couponTypeVO.getCouponTypeNo());
@@ -147,7 +151,7 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 			
 	}
 	
-	@Override
+	
 	public CouponTypeVO getOne(Integer couponTypeNo) {
 
 		CouponTypeVO couponTypeVO= null;
@@ -160,6 +164,63 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 			ps = con.prepareStatement(GETONE);
 			
 			ps.setInt(1, couponTypeNo);
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				couponTypeVO=new CouponTypeVO();
+				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
+				couponTypeVO.setCouponName(rs.getString("couponName"));
+				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
+				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
+				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
+				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
+			}
+		
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return couponTypeVO;
+	}
+	
+	
+	public CouponTypeVO getOneName(String couponName) {
+
+		CouponTypeVO couponTypeVO= null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(GET_ONE_NAME);
+			
+			ps.setString(1, couponName);
 			rs=ps.executeQuery();
 			
 			while(rs.next()) {
