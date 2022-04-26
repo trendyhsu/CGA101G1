@@ -1,6 +1,6 @@
 package com.orderdetail.model;
 
-
+import java.util.List;
 
 public class OrderDetailService {
 
@@ -14,5 +14,10 @@ public class OrderDetailService {
 	public void addNew(OrderDetailVO orderDetailVO) {
 		dao.newByOrder(orderDetailVO);
 	}
+	
+	public List<OrderDetailVO> GetAllDetailByOrderNo(Integer orderNo){
+		return dao.findAllDetailByOrderNo(orderNo);
+	}
+	
 	
 }

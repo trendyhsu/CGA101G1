@@ -954,7 +954,7 @@
                     console.log(myURL);
 
 
-                    const apiUrl = 'http://localhost:8081/CGA101G1/product/OneProductDetail?ProductNo=' + myURL;
+                    const apiUrl = '/CGA101G1/product/OneProductDetail?ProductNo=' + myURL;
 
                     console.log("這是產品詳情：" + apiUrl);
                     axios.get(apiUrl)
@@ -976,7 +976,7 @@
                     let url = new URL(getUrlString);
                     let myURL = url.searchParams.get('ProductNo');
                     console.log(myURL);
-                    const apiUrl = 'http://localhost:8081/CGA101G1/product/ProductPicAll?ProductNo=' + myURL;
+                    const apiUrl = '/CGA101G1/product/ProductPicAll?ProductNo=' + myURL;
                     console.log("這是產品圖片詳情：" + apiUrl);
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!

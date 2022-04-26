@@ -1,0 +1,608 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <!-- Title of The Page -->
+    <title>Fancy Shopping E-commerce HTML Template</title>
+    <!-- Meta Informations -->
+    <meta charset="utf-8">
+    <meta name="description" content="Bootstrap Responsive  Fancy Shopping E-commerce HTML Template">
+    <meta name="keywords"
+        content="Fancy Shopping E-commerce HTML Template,template,bootstrap 5,ui template kit,envato templates,fancy shopping html templates,html,css">
+    <meta name="author" content="Fancy Shopping E-commerce HTML Template">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="../mainCss/css/allStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/style.css">
+    <link rel="stylesheet" href="../mainCss/css/headerStyle.css">
+    <link rel="stylesheet" href="../mainCss/css/footerStyle.css">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
+    <!-- Bootstrap-icons CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
+    <!--Magnific-Popup CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/magnific/magnific-popup.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo-div">
+            <img src=".\\images\\logo.png" alt="">
+            <a href="#" class="logo">帕Game</a>
+        </div>
+
+
+        <nav class="navbar">
+            <!-- 上方標籤列 -->
+            <a class="active" href="#home">首頁</a>
+            <a href="#" class="nav-link">遊戲新聞</a>
+            <a href="/CGA101G1/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
+            <a href="#" class="nav-link">二手競標商城</a>
+            <a href="#" class="nav-link">遊戲討論區</a>
+            <a href="#items">熱門商品</a>
+        </nav>
+
+        <div class="icons">
+            <!--右上方小icon區-->
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
+            <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
+        </div>
+
+    </header>
+    <!-- Header End -->
+    <!-- Main -->
+    <main>
+        <!-- Breadcrumb -->
+        <div class="py-3 bg-gray-100">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 my-2">
+                        <h1 class="m-0 h4 text-center text-lg-start">Your Order</h1>
+                    </div>
+                    <div class="col-lg-6 my-2">
+                        <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+                            <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i
+                                        class="bi bi-home"></i>Home</a></li>
+                            <li class="breadcrumb-item text-nowrap active" aria-current="page">My Account</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb -->
+        <!-- Table -->
+        <div class="py-6">
+            <div class="container">
+                <div class="row">
+                    <!-- Profile Menu -->
+                    <div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
+                        <div class="bg-white border border-bottom-0 shadow-lg">
+                            <div class="d-flex p-3 align-items-center">
+                                <div class="avatar avatar-lg rounded-circle">
+                                    <img src="assets/img/avatar-2.jpg" title="" alt="">
+                                </div>
+                                <div class="col ps-3">
+                                    <h6 class="m-0">Edward Joe</h6>
+                                    <small><a href="javascript:void(0);">your@email.com</a></small>
+                                </div>
+                            </div>
+                            <div class="bg-gray-200 p-3 border-bottom border-top">
+                                <h6 class="m-0">Dashboard</h6>
+                            </div>
+                            <ul class="list-unstyled mb-0 theme-link">
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center active p-3"
+                                        href="account-order.html">
+                                        <i class="bi bi-bag me-2"></i> Order <div
+                                            class="ms-auto badge-pill badge bg-secondary">5</div>
+                                    </a>
+                                </li>
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3"
+                                        href="account-wishlist.html">
+                                        <i class="bi bi-heart me-2"></i>Wishlist <div
+                                            class="ms-auto badge-pill badge bg-secondary">5</div>
+                                    </a>
+                                </li>
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-tickets.html">
+                                        <i class="bi bi-bookmark me-2"></i>Support Tickets <div
+                                            class="ms-auto badge-pill badge bg-secondary">0</div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="bg-gray-200 p-3 border-bottom">
+                                <h6 class="m-0">Account settings</h6>
+                            </div>
+                            <ul class="list-unstyled mb-0 theme-link">
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-profile.html">
+                                        <i class="bi bi-person-circle me-2"></i>Profile info
+                                    </a>
+                                </li>
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-address.html">
+                                        <i class="bi bi-map-fill me-2"></i>Addresses
+                                    </a>
+                                </li>
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-payment.html">
+                                        <i class="bi bi-credit-card me-2"></i>Payment
+                                    </a>
+                                </li>
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" href="javascript:void(0);">
+                                        <i class="bi bi-box-arrow-left me-2"></i>Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Profile Menu -->
+                    <!-- Content -->
+                    <div class="col-lg-8 col-xxl-9" id="app">
+                        <div v-for="(item, index) in  datastore" :key="index" class="table-responsive fs-md mb-4">
+                            <table class="table table-bordered table-hover mb-0">
+                                <thead class="text-700 bg-gray-200">
+                                    <tr>
+                                        <th class="fw-600">訂單編號</th>
+                                        <th class="fw-600">下單日期</th>
+                                        <th class="fw-600">訂單狀態</th>
+                                        <th class="fw-600">金額</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-3"><button class="link-dark" data-bs-toggle="modal"
+                                                @click="openOrderDetails($event)"
+                                                :value="item.orderNo">{{item.orderNo}}</button>
+                                        </td>
+                                        <td class="p-3">{{item.tranTime}}</td>
+                                        <td class="p-3"><span class="badge bg-info m-0">{{item.orderStateStr}}</span>
+                                        </td>
+                                        <td class="p-3">NT:{{item.orderTotalPrice}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- 開關施工 -->
+                            <div v-show="item.openOrderDetail" style="width: 63%;">
+                                <table class="table table-bordered table-hover mb-0">
+                                    <thead class="text-700 bg-gray-200">
+                                        <tr>
+                                            <th class="fw-600">遊戲編號</th>
+                                            <th class="fw-600">遊戲名稱</th>
+                                            <th class="fw-600">數量</th>
+                                            <th class="fw-600">總價</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(item, index) in item.orderDetail" :key="index">
+                                        <tr>
+                                            <td class="p-3">{{item.productNo}}</td>
+                                            <td class="p-3">{{item.productName}}</td>
+                                            <td class="p-3">{{item.productSales}}</td>
+                                            <td class="p-3"><span
+                                                    class="badge bg-info m-0">{{item.productTotalPrice}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="d-none d-lg-block">Showing: 1 - 12 of 17</div>
+                            <div class="ms-lg-auto">
+                                <ul class="pagination m-0">
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                                            <span aria-hidden="true">«</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                                            <span aria-hidden="true">»</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <!--Table -->
+    </main>
+    <!-- End Main -->
+    <!-- Footer -->
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>會員專區</h3>
+                <a href="#">會員登入</a>
+                <a href="#">會員註冊</a>
+                <a href="#">訂單管理</a>
+                <a href="#">二手遊戲申請上架單管理</a>
+            </div>
+
+            <div class="box">
+                <h3>快速連結</h3>
+                <a href="#">首頁</a>
+                <a href="#">遊戲商城</a>
+                <a href="#">二手競標商城</a>
+                <a href="#">遊戲討論區</a>
+            </div>
+
+            <div class="box">
+                <h3>聯絡我們</h3>
+                <a href="#">+123-456-7890</a>
+                <a href="#">+111-222-3333</a>
+                <a href="#">shailhanas@gmail.com</a>
+                <a href="#">anasbhai@gmail.com</a>
+            </div>
+
+            <div class="box">
+                <h3>關於我們</h3>
+                <a href="#">管理團隊</a>
+                <a href="#">創始理念</a>
+                <a href="#">insuagram</a>
+                <a href="#">linkedin</a>
+            </div>
+        </div>
+
+        <div class="credit">copyright@2021 by <span>mr .web designer</span></div>
+
+    </section>
+    <!-- End Footer -->
+    <!-- jquery -->
+    <script src="../mainCss/assets/js/jquery-3.5.1.min.js"></script>
+    <!-- appear -->
+    <script src="../mainCss/assets/vendor/appear/jquery.appear.js"></script>
+    <!--bootstrap-->
+    <script src="../mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- owl-carousel -->
+    <script src="../mainCss/assets/vendor/slick/slick.min.js"></script>
+    <!-- magnific -->
+    <script src="../mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+    <!-- isotope -->
+    <script src="../mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!-- count-down -->
+    <script src="../mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
+    <!-- Theme Js -->
+    <script src="../mainCss/assets/js/custom.js"></script>
+
+
+
+
+
+    <script>
+        //custom select box
+
+        // $(function () {
+        //     $('select.styled').customSelect();
+        // });
+        const app = Vue.createApp({
+            data() {
+                return {
+                    datastore: [],
+                    picData: [],
+                    gametype: [],
+                    gameplatform: [],
+                    orderStateName: [
+                        {
+                            orderState: 0,
+                            orderStateStr: "未出貨"
+                        },
+                        {
+                            orderState: 1,
+                            orderStateStr: "已出貨"
+                        },
+                        {
+                            orderState: 2,
+                            orderStateStr: "完成訂單"
+                        },
+                        {
+                            orderState: 3,
+                            orderStateStr: "退貨"
+                        },
+                        {
+                            orderState: 4,
+                            orderStateStr: "作廢"
+                        },
+
+                    ],
+                    ProductName: [],
+
+
+
+
+                    temp: {},
+                    isNew: false,
+                    url: null,
+                    url2: null,
+                    url3: null,
+                    //驗證表單用
+
+
+
+
+                    renderData: [], // 建立每頁顯示資料
+                    pageBaseNum: 4,  // 每頁顯示資料數量
+                    nowPage: 0, // 初始、現在頁數
+
+                }
+            },
+            methods: {
+                renderingPage() {
+                    for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
+                        this.renderData.push(
+                            (this.datastore.slice
+                                (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
+                            )
+                        );
+                    }
+                },
+                getOrderData() {
+                    const apiUrl = '/CGA101G1/order/showOneMemsOrder';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取ProductData的狀態：" + response.status); //狀態碼
+                            this.datastore = response.data;//塞進去
+                            console.log("datastore讀取資料ok");
+                            this.getProductName();
+                            this.insertOrderStatusName(this.orderStateName);
+
+
+                        });
+                },
+                getProductName() {
+                    const apiUrl = '/CGA101G1/product/showAllProductsName';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取ProductName的狀態：" + response.status); //狀態碼
+                            this.ProductName = response.data;//塞進去
+                            console.log("ProductName讀取資料ok");
+                        });
+                },
+                insertOrderStatusName(orderStateName) {
+                    console.log("insertgameplatform開始");
+                    for (j = 0; j < this.datastore.length; j++) {
+                        this.datastore[j].orderStateStr = "";
+                        this.datastore[j].openOrderDetail = false;
+                        for (i = 0; i < orderStateName.length; i++) {
+                            if (orderStateName[i].orderState == this.datastore[j].orderState) {
+                                this.datastore[j].orderStateStr = orderStateName[i].orderStateStr;
+                            }
+                        }
+                    }
+                },
+                getOrderDetailData(orderNo) {
+                    const apiUrl = '/CGA101G1/product/getOrderDetailByOrderNo?OrderNo=' + `${orderNo}`;
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取ProductData的狀態：" + response.status); //狀態碼
+                            console.log(response.data);
+                            for (i = 0; i < this.datastore.length; i++) {
+                                if (this.datastore[i].orderNo == orderNo) {
+                                    console.log("開始塞明細");
+                                    this.datastore[i].orderDetail = [];
+                                    this.datastore[i].orderDetail = response.data//塞進去
+                                }
+                            }
+                            console.log("塞明細ok");
+
+                            console.log("開始加遊戲名稱");
+                            for (i = 0; i < this.datastore.length; i++) {
+                                // console.log("遊戲名稱:" + this.datastore[i].orderDetail[0].productNo);
+                                for (j = 0; j < this.datastore[i].orderDetail.length; j++) {
+                                    console.log("遊戲名稱:" + this.datastore[i].orderDetail[j].productNo);
+                                    this.datastore[i].orderDetail[j].productName = '';
+                                    // console.log(this.datastore[i].orderDetail[j].productName);
+                                    //名字放不進去
+                                    for (k = 0; k < this.ProductName.length; k++) {
+                                        console.log(this.ProductName[k].productNo);
+                                        if (this.datastore[i].orderDetail[j].productNo == this.ProductName[k].productNo) {
+                                            this.datastore[i].orderDetail[j].productName = this.ProductName[k].productName;
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        });
+                },
+
+
+
+
+                onFileChange(e) {
+                    const file = e.target.files[0];
+                    this.url = URL.createObjectURL(file);
+                },
+                onFileChange2(e) {
+                    const file2 = e.target.files[0];
+                    this.url2 = URL.createObjectURL(file2);
+                },
+                onFileChange3(e) {
+                    const file3 = e.target.files[0];
+                    this.url3 = URL.createObjectURL(file3);
+                },
+
+
+
+                previousPage() {
+                    if (this.nowPage != 0) { // 頁數初始值為 0 
+                        this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
+                    }
+                },
+                nextPage() {
+                    if (this.nowPage < this.totalPage - 1) {
+                        this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
+                    }
+                },
+                skipPage(pageNum) {
+                    this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
+                },
+
+
+
+
+                //table的方法
+                openOrderDetails(e) {
+                    //取編號
+                    console.log(e.target.value);
+                    for (detail of this.datastore) {
+                        if (e.target.value == detail.orderNo) {
+                            console.log("有找到" + detail.orderNo + "所以打開orderDetail");
+                            detail.openOrderDetail = !detail.openOrderDetail;
+                        }
+                    };
+                    this.getOrderDetailData(e.target.value);
+
+                }
+
+            },
+            computed: {
+                totalPage() {
+                    return Math.ceil(this.datastore.length / this.pageBaseNum); // 依每頁數量計算總頁數
+                }
+            },
+            created() {
+                this.getOrderData();
+
+            }
+        })
+
+        //         app.component('card-template', {
+        //             data() {
+        //                 return {
+
+        //                 }
+        //             },
+        //             props: ['readData', 'nowPage'],
+        //             methods: {
+        //                 webcamSendRequestButton(para) {
+        //                     console.log(para);
+        //                     console.log({ ...para });
+        //                     this.$emit('emitedit', para);
+        //                 },
+        //             },
+        //             template: `  <table class="table table-striped">
+        //                         <thead>
+        //                             <tr>
+        //                                 <th>產品編號</th>
+        //                                 <th>產品名稱</th>
+        //                                 <th>價格</th>
+        //                                 <th>封面</th>
+        //                                 <th>遊戲種類</th>
+        //                                 <th>遊戲平台種類</th>
+        //                                 <th>遊戲公司</th>
+        //                                 <th>銷售狀態</th>
+        //                                 <th>產品描述</th>
+        //                                 <th>UpcNum</th>
+        //                                 <th>產品圖片2</th>
+        //                                 <th>產品圖片3</th>
+        //                                 <th>編輯</th>
+        //                             </tr>
+        //                         </thead>
+        //                         <tbody>
+        //                             <tr v-for="item in readData[nowPage]" :key="item.productNo"
+        //                                 v-bind:class="{'table-success':item.onStock}">
+        //                                 <td>{{item.productNo}}</td>
+        //                                 <td>{{item.productName}}</td>
+        //                                 <td>{{item.productPrice}}</td>
+        //                                 <td>
+        //                                     <img :src="item.picList[0].imageUrl" alt="" height="100">
+        //                                 </td>
+        //                                 <td>{{item.gameTypeName}}</td>
+        //                                 <!-- 要改成中文 -->
+        //                                 <td>{{item.gamePlatformName}}</td>
+        //                                 <td>{{item.gameCompanyNo}}</td>
+        //                                 <td>{{item.StatusName}}</td>
+        //                                 <td class="descriptionArea">{{item.itemProdDescription}}</td>
+        //                                 <td>{{item.upcNum}}</td>
+        //                                 <td>
+        //                                     <img :src="item.picList[1].imageUrl" alt="" height="100">
+        //                                 </td>
+        //                                 <td>
+        //                                     <img :src="item.picList[2].imageUrl" alt="" height="100">
+        //                                 </td>
+        //                                 <td><button type="button" class="btn btn-outline-primary"
+        //                                         @click="webcamSendRequestButton(item)">編輯</button></td>
+        //                             </tr>
+        //                         </tbody>
+        //                  </table>
+        // `,
+        //         })
+
+        //         app.component('pagination-list', {
+        //             props: ['pages', 'nowPage', 'totalPage'],
+        //             methods: {
+        //                 previousPage() {  // 下一頁
+        //                     this.$emit('previousPage');
+        //                 },
+        //                 nextPage() {  // 上一頁
+        //                     this.$emit('nextPage');
+        //                 },
+        //                 skipPage(pageNum) { // 跳頁
+        //                     this.$emit('skipPage', pageNum);
+        //                 },
+        //             },
+        //             template: `
+        // <ul class="pagination" id="pageid">
+
+        // <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
+
+        // <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
+
+        // <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
+
+        // <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
+
+        // <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+
+        // </ul>
+        // `,
+        // })
+        app.mount('#app');
+
+
+
+    </script>
+</body>
+<!-- end body -->
+
+</html>

@@ -22,7 +22,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static final String FindAllProduct = "SELECT ProductNo,sum(ProductSales) totalSales,sum(ProductTotalPrice) TotalPrice,avg(CommentStar) avgCommentStar  FROM cga101g1.orderdetail group by ProductNo order by TotalPrice desc;";
 
 	
-	
+	//查某張訂單的項目
+	private static final String FindAllProductByOrderNo = "SELECT OrderNo,ProductNo,ProductSales,ProductTotalPrice FROM cga101g1.orderdetail where OrderNo=? ;";
+                                                             //      1        2           3              4
 	
 	//新增訂單項目
 	private static final String NewByOrder = "INSERT INTO orderdetail (OrderNo, ProductNo, ProductSales, ProductTotalPrice) VALUES (?, ?, ?, ?);";
@@ -65,7 +67,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
 				orderDetailVO.setProductSales(rs.getInt("TotalSales"));
 				orderDetailVO.setProductTotalPrice(rs.getInt("TotalPrice"));
-				orderDetailVO.setCommentStar(rs.getDouble("avgCommentStar"));
+				orderDetailVO.setCommentStar(rs.getInt("avgCommentStar"));
 				list.add(orderDetailVO);			
 			}
 
@@ -331,7 +333,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setProductTotalPrice(rs.getInt("ProductTotalPrice"));
 				orderDetailVO.setCommentCotent(rs.getString("CommentCotent"));
 				orderDetailVO.setCommentTime(rs.getDate("CommentTime"));
-				orderDetailVO.setCommentStar(rs.getDouble("CommentStar"));
+				orderDetailVO.setCommentStar(rs.getInt("CommentStar"));
 				list.add(orderDetailVO);			
 			}
 
@@ -391,7 +393,68 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
 				orderDetailVO.setProductSales(rs.getInt("totalSales"));
 				orderDetailVO.setProductTotalPrice(rs.getInt("TotalPrice"));
-				orderDetailVO.setCommentStar(rs.getDouble("avgCommentStar"));
+				orderDetailVO.setCommentStar(rs.getInt("avgCommentStar"));
+				list.add(orderDetailVO);			
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<OrderDetailVO> findAllDetailByOrderNo(Integer OrderNo) {
+		List<OrderDetailVO> list = new ArrayList<>();
+		OrderDetailVO orderDetailVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FindAllProductByOrderNo);
+			pstmt.setInt(1, OrderNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// orderDetailVO 也稱為 Domain objects
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setOrderNo(rs.getInt("OrderNo"));
+				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
+				orderDetailVO.setProductSales(rs.getInt("ProductSales"));
+				orderDetailVO.setProductTotalPrice(rs.getInt("ProductTotalPrice"));
 				list.add(orderDetailVO);			
 			}
 

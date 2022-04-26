@@ -17,6 +17,14 @@
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+            <style>
+                .descriptionArea {
+                    width: 200px;
+                    /* white-space: pre-wrap; */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            </style>
 
             <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!--[if lt IE 9]>
@@ -82,10 +90,10 @@
                                         <div>
                                             <label for="productState" class="form-label">銷售狀態</label>
                                             <input type="radio" id="productStateUn" name="ProductState"
-                                                v-model="temp.productStateUn" value="0" checked>
+                                                v-model="temp.productState" value="0" checked="">
                                             <label for="productStateUn" class="form-label">未上架</label>
                                             <input type="radio" id="productStateS" name="ProductState"
-                                                v-model="temp.productStateS" value="1">
+                                                v-model="temp.productState" value="1">
                                             <label for="productStateS" class="form-label">已上架</label>
                                         </div>
                                         <div>
@@ -228,6 +236,22 @@
                         return {
                             datastore: [],
                             picData: [],
+                            gametype: [],
+                            gameplatform: [],
+                            productStatus: [
+                                {
+                                    productStatusNo: 0,
+                                    productStatusName: "未開賣"
+                                },
+                                {
+                                    productStatusNo: 1,
+                                    productStatusName: "販售中"
+                                },
+                            ],
+
+
+
+
                             temp: {},
                             isNew: false,
                             url: null,
@@ -256,7 +280,7 @@
                             }
                         },
                         getProductData() {
-                            const apiUrl = 'http://localhost:8081/CGA101G1/product/OneProductToJson';
+                            const apiUrl = '/CGA101G1/product/OneProductToJson';
                             axios.get(apiUrl)
                                 // 一定要用箭頭函示!!!!
                                 .then((response) => {
@@ -265,20 +289,95 @@
                                     this.datastore = response.data;//塞進去
                                     console.log("datastore讀取資料ok");
                                     this.getPicData();
+                                    this.getGametype();
+                                    this.getGameplatform();
+                                    this.insertproductStatusName(this.productStatus);
+
+
+
                                     this.renderingPage();
                                 });
                         },
                         getPicData() {
-                            const apiUrl = 'http://localhost:8081/CGA101G1/product/ProductPics';
+                            const apiUrl = '/CGA101G1/product/ProductPics';
                             axios.get(apiUrl)
                                 // 一定要用箭頭函示!!!!
                                 .then((response) => {
                                     console.log("取pic的狀態：" + response.status); //狀態碼
-
                                     this.picData = response.data;//塞進去
                                     this.insertPic(this.picData);
+                                });
+                        },
+                        insertPic(picData) {
+                            console.log("insertPic開始");
+                            for (j = 0; j < this.datastore.length; j++) {
+                                this.datastore[j].picList = [];
+                                for (i = 0; i < picData.length; i++) {
+                                    if (picData[i].productNo == this.datastore[j].productNo) {
+                                        this.datastore[j].picList.push(picData[i]);
+                                    }
+                                }
+                            }
+                            this.picData = [];
+                            console.log("insert完畢");
+                        },
+                        getGametype() {
+                            const apiUrl = '/CGA101G1/gametype/getAllGameType';
+                            axios.get(apiUrl)
+                                // 一定要用箭頭函示!!!!
+                                .then((response) => {
+                                    console.log("取gametype的狀態：" + response.status); //狀態碼
+                                    this.gametype = response.data;//塞進去
+                                    this.insertGametype(this.gametype);
 
                                 });
+                        },
+                        insertGametype(gametype) {
+                            console.log("insertgametype開始");
+                            for (j = 0; j < this.datastore.length; j++) {
+                                this.datastore[j].gameTypeName = "";
+                                for (i = 0; i < gametype.length; i++) {
+                                    if (gametype[i].gameTypeNo == this.datastore[j].gameTypeNo) {
+                                        this.datastore[j].gameTypeName = gametype[i].gameTypeName;
+                                    }
+                                }
+                            }
+                            console.log("insert完畢");
+                        },
+                        getGameplatform() {
+                            const apiUrl = '/CGA101G1/gameplatformtype/getAllGamePlatformType';
+                            axios.get(apiUrl)
+                                // 一定要用箭頭函示!!!!
+                                .then((response) => {
+                                    console.log("取gameplatformtype的狀態：" + response.status); //狀態碼
+                                    this.gameplatform = response.data;//塞進去
+                                    this.insertGameplatform(this.gameplatform);
+
+                                });
+                        },
+                        insertGameplatform(gameplatform) {
+                            console.log("insertgameplatform開始");
+                            for (j = 0; j < this.datastore.length; j++) {
+                                this.datastore[j].gamePlatformName = "";
+                                for (i = 0; i < gameplatform.length; i++) {
+                                    if (gameplatform[i].gamePlatformNo == this.datastore[j].gamePlatformNo) {
+                                        this.datastore[j].gamePlatformName = gameplatform[i].gamePlatformName;
+                                    }
+                                }
+                            }
+                            console.log("insert完畢");
+                        },
+                        insertproductStatusName(productStatus) {
+                            console.log("insertgameplatform開始");
+                            for (j = 0; j < this.datastore.length; j++) {
+                                this.datastore[j].StatusName = "";
+                                for (i = 0; i < productStatus.length; i++) {
+                                    if (productStatus[i].productStatusNo == this.datastore[j].productState) {
+                                        this.datastore[j].StatusName = productStatus[i].productStatusName;
+                                    }
+                                }
+                            }
+                            console.log("insert完畢");
                         },
                         additem() {
                             this.isNew = true;
@@ -307,19 +406,8 @@
                             const file3 = e.target.files[0];
                             this.url3 = URL.createObjectURL(file3);
                         },
-                        insertPic(picData) {
-                            console.log("insertPic開始");
-                            for (j = 0; j < this.datastore.length; j++) {
-                                this.datastore[j].picList = [];
-                                for (i = 0; i < picData.length; i++) {
-                                    if (picData[i].productNo == this.datastore[j].productNo) {
-                                        this.datastore[j].picList.push(picData[i]);
-                                    }
-                                }
-                            }
-                            this.picData = [];
-                            console.log("insert完畢");
-                        },
+
+
 
                         previousPage() {
                             if (this.nowPage != 0) { // 頁數初始值為 0 
@@ -403,12 +491,12 @@
                                         <td>
                                             <img :src="item.picList[0].imageUrl" alt="" height="100">
                                         </td>
-                                        <td>{{item.gameTypeNo}}</td>
+                                        <td>{{item.gameTypeName}}</td>
                                         <!-- 要改成中文 -->
-                                        <td>{{item.gamePlatformNo}}</td>
+                                        <td>{{item.gamePlatformName}}</td>
                                         <td>{{item.gameCompanyNo}}</td>
-                                        <td>{{item.productState}}</td>
-                                        <td>{{item.itemProdDescription}}</td>
+                                        <td>{{item.StatusName}}</td>
+                                        <td class="descriptionArea">{{item.itemProdDescription}}</td>
                                         <td>{{item.upcNum}}</td>
                                         <td>
                                             <img :src="item.picList[1].imageUrl" alt="" height="100">

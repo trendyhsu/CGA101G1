@@ -21,5 +21,9 @@ public interface ProductDAO_interface {
 	public List<ProductVO> getAllByWord(String ProductName);
 	
 	public List<ProductVO> getAllInSell();
+	
+	public List<ProductVO> getAllInDetail();
+	
+	public List<ProductVO> getAllInName();
 
 }

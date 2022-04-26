@@ -105,5 +105,10 @@ public class ProductService {
 	public List<ProductVO> GetNewestOne() {
 		return dao.findByTop3MaxPrimaryKey();
 	}
+	
+	//查全產品的名字
+	public List<ProductVO> GetAllProductsName() {
+		return dao.getAllInName();
+	}
 
 }
