@@ -2,7 +2,6 @@ package com.manager.model;
 
 import java.util.List;
 
-import com.gameplatformtype.model.GamePlatformTypeVO;
 
 
 public class ManagerService {
@@ -13,11 +12,10 @@ private ManagerDAO_interface dao;
 		dao = new ManagerJDBCDAO ();
 	}
 
-	public ManagerVO addManager(Integer managerNo, String managerAccount, String managerPassword, String managerName,
+	public void addManager(String managerAccount, String managerPassword, String managerName,
 			String managerPhone, byte[] myManagerPic, Integer managerState) {
 
 		ManagerVO managerVO = new ManagerVO();
-		managerVO.setManagerNo(managerNo);
 		managerVO.setManagerAccount(managerAccount);
 		managerVO.setManagerPassword(managerPassword);
 		managerVO.setManagerName(managerName);
@@ -25,7 +23,6 @@ private ManagerDAO_interface dao;
 		managerVO.setMyManagerPic(myManagerPic);
 		managerVO.setManagerState(managerState);
 		dao.insert(managerVO);
-		return managerVO;
 	
 	}
 

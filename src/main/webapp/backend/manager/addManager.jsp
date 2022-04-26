@@ -91,20 +91,16 @@ h3 {
 								value="${managerVO.managerPhone}" /></td>
 						</tr>
 						<tr>
-							<div>
-									<label
-									for="managerState" class="form-label">管理員狀態</label> <input
-									type="radio" name="managerState"
-									v-model="temp.productStateS" value="1"> <label
-									for="productStateS" class="form-control">在職</label>
-							</div>
+							<td><label for="managerState" class="form-label">管理員狀態</label>
+								<input type="radio" name="managerState" value="1"> <label
+								class="form-control">在職</label></td>
 						</tr>
 						<tr>
 							<td>管理員照片</td>
-							<td><input type="text" name="myManagerPic" size="20"
+							<td><input type="file" name="myManagerPic" size="20"
 								value="${managerVO.myManagerPic}" /></td>
 						</tr>
-						
+
 						<tr>
 							<td><input type="submit" value="新增"> <input
 								type="reset" value="重設"></td>
