@@ -6,7 +6,6 @@
 <%@ page import="java.util.*"%>
 
 <%@include file="/backend/share.jsp"%>
-<%-- <%@include file="/backend/bid/assets/headerCDN.txt" %> --%>
 
 <%
 ForumPostPicService forumPostPicSvc = new ForumPostPicService();
@@ -54,7 +53,7 @@ h3 {
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
+					<li style="color: red">${message.key} : ${message.value}</li>
 				</c:forEach>
 			</ul>
 		</c:if>
@@ -66,42 +65,16 @@ h3 {
 				<th>文章照片&emsp;</th>
 			</tr>
 			<%@ include file="page1.file"%>
-			<c:forEach var="forumPostPicVO" items="${list}" begin="<%=pageIndex%>"
-				end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="forumPostPicVO" items="${list}"
+				begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
 					<td>${forumPostPicVO.forumPostPicNo}</td>
 					<td>${forumPostPicVO.forumPostNo}</td>
 					<td>${forumPostPicVO.forumPic}</td>
-
-					<!--  <FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/BidRecordGetOneByBidProductNo"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="查看"> <input type="hidden"
-							name="bidProductNo" value="${bidProductVO.bidProductNo}">
-					</FORM>
-					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bidProductEdit"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="修改"> <input type="hidden"
-								name="bidProductNo" value="${bidProductVO.bidProductNo}">
-						</FORM>
-					</td>
-					<td>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/xxxx"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="撥付"> <input type="hidden"
-								name="bidProductNo" value="${bidProductVO.bidProductNo}">
-							<input type="hidden" name="action" value="pay">
-						</FORM>
-					</td> -->
 				</tr>
 			</c:forEach>
 		</table>
 		<%@ include file="page2.file"%>
 	</div>
-
-
 </body>
 </html>

@@ -2,21 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.forumpost.model.*"%>
+<%@ page import="com.forum.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%@include file="/backend/share.jsp"%>
 
 <%
 // 取得來自 ForumPostReportOneEditServlet 的 ForumPostReportVO
-ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
+ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改文章</title>
+<title>修改討論區</title>
 
 <style>
 table {
@@ -57,19 +57,19 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改文章資料</h3>
+							<h3>修改討論區資料</h3>
 						</td>
 					</tr>
 				</table>
 				<!-- main content -->
 
 				<form method="post"
-					action="<%=request.getContextPath()%>/forum/forumPostEditUpdate"
+					action="<%=request.getContextPath()%>/forum/forumEditUpdate"
 					name="form1">
 					<table>
 						<tr>
-							<td>文章編號</td>
-							<td>${forumPostVO.forumPostNo}</td>
+							<td>討論區編號</td>
+							<td>${forumVO.forumPostNo}</td>
 						</tr>
 						<tr>
 							<td>討論區名稱</td>

@@ -35,7 +35,6 @@ public class ForumPostOneEditServlet extends HttpServlet {
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 		
-		try {
 			// 1.接收請求參數
 			Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
 
@@ -47,18 +46,10 @@ public class ForumPostOneEditServlet extends HttpServlet {
 			// 從資料庫取forumPostReportVO 物件, 存入 request 中
 			request.setAttribute("forumPostVO", forumPostVO);
 			String url = "/backend/forum/editForumPost.jsp";
-			// 成功轉交 editForumPostReport.jsp
+			// 成功轉交 editForumPost.jsp
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);
 			
-			// 其他可能的錯誤處理
-		} catch (Exception e) {
-			String url = "/backend/forum/listAllForumPost.jsp";
-			errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-			RequestDispatcher failureView = request.getRequestDispatcher(url);
-			failureView.forward(request, response);
-		}
-
 	}	
 
 }

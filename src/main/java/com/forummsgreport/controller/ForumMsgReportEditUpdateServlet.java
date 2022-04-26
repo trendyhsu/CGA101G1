@@ -1,9 +1,8 @@
 package com.forummsgreport.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,47 +27,39 @@ public class ForumMsgReportEditUpdateServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		List<String> errorMsgs = new LinkedList<String>();
+		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		try {
-			// 1.接收請求參數
-			Integer forumMsgReportNo = Integer.valueOf(request.getParameter("forumMsgReportNo"));
-			Integer forumMsgReportType = Integer.valueOf(request.getParameter("forumMsgReportType"));
+		/*************************** 1.接收請求參數 **********************/
+		Integer forumMsgReportNo = Integer.valueOf(request.getParameter("forumMsgReportNo"));
 
-			// 2.開始查詢資料
+		Integer forumMsgReportType = Integer.valueOf(request.getParameter("forumMsgReportType"));
+
+		// 回傳錯誤訊息
+		if (!errorMsgs.isEmpty()) {
+			
 			ForumMsgReportService forumMsgReportSvc = new ForumMsgReportService();
 			ForumMsgReportVO forumMsgReportVO = forumMsgReportSvc.getOneForumMsgReport(forumMsgReportNo);
-
-			forumMsgReportVO.setForumMsgReportType(forumMsgReportType);
-
-			// 回傳錯誤訊息
-			if (!errorMsgs.isEmpty()) {
-				request.setAttribute("forumMsgReportVO", forumMsgReportVO);
-				RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumMsgReport.jsp");
-				failureView.forward(request, response);
-				return; // 程式中斷
-			}
-
-			// 3.開始修改資料
-
-			forumMsgReportSvc.updateForumMsgReport(forumMsgReportNo, forumMsgReportType);
-
-			// 4.查詢完成,準備轉交(Send the Success view)
-
-			request.setAttribute("forumMsgReportVO", forumMsgReportVO); // 資料庫update成功後,正確的的forumMsgReportVO物件,存入request
-			String url = "/backend/forum/listOneForumMsgReport.jsp";
-			RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneForumMsgReport.jsp
-			successView.forward(request, response);
-
-			/*************************** 其他可能的錯誤處理 *************************************/
-		} catch (Exception e) {
-			e.printStackTrace();
-			errorMsgs.add("修改資料失敗:" + e.getMessage());
+			
+			request.setAttribute("forumMsgReportVO", forumMsgReportVO);
+			
 			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumMsgReport.jsp");
 			failureView.forward(request, response);
+			return; // 程式中斷
 		}
+
+		/*************************** 2.開始修改資料 *****************************************/
+		ForumMsgReportService forumMsgReportSvc = new ForumMsgReportService();
+		ForumMsgReportVO forumMsgReportVO = forumMsgReportSvc.updateForumMsgReport(forumMsgReportNo,forumMsgReportType);
+
+		/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+		
+		request.setAttribute("forumMsgReportVO", forumMsgReportVO); // 資料庫update成功後,正確的的forumMsgReportVO物件,存入request
+		String url = "/backend/forum/listOneForumMsgReport.jsp";
+		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneForumMsgReport.jsp
+		successView.forward(request, response);
+
 	}
 
 }

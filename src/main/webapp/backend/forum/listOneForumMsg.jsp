@@ -2,11 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.sql.Timestamp"%>
-<%@page import="com.forummsg.model.ForumMsgVO"%>
-<%@page import="com.forummsg.model.ForumMsgService"%>
 <%@ page import="com.forummsg.model.*"%>
 <%@ page import="java.util.*"%>
 
@@ -66,18 +61,7 @@ h3 {
 						</td>
 					</tr>
 				</table>
-
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-
-				<!-- 		主要修改資訊區 -->
+				<!-- main content -->
 				<table>
 					<tr>
 						<td>留言編號</td>
@@ -104,6 +88,7 @@ h3 {
 							</c:if> <c:if test="${forumMsgVO.forumMsgType == 1}" var="condition">
 								<c:out value="1顯示" escapeXml="false"></c:out>
 							</c:if></td>
+							<!--<td>${errorMsgs.forumMsgType}</td>-->
 					</tr>
 					<tr>
 						<td>留言內容</td>
@@ -111,7 +96,8 @@ h3 {
 					</tr>
 					<tr>
 						<td>發表時間</td>
-						<td>${forumMsgVO.forumMsgTime}</td>
+						<td><fmt:formatDate value="${forumMsgVO.forumMsgTime}"
+								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 				</table>
 
@@ -119,8 +105,7 @@ h3 {
 					ACTION="<%=request.getContextPath()%>/forum/forumMsgOneEditServlet"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改狀態"> <input type="hidden"
-						name="forumMsgNo"
-						value="${forumMsgVO.forumMsgNo}">
+						name="forumMsgNo" value="${forumMsgVO.forumMsgNo}">
 				</FORM>
 			</div>
 		</section>
@@ -132,6 +117,14 @@ h3 {
 				<button>返回留言列表</button>
 			</a>
 		</div>
+
+		<div style="display: inline-block;">
+			<a
+				href="<%=request.getContextPath()%>/backend/forum/listAllForumMsgReport.jsp">
+				<button>返回留言檢舉列表</button>
+			</a>
+		</div>
+
 		<div style="display: inline-block;">
 			<a
 				href="<%=request.getContextPath()%>/backend/forum/selectReportHome.jsp">

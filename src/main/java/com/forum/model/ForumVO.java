@@ -49,4 +49,10 @@ public class ForumVO implements java.io.Serializable {
 	public void setForumImg(byte[] forumImg) {
 		this.forumImg = forumImg;
 	}
+	// for join memName from memNo
+		public com.member.model.MemVO getMemVO() {
+			com.member.model.MemJDBCDAO memDAO = new com.member.model.MemJDBCDAO();
+			com.member.model.MemVO memVO = memDAO.getOne(memNo);
+			return memVO;
+		}
 }

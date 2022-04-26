@@ -2,11 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.sql.Timestamp"%>
-<%@page import="com.forummsg.model.ForumMsgVO"%>
-<%@page import="com.forummsg.model.ForumMsgService"%>
 <%@ page import="com.forummsg.model.*"%>
 <%@ page import="java.util.*"%>
 
@@ -66,18 +61,7 @@ h3 {
 						</td>
 					</tr>
 				</table>
-
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-
-				<!-- 		主要修改資訊區 -->
+				<!-- main content -->
 
 				<form method="post"
 					action="<%=request.getContextPath()%>/forum/forumMsgEditUpdate"
@@ -114,14 +98,15 @@ h3 {
 						</tr>
 						<tr>
 							<td>發表時間</td>
-							<td>${forumMsgVO.forumMsgTime}</td>
+							<td><fmt:formatDate value="${forumMsgVO.forumMsgTime}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 
 					</table>
 
 					<input type="hidden" name="forumMsgNo"
-						value="${forumMsgVO.forumMsgNo}"> <input
-						type="submit" value="確認修改">
+						value="${forumMsgVO.forumMsgNo}"> <input type="submit"
+						value="確認修改">
 				</form>
 
 				<div style="height: 15px"></div>
@@ -138,6 +123,5 @@ h3 {
 		<!--main content end-->
 
 	</section>
-
 </body>
 </html>

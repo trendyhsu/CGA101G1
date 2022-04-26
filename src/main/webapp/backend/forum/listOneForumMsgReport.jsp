@@ -2,11 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.sql.Timestamp"%>
 <%@page import="com.forummsgreport.model.ForumMsgReportVO"%>
-<%@page import="com.forummsgreport.model.ForumMsgReportService"%>
 <%@ page import="com.forummsgreport.model.*"%>
 <%@ page import="java.util.*"%>
 
@@ -66,18 +62,7 @@ h3 {
 						</td>
 					</tr>
 				</table>
-
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-
-				<!-- 		主要修改資訊區 -->
+				<!-- main content -->
 				<table>
 					<tr>
 						<td>留言檢舉編號</td>
@@ -89,8 +74,10 @@ h3 {
 					</tr>
 					<tr>
 						<td>留言內容</td>
-						<td>${forumMsgReportVO.forumMsgVO.forumMsg}</td>
+						<td><a
+							href="<%= request.getContextPath()%>/forum/forumMsgOneEditServlet?forumMsgNo=${forumMsgReportVO.forumMsgNo}">${forumMsgReportVO.forumMsgVO.forumMsg}</a></td>
 					</tr>
+					
 					<tr>
 						<td>檢舉會員編號</td>
 						<td>${forumMsgReportVO.memNo}</td>
@@ -115,7 +102,8 @@ h3 {
 					</tr>
 					<tr>
 						<td>檢舉時間</td>
-						<td>${forumMsgReportVO.forumMsgReportTime}</td>
+						<td><fmt:formatDate value="${forumMsgReportVO.forumMsgReportTime}"
+								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 					<tr>
 					</tr>

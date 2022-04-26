@@ -1,4 +1,4 @@
-package com.forummsg.controller;
+package com.forum.controller;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.forummsg.model.ForumMsgService;
-import com.forummsg.model.ForumMsgVO;
+import com.forum.model.ForumService;
+import com.forum.model.ForumVO;
 
 
-@WebServlet("/forum/forumMsgOneEditServlet")
-public class ForumMsgOneEditServlet extends HttpServlet {
+@WebServlet("/forum/forumOneEditServlet")
+public class ForumOneEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -35,19 +35,20 @@ public class ForumMsgOneEditServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 		
 			// 1.接收請求參數
-			Integer forumMsgNo = Integer.valueOf(request.getParameter("forumMsgNo"));
+			Integer forumNo = Integer.valueOf(request.getParameter("forumNo"));
 
 			// 2.開始查詢資料
-			ForumMsgService forumMsgSvc = new ForumMsgService();
-			ForumMsgVO forumMsgVO = forumMsgSvc.getOneForumMsg(forumMsgNo);
+			ForumService forumSvc = new ForumService();
+			ForumVO forumVO = forumSvc.getOneForum(forumNo);
 
 			// 3.查詢完成,準備轉交(Send the Success view)
-			// 從資料庫取forumMsgVO 物件, 存入 request 中
-			request.setAttribute("forumMsgVO", forumMsgVO);
-			String url = "/backend/forum/editForumMsg.jsp";
-			// 成功轉交 editForumMsg.jsp
+			// 從資料庫取forumVO 物件, 存入 request 中
+			request.setAttribute("forumVO", forumVO);
+			String url = "/backend/forum/editForum.jsp";
+			// 成功轉交 editForum.jsp
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);
+
 
 	}	
 

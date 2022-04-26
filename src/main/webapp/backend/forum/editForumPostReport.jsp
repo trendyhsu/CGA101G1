@@ -2,11 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.sql.Timestamp"%>
-<%@page import="com.forumpostreport.model.ForumPostReportVO"%>
-<%@page import="com.forumpostreport.model.ForumPostReportService"%>
 <%@ page import="com.forumpostreport.model.*"%>
 <%@ page import="java.util.*"%>
 
@@ -66,18 +61,7 @@ h3 {
 						</td>
 					</tr>
 				</table>
-
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-
-				<!-- 		主要修改資訊區 -->
+				<!-- main content -->
 
 				<form method="post"
 					action="<%=request.getContextPath()%>/forum/forumPostReportEditUpdate"
@@ -122,7 +106,9 @@ h3 {
 						</tr>
 						<tr>
 							<td>檢舉時間</td>
-							<td>${forumPostReportVO.forumPostReportTime}</td>
+							<td><fmt:formatDate
+									value="${forumPostReportVO.forumPostReportTime}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 
 					</table>
@@ -133,16 +119,16 @@ h3 {
 
 
 				</form>
-				
-			<div style="height: 15px"></div>
-				
-					<div style="display: inline-block;">
-						<a
-							href="<%=request.getContextPath()%>/backend/forum/listAllForumPostReport.jsp">
-							<button>返回文章檢舉列表</button>
-						</a>
-					</div>
+
+				<div style="height: 15px"></div>
+
+				<div style="display: inline-block;">
+					<a
+						href="<%=request.getContextPath()%>/backend/forum/listAllForumPostReport.jsp">
+						<button>返回文章檢舉列表</button>
+					</a>
 				</div>
+			</div>
 		</section>
 
 		<!--main content end-->

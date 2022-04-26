@@ -1,8 +1,8 @@
 package com.forummsg.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.forummsg.model.ForumMsgService;
 import com.forummsg.model.ForumMsgVO;
 
-
 @WebServlet("/forum/forumMsgEditUpdate")
 public class ForumMsgEditUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,52 +22,55 @@ public class ForumMsgEditUpdateServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	// 處理來自editForumMsgReport.jsp 送出修改商品請求
+	// 處理來自editForumMsg.jsp 送出修改商品請求
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		List<String> errorMsgs = new LinkedList<String>();
+		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		try {
-			// 1.接收請求參數
-			Integer forumMsgNo = Integer.valueOf(request.getParameter("forumMsgNo"));
-			Integer forumMsgType = Integer.valueOf(request.getParameter("forumMsgType"));
+		/*************************** 1.接收請求參數 **********************/
 
-			// 2.開始查詢資料
+		Integer forumMsgNo = Integer.valueOf(request.getParameter("forumMsgNo").trim());
+
+		Integer forumMsgType = Integer.valueOf(request.getParameter("forumMsgType").trim());
+
+//		try {
+//
+//			forumMsgType = Integer.valueOf(request.getParameter("forumMsgType").trim());
+//
+//		} catch (NumberFormatException e) {
+//
+//			errorMsgs.put("forumMsgType", "請點選正確留言狀態");
+//
+//		}
+
+		// 回傳錯誤訊息
+		if (!errorMsgs.isEmpty()) {
+
 			ForumMsgService forumMsgSvc = new ForumMsgService();
 			ForumMsgVO forumMsgVO = forumMsgSvc.getOneForumMsg(forumMsgNo);
 
-			forumMsgVO.setForumMsgType(forumMsgType);
+			request.setAttribute("forumMsgVO", forumMsgVO);
 
-			// 回傳錯誤訊息
-			if (!errorMsgs.isEmpty()) {
-				request.setAttribute("forumMsgVO", forumMsgVO);
-				RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumMsg.jsp");
-				failureView.forward(request, response);
-				return; // 程式中斷
-			}
-
-			// 3.開始修改資料
-
-			forumMsgSvc.updateMsgType(forumMsgNo, forumMsgType);
-
-			// 4.查詢完成,準備轉交(Send the Success view)
-
-			request.setAttribute("forumMsgVO", forumMsgVO); // 資料庫update成功後,正確的的forumMsgVO物件,存入request
-			String url = "/backend/forum/listOneForumMsg.jsp";
-			RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneForumMsg.jsp
-			successView.forward(request, response);
-
-			/*************************** 其他可能的錯誤處理 *************************************/
-		} catch (Exception e) {
-			e.printStackTrace();
-			errorMsgs.add("修改資料失敗:" + e.getMessage());
 			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumMsg.jsp");
 			failureView.forward(request, response);
+			return; // 程式中斷
 		}
+
+		/*************************** 2.開始修改資料 *****************************************/
+		ForumMsgService forumMsgSvc = new ForumMsgService();
+		ForumMsgVO forumMsgVO = forumMsgSvc.updateMsgType(forumMsgNo, forumMsgType);
+
+		/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+
+		request.setAttribute("forumMsgVO", forumMsgVO); // 資料庫update成功後,正確的的forumMsgVO物件,存入request
+		String url = "/backend/forum/listOneForumMsg.jsp";
+		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneForumMsg.jsp
+		successView.forward(request, response);
+
 	}
 
 }
