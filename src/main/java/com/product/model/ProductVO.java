@@ -1,6 +1,11 @@
 package com.product.model;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import com.gametype.model.GameTypeDAO_interface;
+import com.gametype.model.GameTypeJDBCDAO;
+import com.gametype.model.GameTypeVO;
 
 public class ProductVO implements java.io.Serializable{
 	private Integer productNo;
@@ -81,6 +86,11 @@ public class ProductVO implements java.io.Serializable{
 	}
 	public void setUpcNum(String upcNum) {
 		this.upcNum = upcNum;
+	}
+	
+	public GameTypeVO getOneGameType(Integer gameTypeNo) {
+		GameTypeDAO_interface dao=new GameTypeJDBCDAO();
+		return dao.findByPrimaryKey(gameTypeNo);
 	}
 
 }

@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddProduct2FavFromProductPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+  
     public AddProduct2FavFromProductPage() {
         super();
         // TODO Auto-generated constructor stub

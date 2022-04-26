@@ -35,8 +35,8 @@ public class OrderDAO implements OrderDAO_interface{
 		
 		private static final String FindByMemNo = 
 //				"SELECT OrderNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where MemNo = ? order by TranTime desc";
-				"SELECT MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where MemNo = ? order by TranTime desc";
-//		                  1           2            3             4         5              6          7               8         9              10                                 12
+				"SELECT OrderNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where MemNo = ? order by TranTime desc";
+//		                  1           2            3             4         5              6          7               8         9              10             11                                12
 
 		
 		//		                    訂單修改
@@ -250,7 +250,7 @@ public class OrderDAO implements OrderDAO_interface{
 			while (rs.next()) {
 				// productVO 也稱為 Domain objects
 				orderVO = new OrderVO();
-//				orderVO.setOrderNo(rs.getInt("OrderNo"));
+				orderVO.setOrderNo(rs.getInt("OrderNo"));
 				orderVO.setMemCouponNo(rs.getInt("MemCouponNo"));
 				orderVO.setTranTime(rs.getTimestamp("TranTime"));
 				orderVO.setOrderTotalPrice(rs.getInt("OrderTotalPrice"));

@@ -10,34 +10,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.product.model.ProductDAO;
+import com.product.model.ProductDAO_interface;
 import com.product.model.ProductVO;
 
-
-@WebServlet("/product/bedProductToJson")
-public class BedProductToJson extends HttpServlet {
+/**
+ * Servlet implementation class ShowAllProductsName
+ */
+@WebServlet("/product/showAllProductsName")
+public class ShowAllProductsName extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public BedProductToJson() {
+    public ShowAllProductsName() {
         super();
 
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html ; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession();
 		
-		ProductVO productVO =(ProductVO) session.getAttribute("checkedProductVO");
+		
+		List<ProductVO> productsList = new ArrayList<ProductVO>();
+		ProductDAO_interface dao = new ProductDAO();
+		productsList = dao.getAllInName();
 		Gson gson = new Gson();
-		String json = gson.toJson(productVO);
+		String json = gson.toJson(productsList);
 		out.write(json);
-		
 	}
 
 

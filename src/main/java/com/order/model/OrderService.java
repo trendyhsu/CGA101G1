@@ -1,5 +1,7 @@
 package com.order.model;
 
+import java.util.List;
+
 public class OrderService {
 	private OrderDAO_interface dao;
 	
@@ -40,4 +42,9 @@ public class OrderService {
 	public OrderVO FindNewetOrderInMem(Integer memNo) {
 		return dao.findNewetOrderByMem(memNo);
 	}
+	
+	public List<OrderVO> findAllOrdersByMemNo(Integer memNo){
+		return dao.findByMemNo(memNo);
+	}
+	
 }

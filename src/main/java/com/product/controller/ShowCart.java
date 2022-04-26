@@ -13,46 +13,57 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.member.model.MemVO;
 import com.test.Cartdetail;
-
 
 @WebServlet("/product/showCart")
 public class ShowCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public ShowCart() {
-        super();
+	public ShowCart() {
+		super();
 
-    }
+	}
+	
+
+	
 
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html ; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
-//		if(session.getAttribute("member").getMemNo()==null) {
-//			response.sendRedirect("登入畫面");
-//		}else {
-//			String memNo = session.getAttribute("member").getMemNo();
-		String memNo = "11001";
-//		List<Orderdetail> orderList = new ArrayList<Orderdetail>();
-		List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart")==null?new ArrayList<Cartdetail>():(List<Cartdetail>) session.getAttribute("shoppingCart"));
+//		Integer memNo = null;
+
+		//要用過濾器
+//		if (session.getAttribute("member") == null) {
+//			response.sendRedirect("/CGA101G1/frontend/mem/login.html");
+//		} else if(!(session.getAttribute("member") == null)){
+//			MemVO memVO = (MemVO) (session.getAttribute("member"));
+//			memNo = memVO.getMemNo();
+//			System.out.println("現在登入的會員編號是：" + memNo);
 		
+		String memNo = "11001";
+
+			List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart") == null
+					? new ArrayList<Cartdetail>()
+					: (List<Cartdetail>) session.getAttribute("shoppingCart"));
+
 			Gson gson = new Gson();
 			String json = gson.toJson(orderList);
 			System.out.println(json);
 			out.print(json);
 //			response.sendRedirect("frontend/product/HomePageinshop.html");
-	
 
 //		}
 
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		doGet(request, response);
 	}

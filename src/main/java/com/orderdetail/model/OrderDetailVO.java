@@ -9,7 +9,7 @@ public class OrderDetailVO implements java.io.Serializable{
 	private Integer productTotalPrice;
 	private String commentCotent;
 	private Date commentTime;
-	private Double CommentStar;
+	private Integer CommentStar;
 	
 	
 	public Integer getOrderNo() {
@@ -48,10 +48,10 @@ public class OrderDetailVO implements java.io.Serializable{
 	public void setCommentTime(Date commentTime) {
 		this.commentTime = commentTime;
 	}
-	public Double getCommentStar() {
+	public Integer getCommentStar() {
 		return CommentStar;
 	}
-	public void setCommentStar(Double commentStar) {
+	public void setCommentStar(Integer commentStar) {
 		CommentStar = commentStar;
 	}
 }
