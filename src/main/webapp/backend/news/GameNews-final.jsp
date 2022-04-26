@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -196,59 +197,76 @@
 				<div class="row mt">
 
 
-                    <div class="radio-group">
-                        <input type="radio" name="func" id="qu" class="myRadio2" checked>
-                        <label for="qu">查詢
-                        </label>
-                        <input type="radio" name="func" id="in" class="myRadio2">
-                        <label for="in">新增
-                        </label>
-                    </div>
+					<div class="radio-group">
+						<input type="radio" name="func" id="qu" class="myRadio2" checked>
+						<label for="qu">查詢 </label> <input type="radio" name="func"
+							id="in" class="myRadio2"> <label for="in">新增 </label>
+					</div>
+					<jsp:useBean id="mngSvc" scope="page" class="com.manager.model.ManagerService" />	
+					<jsp:useBean id="gpftSvc" scope="page" class="com.gameplatformtype.model.GamePlatformTypeService" />	
+					<form action="<%=request.getContextPath()%>/gamenews/gamenews.do"
+						method="post" class="formQuery" id="form1">
 
-                    <form action="<%=request.getContextPath()%>/gamenews/gamenews.do" method="post" class="formQuery" id="form1">
-
-                        <ul>
-                            <li><label>新聞編號</label></li>
-                            <li><input type="text" name="gameNewsNo"></li>
-                            <li> <label>遊戲平台</label></li>
-                            <li><input type="text" name="gamePlatformNo"></li>
-                            <li> <label>編輯者</label></li>
-                            <li><input type="text" name="managerNo"></li>
-                            <li> <label>新聞標題</label></li>
-                            <li><input type="text" name="gameNewsTitle"></li>
-<!--                             <li> <label>新聞封面照片</label></li> -->
-<!--                             <li><select> -->
-<!--                             <option>有</option> -->
-<!--                             <option>無</option> -->
-<!--                             </select></li> -->
-                            <li> <label>新聞內容</label></li>
-                            <li><textarea name="gameNewsContent" id="" cols="30" rows="10"></textarea></li>
-                        </ul>
-
-
-                        <button type="submit" class="cusBtn"><i class="fa-solid fa-magnifying-glass"></i>查詢</button>
-                        <input type="hidden" name="action" value="AllQuery">
-                    </form>
-                    <form action="basic_table.html" method="post" class="formQuery" id="form2">
-                        <ul>
-                            <li><label style="text-decoration: line-through;">新聞編號</label></li>
-                            <li><input type="text" name="gameNewsNo" disabled></li>
-                            <li> <label>遊戲平台</label></li>
-                            <li><input type="text" name="gamePlatformNo"></li>
-                            <li> <label>編輯者</label></li>
-                            <li><input type="text" name="managerNo"></li>
-                            <li> <label>新聞標題</label></li>
-                            <li><input type="text" name="gameNewsTitle"></li>
-                            <li> <label>新聞封面照片</label></li>
-                            <li><input type="file" name="gameNewsPic"></li>
-                            <li> <label>新聞內容</label></li>
-                            <li><textarea name="gameNewsContent" id="" cols="30" rows="10"></textarea></li>
-                        </ul>
+						<ul>
+							<li><label>新聞編號</label></li>
+							<li><input type="text" name="gameNewsNo"></li>
+							<li><label>遊戲平台</label></li>
+							 <li><select size="1" name="gamePlatformNo">
+                                    <c:forEach var="platformVO" items="${gpftSvc.all}">
+                                    	<option value="${platformVO.gamePlatformNo}">${platformVO.gamePlatformName}
+                                    </c:forEach>
+                                </select></li>
+							<li><label>編輯者</label></li>
+							 <li><select size="1" name="managerNo">
+                                    <c:forEach var="managerVO" items="${mngSvc.all}">
+                                    	<option value="${managerVO.managerNo}">${managerVO.managerName}
+                                    </c:forEach>
+                                </select></li>
+							<li><label>新聞標題</label></li>
+							<li><input type="text" name="gameNewsTitle"></li>
+							<li><label>新聞內容</label></li>
+							<li><textarea name="gameNewsContent" id="" cols="30"
+									rows="10"></textarea></li>
+						</ul>
 
 
-                        <button type="button" class="cusBtn"><i class="fa-solid fa-circle-plus"></i>新增</button>
-                        <input type="hidden" name="action" value="Insert">
-                    </form>
+						<button type="submit" class="cusBtn">
+							<i class="fa-solid fa-magnifying-glass"></i>查詢
+						</button>
+						<input type="hidden" name="action" value="AllQuery">
+					</form>
+					<form action="<%=request.getContextPath()%>/gamenews/gamenews.do" method="post" class="formQuery"
+						id="form2" enctype="multipart/form-data">
+						<ul>
+							<li><label style="text-decoration: line-through;">新聞編號</label></li>
+							<li><input type="text" name="gameNewsNo" disabled></li>
+							<li><label>遊戲平台</label></li>
+							 <li><select size="1" name="gamePlatformNo">
+                                    <c:forEach var="platformVO" items="${gpftSvc.all}">
+                                    	<option value="${platformVO.gamePlatformNo}">${platformVO.gamePlatformName}
+                                    </c:forEach>
+                                </select></li>
+							<li><label>編輯者</label></li>
+							 <li><select size="1" name="managerNo">
+                                    <c:forEach var="managerVO" items="${mngSvc.all}">
+                                    	<option value="${managerVO.managerNo}">${managerVO.managerName}
+                                    </c:forEach>
+                                </select></li>
+							<li><label>新聞標題</label></li>
+							<li><input type="text" name="gameNewsTitle"></li>
+							<li><label>新聞封面照片</label></li>
+							<li><input type="file" name="gameNewsPic"></li>
+							<li><label>新聞內容</label></li>
+							<li><textarea name="gameNewsContent" id="" cols="30"
+									rows="10"></textarea></li>
+						</ul>
+
+
+						<button type="submit" class="cusBtn">
+							<i class="fa-solid fa-circle-plus"></i>新增
+						</button>
+						<input type="hidden" name="action" value="Insert">
+					</form>
 				</div>
 			</section>
 		</section>
@@ -281,6 +299,7 @@
 
 
 	<script type="application/javascript">
+		
 		
 		
         $(document).ready(function () {
@@ -317,6 +336,7 @@
         }
     
 	
+	
 	</script>
 	<script>
 		function sub() {
@@ -327,7 +347,8 @@
 		}
 	</script>
 
-	<script src="<%=request.getContextPath()%>/backend/news/assets/gameNews-js.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/backend/news/assets/gameNews-js.js"></script>
 </body>
 
 </html>

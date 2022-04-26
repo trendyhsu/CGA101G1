@@ -13,13 +13,13 @@ public class GameNewsService {
 		dao = new GameNewsDAOImpl();
 	}
 	
-	public GameNewsVO addGameNews(Integer platformNo, Integer managerNo, String gameNewsTitle, String gameNewsContent, byte[] pic) {
+	public GameNewsVO addGameNews(Integer platformNo, Integer managerNo, String gameNewsTitle, String gameNewsContent, byte[] gameNewsPic) {
 		GameNewsVO gameNewsVO = new GameNewsVO();
 		gameNewsVO.setGamePlatformNo(platformNo);
 		gameNewsVO.setManagerNo(managerNo);
 		gameNewsVO.setGameNewsTitle(gameNewsTitle);
 		gameNewsVO.setGameNewsContent(gameNewsContent);
-		gameNewsVO.setGameNewsPic(pic);
+		gameNewsVO.setGameNewsPic(gameNewsPic);
 		dao.insert(gameNewsVO);
 		return gameNewsVO;
 	}

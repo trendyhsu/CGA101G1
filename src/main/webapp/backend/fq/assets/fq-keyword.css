@@ -1,5 +1,41 @@
 /*----------------------------KeyWord-----------------------*/
-#formQuery {
+.radio-group {
+    margin: 0 2rem;
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+}
+
+.radio-group .myRadio2 {
+    display: none;
+}
+
+
+
+.radio-group label {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background: var(--space);
+    cursor: pointer;
+    transition: background 0.1s;
+    margin: 0;
+}
+
+
+
+/* .radio-group label:not(:last-of-type) {
+    border-right: 1px solid #fff;
+} */
+
+.radio-group .myRadio2:checked+label {
+    background: #fff;
+    color: var(--space);
+}
+
+.formQuery {
     /* border: 2px solid red; */
     /* height: 400px; */
     width: 100%;
@@ -10,7 +46,7 @@
     padding: 2rem 0;
 }
 
-#formQuery ul {
+.formQuery ul {
     /* border: 2px solid purple; */
     width: fit-content;
     display: grid;
@@ -19,12 +55,12 @@
 
 }
 
-#formQuery ul li {
+.formQuery ul li {
     margin: 5px 0;
 }
 
 
-#formQuery label {
+.formQuery label {
     /* border: 2px solid green; */
     white-space: nowrap;
     font-size: 1.8rem;
@@ -32,20 +68,20 @@
     margin-right: 10px;
 }
 
-#formQuery input {
+.formQuery input {
     font-size: 1.8rem;
     border: 1px solid var(--light-color);
     border-radius: 3px;
     font-weight: bold;
 }
 
-#formQuery input:focus {
+.formQuery input:focus {
     outline: none;
     background: #ccc;
 
 }
 
-#formQuery .cusBtn {
+.formQuery .cusBtn {
     width: 120px;
     margin-top: 1rem;
     display: block;
@@ -60,18 +96,23 @@
     font-weight: bold;
 }
 
-#formQuery .cusBtn:hover {
+.formQuery .cusBtn:hover {
     background: var(--black);
     transform: scale(1.05);
 }
 
-#formQuery .cusBtn:active {
+.formQuery .cusBtn:active {
     box-shadow: inset var(--box-shadow);
     transform: scale(1);
 }
 
-#formQuery .cusBtn i {
+.formQuery .cusBtn i {
     margin-right: 3px;
+}
+
+
+#form2 {
+    display: none;
 }
 
 h3.funcTitle02 {

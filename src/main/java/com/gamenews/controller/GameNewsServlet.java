@@ -1,20 +1,25 @@
 package com.gamenews.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-import com.fqkeyword.model.FQKeyWordService;
 import com.gamenews.model.GameNewsService;
 import com.gamenews.model.GameNewsVO;
-
+@WebServlet("/gamenews/gamenews.do")
+@MultipartConfig(fileSizeThreshold=1024*1024, maxFileSize=5*1024*1024, maxRequestSize=5*5*1024*1024)
 public class GameNewsServlet extends HttpServlet {
 
 	/**
@@ -39,6 +44,10 @@ public class GameNewsServlet extends HttpServlet {
 			// 採用Map<String,String[]> getParameterMap()的方法
 			// 注意:an immutable java.util.Map
 			Map<String, String[]> map = req.getParameterMap();
+			Set<String> keys = map.keySet();
+			for(String key : keys) {
+				System.out.println("key= "+key + ",value= "+ Arrays.toString(map.get(key)));
+			}
 			/*************************** 2.開始複合查詢 ***************************************/
 			GameNewsService gnSvc = new GameNewsService();
 			List<GameNewsVO> list = gnSvc.getAll(map);
@@ -51,6 +60,7 @@ public class GameNewsServlet extends HttpServlet {
 		if ("Insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
@@ -72,15 +82,13 @@ public class GameNewsServlet extends HttpServlet {
 				if (gameNewsTitle.trim().length() == 0 || gameNewsTitle == null) {
 					errorMsgs.add("新聞標題不可為空白");
 				}
-
+				System.out.println(gameNewsTitle);
 				String gameNewsContent = req.getParameter("gameNewsContent");
 
+				// 將取得圖片資料
 				byte[] gameNewsPic = null;
-				try {
-					gameNewsPic = req.getParameter("gameNewsPic").getBytes();
-				} catch (Exception e) {
-					errorMsgs.add("此圖片無法上傳");
-				}
+				Part part = req.getPart("gameNewsPic");
+				gameNewsPic = part.getInputStream().readAllBytes();
 
 				GameNewsVO gameNewsVO = new GameNewsVO();
 				gameNewsVO.setGamePlatformNo(gamePlatformNo);
@@ -88,6 +96,7 @@ public class GameNewsServlet extends HttpServlet {
 				gameNewsVO.setGameNewsTitle(gameNewsTitle);
 				gameNewsVO.setGameNewsContent(gameNewsContent);
 				gameNewsVO.setGameNewsPic(gameNewsPic);
+				
 				/*************************** 2.開始新增資料 ***************************************/
 				GameNewsService gnSvc = new GameNewsService();
 				gnSvc.addGameNews(gamePlatformNo, managerNo, gameNewsTitle, gameNewsContent, gameNewsPic);
