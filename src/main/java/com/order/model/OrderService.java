@@ -47,4 +47,8 @@ public class OrderService {
 		return dao.findByMemNo(memNo);
 	}
 	
+	public List<OrderVO> findAllOrders(){
+		return dao.getAll();
+	}
+	
 }

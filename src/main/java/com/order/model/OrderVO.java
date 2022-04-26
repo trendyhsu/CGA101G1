@@ -2,6 +2,11 @@ package com.order.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
+
+import com.orderdetail.model.OrderDetailDAO;
+import com.orderdetail.model.OrderDetailDAO_interface;
+import com.orderdetail.model.OrderDetailVO;
 
 public class OrderVO implements java.io.Serializable{
 	private Integer orderNo;
@@ -95,6 +100,10 @@ public class OrderVO implements java.io.Serializable{
 	}
 	public void setPickupTime(Date pickupTime) {
 		this.pickupTime = pickupTime;
+	}
+	public List<OrderDetailVO> GetAllDetailByOrderNo(Integer orderNo){
+		OrderDetailDAO_interface dao = new OrderDetailDAO();	
+		return dao.findAllDetailByOrderNo(orderNo);
 	}
 }
 
