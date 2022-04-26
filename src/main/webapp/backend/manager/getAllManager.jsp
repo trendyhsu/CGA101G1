@@ -42,7 +42,7 @@ h3 {
 		<section class="wrapper">
 
 			<div id="bid-content">
-				
+
 				<table id="table-1">
 					<tr>
 
@@ -61,52 +61,55 @@ h3 {
 				</c:if>
 				<%-- 成功表列 --%>
 				<p style="color: red;">${successMsg}</p>
-			<div class="content-panel">
-				<table class="table table-striped table-advance table-hover">
-					<h4>
-						<i class="fa fa-angle-right"></i> 管理員列表
-						<div class=" add-task-row">
-							<a class="btn btn-success btn-sm pull-left"
-								href="newmanager.html">新增管理員</a>
-						</div>
-					</h4>
+				<div class="content-panel">
+					<table class="table table-striped table-advance table-hover">
+						<h4>
+							<i class="fa fa-angle-right"></i> 管理員列表
+							<td>
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/backend/manager/addManager.jsp">
+									<input type="submit" value="新增"> <input type="hidden"
+										name="managerNo" value="${managerVO.managerNo}">
+								</FORM>
+							</td>
+						</h4>
 
-					<hr>
-					<thead>
-						<tr>
-							<th><i class="fa fa-camera"></i>照片</th>
-							<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
-							<th><i class="fa fa-bookmark"></i> 姓名</th>
-							<th><i class=" fa fa-edit"></i>狀態</th>
-							<th></th>
-						</tr>
-					</thead>
-					<%@ include file="page1.file"%>
-					<c:forEach var="managerVO" items="${list}" begin="<%=pageIndex%>"
-						end="<%=pageIndex+rowsPerPage-1%>">
-						<tbody>
+						<hr>
+						<thead>
 							<tr>
-								<td>${managerVO.myManagerPic}</td>
-								<td class="hidden-phone">${managerVO.managerNo}</td>
-								<td>${managerVO.managerName}</td>
-								<td><span class="label label-info label-mini">${managerVO.managerState}</span></td>
-								<td sytle="">
-								<td>
-									<FORM METHOD="post"
-										ACTION="<%=request.getContextPath()%>/backend/gametype/editGameType.jsp"
-										style="margin-bottom: 0px;">
-										<input type="submit" value="修改"> <input type="hidden"
-											name="gameTypeNo" value="${gameTypeVO.gameTypeNo}">
-									</FORM>
-								</td>
+								<th><i class="fa fa-camera"></i>照片</th>
+								<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
+								<th><i class="fa fa-bookmark"></i> 姓名</th>
+								<th><i class=" fa fa-edit"></i>狀態</th>
+								<th></th>
 							</tr>
-						</tbody>
+						</thead>
+						<%@ include file="page1.file"%>
+						<c:forEach var="managerVO" items="${list}" begin="<%=pageIndex%>"
+							end="<%=pageIndex+rowsPerPage-1%>">
+							<tbody>
+								<tr>
+									<td>${managerVO.myManagerPic}</td>
+									<td class="hidden-phone">${managerVO.managerNo}</td>
+									<td>${managerVO.managerName}</td>
+									<td><span class="label label-info label-mini">${managerVO.managerState}</span></td>
+									<td sytle="">
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/backend/gametype/editGameType.jsp"
+											style="margin-bottom: 0px;">
+											<input type="submit" value="修改"> <input type="hidden"
+												name="gameTypeNo" value="${gameTypeVO.gameTypeNo}">
+										</FORM>
+									</td>
+								</tr>
+							</tbody>
 
-					</c:forEach>
-			
-				</table>
+						</c:forEach>
+
+					</table>
 					<%@ include file="page2.file"%>
-			</div>
+				</div>
 			</div>
 		</section>
 		<!--/wrapper -->
