@@ -1,6 +1,6 @@
 package com.couponType.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class CouponTypeVO {
 

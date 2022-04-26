@@ -1,7 +1,5 @@
 package com.member.model;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -129,16 +127,41 @@ public class MemService {
 		memVO.setSuccessful(true);
 		return memVO;
 	}
+
 	// 修改會員個人照片
-	public void memEditPic(String memAccount,byte[] myPic) {
+	public void memEditPic(String memAccount, byte[] myPic) {
 		dao.updatePic(memAccount, myPic);
 	}
-	//顯示所有會員資料
+
+	// 顯示所有會員資料
 	public List<MemVO> listAllMem() {
 		return dao.getAll();
 	}
-	//修改會員使用狀態
-	public void memStatusEdit(String memAccount, int memStatus ) {
+
+	// 透過手機顯示單一會員資料
+	public MemVO getOneMemberByMemMobile(String memMobile) {
+		MemVO memVO = dao.getOneByMemMobile(memMobile);
+		return memVO;
+	}
+
+	// 透過帳號顯示單一會員資料
+	public MemVO getOneMemberByMemAccount(String memAccount) {
+		MemVO memVO = dao.getOneByMemAccount(memAccount);
+		return memVO;
+	}
+
+	// 修改會員使用狀態
+	public void memStatusEdit(String memAccount, int memStatus) {
 		dao.updateMemStatus(memAccount, memStatus);
+	}
+
+	// 修改會員帳號信箱驗證
+	public void updateVerify(String memAccount) {
+		dao.updateVerify(memAccount);
+	}
+
+	// 修改會員帳號信箱驗證時間
+	public void updateVerifyTime(String memAccount) {
+		dao.ChangeVerifyTime(memAccount);
 	}
 }

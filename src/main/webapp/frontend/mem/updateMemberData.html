@@ -101,11 +101,8 @@
             <input type="file" name="myPic" accept="image/*" id="myPic">
             <label id="lup7"></label>
         </div>
-        <div>
+        <div id="catch">
             <input type="hidden" id="reader">
-        </div>
-        <div>
-            <input type="hidden" id="noEdit">
         </div>
         <div>
             <button id="btn1" type="button" class="btn btn-primary">送出</button>
@@ -259,23 +256,9 @@
             });
 
         }); // ready
-        // $(document).click(() => {
-        //     // let imgs = document.querySelector('#img1');
-        //     // let imgUrl = imgs.src;
-        //     function getBase64Image(img) {
-        //         var canvas = document.createElement("canvas");
-        //         canvas.width = img.width;
-        //         canvas.height = img.height;
-        //         var ctx = canvas.getContext("2d");
-        //         ctx.drawImage(img, 0, 0);
-        //         var dataURL = canvas.toDataURL("image/png");
-        //         return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-        //     }
-        //     var base64 = getBase64Image(document.getElementById("img1"));
-        //     alert(base64);
-        // })
 
-        //圖片
+
+        //上傳新圖片
         function pic() {
             let imgs = document.querySelector('#img1');
             let inputs = document.querySelector('#myPic');
@@ -294,18 +277,23 @@
 
             }
         }
-        var base = $("#reader").val();
-        // alert(base);
-        // $("#btn1").click(() => { console.log($("#reader").val()); })
 
         $("#btn1").click(() => {
-            //對base64做切割處理
-            let imageBase64 = $('#reader').val();
-            let index = imageBase64.indexOf(',');
-            index = index + 1
-            let str1 = imageBase64.substr(0, index);
-            imageBase64 = imageBase64.replace(str1, "");
-
+            if ($('#reader').val().length !== 0) {
+                //對base64做切割處理
+                let imageBase64 = $('#reader').val();
+                let index = imageBase64.indexOf(',');
+                index = index + 1
+                let str1 = imageBase64.substr(0, index);
+                imageBase64 = imageBase64.replace(str1, "");
+                //送資料到後端
+                $.ajax({
+                    type: 'POST',
+                    url: "/CGA101G1/mem/MemPicEditServlet",
+                    contentType: "application/json",
+                    data: imageBase64
+                })
+            }
             if ($('#memName').val().length === 0 ||
                 $('#memMobile').val().length === 0 ||
                 $('#memEmail').val().length === 0
@@ -346,12 +334,7 @@
 
                 });
 
-                $.ajax({
-                    type: 'POST',
-                    url: "/CGA101G1/mem/MemPicEditServlet",
-                    contentType: "application/json",
-                    data: imageBase64
-                })
+
 
             }
         })

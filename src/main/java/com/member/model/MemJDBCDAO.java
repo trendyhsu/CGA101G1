@@ -6,11 +6,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
-
 
 public class MemJDBCDAO implements MemDAO_interface {
 
@@ -31,33 +31,40 @@ public class MemJDBCDAO implements MemDAO_interface {
 			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, myPic FROM"
 			+ " mem ORDER BY memNo";
 
-	
 	private static final String SELECT_FOR_LOGIN = "SELECT * FROM mem WHERE memAccount= ? and memPassword= ? ";
 
 	private static final String SELECT_MEM_ACCOUNT = "SELECT memAccount FROM mem WHERE memAccount=?";
 
 	private static final String SELECT_MEM_EMAIL = "SELECT memEmail FROM mem WHERE memEmail=?";
 
-	private static final String SELECT_MEM_MOBILE = "SELECT memMobile FROM mem WHERE memMobile=?";
-	
-	private static final String UPDATE_MEM_VERITY ="UPDATE mem SET memvrfed=? WHERE memAccount=?";
-	
-	private static final String SELECT_MEM_VERITY ="SELECT memvrfed FROM mem WHERE memAccount=?";
-	
-	private static final String SELECT_MEM_INFO="SELECT * FROM mem WHERE memAccount= ?";
-	
-	private static final String SELECT_MEM_PIC="SELECT myPic FROM mem WHERE memNo= ?";
-	
-	private static final String SELECT_MEM_PASSWORD="SELECT memPassword FROM mem WHERE memNo=?";
-	
-	private static final String UPDATE_MEM_PASSWORD="UPDATE mem SET memPassword=? WHERE memNo=?";
-	
-	private static final String UPDATE_MEM_PIC="UPDATE mem SET myPic=? WHERE memAccount=?";
-	
-	private static final String UPDATE_MEM_STATUS="UPDATE mem SET memStatus=? WHERE memAccount=?";
-	
-	private static final String GETONE = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist,memAdd,"
-			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, myPic FROM"
+	private static final String SELECT_MEM_MOBILE = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " mem WHERE memMobile = ?";;
+
+	private static final String UPDATE_MEM_VERITY = "UPDATE mem SET memvrfed=? WHERE memAccount=?";
+
+	private static final String SELECT_MEM_VERITY = "SELECT memvrfed FROM mem WHERE memAccount=?";
+
+	private static final String SELECT_MEM_INFO = "SELECT * FROM mem WHERE memAccount= ?";
+
+	private static final String SELECT_MEM_PIC = "SELECT myPic FROM mem WHERE memNo= ?";
+
+	private static final String SELECT_MEM_PASSWORD = "SELECT memPassword FROM mem WHERE memNo=?";
+
+	private static final String UPDATE_MEM_PASSWORD = "UPDATE mem SET memPassword=? WHERE memNo=?";
+
+	private static final String UPDATE_MEM_PIC = "UPDATE mem SET myPic=? WHERE memAccount=?";
+
+	private static final String UPDATE_MEM_STATUS = "UPDATE mem SET memStatus=? WHERE memAccount=?";
+
+	private static final String UPDATE_MEM_VERITY_TIME = "UPDATE mem SET memNoVrftime=? WHERE memAccount=?";
+
+	private static final String GET_ONE_BY_MEMACCOUNT = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " mem WHERE memAccount = ?";
+
+	private static final String GET_ONE = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
 			+ " mem WHERE memNo = ?";
 
 	@Override
@@ -127,14 +134,6 @@ public class MemJDBCDAO implements MemDAO_interface {
 			ps.setString(11, memVO.getCreditcardSecurityNo());
 			ps.setString(12, memVO.getBankAccount());
 			ps.setString(13, memVO.getBankAccountOwner());
-			//base64
-//			String memMyPic=Arrays.toString(memVO.getMyPic());
-//			System.out.println(memVO.getMyPic());
-//			Base64.Decoder decoder = Base64.getDecoder();
-//			byte[] pic = decoder.decode(memVO.getMyPic());
-//			System.out.println(pic);
-//			ps.setBytes(14, pic);
-			
 			ps.setString(14, memVO.getMemAccount());
 			ps.executeUpdate();
 
@@ -165,21 +164,17 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	@Override
 	public MemVO getOne(Integer memNo) {
-
 		MemVO memVO = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(GETONE);
+			ps = con.prepareStatement(GET_ONE);
 
 			ps.setInt(1, memNo);
-
 			rs = ps.executeQuery();
-
 			while (rs.next()) {
 				memVO = new MemVO();
 				memVO.setMemNo(rs.getInt("memNo"));
@@ -202,8 +197,6 @@ public class MemJDBCDAO implements MemDAO_interface {
 				memVO.setBankAccount(rs.getString("bankAccount"));
 				memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
 				memVO.setUserStatus(rs.getInt("userStatus"));
-				memVO.setMyPic(rs.getBytes("myPic"));
-
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -234,6 +227,119 @@ public class MemJDBCDAO implements MemDAO_interface {
 			}
 		}
 
+		return memVO;
+	}
+
+	public MemVO getOneByMemAccount(String memAccount) {
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(GET_ONE_BY_MEMACCOUNT);
+
+			ps.setString(1, memAccount);
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				memVO = new MemVO();
+				memVO.setMemNo(rs.getInt("memNo"));
+				memVO.setMemAccount(rs.getString("memAccount"));
+				memVO.setMemPassword(rs.getString("memPassword"));
+				memVO.setMemStatus(rs.getInt("memStatus"));
+				memVO.setMemVrfed(rs.getInt("memVrfed"));
+				memVO.setMemNoVrftime(rs.getDate("memNoVrftime"));
+				memVO.setMemName(rs.getString("memName"));
+				memVO.setMemMobile(rs.getString("memMobile"));
+				memVO.setMemCity(rs.getString("memCity"));
+				memVO.setMemDist(rs.getString("memDist"));
+				memVO.setMemAdd(rs.getString("memAdd"));
+				memVO.setMemEmail(rs.getString("memEmail"));
+				memVO.setMemBirth(rs.getDate("memBirth"));
+				memVO.setMemJoinTime(rs.getDate("memJoinTime"));
+				memVO.setCreditcardNo(rs.getString("creditcardNo"));
+				memVO.setCreditcardDate(rs.getString("creditcardDate"));
+				memVO.setCreditcardSecurityNo(rs.getString("creditcardSecurityNo"));
+				memVO.setBankAccount(rs.getString("bankAccount"));
+				memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
+				memVO.setUserStatus(rs.getInt("userStatus"));
+				return memVO;
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memVO;
+	}
+
+	public MemVO getOneByMemMobile(String memMobile) {
+		MemVO memVO = null;
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement ps = con.prepareStatement(SELECT_MEM_MOBILE)) {
+			ps.setString(1, memMobile);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					memVO = new MemVO();
+					memVO.setMemNo(rs.getInt("memNo"));
+					memVO.setMemAccount(rs.getString("memAccount"));
+					memVO.setMemPassword(rs.getString("memPassword"));
+					memVO.setMemStatus(rs.getInt("memStatus"));
+					memVO.setMemVrfed(rs.getInt("memVrfed"));
+					memVO.setMemNoVrftime(rs.getDate("memNoVrftime"));
+					memVO.setMemName(rs.getString("memName"));
+					memVO.setMemMobile(rs.getString("memMobile"));
+					memVO.setMemCity(rs.getString("memCity"));
+					memVO.setMemDist(rs.getString("memDist"));
+					memVO.setMemAdd(rs.getString("memAdd"));
+					memVO.setMemEmail(rs.getString("memEmail"));
+					memVO.setMemBirth(rs.getDate("memBirth"));
+					memVO.setMemJoinTime(rs.getDate("memJoinTime"));
+					memVO.setCreditcardNo(rs.getString("creditcardNo"));
+					memVO.setCreditcardDate(rs.getString("creditcardDate"));
+					memVO.setCreditcardSecurityNo(rs.getString("creditcardSecurityNo"));
+					memVO.setBankAccount(rs.getString("bankAccount"));
+					memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
+					memVO.setUserStatus(rs.getInt("userStatus"));
+					memVO.setMyPic(rs.getBytes("myPic"));
+					return memVO;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return memVO;
 	}
 
@@ -308,8 +414,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 		return list;
 	}
-	
-	
+
 	public void updateVerify(String memAccount) {
 		try {
 			Class.forName(driver);
@@ -321,12 +426,37 @@ public class MemJDBCDAO implements MemDAO_interface {
 			ps.setInt(1, 1);
 			ps.setString(2, memAccount);
 			ps.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void ChangeVerifyTime(String memAccount) {
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement ps = con.prepareStatement(UPDATE_MEM_VERITY_TIME)) {
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH) + 1;
+			int date = c.get(Calendar.DATE);
+			String now = year + "-" + month + "-" + date;
+			java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(now);
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			ps.setDate(1, sqlDate);
+			ps.setString(2, memAccount);
+			ps.executeUpdate();
+		} catch (ParseException e) {
+			throw new RuntimeException(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public MemVO selectVerify(String memAccount) {
 		MemVO memVO = null;
 		try {
@@ -372,7 +502,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		return null;
 	}
-	
+
 	public MemVO selectMemPic(int memNo) {
 		MemVO memVO = null;
 		try {
@@ -418,7 +548,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		return null;
 	}
-	
+
 	public void updateMemPassword(String memPassword, int memNo) {
 		try {
 			Class.forName(driver);
@@ -434,7 +564,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateMemStatus(String memAccount, int memStatus) {
 		try {
 			Class.forName(driver);
@@ -450,8 +580,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	
-	public void updatePic(String memAccount,byte[] myPic) {
+
+	public void updatePic(String memAccount, byte[] myPic) {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e1) {
@@ -466,7 +596,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public MemVO selectMemAccount(String memAccount) {
 		MemVO memVO = null;
 		try {
@@ -512,29 +642,6 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		return null;
 	}
-	
-	public MemVO selectMemMobile(String memMobile) {
-		MemVO memVO = null;
-		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		try (Connection con = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement ps = con.prepareStatement(SELECT_MEM_MOBILE)) {
-			ps.setString(1, memMobile);
-			try (ResultSet rs = ps.executeQuery()) {
-				while (rs.next()) {
-					memVO = new MemVO();
-					memVO.setMemMobile(rs.getString("memMobile"));
-					return memVO;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	public MemVO selectForLogin(String memAccount, String memPassword) {
 		MemVO memVO = null;
@@ -545,7 +652,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement ps = con.prepareStatement(SELECT_FOR_LOGIN)) {
-			
+
 			ps.setString(1, memAccount);
 			ps.setString(2, memPassword);
 
@@ -586,7 +693,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	public static void main(String[] args) throws IOException {
 
-		MemJDBCDAO dao = new MemJDBCDAO();
+//		MemJDBCDAO dao = new MemJDBCDAO();
 
 		// 新增
 //		MemVO memVO1 = new MemVO();
@@ -635,31 +742,30 @@ public class MemJDBCDAO implements MemDAO_interface {
 //		in2.close();
 //		dao.update(memVO2);
 //		
-		
-		
+
 //		// 查詢單一Row
-		MemVO memVO3=dao.getOne(11003);
-		System.out.println("MemNo :" + memVO3.getMemNo());
-		System.out.println("MemAccount :" + memVO3.getMemAccount());
-		System.out.println("MemPassword :" + memVO3.getMemPassword());
-		System.out.println("getMemStatus :" + memVO3.getMemStatus());
-		System.out.println("MemVrfed :" + memVO3.getMemVrfed());
-		System.out.println("MemNoVrftime :" + memVO3.getMemNoVrftime());
-		System.out.println("MemName :" + memVO3.getMemName());
-		System.out.println("getMemMobile :" + memVO3.getMemMobile());
-		System.out.println("MemCity :" + memVO3.getMemCity());
-		System.out.println("MemDist :" + memVO3.getMemDist());
-		System.out.println("MemAdd :" + memVO3.getMemAdd());
-		System.out.println("MemEmail :" + memVO3.getMemEmail());
-		System.out.println("MemBirth :" + memVO3.getMemBirth());
-		System.out.println("MemJoinTime :" + memVO3.getMemJoinTime());
-		System.out.println("CreditcardNo :" + memVO3.getCreditcardNo());
-		System.out.println("CreditcardDate :" + memVO3.getCreditcardDate());
-		System.out.println("CreditcardSecurityNo :" + memVO3.getCreditcardSecurityNo());
-		System.out.println("BankAccount :" + memVO3.getBankAccount());
-		System.out.println("BankAccountOwne :" + memVO3.getBankAccountOwner());
-		System.out.println("UserStatus :" + memVO3.getUserStatus());
-		System.out.println("MyPic :" + memVO3.getMyPic());
+//		MemVO memVO3 = dao.getOne(11003);
+//		System.out.println("MemNo :" + memVO3.getMemNo());
+//		System.out.println("MemAccount :" + memVO3.getMemAccount());
+//		System.out.println("MemPassword :" + memVO3.getMemPassword());
+//		System.out.println("getMemStatus :" + memVO3.getMemStatus());
+//		System.out.println("MemVrfed :" + memVO3.getMemVrfed());
+//		System.out.println("MemNoVrftime :" + memVO3.getMemNoVrftime());
+//		System.out.println("MemName :" + memVO3.getMemName());
+//		System.out.println("getMemMobile :" + memVO3.getMemMobile());
+//		System.out.println("MemCity :" + memVO3.getMemCity());
+//		System.out.println("MemDist :" + memVO3.getMemDist());
+//		System.out.println("MemAdd :" + memVO3.getMemAdd());
+//		System.out.println("MemEmail :" + memVO3.getMemEmail());
+//		System.out.println("MemBirth :" + memVO3.getMemBirth());
+//		System.out.println("MemJoinTime :" + memVO3.getMemJoinTime());
+//		System.out.println("CreditcardNo :" + memVO3.getCreditcardNo());
+//		System.out.println("CreditcardDate :" + memVO3.getCreditcardDate());
+//		System.out.println("CreditcardSecurityNo :" + memVO3.getCreditcardSecurityNo());
+//		System.out.println("BankAccount :" + memVO3.getBankAccount());
+//		System.out.println("BankAccountOwne :" + memVO3.getBankAccountOwner());
+//		System.out.println("UserStatus :" + memVO3.getUserStatus());
+//		System.out.println("MyPic :" + memVO3.getMyPic());
 //		
 //		// 查詢所有Row
 //		List<MemVO> list=dao.getAll();

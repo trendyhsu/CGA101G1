@@ -47,6 +47,13 @@ public class LoginServlet extends HttpServlet {
 			writePojo2Json(response, memVO);
 			return;
 		}
+		//帳號遭停權則回傳
+		if(memVO.getMemStatus() == 0) {
+			memVO.setMessage("帳號已被停權，如有疑問請洽詢客服");
+			memVO.setSuccessful(false);
+			writePojo2Json(response, memVO);
+			return;
+		}
 		//驗證成功設定session
 		if(memVO.isSuccessful()) {
 			if(request.getSession(false) != null) {
@@ -54,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			final HttpSession session = request.getSession();
 			session.setAttribute("loggedin", true);
-			session.setAttribute("member", memVO);
+			session.setAttribute("memVO", memVO);
 		}
 		writePojo2Json(response, memVO);
 	}

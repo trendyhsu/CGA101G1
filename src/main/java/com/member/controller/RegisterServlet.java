@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 				request.changeSessionId();
 			}
 			final HttpSession session = request.getSession();
-			session.setAttribute("member", memVO);
+			session.setAttribute("memVO", memVO);
 		}
 		writePojo2Json(response, memVO);
 	}

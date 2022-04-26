@@ -34,7 +34,7 @@ public class MemPasswordEditServlet extends HttpServlet {
 			String OmemPassoword = request.getParameter("oldPassword");
 			String Reg = "^[(a-zA-z0-9)]{6,12}$";
 			// 比對舊密碼
-			MemVO memVO = (MemVO) request.getSession().getAttribute("member");
+			MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
 			Integer memNo = memVO.getMemNo();
 			memVO = MEM_SERVICE.checkOldPassword(memNo);
 			String memPassoword = memVO.getMemPassword();

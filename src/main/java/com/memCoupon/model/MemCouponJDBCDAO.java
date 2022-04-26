@@ -15,10 +15,10 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 	String userid = "tibame";
 	String passwd = "tibame";
 	
-	private static final String INSERT="INSERT INTO memcoupon(couponTypeNo, memNo, couponState) \r\n"
-			+ "VALUES (?, ?, ?);";
+	private static final String INSERT="INSERT INTO memcoupon(couponTypeNo, memNo, couponState, couponDate) \r\n"
+			+ "VALUES (?, ?, ?, ?);";
 	private static final String UPDATE="UPDATE memcoupon SET couponTypeNo= ?, memNo= ?,\r\n"
-			+ "couponState= ? WHERE memCouponNo= ?;";
+			+ "couponState= ? couponDate=?  WHERE memCouponNo= ?;";
 	private static final String DELETE="DELETE FROM memcoupon WHERE memCouponNo= ?";
 	private static final String GETALL="SELECT memCouponNo, couponTypeNo, memNo, couponState\r\n"
 			+ "FROM memcoupon ORDER BY memCouponNo ;";
