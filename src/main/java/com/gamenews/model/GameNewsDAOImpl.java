@@ -15,8 +15,6 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.fqkeyword.model.AllForOneQuery;
-import com.fqkeyword.model.FQKeyWordVO;
 
 public class GameNewsDAOImpl implements GameNewsDAO{
 
@@ -166,16 +164,5 @@ public class GameNewsDAOImpl implements GameNewsDAO{
 		
 		return list;
 	}
-	
-	// 使用byte[]方式抓出圖片
-		public static byte[] getPictureByteArray(String path) throws IOException {
-			FileInputStream fis = new FileInputStream(path);
-			byte[] buffer = new byte[fis.available()];
-			fis.read(buffer);
-			fis.close();
-			return buffer;
-		}
-
-
 
 }

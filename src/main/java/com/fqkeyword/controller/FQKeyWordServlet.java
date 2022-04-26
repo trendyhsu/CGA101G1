@@ -17,7 +17,7 @@ import com.fqkeyword.model.FQKeyWordVO;
 
 
 
-@WebServlet("/FQKeyWordServlet")
+@WebServlet("/fqkeyword/fqkeyword.do")
 public class FQKeyWordServlet extends HttpServlet{
 
 	/**

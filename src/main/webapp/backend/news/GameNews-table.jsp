@@ -233,7 +233,7 @@ src="<%=request.getContextPath()%>/backend/assets/js/chart-master/Chart.js">
 											<td>${gameNews.gameNewsContent}</td>
 											<td>
 												<c:if test="${gameNews.gameNewsPic.length != 0}">
-												<a href="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNews.gameNewsNo}" title="點擊查看" target="_blank">有</a>
+													<a href="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNews.gameNewsNo}" title="點擊查看" target="_blank">有</a>
 												</c:if>
 											</td>
 											<td>

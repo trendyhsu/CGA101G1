@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,19 +14,30 @@
 <title>POP.Game ServerSide</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/backend/assets/css/bootstrap.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/backend/assets/css/bootstrap.css"
+	rel="stylesheet">
 <!--external css-->
-<link href="<%=request.getContextPath()%>/backend/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/backend/assets/font-awesome/css/font-awesome.css"
+	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/backend/assets/css/zabuto_calendar.css">
 <!-- <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" /> -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/backend/assets/lineicons/style.css">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/backend/assets/lineicons/style.css">
 
 <!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/backend/assets/css/style.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/backend/assets/css/style-responsive.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/backend/fq/assets/fq-keyword.css" rel="stylesheet">
-<script src="<%=request.getContextPath()%>/backend/assets/js/chart-master/Chart.js"></script>
+<link href="<%=request.getContextPath()%>/backend/assets/css/style.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/backend/assets/css/style-responsive.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/backend/fq/assets/fq-keyword.css"
+	rel="stylesheet">
+<script
+	src="<%=request.getContextPath()%>/backend/assets/js/chart-master/Chart.js"></script>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -184,7 +195,14 @@
 				</h3>
 				<div class="row mt">
 
-					<form action="<%=request.getContextPath()%>/fqkeyword/fqkeyword.do" method="post" id="formQuery">
+					<div class="radio-group">
+						<input type="radio" name="func" id="qu" class="myRadio2" checked>
+						<label for="qu">查詢</label> <input type="radio" name="func" id="in"
+							class="myRadio2"> <label for="in">新增</label>
+					</div>
+
+					<form action="<%=request.getContextPath()%>/fqkeyword/fqkeyword.do"
+						method="post" class="formQuery" id="form1">
 
 						<ul>
 							<li><label>關鍵字編號</label></li>
@@ -199,23 +217,26 @@
 						<button type="submit" class="cusBtn">
 							<i class="fa-solid fa-magnifying-glass"></i>查詢
 						</button>
-						 <input type="hidden" name="action" value="AllQuery">
+						<input type="hidden" name="action" value="AllQuery">
 					</form>
-                    <form action="<%=request.getContextPath()%>/fqkeyword/fqkeyword.do" method="post" id="formInsert">
+					<form action="<%=request.getContextPath()%>/fqkeyword/fqkeyword.do"
+						method="post" class="formQuery" id="form2">
 
-                        <ul>
-                            <li><label style="text-decoration: line-through;">關鍵字編號</label></li>
-                            <li><input type="text" disabled></li>
-                            <li> <label>關鍵字</label></li>
-                            <li><input type="text" name="fqKeyWordContent"></li>
-                            <li> <label>回應內容</label></li>
-                            <li><input type="text" name="answerContent"></li>
-                        </ul>
+						<ul>
+							<li><label style="text-decoration: line-through;">關鍵字編號</label></li>
+							<li><input type="text" disabled></li>
+							<li><label>關鍵字</label></li>
+							<li><input type="text" name="fqKeyWordContent"></li>
+							<li><label>回應內容</label></li>
+							<li><input type="text" name="answerContent"></li>
+						</ul>
 
 
-                        <button type="submit" class="cusBtn"><i class="fa-solid fa-circle-plus"></i>新增</button>
-                        	<input type="hidden" name="action" value="Insert">
-                    </form>
+						<button type="submit" class="cusBtn">
+							<i class="fa-solid fa-circle-plus"></i>新增
+						</button>
+						<input type="hidden" name="action" value="Insert">
+					</form>
 				</div>
 			</section>
 		</section>
@@ -244,10 +265,11 @@
 	<!--script for this page-->
 	<script src="assets/js/sparkline-chart.js"></script>
 	<script src="assets/js/zabuto_calendar.js"></script>
-
+<script src="<%=request.getContextPath()%>/backend/fq/assets/fqKeyWord-js.js"></script>
 
 
 	<script type="application/javascript">
+		
 		
         $(document).ready(function () {
             $("#date-popover").popover({ html: true, trigger: "manual" });
@@ -282,17 +304,11 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     
-	</script>
-	<script>
-	function sub(){
-		document.getElementById("formQuery").submit();
-	}
-	function subForInsert(){
-		document.getElementById("formInsert").submit();
-	}
 	
-		
 	</script>
+
+	
+	
 
 </body>
 

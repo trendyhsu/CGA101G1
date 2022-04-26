@@ -10,22 +10,4 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-  
-  <servlet>
-    <servlet-name>FQKeyWordServlet</servlet-name>
-    <servlet-class>com.fqkeyword.controller.FQKeyWordServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FQKeyWordServlet</servlet-name>
-    <url-pattern>/fqkeyword/fqkeyword.do</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
-    <servlet-name>GameNewsServlet</servlet-name>
-    <servlet-class>com.gamenews.controller.GameNewsServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GameNewsServlet</servlet-name>
-    <url-pattern>/gamenews/gamenews.do</url-pattern>
-  </servlet-mapping>
 </web-app>

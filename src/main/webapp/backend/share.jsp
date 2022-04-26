@@ -36,8 +36,9 @@
 
 <script
 	src="<%=request.getContextPath()%>/backend/assets/js/chart-master/Chart.js"></script>
-	
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -45,6 +46,8 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -80,42 +83,46 @@
 				<ul class="sidebar-menu" id="nav-accordion">
 
 					<p class="centered">
-						<a href="profile.html"><img src="<%=request.getContextPath()%>/backend/assets/img/logo.png"
+						<a href="profile.html"><img
+							src="<%=request.getContextPath()%>/backend/assets/img/logo.png"
 							class="img-circle" width="60"></a>
 					</p>
 					<h5 class="centered">侯宇陽</h5>
 
-					<li class="mt"><a class="active" href="<%=request.getContextPath()%>/backend/index.jsp"> <i
-							class="fa fa-dashboard"></i> <span>首頁</span>
+					<li class="mt"><a class="active"
+						href="<%=request.getContextPath()%>/backend/index.jsp"> <i class="fa-solid fa-house-chimney"></i> <span>首頁</span>
 					</a></li>
 
-					<li class="sub-menu"><a href="javascript:void(0)" onclick=""> <i
-							class="fa fa-desktop"></i> <span>使用者管理</span>
+					<li class="sub-menu"><a href="javascript:void(0)" onclick="">
+							<i class="fa-solid fa-user-astronaut"></i> <span>使用者管理</span>
 					</a>
 						<ul class="sub">
 							<li><a href=" blank.html">管理員資料管理</a></li>
 							<li><a href=" blank.html">管理員權限管理</a></li>
 						</ul></li>
 
-					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>主要商城後臺系統</span>
+					<li class="sub-menu"><a href="javascript:;"> 
+					<i class="fa-solid fa-tag"></i> <span>主要商城後臺系統</span>
 					</a>
 						<ul class="sub">
 							<li><a href="#">商品管理</a></li>
 							<li><a href="#">主要訂單管理</a></li>
 						</ul></li>
 
-					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>競標管理系統</span>
+					<li class="sub-menu"><a href="javascript:;"> 
+					<i class="fa-solid fa-gavel"></i> <span>競標管理系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBidApplyList.jsp">二手遊戲驗收管理</a></li>
-							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">查看競標商品</a></li>
-							<li><a href="<%=request.getContextPath()%>/backend/bid/listAllBidOrder.jsp">競標訂單管理</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/backend/bid/listAllBidApplyList.jsp">二手遊戲驗收管理</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">查看競標商品</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/backend/bid/listAllBidOrder.jsp">競標訂單管理</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>前台網站管理系統</span>
+							class="fa fa-desktop"></i> <span>前台網站管理系統</span>
 					</a>
 						<ul class="sub">
 							<li><a href="#">會員資料管理</a></li>
@@ -123,7 +130,7 @@
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>討論區管理系統</span>
+							class="fa-solid fa-chalkboard-user"></i> <span>討論區管理系統</span>
 					</a>
 						<ul class="sub">
 							<li><a href="#">討論區權限編輯</a></li>
@@ -132,7 +139,7 @@
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>FQ管理系統</span>
+							class="fa fa-solid fa-robot"></i> <span>FQ管理系統</span>
 					</a>
 						<ul class="sub">
 							<li><a href="#">真人文字客服</a></li>
@@ -148,7 +155,7 @@
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>行銷管理</span>
+							class="fa-solid fa-newspaper"></i> <span>行銷管理</span>
 					</a>
 						<ul class="sub">
 							<li><a href="#">編輯新聞</a></li>
@@ -186,21 +193,23 @@
       MAIN CONTENT 內容寫在這裡面
       *********************************************************************************************************************************************************** -->
 		<!--main content start-->
-<!-- 		<section id="main-content"> -->
-<!-- 			<section class="wrapper"> -->
+		<!-- 		<section id="main-content"> -->
+		<!-- 			<section class="wrapper"> -->
 
-<!-- 				<div class="row"> -->
+		<!-- 				<div class="row"> -->
 
-<!-- 					<div class="col-lg-9 main-chart"> -->
+		<!-- 					<div class="col-lg-9 main-chart"> -->
 
-<!-- <!-- 						內容寫在這裡面 --> -->
+		<!-- <!-- 						內容寫在這裡面 -->
+		-->
 
-<!-- 					</div> -->
-<!-- <!-- 					/col-lg-9 END SECTION MIDDLE --> -->
+		<!-- 					</div> -->
+		<!-- <!-- 					/col-lg-9 END SECTION MIDDLE -->
+		-->
 
-<!-- 				</div> -->
-<!-- 			</section> -->
-<!-- 		</section> -->
+		<!-- 				</div> -->
+		<!-- 			</section> -->
+		<!-- 		</section> -->
 
 		<!--main content end-->
 
@@ -232,12 +241,14 @@
 		src="<%=request.getContextPath()%>/backend/assets/js/sparkline-chart.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/backend/assets/js/zabuto_calendar.js"></script>
-	<script 
+	<script
 		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-	<script	
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script type="application/javascript">
+		
+		
 		
         $(document).ready(function () {
             $("#date-popover").popover({ html: true, trigger: "manual" });
@@ -392,6 +403,8 @@ var Script = function () {
 
 }();
 
+	
+	
 	</script>
 
 
