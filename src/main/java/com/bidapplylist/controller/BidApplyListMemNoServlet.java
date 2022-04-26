@@ -18,6 +18,7 @@ import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 import com.bidrecord.model.BidRecordService;
 import com.bidrecord.model.BidRecordVO;
+import com.member.model.MemVO;
 
 @WebServlet("/bid/bidApplyListMemNo")
 public class BidApplyListMemNoServlet extends HttpServlet {
@@ -31,7 +32,8 @@ public class BidApplyListMemNoServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// session 取得會員編號
-//		request.getSession().getAttribute("memVO");
+		MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+//		Integer memNo = memVO.getMemNo();
 		
 		Integer memNo = 11002;
 		

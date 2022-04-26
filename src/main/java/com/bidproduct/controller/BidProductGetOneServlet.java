@@ -19,6 +19,10 @@ import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 import com.bidrecord.model.BidRecordService;
 import com.bidrecord.model.BidRecordVO;
+import com.gamecompany.model.GameCompanyService;
+import com.gamecompany.model.GameCompanyVO;
+import com.gameplatformtype.model.GamePlatformTypeVO;
+import com.gametype.model.GameTypeVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -65,7 +69,19 @@ public class BidProductGetOneServlet extends HttpServlet {
 		ProductService productSvc = new ProductService();
 		ProductVO productVO = productSvc.GetOne(bidProductVO.getProductNo());
 		
-		// 創建JSONObject物件 裝入上述三個物件
+		// 取得遊戲平台VO
+		GamePlatformTypeVO gamePlatformTypeVO = bidProductVO.getBidApplyListVO().getGamePlatformTypeVO();
+		JSONObject jsonObject4 = new JSONObject(gamePlatformTypeVO);
+		
+		// 取得遊戲類別VO
+		GameTypeVO gameTypeVO = bidProductVO.getBidApplyListVO().getGameTypeVO();
+		JSONObject jsonObject5 = new JSONObject(gameTypeVO);
+		
+		// 取得遊戲公司VO
+		GameCompanyVO gameCompanyVO = bidProductVO.getBidApplyListVO().getGameCompanyVO();
+		JSONObject jsonObject6 = new JSONObject(gameCompanyVO);
+		
+		// 創建JSONObject物件 裝入上述物件
 		JSONObject bidAll = new JSONObject();
 
 		bidAll.put("bidProductVO", jsonObject1);
@@ -78,6 +94,9 @@ public class BidProductGetOneServlet extends HttpServlet {
 			JSONObject jsonObject3 = new JSONObject(productVO);
 			bidAll.put("productVO", jsonObject3);
 		}
+		bidAll.put("gamePlatformTypeVO", jsonObject4);
+		bidAll.put("gameTypeVO", jsonObject5);
+		bidAll.put("gameCompanyVO", jsonObject6);
 
 		out.write(bidAll.toString());
 	}

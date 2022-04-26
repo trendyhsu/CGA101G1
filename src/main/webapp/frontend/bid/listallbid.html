@@ -921,13 +921,23 @@
                                     <a href="/CGA101G1/frontend/bid/listonebid.html?bidProductNo=${bid.bidProductNo}">${bid.bidName}</a>
                                 </h6>
                                 <div class="product-price">
-                                        <span class="text-primary">起標價 $ ${bid.initialPrice}</span>
+                                        <span class="text-primary">起標價 $ <span id="bidHighestPrice${bid.bidProductNo}">${bid.initialPrice}</span></span>
                                 </div>
                             </div>
                         </div>
                     </div>`;
                 });
                 content.innerHTML = str;
+
+// 最高出價刷新
+            //     $.ajax({
+            //     url: `/CGA101G1/bid/bidRecordGetOneJson?bidProductNo=${bid.bidProductNo}`,
+            //     type: "POST",
+            //     success: function(data){
+            //         console.log(JSON.parse(data));
+            //     }
+            // })
+
     }
 
     function pageBtn(page) {
@@ -967,6 +977,7 @@
 
     pageid.addEventListener('click', switchPage);
 };
+
 init();
 
 
@@ -977,6 +988,7 @@ document.getElementById("button-addon2").addEventListener('click', search);
 		jsonUrl = `/CGA101G1/bid/bidProductSearch?keyword=${keyword}`;
         init();
 		}
+
   </script>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>

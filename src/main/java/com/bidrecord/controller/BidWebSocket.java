@@ -14,7 +14,9 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.bidrecord.model.BidRecordService;
 import com.bidrecord.model.BidRecordVO;
+import com.core.utils.MailService;
 import com.google.gson.Gson;
+import com.member.model.MemVO;
 
 /**
  * @ServerEndpoint 註解是一個類層次的註解，它的功能主要是將目前的類定義成一個websocket伺服器端,
@@ -65,25 +67,35 @@ public class BidWebSocket {
 	@OnMessage
 	public void onMessage(@PathParam("bidProductNo") String bidProductNo, String message, Session session)
 			throws Exception {
-		// 拿到出價的 message
+		// 拿到 出價的 以及 會員編號 的 message json
 		System.out.println("來自客戶端的訊息:" + message);
-
-		// 從session取得memVO
-		Integer memNo = 11002;
-
-		BidRecordService bidRecordSvc = new BidRecordService();
-
+		Gson gson = new Gson();
+		BidRecordVO bidRecordVO = gson.fromJson(message, BidRecordVO.class);
+		Integer memNo = bidRecordVO.getMemNo();
+		Integer bidPrice = bidRecordVO.getBidPrice();
+				
 		// 取得現在時間
 		long time = System.currentTimeMillis();
 		Timestamp now = new Timestamp(time);
 		System.out.println(now);
 
+		// 調用Service方法
+		BidRecordService bidRecordSvc = new BidRecordService();
+		
+		// 取得該商品原本最高出價者
+		BidRecordVO bidrecordHighestVO = bidRecordSvc.getHighestByBidProductNo(Integer.valueOf(bidProductNo));
+		
+		// 寄信通知原最高出價者 價格被超過了
+//		MailService mailService = new MailService();
+//		mailService.sendMail(message, bidProductNo, message);
+		
 		// insert 進資料庫
-		bidRecordSvc.addBidRecord(Integer.valueOf(bidProductNo), memNo, Integer.valueOf(message), now);
+		bidRecordSvc.addBidRecord(Integer.valueOf(bidProductNo), memNo, bidPrice, now);
+		
+		// 取出新的bidRecordVO list 傳至前面更新價格
 		bidRecordVOs = bidRecordSvc.getAll();
 
 		// 轉換 bidRecordsVOs 成 Json 傳到前端
-		Gson gson = new Gson();
 		String json = gson.toJson(bidRecordVOs);
 
 		// 此處應該有html過濾

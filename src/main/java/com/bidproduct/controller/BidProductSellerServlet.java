@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
+import com.member.model.MemVO;
 
 @WebServlet("/bid/bidProductSeller")
 public class BidProductSellerServlet extends HttpServlet {
@@ -23,7 +24,8 @@ public class BidProductSellerServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 取得會員編號
-//		request.getSession().getAttribute("memVO");
+		MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+//		Integer memNo = memVO.getMemNo();
 		
 		Integer memNo = 11001;
 		

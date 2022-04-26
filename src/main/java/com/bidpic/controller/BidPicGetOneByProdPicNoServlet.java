@@ -20,29 +20,15 @@ import com.bidpic.model.BidPicJDBCDAO;
 import com.bidpic.model.BidPicService;
 import com.bidpic.model.BidPicVO;
 
-/**
- * Servlet implementation class BidPicUploadServlet
- */
 @WebServlet("/bid/bidPicGetOneByProdPicNo")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class BidPicGetOneByProdPicNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BidPicGetOneByProdPicNoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("image/gif");

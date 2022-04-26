@@ -96,8 +96,14 @@ textarea {
 					<td>${errorMsgs.bidProdDescription}</td>
 				</tr>
 				<tr>
+		<jsp:useBean id="gameCompanySvc" scope="page" class="com.gamecompany.model.GameCompanyService" />
 					<td>遊戲公司</td>
-					<td><input type="text" name="gameCompanyNo" value="${param.gameCompanyNo}" />
+					<td>
+						<select size="1" name="gameCompanyNo" style="width: 170px">
+	         				<c:forEach var="gameCompanyVO" items="${gameCompanySvc.all}" > 
+	          					<option value="${gameCompanyVO.gameCompanyNo}" ${(param.gameCompanyNo == gameCompanyVO.gameCompanyNo) ? "selected" : ""}> ${gameCompanyVO.gameCompanyName}
+	         				</c:forEach>
+	       				</select>
 					</td>
 					<td>${errorMsgs.gameCompanyNo}</td>
 				</tr>
