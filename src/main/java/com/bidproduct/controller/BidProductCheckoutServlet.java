@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bidapplylist.model.BidApplyListService;
 import com.bidproduct.model.BidProductService;
+import com.member.model.MemVO;
 
 @WebServlet("/bid/bidProductCheckout")
 public class BidProductCheckoutServlet extends HttpServlet {
@@ -32,7 +33,8 @@ public class BidProductCheckoutServlet extends HttpServlet {
 //		try {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			// 取得會員編號
-//			MemVO memVO = (memVO)request.getSession().getAttribute("memVO");
+			MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+//			Integer memNo = memVO.getMemNo();
 			Integer memNo = 11002;
 			
 			// 取得商品編號

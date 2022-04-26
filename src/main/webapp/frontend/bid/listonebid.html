@@ -521,31 +521,29 @@
         let urlParams = new URLSearchParams(queryString);
         let bidProductNo = urlParams.get("bidProductNo");
     
-        $(document).ready(function(){
-            $.ajax({
-                url: `/CGA101G1/bid/bidProductGetOne?bidProductNo=${bidProductNo}`,
-                type: "POST",
-                success: function(data){
-                    showOneBid(data);
-                }
-            })
-        });
+        $.ajax({
+            url: `/CGA101G1/bid/bidProductGetOne?bidProductNo=${bidProductNo}`,
+            type: "POST",
+            success: function(data){
+                showOneBid(data);
+            }
+        })
 
         function showOneBid(data){
         let all = JSON.parse(data);
         let bidProductVO = all.bidProductVO;
         let bidRecordVO = all.bidRecordVO;
         let productVO = all.productVO;
+        let gameTypeVO = all.gameTypeVO;
+        let gamePlatformTypeVO = all.gamePlatformTypeVO;
+        let gameCompanyVO = all.gameCompanyVO;
         let bidPrice = "目前尚未有出價紀錄";
-        console.log(productVO);
         if(bidRecordVO){
             bidPrice = bidRecordVO.bidPrice;
         }
 
         let bidLaunchedTime = moment(bidProductVO.bidLaunchedTime).format('YYYY-MM-DD HH:mm:ss');
         let bidSoldTime = moment(bidProductVO.bidSoldTime).format('YYYY-MM-DD HH:mm:ss');
-        console.log(bidLaunchedTime);
-        console.log(bidSoldTime);
 
         let div = document.querySelector("#mainContent");
         div.innerHTML=`
@@ -599,18 +597,17 @@
                             </div>
                             <!-- 商品的分類 -->
                             <div class="pt-3 border-top mt-3 small">
-                                <p class="theme-link mb-2">
-                                    <label class="m-0 text-dark">支援平台:</label>
-                                    <a href="javascript:void(0);">Nintendo Switch</a>
+                                <p class="theme-link mb-3">
+                                    <label class="m-0 text-dark" style="font-size:1.5rem;">支援平台:  ${gamePlatformTypeVO.gamePlatformName}</label>
+                                    
                                 </p>
-                                <p class="theme-link mb-2">
-                                    <label class="m-0 text-dark">遊戲種類:</label>
-                                    <a href="javascript:void(0);">多人對戰</a>
+                                <p class="theme-link mb-3">
+                                    <label class="m-0 text-dark" style="font-size:1.5rem;">遊戲種類:  ${gameTypeVO.gameTypeName}</label>
+                                    
                                 </p>
                                 <!-- 商品的tag -->
-                                <p class="theme-link mb-2">
-                                    <label class="m-0 text-dark">遊戲公司:</label>
-                                    <a href="javascript:void(0);">Nintendo</a>
+                                <p class="theme-link mb-3">
+                                    <label class="m-0 text-dark" style="font-size:1.5rem;">遊戲公司:  ${gameCompanyVO.gameCompanyName}</label>
                                 </p>
                             </div>
                             <div class="pt-4">
@@ -658,7 +655,6 @@
 
         // 得標恭喜
             if(bidProductVO.buyerNo){
-                console.log("qqq");
                 document.querySelector("#congratulation").innerHTML=`恭喜 ${bidProductVO.buyerNo} 會員得標`;
             }
         }
@@ -737,6 +733,25 @@ function closeWebSocket() {
 }
 //傳送訊息
 function send(event) {
+    $.ajax({
+                url: `/CGA101G1/bid/bidRecordGetSession?bidProductNo=${bidProductNo}`,
+                type: "POST",
+                success: function(data){
+                    checkLogin(data);
+                }
+            })
+
+}
+
+// 檢驗登入
+function checkLogin(data){
+    let memNo = data;
+    console.log(memNo);
+    if(memNo==="0"){
+        window.alert("請先登錄");
+        window.location="/CGA101G1/frontend/mem/login.html";
+        return;
+    }
     let bidInput = document.querySelector("#bidInput").value;
     let bidPirceSpan = document.querySelector("#bidPirceSpan").innerHTML;
     let bidPriceIncrementSpan = document.querySelector("#bidPriceIncrementSpan").innerHTML;
@@ -747,8 +762,15 @@ function send(event) {
     if ( bidInput < +bidPrice+(+bidPriceIncrementSpan) ){
         window.alert("出價請大於最低出價要求");
     }else{
-        websocket.send(bidInput);
+        let message = {
+            memNo:memNo,
+            bidPrice:bidInput
+        }
+        let json = JSON.stringify(message);
+        websocket.send(json);
     }
+
+
 }
 
 </script>

@@ -1,23 +1,21 @@
-package com.bidpic.controller;
+package com.bidrecord.controller;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.bidpic.model.BidPicDAO_interface;
-import com.bidpic.model.BidPicJDBCDAO;
-import com.bidpic.model.BidPicService;
-import com.bidpic.model.BidPicVO;
 import com.google.gson.Gson;
+import com.member.model.MemVO;
 
-@WebServlet("/bid/bidPicGetAll")
-public class BidPicGetAllServlet extends HttpServlet {
+@WebServlet("/bid/bidRecordGetSession")
+public class BidRecordGetSessionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,13 +25,22 @@ public class BidPicGetAllServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo"));
-		BidPicService bidPicSvc = new BidPicService();
-		List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductNo);
+		String bidProductNo = request.getParameter("bidProductNo");
+		System.out.println(bidProductNo);
+//		request.getSession().setAttribute("location", "/CGA101G1/frontend/bid/listallbid"+bidProductNo);
+		
 		Writer out = response.getWriter();
-		Gson gson = new Gson();
-		String json = gson.toJson(list);
-		out.write(json);
+		HttpSession session = request.getSession();
+		Integer memNo = null;
+		try {
+			MemVO member =(MemVO)session.getAttribute("member");
+			memNo = member.getMemNo();
+		} catch (NullPointerException e) {
+			memNo = 0;
+		}
+		String outMemNo = String.valueOf(memNo);
+		out.write(outMemNo);
+
 	}
 
 }

@@ -88,7 +88,7 @@ float: right;
 							style="width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							${bidApplyListVO.bidProdDescription}</div>
 					</td>
-					<td>${bidApplyListVO.gameCompanyNo}</td>
+					<td>${bidApplyListVO.gameCompanyVO.gameCompanyName}</td>
 					<td>${bidApplyListVO.gameTypeVO.gameTypeName}</td>
 					<td>${bidApplyListVO.gamePlatformTypeVO.gamePlatformName}</td>
 					<td>${bidApplyListVO.initialPrice}</td>
