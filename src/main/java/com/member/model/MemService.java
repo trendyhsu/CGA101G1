@@ -164,4 +164,9 @@ public class MemService {
 	public void updateVerifyTime(String memAccount) {
 		dao.ChangeVerifyTime(memAccount);
 	}
+	// 用memNo取得單一會員所有資料
+	public MemVO getMemVObyMemNo(Integer memNo) {
+		MemVO memVO=dao.getOneByMemNo(memNo);
+		return memVO;
+	}
 }
