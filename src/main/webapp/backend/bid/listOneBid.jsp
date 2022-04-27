@@ -18,6 +18,8 @@
 th{
 	border-bottom-style:solid;
 	background-color: #b2cdcc;
+	vertical-align: middle;
+	text-align: center;
 }
 td{
 	border-bottom-style:solid;

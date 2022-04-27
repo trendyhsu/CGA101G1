@@ -516,6 +516,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 
+    <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
     <script>
         let queryString = window.location.search;
         let urlParams = new URLSearchParams(queryString);
@@ -538,9 +540,6 @@
         let gamePlatformTypeVO = all.gamePlatformTypeVO;
         let gameCompanyVO = all.gameCompanyVO;
         let bidPrice = "目前尚未有出價紀錄";
-        if(bidRecordVO){
-            bidPrice = bidRecordVO.bidPrice;
-        }
 
         let bidLaunchedTime = moment(bidProductVO.bidLaunchedTime).format('YYYY-MM-DD HH:mm:ss');
         let bidSoldTime = moment(bidProductVO.bidSoldTime).format('YYYY-MM-DD HH:mm:ss');
@@ -616,6 +615,13 @@
 
                         </div>
                     `;
+        // 動態產生現在最高出價者
+
+        if(bidRecordVO){
+            bidPrice = bidRecordVO.bidPrice;
+            let congratulation = document.querySelector("#congratulation");
+            congratulation.innerHTML = `目前最高出價為：${bidRecordVO.memNo}`;
+        }
 
         // 時間倒數
 
@@ -709,10 +715,11 @@ websocket.onopen = function() {
 websocket.onmessage = function(event) {
     let bidRecordVOs = JSON.parse(event.data);
     let bidPirceSpan = document.querySelector("#bidPirceSpan");
+    let congratulation = document.querySelector("#congratulation");
     for(bidr of bidRecordVOs){
-
         if (bidr.bidProductNo == bidProductNo){
             bidPirceSpan.innerHTML = bidr.bidPrice;
+            congratulation.innerHTML = `目前最高出價為：${bidr.memNo}`;
         }
     }
 }
@@ -748,9 +755,11 @@ function checkLogin(data){
     let memNo = data;
     console.log(memNo);
     if(memNo==="0"){
-        window.alert("請先登錄");
+        // window.alert("請先登錄");
+        swal("登入狀態錯誤","請先登入!","error").then(function () {
         window.location="/CGA101G1/frontend/mem/login.html";
-        return;
+        })
+    return;
     }
     let bidInput = document.querySelector("#bidInput").value;
     let bidPirceSpan = document.querySelector("#bidPirceSpan").innerHTML;
@@ -774,11 +783,6 @@ function checkLogin(data){
 }
 
 </script>
-
-
-
-
-
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <!-- 外來區 -->

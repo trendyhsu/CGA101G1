@@ -24,6 +24,8 @@ pageContext.setAttribute("list", list);
 th{
 	border-bottom-style:solid;
 	background-color: #b2cdcc;
+	vertical-align: middle;
+	text-align: center;
 }
 td{
 	border-bottom-style:solid;
@@ -89,7 +91,7 @@ color: #547492;
 				<tr align='center' valign="middle">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td>${bidProductVO.bidApplyListNo}</td>
-					<td>${bidProductVO.productNo}</td>
+					<td>${bidProductVO.productVO.productName}</td>
 					<td>${bidProductVO.bidName}</td>
 					<td>
 						<div
