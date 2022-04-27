@@ -46,8 +46,8 @@ public class OrderDAO implements OrderDAO_interface{
 		
 
 		private static final String FindByOrderNo = 
-				"SELECT MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderNo = ? order by TranTime desc";
-//		                  1       2           3           4             5           6          7            8            9            10               11                             13
+				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderNo = ? order by TranTime desc";
+//		                  1       2           3       4             5           6          7            8            9            10               11         12                         13
 
 		private static final String FindByTrashOrderNo = 
 				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 4 order by TranTime desc";
@@ -193,7 +193,13 @@ public class OrderDAO implements OrderDAO_interface{
 			pstmt.setInt(1, orderVO.getOrderTotalPrice());
 			pstmt.setInt(2, orderVO.getOrderState());
 			pstmt.setInt(3, orderVO.getPickupMethod());
-			pstmt.setInt(4, orderVO.getShippingFee());
+			if(orderVO.getPickupMethod()==0) {
+				pstmt.setInt(4, 0);			
+			}else {
+				pstmt.setInt(4, 1);
+			}
+			
+			
 			pstmt.setString(5, orderVO.getReceiverName());
 			pstmt.setString(6, orderVO.getReceiverAddress());
 			pstmt.setString(7, orderVO.getReceiverPhone());
@@ -388,7 +394,7 @@ public class OrderDAO implements OrderDAO_interface{
 			while (rs.next()) {
 				// productVO 也稱為 Domain objects
 				orderVO = new OrderVO();
-				
+				orderVO.setOrderNo(rs.getInt("OrderNo"));
 				orderVO.setMemNo(rs.getInt("MemNo"));
 				orderVO.setMemCouponNo(rs.getInt("MemCouponNo"));
 				orderVO.setTranTime(rs.getTimestamp("TranTime"));

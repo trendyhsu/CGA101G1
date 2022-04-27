@@ -51,4 +51,13 @@ public class OrderService {
 		return dao.getAll();
 	}
 	
+	public OrderVO findOneOrderByOrderNo(Integer orderNo) {
+		return dao.findByOrderNo(orderNo);
+	}
+	
+	public void updateOrder(OrderVO orderVO) {
+		System.out.println("在S層開始更新Order");
+		dao.update(orderVO);
+	}
+	
 }
