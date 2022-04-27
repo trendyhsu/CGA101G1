@@ -27,12 +27,18 @@ th{
 	vertical-align: middle;
 	text-align: center;
 }
+
 td{
 	border-bottom-style:solid;
 }
+
 h3{
 font-weight: bold;
 color: #547492;
+}
+
+#pageNumber, #dataNumber, #pageChange{
+float: right;
 }
 </style>
 
@@ -65,16 +71,16 @@ color: #547492;
 			<tr align='center' valign="middle">
 				<th>競標商品編號</th>
 				<th>申請單編號</th>
-				<th>一般商品名稱</th>
+				<th>對應商品名稱</th>
 				<th>商品名稱</th>
 				<th>商品敘述</th>
-				<th>賣家編號</th>
+				<th>賣家</th>
 				<th>得標價</th>
 				<th>起標價</th>
 				<th>最低增額</th>
 				<th>起標時間</th>
 				<th>截標時間</th>
-				<th>得標會員編號</th>
+				<th>得標會員</th>
 				<th>競標狀態</th>
 				<th>收件人姓名</th>
 				<th>收件人地址</th>
@@ -82,7 +88,6 @@ color: #547492;
 				<th>商品狀態</th>
 				<th>出價紀錄</th>
 				<th>修改</th>
-				<th>代收金撥付</th>
 			</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidProductVO" items="${list}" begin="<%=pageIndex%>"
@@ -98,7 +103,7 @@ color: #547492;
 							style="width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							${bidProductVO.bidProdDescription}</div>
 					</td>
-					<td>${bidProductVO.sellerNo}</td>
+					<td>${bidProductVO.getMemVOBySellerNo().memName}</td>
 					<td>${bidProductVO.bidWinnerPrice}</td>
 					<td>${bidProductVO.initialPrice}</td>
 					<td>${bidProductVO.bidPriceIncrement}</td>
@@ -106,7 +111,7 @@ color: #547492;
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td><fmt:formatDate value="${bidProductVO.bidSoldTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td>${bidProductVO.buyerNo}</td>
+					<td>${bidProductVO.getMemVOByBuyerNo().memName}</td>
 					<td><c:if test="${bidProductVO.bidState == 0}" var="condition">
 							<c:out value="0<br>競標中" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 1}" var="condition">
@@ -129,7 +134,12 @@ color: #547492;
 							<c:out value="3<br>取回處理中" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 4}">
 							<c:out value="4<br>已重新申請上架" escapeXml="false"></c:out>
-						</c:if></td>
+						</c:if><c:if test="${bidProductVO.orderState == 5}">
+							<c:out value="5<br>已收貨" escapeXml="false"></c:out>
+						</c:if><c:if test="${bidProductVO.orderState == 6}">
+							<c:out value="6<br>已撥款" escapeXml="false"></c:out>
+						</c:if>
+					</td>
 					<td>
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidRecordGetOneByBidProductNo"
@@ -143,14 +153,6 @@ color: #547492;
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改">
 							<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
-						</FORM>
-					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/xxxx"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="撥付"> <input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
-							<input type="hidden" name="action" value="pay">
 						</FORM>
 					</td>
 				</tr>

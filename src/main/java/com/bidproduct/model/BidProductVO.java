@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import com.bidapplylist.model.BidApplyListService;
 import com.gameplatformtype.model.GamePlatformTypeService;
+import com.member.model.MemService;
+import com.member.model.MemVO;
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
 
@@ -215,6 +217,18 @@ public class BidProductVO implements Serializable {
 		com.product.model.ProductService productSvc = new ProductService();
 		ProductVO productVO = productSvc.GetOne(productNo);
 		return productVO;
+	}
+
+	public com.member.model.MemVO getMemVOBySellerNo() {
+		com.member.model.MemService memSvc = new MemService();
+		MemVO memVO = memSvc.getMemVObyMemNo(sellerNo);
+		return memVO;
+	}
+
+	public com.member.model.MemVO getMemVOByBuyerNo() {
+		com.member.model.MemService memSvc = new MemService();
+		MemVO memVO = memSvc.getMemVObyMemNo(buyerNo);
+		return memVO;
 	}
 
 }

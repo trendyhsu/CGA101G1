@@ -62,7 +62,7 @@ float: right;
 			<tr align='center' valign="middle">
 				<th style="width: 10%">競標商品編號</th>
 				<th style="width: 20%">商品名稱</th>
-				<th>賣家編號</th>
+				<th>賣家</th>
 				<th>起標價</th>
 				<th>最低增額</th>
 				<th>最高出價</th>
@@ -77,7 +77,7 @@ float: right;
 				<tr align='center' valign="middle">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td><a href="<%=request.getContextPath()%>/frontend/bid/listonebid.html?bidProductNo=${bidProductVO.bidProductNo}">${bidProductVO.bidName}</a></td>
-					<td>${bidProductVO.sellerNo}</td>
+					<td>${bidProductVO.getMemVOBySellerNo().memName}</td>
 					<td>${bidProductVO.initialPrice}</td>
 					<td>${bidProductVO.bidPriceIncrement}</td>
 					<td>

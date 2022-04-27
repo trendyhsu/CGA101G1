@@ -17,6 +17,9 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 
 	public BidProductVO findByPrimaryKey(Integer bidProductNo);
 
+	// 使用 bidApplyListNo 查詢商品
+	public BidProductVO findByBidApplyListNo(Integer bidApplyListNo);
+
 	// 使用 buyerNo 查詢所有 buyerNo 得標商品
 	public List<BidProductVO> findByBuyerNo(Integer buyerNo);
 

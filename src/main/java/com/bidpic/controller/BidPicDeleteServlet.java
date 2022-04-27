@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bidpic.model.BidPicService;
+import com.bidpic.model.BidPicVO;
 import com.bidproduct.model.BidProductVO;
 
 @WebServlet("/bid/bidPicDelete")
@@ -119,10 +120,10 @@ public class BidPicDeleteServlet extends HttpServlet {
 				errorMsgs.add("請輸入起標時間!");
 			}
 			System.out.println(bidLaunchedTime);
-			if (bidLaunchedTime.before(new Timestamp(System.currentTimeMillis()))) {
-				bidLaunchedTime = new Timestamp(System.currentTimeMillis());
-				errorMsgs.add("起標時間早於目前時間，請重新輸入！");
-			}
+//			if (bidLaunchedTime.before(new Timestamp(System.currentTimeMillis()))) {
+//				bidLaunchedTime = new Timestamp(System.currentTimeMillis());
+//				errorMsgs.add("起標時間早於目前時間，請重新輸入！");
+//			}
 
 			// 判斷截標時間
 			java.sql.Timestamp bidSoldTime = null;
@@ -188,7 +189,7 @@ public class BidPicDeleteServlet extends HttpServlet {
 			bidProductVO.setReceiverName(receiverName);
 			bidProductVO.setReceiverAddress(receiverAddress);
 			bidProductVO.setReceiverPhone(receiverPhone);
-			
+						
 			/*************************** 2.開始刪除資料 *****************************************/
 			
 			// 取得多選圖片的陣列 用 for 迴圈取得bidProPicNo 刪除
@@ -201,9 +202,13 @@ public class BidPicDeleteServlet extends HttpServlet {
 			}
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-
+			// 從資料庫讀取 bidPicVOs 存入 list 中
+			List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductVO.getBidProductNo());
+			request.setAttribute("list",list);
+			
 			request.setAttribute("bidProductVO", bidProductVO);
 			String url = "/backend/bid/editBid.jsp";
+			
 			// 刪除成功後,轉交回送出刪除的來源網頁
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);

@@ -3,6 +3,9 @@ package com.bidrecord.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.member.model.MemService;
+import com.member.model.MemVO;
+
 public class BidRecordVO implements Serializable{
 	// 建立承接 bidrecord 表格的 Value Object
 	Integer bidRecordNo;
@@ -44,6 +47,11 @@ public class BidRecordVO implements Serializable{
 	}
 	public void setBidTime(Timestamp bidTime) {
 		this.bidTime = bidTime;
+	}
+	public com.member.model.MemVO getMemVO() {
+		com.member.model.MemService memSvc = new MemService();
+		MemVO memVO = memSvc.getMemVObyMemNo(memNo);
+		return memVO;
 	}
 
 }

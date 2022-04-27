@@ -328,8 +328,8 @@
                                         class="bi bi-chevron-up"></i></a>
                             </div>
                             <div class="shop-category-list collapse show" id="shop_categories">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
+                                <ul class="nav flex-column" id="gamePlatformTypeUl">
+                                    <!-- <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link active">所有平台</a>
                                     </li>
                                     <li class="nav-item">
@@ -343,7 +343,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link ">PC</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -356,8 +356,8 @@
                                         class="bi bi-chevron-up"></i></a>
                             </div>
                             <div class="shop-category-list collapse show" id="shop_categories">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
+                                <ul class="nav flex-column" id="gameTypeUl">
+                                    <!-- <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link ">動作</a>
                                     </li>
                                     <li class="nav-item">
@@ -368,7 +368,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link ">大型多人在線</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -381,8 +381,8 @@
                                         class="bi bi-chevron-up"></i></a>
                             </div>
                             <div class="shop-category-list collapse show" id="shop_categories">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
+                                <ul class="nav flex-column" id="gameCompanyUl">
+                                    <!-- <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link ">Nintendo</a>
                                     </li>
                                     <li class="nav-item">
@@ -396,7 +396,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="javascript:void(0);" class="nav-link ">Sony Enterrainment</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -560,12 +560,12 @@
         return response.json();
       }).then((json) => {
         jsonData = json;
-        console.log(jsonData)
+        // console.log(jsonData)
         pagination(jsonData, 1);
       })
 
     function pagination(jsonData, nowPage) {
-      console.log("這是nowpage" + nowPage);
+    //   console.log("這是nowpage" + nowPage);
       // 取得全部資料長度
       const dataTotal = jsonData.length;
 
@@ -624,11 +624,13 @@
         // 取得現在時間
         let now = moment().valueOf();
         // 取得競標商品時間
+        let bidLaunchedTime = moment(Date.parse(bid.bidLaunchedTime)).format('YYYY-MM-DD HH:mm:SS');
         let bidSoldTime = Date.parse(bid.bidSoldTime) < now ? ( bid.bidState === 1 ? "截標" : (bid.bidState === 2)? "流標" : "棄標" ): moment(Date.parse(bid.bidSoldTime)).format('YYYY-MM-DD HH:mm:SS');
         str += `<div class="col-sm-6 col-lg-4">
                 <div class="product-card-1">
                     <div class="product-card-image">
                         <div class="badge-ribbon">
+                            <span class="badge bg-danger">競標開始時間 :${bidLaunchedTime}</span>
                             <span class="badge bg-danger">競標截止時間 :${bidSoldTime}</span>
                         </div>
 
@@ -718,6 +720,64 @@ document.getElementById("button-addon2").addEventListener('click', search);
 		jsonUrl = `/CGA101G1/bid/bidProductSearch?keyword=${keyword}`;
         init();
 		}
+
+// 遊戲分類專區
+$.ajax({
+    url: "/CGA101G1/bid/bidProductGetGame",
+    type: "POST",
+    success: function(data){
+        showAllGame(data);
+    }
+})
+function showAllGame(data){
+    // 取得資料 分類
+    let gameAll = JSON.parse(data);
+    let gamePlatformTypeVOs = gameAll.gamePlatformTypeVOs;
+    let gameTypeVOs = gameAll.gameTypeVOs;
+    let gameCompanyVOs = gameAll.gameCompanyVOs;
+
+    // 動態塞入網頁
+    let gamePlatformTypeUl = document.querySelector("#gamePlatformTypeUl");
+    let gameTypeUl = document.querySelector("#gameTypeUl");
+    let gameCompanyUl = document.querySelector("#gameCompanyUl");
+
+    // 塞入gamePlatformType
+    let str1 = '';
+    gamePlatformTypeVOs.forEach((gamePlatformTypeVO)=>{
+        str1+=`<li class="nav-item gameSidebar">
+            <a href="javascript:void(0);" class="nav-link active" id="${gamePlatformTypeVO.gamePlatformNo}">${gamePlatformTypeVO.gamePlatformName}</a>
+            </li>`
+        })
+        gamePlatformTypeUl.innerHTML=str1;
+
+    // 塞入gameType
+    let str2 = '';
+    gameTypeVOs.forEach((gameTypeVO)=>{
+        str2+=`<li class="nav-item gameSidebar">
+            <a href="javascript:void(0);" class="nav-link active" id="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</a>
+            </li>`
+    })
+    gameTypeUl.innerHTML=str2;
+
+    // 塞入gameCompany
+    let str3 = '';
+    gameCompanyVOs.forEach((gameCompanyVO)=>{
+        str3+=`<li class="nav-item gameSidebar">
+            <a href="javascript:void(0);" class="nav-link active" id="${gameCompanyVO.gameCompanyNo}">${gameCompanyVO.gameCompanyName}</a>
+            </li>`
+    })
+    gameCompanyUl.innerHTML=str3;
+
+    // 註冊監聽器 發出ajax請求
+    $(".gameSidebar").on('click', function(e){
+        let searchId = e.target.id;
+        jsonUrl = `/CGA101G1/bid/bidProductGameSearch?keyword=${searchId}`;
+        init();
+    });
+}
+
+
+
 
   </script>
 

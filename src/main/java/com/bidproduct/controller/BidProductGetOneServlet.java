@@ -40,15 +40,6 @@ public class BidProductGetOneServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/html; charset=UTF-8");
-//		Writer out = response.getWriter();
-//		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo"));
-//		BidProductService bidProductSvc = new BidProductService();
-//		BidProductVO bidProductVO = bidProductSvc.getOneBid(bidProductNo);
-//		Gson gson = new Gson();
-//		String json = gson.toJson(bidProductVO);
-//		out.write(json);
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");

@@ -12,14 +12,6 @@
 
 <%@include file="/backend/share.jsp"%>
 
-<%
-// 取得來自 BidProductEditServlet 的 BidProductVO
-BidProductVO bidProductVO = (BidProductVO) request.getAttribute("bidProductVO");
-BidPicService bidPicSvc = new BidPicService();
-List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductVO.getBidProductNo());
-pageContext.setAttribute("list",list);
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,7 +93,7 @@ color: #547492;
 					<td>申請單編號</td>
 					<td>${bidProductVO.bidApplyListNo}</td>
 				<tr>
-		<jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
+<jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
 					<td>一般商品名稱</td>
 					<td>
 				       <select size="1" name="productNo">
@@ -123,8 +115,8 @@ color: #547492;
 							id="bidProdDescription" rows="6" cols="45" style="resize:none;">${bidProductVO.bidProdDescription}</textArea></td>
 				</tr>
 				<tr>
-					<td>賣家編號</td>
-					<td>${bidProductVO.sellerNo}</td>
+					<td>賣家</td>
+					<td>${bidProductVO.getMemVOBySellerNo().memName}</td>
 				</tr>
 				<tr>
 					<td>起標價</td>
@@ -151,12 +143,13 @@ color: #547492;
 					<td>${bidProductVO.bidWinnerPrice}</td>
 				</tr>
 				<tr>
-					<td>得標會員編號</td>
-					<td>${bidProductVO.buyerNo}</td>
+					<td>得標會員</td>
+					<td>${bidProductVO.getMemVOByBuyerNo().memName}</td>
 				</tr>
 				<tr>
 					<td>競標狀態</td>
-					<td><select size="1" name="bidState">
+					<td>
+						<select size="1" name="bidState">
 							<option value="0"
 								<c:if test="${bidProductVO.bidState == 0}"><c:out value="selected"></c:out></c:if>>競標中</option>
 							<option value="1"
@@ -165,7 +158,8 @@ color: #547492;
 								<c:if test="${bidProductVO.bidState == 2}"><c:out value="selected"></c:out></c:if>>流標</option>
 							<option value="3"
 								<c:if test="${bidProductVO.bidState == 3}"><c:out value="selected"></c:out></c:if>>棄標</option>
-					</select></td>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>收件人姓名</td>
@@ -184,7 +178,8 @@ color: #547492;
 				</tr>
 				<tr>
 					<td>商品狀態</td>
-					<td><select size="1" name="orderState">
+					<td>
+						<select size="1" name="orderState">
 							<option value="0"
 								<c:if test="${bidProductVO.orderState == 0}"><c:out value="selected"></c:out></c:if>>未出貨</option>
 							<option value="1"
@@ -195,7 +190,12 @@ color: #547492;
 								<c:if test="${bidProductVO.orderState == 3}"><c:out value="selected"></c:out></c:if>>取回處理中</option>
 							<option value="4"
 								<c:if test="${bidProductVO.orderState == 4}"><c:out value="selected"></c:out></c:if>>已重新申請上架</option>
-					</select></td>
+							<option value="5"
+								<c:if test="${bidProductVO.orderState == 5}"><c:out value="selected"></c:out></c:if>>已收貨</option>
+							<option value="6"
+								<c:if test="${bidProductVO.orderState == 6}"><c:out value="selected"></c:out></c:if>>已撥款</option>
+						</select>
+					</td>
 				</tr>
 
 			</table>
@@ -245,7 +245,10 @@ color: #547492;
 <!-- 	上傳圖片區 -->
 	<div style="position: relative; left: 500px ;bottom: 700px">
 		<form id="upload" action="<%=request.getContextPath()%>/bid/bidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
-	        <input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile">
+		<div class="mb-3">
+  			<label for="upfile" class="form-label">Default file input example</label>
+	        <input class="form-control" type="file" name="upfile1" multiple id="upfile">
+		</div>
   					<input type="hidden" name="bidProductNo"value="${bidProductVO.bidProductNo}">
 					<input type="hidden" name="bidApplyListNo"value="${bidProductVO.bidApplyListNo}">
 					<input type="hidden" name="productNo"value="${bidProductVO.productNo}">
@@ -263,7 +266,6 @@ color: #547492;
 					<input type="hidden"name="receiverName" value="${bidProductVO.receiverName}">
 					<input type="hidden" name="receiverAddress"value="${bidProductVO.receiverAddress}">
 					<input type="hidden" name="receiverPhone"value="${bidProductVO.receiverPhone}">
-					
 					<input type="submit" value="上傳圖片" class="button">
 		</form>
 		<div id="picPreview" style="position: absolute ;top: 80px ; display: flex; flex-wrap: wrap; width: 400px"></div>
@@ -276,11 +278,7 @@ color: #547492;
 
 </section>
 	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
-<%
-	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	String bidLaunchedTime = df.format(bidProductVO.getBidLaunchedTime());
-	String bidSoldTime = df.format(bidProductVO.getBidSoldTime());
-%>
+
 	
 	<script type="text/javascript">
 		$.datetimepicker.setLocale("zh");
@@ -289,7 +287,7 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : '<%=bidLaunchedTime%>', // value: new Date(), 會帶入現在時間
+			value : '${bidProductVO.bidLaunchedTime}', // value: new Date(), 會帶入現在時間
 		});
 		$.datetimepicker.setLocale("zh");
 		$("#bidSoldTime").datetimepicker({
@@ -297,7 +295,7 @@ color: #547492;
 			timepicker : true, // timepicker:true,
 			step : 1, //step: 60 設定時間時分的間隔
 			format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
-			value : '<%=bidSoldTime%>'
+			value : '${bidProductVO.bidSoldTime}'
 		// value:   new Date(), 會帶入現在時間
 		// rtl: false,                    // false   預設顯示方式   true timepicker和datepicker位置變換
 		// format:    'Y/m/d H:i',        // 設定時間年月日時分的格式 如: 2016/11/15 18:00
@@ -366,22 +364,20 @@ color: #547492;
 				'image/gif' : true
 		};
 		
-		
-		function previewImage() {
-			var upfile = document.getElementById("upfile");
-			upfile.addEventListener("change", function(event) {
-				var files = event.target.files || event.dataTransfer.files;
-				for (var i = 0; i < files.length; i++) {
-					previewfile(files[i])
-				}
-			}, false);
-		}
+
+		let upfile = document.getElementById("upfile");
+		upfile.addEventListener("change", function(event) {
+			let files = event.target.files || event.dataTransfer.files;
+			for (let i = 0; i < files.length; i++) {
+				previewfile(files[i])
+			}
+		}, false);
 		
 		function previewfile(file) {
 			if (filereader_support === true && acceptedTypes[file.type] === true) {
-				var reader = new FileReader();
+				let reader = new FileReader();
 				reader.onload = function(event) {
-					var image = new Image();
+					let image = new Image();
 					image.src = event.target.result;
 					image.width = 128;
 					picPreview.appendChild(image);

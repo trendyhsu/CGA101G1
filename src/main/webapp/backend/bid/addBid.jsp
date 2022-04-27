@@ -95,8 +95,7 @@ color: #547492;
 			<table>
 				<tr>
 					<td>申請單編號</td>
-					<td><input type="number" name="bidApplyListNo"
-						value="${bidApplyListVO.bidApplyListNo}"></td>
+					<td>${bidApplyListVO.bidApplyListNo}</td>
 				<tr>
 					<td>一般商品編號</td>
 					<td>
@@ -121,9 +120,8 @@ color: #547492;
 							id="bidProdDescription" rows="10" cols="22" style="resize:none;">${bidApplyListVO.bidProdDescription}</textArea></td>
 				</tr>
 				<tr>
-					<td>賣家編號</td>
-					<td><input type="number" name="sellerNo" size="45"
-						value="${bidApplyListVO.memNo}"></td>
+					<td>賣家</td>
+					<td>${bidApplyListVO.memVO.memName}</td>
 				</tr>
 				<tr>
 					<td>起標價</td>
@@ -147,15 +145,16 @@ color: #547492;
 				</tr>
 				<tr>
 					<td>
+					<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
+					<input type="hidden" name="sellerNo" value="${bidApplyListVO.memNo}">
 			<input type="submit" value="新增">
 			<input type="reset" value="重設">
 					</td>
 				</tr>
 <!-- 	上傳圖片區 -->
 				<tr>
-					<td>
-	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile"
-	        		style="position: relative; left:480px ;bottom: 530px;">
+					<td id="upload">
+	        		<input type="file" name="upfile1" multiple id="upfile" style="position: relative; left:480px ;bottom: 530px;">
 					</td>
 				</tr>
 			</table>
@@ -249,7 +248,6 @@ color: #547492;
 		// showApplyButton: false         // 相當於確定按鈕  true顯示  false隱藏
 		});
 		
-		
 		var filereader_support = typeof FileReader != 'undefined';
 
 		if (!filereader_support) {
@@ -262,22 +260,20 @@ color: #547492;
 				'image/gif' : true
 		};
 		
-		
-		function previewImage() {
-			var upfile = document.getElementById("upfile");
-			upfile.addEventListener("change", function(event) {
-				var files = event.target.files || event.dataTransfer.files;
-				for (var i = 0; i < files.length; i++) {
-					previewfile(files[i])
-				}
-			}, false);
-		}
+
+		let upfile = document.getElementById("upfile");
+		upfile.addEventListener("change", function(event) {
+			let files = event.target.files || event.dataTransfer.files;
+			for (let i = 0; i < files.length; i++) {
+				previewfile(files[i])
+			}
+		}, false);
 		
 		function previewfile(file) {
 			if (filereader_support === true && acceptedTypes[file.type] === true) {
-				var reader = new FileReader();
+				let reader = new FileReader();
 				reader.onload = function(event) {
-					var image = new Image();
+					let image = new Image();
 					image.src = event.target.result;
 					image.width = 128;
 					picPreview.appendChild(image);

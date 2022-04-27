@@ -10,9 +10,9 @@ public class BidProductService {
 		dao = new BidProductJDBCDAO();
 	}
 
-	public Integer addBidProduct(Integer bidApplyListNo, Integer productNo, String bidName,
-			String bidProdDescription, Integer sellerNo, Integer initialPrice, Integer bidState,
-			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer bidPriceIncrement, Integer orderState) {
+	public Integer addBidProduct(Integer bidApplyListNo, Integer productNo, String bidName, String bidProdDescription,
+			Integer sellerNo, Integer initialPrice, Integer bidState, Timestamp bidLaunchedTime, Timestamp bidSoldTime,
+			Integer bidPriceIncrement, Integer orderState) {
 
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setBidApplyListNo(bidApplyListNo);
@@ -26,7 +26,7 @@ public class BidProductService {
 		bidProductVO.setBidSoldTime(bidSoldTime);
 		bidProductVO.setBidPriceIncrement(bidPriceIncrement);
 		bidProductVO.setOrderState(orderState);
-		
+
 		Integer nextBidProductNo = dao.insert(bidProductVO);
 		return nextBidProductNo;
 	}
@@ -83,6 +83,11 @@ public class BidProductService {
 		return dao.getAll();
 
 	}
+	
+	// 使用 bidApplyListNo 取得商品
+	public BidProductVO getByBidApplyListNo(Integer bidApplyListNo) {
+		return dao.findByBidApplyListNo(bidApplyListNo);
+	}
 
 	// 使用 buyerNo 取得所有競標商品
 	public List<BidProductVO> getAllByBuyNo(Integer buyerNo) {
@@ -113,7 +118,8 @@ public class BidProductService {
 	}
 
 	// 使用 bidProductNo 更新競標狀態 ( 有買家 )
-	public void updateBidStateHaveBuyer(Integer bidState, Integer buyerNo, Integer bidWinnerPrice, Integer bidProductNo) {
+	public void updateBidStateHaveBuyer(Integer bidState, Integer buyerNo, Integer bidWinnerPrice,
+			Integer bidProductNo) {
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setBidState(bidState);
 		bidProductVO.setBuyerNo(buyerNo);
@@ -121,9 +127,9 @@ public class BidProductService {
 		bidProductVO.setBidProductNo(bidProductNo);
 		dao.updateBidStateHaveBuyer(bidProductVO);
 	}
-	
-	// 更改orderState用來更新取回以及重新上架的狀態
-	public void updateOrderStateGetbackAndRelist(Integer orderState, Integer bidProductNo) {
+
+	// 更改orderState用來更新 取回 以及 重新上架 或者 出貨 以及 撥款 的狀態
+	public void updateOrderState(Integer orderState, Integer bidProductNo) {
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setOrderState(orderState);
 		bidProductVO.setBidProductNo(bidProductNo);
@@ -131,15 +137,15 @@ public class BidProductService {
 	}
 
 	// 更改收件資訊與商品狀態
-	public void updateReceiverAndOrderState(Integer orderState, String receiverName, 
-			String receiverAddress, String receiverPhone, Integer bidProductNo) {
+	public void updateReceiverAndOrderState(Integer orderState, String receiverName, String receiverAddress,
+			String receiverPhone, Integer bidProductNo) {
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setOrderState(orderState);
 		bidProductVO.setReceiverName(receiverName);
 		bidProductVO.setReceiverAddress(receiverAddress);
 		bidProductVO.setReceiverPhone(receiverPhone);
 		bidProductVO.setBidProductNo(bidProductNo);
-	
+
 		dao.updateReceiverAndOrderState(bidProductVO);
 	}
 
@@ -149,11 +155,11 @@ public class BidProductService {
 	}
 
 	// 後臺更新競標資訊
-	public void updateByBackend(Integer bidProductNo, Integer bidApplyListNo, Integer productNo
-			, String bidName, String bidProdDescription, Integer initialPrice, Integer bidState,
-			 Integer bidPriceIncrement, Timestamp bidLaunchedTime, Timestamp bidSoldTime,
-			 Integer orderState, String receiverName, String receiverAddress, String receiverPhone) {
-		
+	public void updateByBackend(Integer bidProductNo, Integer bidApplyListNo, Integer productNo, String bidName,
+			String bidProdDescription, Integer initialPrice, Integer bidState, Integer bidPriceIncrement,
+			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer orderState, String receiverName,
+			String receiverAddress, String receiverPhone) {
+
 		BidProductVO bidProductVO = new BidProductVO();
 		bidProductVO.setBidProductNo(bidProductNo);
 		bidProductVO.setBidApplyListNo(bidApplyListNo);
@@ -169,7 +175,7 @@ public class BidProductService {
 		bidProductVO.setReceiverName(receiverName);
 		bidProductVO.setReceiverAddress(receiverAddress);
 		bidProductVO.setReceiverPhone(receiverPhone);
-		
+
 		dao.updateByBackend(bidProductVO);
 	}
 

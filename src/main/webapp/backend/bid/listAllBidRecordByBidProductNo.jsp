@@ -34,6 +34,8 @@ table.showPanel th {
 	border-bottom-style:solid;
 	border-color: #666666;
 	background-color: #b2cdcc;
+	vertical-align: middle;
+	text-align: center;
 }
 table.showPanel td {
 	border-width: 1px;
@@ -91,10 +93,10 @@ color: #547492;
 	</c:if>
 	<c:forEach var="bidRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
-		<tr>
+		<tr align='center' valign="middle">
 			<td>${bidRecordVO.bidProductNo}</td>
 			<td>${bidRecordVO.bidRecordNo}</td>
-			<td>${bidRecordVO.memNo}</td>
+			<td>${bidRecordVO.memVO.memName}</td>
 			<td>${bidRecordVO.bidPrice}</td>
 			<td><fmt:formatDate value="${bidRecordVO.bidTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 		</tr>

@@ -20,7 +20,11 @@ public class BidApplyListJDBCDAO extends DButil implements BidApplyListDAO_inter
 	private static final String GET_ALL_STMT = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist";
 	private static final String GET_ONE_STMT = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE BidApplyListNo = ?";
 	private static final String GET_ALL_STMT_MEMNO = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE MemNo = ?";
+	private static final String GET_ALL_STMT_GAMEPLATFORMNO = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE GamePlatformNo = ?";
+	private static final String GET_ALL_STMT_GAMETYPENO = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE GameTypeNo = ?";
+	private static final String GET_ALL_STMT_GAMECOMPANYNO = "SELECT BidApplyListNo, MemNo, BidName, BidProdDescription, GameCompanyNo, GameTypeNo, GamePlatformNo, InitialPrice, BidPriceIncrement, UpcNum, BidLaunchedTime, BidSoldTime, ApplyState FROM bidapplylist WHERE GameCompanyNo = ?";
 	private static final String UPDATE_ONE_STMT_APPLYSTATE = "UPDATE bidapplylist set ApplyState=? WHERE BidApplyListNo=?";
+	
 	@Override
 	public void insert(BidApplyListVO bidApplyListVO) {
 
@@ -353,6 +357,246 @@ public class BidApplyListJDBCDAO extends DButil implements BidApplyListDAO_inter
 		return list;
 	}
 
+	@Override
+	public List<BidApplyListVO> findByGamePlatformNo(Integer gamePlatformNo) {
+		BidApplyListVO bidApplyListVO = null;
+		List<BidApplyListVO> list = new ArrayList<BidApplyListVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(GET_ALL_STMT_GAMEPLATFORMNO);
+
+			pstmt.setInt(1, gamePlatformNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bidApplyListVO = new BidApplyListVO();
+				bidApplyListVO.setBidApplyListNo(rs.getInt("BidApplyListNo"));
+				bidApplyListVO.setMemNo(rs.getInt("MemNo"));
+				bidApplyListVO.setBidName(rs.getString("BidName"));
+				bidApplyListVO.setBidProdDescription(rs.getString("BidProdDescription"));
+				bidApplyListVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
+				bidApplyListVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
+				bidApplyListVO.setGameTypeNo(rs.getInt("GameTypeNo"));
+				bidApplyListVO.setInitialPrice(rs.getInt("InitialPrice"));
+				bidApplyListVO.setBidPriceIncrement(rs.getInt("BidPriceIncrement"));
+				bidApplyListVO.setUpcNum(rs.getString("UpcNum"));
+				bidApplyListVO.setBidLaunchedTime(rs.getTimestamp("BidLaunchedTime"));
+				bidApplyListVO.setBidSoldTime(rs.getTimestamp("BidSoldTime"));
+				bidApplyListVO.setApplyState(rs.getInt("ApplyState"));
+				list.add(bidApplyListVO);
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<BidApplyListVO> findByGameTypeNo(Integer gameTypeNo) {
+		BidApplyListVO bidApplyListVO = null;
+		List<BidApplyListVO> list = new ArrayList<BidApplyListVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(GET_ALL_STMT_GAMETYPENO);
+
+			pstmt.setInt(1, gameTypeNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bidApplyListVO = new BidApplyListVO();
+				bidApplyListVO.setBidApplyListNo(rs.getInt("BidApplyListNo"));
+				bidApplyListVO.setMemNo(rs.getInt("MemNo"));
+				bidApplyListVO.setBidName(rs.getString("BidName"));
+				bidApplyListVO.setBidProdDescription(rs.getString("BidProdDescription"));
+				bidApplyListVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
+				bidApplyListVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
+				bidApplyListVO.setGameTypeNo(rs.getInt("GameTypeNo"));
+				bidApplyListVO.setInitialPrice(rs.getInt("InitialPrice"));
+				bidApplyListVO.setBidPriceIncrement(rs.getInt("BidPriceIncrement"));
+				bidApplyListVO.setUpcNum(rs.getString("UpcNum"));
+				bidApplyListVO.setBidLaunchedTime(rs.getTimestamp("BidLaunchedTime"));
+				bidApplyListVO.setBidSoldTime(rs.getTimestamp("BidSoldTime"));
+				bidApplyListVO.setApplyState(rs.getInt("ApplyState"));
+				list.add(bidApplyListVO);
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<BidApplyListVO> findByGameCompanyNo(Integer gameCompanyNo) {
+		BidApplyListVO bidApplyListVO = null;
+		List<BidApplyListVO> list = new ArrayList<BidApplyListVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(GET_ALL_STMT_GAMECOMPANYNO);
+
+			pstmt.setInt(1, gameCompanyNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bidApplyListVO = new BidApplyListVO();
+				bidApplyListVO.setBidApplyListNo(rs.getInt("BidApplyListNo"));
+				bidApplyListVO.setMemNo(rs.getInt("MemNo"));
+				bidApplyListVO.setBidName(rs.getString("BidName"));
+				bidApplyListVO.setBidProdDescription(rs.getString("BidProdDescription"));
+				bidApplyListVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
+				bidApplyListVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
+				bidApplyListVO.setGameTypeNo(rs.getInt("GameTypeNo"));
+				bidApplyListVO.setInitialPrice(rs.getInt("InitialPrice"));
+				bidApplyListVO.setBidPriceIncrement(rs.getInt("BidPriceIncrement"));
+				bidApplyListVO.setUpcNum(rs.getString("UpcNum"));
+				bidApplyListVO.setBidLaunchedTime(rs.getTimestamp("BidLaunchedTime"));
+				bidApplyListVO.setBidSoldTime(rs.getTimestamp("BidSoldTime"));
+				bidApplyListVO.setApplyState(rs.getInt("ApplyState"));
+				list.add(bidApplyListVO);
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void updateApplyState(BidApplyListVO bidApplyListVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+	
+		try {
+	
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(UPDATE_ONE_STMT_APPLYSTATE);
+	
+			pstmt.setInt(1, bidApplyListVO.getApplyState());
+			pstmt.setInt(2, bidApplyListVO.getBidApplyListNo());
+	
+			pstmt.executeUpdate();
+	
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		BidApplyListJDBCDAO dao = new BidApplyListJDBCDAO();
 
@@ -459,45 +703,6 @@ public class BidApplyListJDBCDAO extends DButil implements BidApplyListDAO_inter
 			System.out.print(bidApplyListVO.getBidSoldTime() + " , ");
 			System.out.println(bidApplyListVO.getBidApplyListNo() + " , ");
 			System.out.println("-------------------");
-		}
-	}
-
-	@Override
-	public void updateApplyState(BidApplyListVO bidApplyListVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(getDriver());
-			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
-			pstmt = con.prepareStatement(UPDATE_ONE_STMT_APPLYSTATE);
-
-			pstmt.setInt(1, bidApplyListVO.getApplyState());
-			pstmt.setInt(2, bidApplyListVO.getBidApplyListNo());
-
-			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
 		}
 	}
 

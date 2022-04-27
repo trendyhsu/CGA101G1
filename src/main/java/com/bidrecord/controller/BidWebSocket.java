@@ -12,6 +12,9 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.json.JSONObject;
+
+import com.bidproduct.model.BidProductVO;
 import com.bidrecord.model.BidRecordService;
 import com.bidrecord.model.BidRecordVO;
 import com.core.utils.MailService;
@@ -85,34 +88,41 @@ public class BidWebSocket {
 		// 取得該商品原本最高出價者
 		BidRecordVO bidrecordHighestVO = bidRecordSvc.getHighestByBidProductNo(Integer.valueOf(bidProductNo));
 		
-		// 寄信通知原最高出價者 價格被超過了
-//		MailService mailService = new MailService();
-//		
-//		String to = "the38245691@gmail.com";
-//
-//		String subject = "您的出價被超過囉！";
-//
-//		String targetName = String.valueOf(bidrecordHighestVO.getMemNo());
-//		
-//		String messageText = "親愛的 " + targetName + " 帕GAME會員您好! " + "\n\n" + "在此通知您出價被超過了！";
-//		
-//		mailService.sendMail(to, subject, messageText);
-		
 		// insert 進資料庫
 		bidRecordSvc.addBidRecord(Integer.valueOf(bidProductNo), memNo, bidPrice, now);
 		
 		// 取出新的bidRecordVO list 傳至前面更新價格
-		bidRecordVOs = bidRecordSvc.getAll();
+//		bidRecordVOs = bidRecordSvc.getAll();
+		BidRecordVO bidRecordVONew = bidRecordSvc.getHighestByBidProductNo(Integer.valueOf(bidProductNo));
 
 		// 轉換 bidRecordsVOs 成 Json 傳到前端
-		String json = gson.toJson(bidRecordVOs);
+//		String json = gson.toJson(bidRecordVOs);
+		JSONObject jsonObject = new JSONObject(bidRecordVO);
+		
 
 		// 此處應該有html過濾
 		message = session.getId() + ":" + message;
 		System.out.println(message);
 
 		// 接收到資訊後進行廣播
-		broadcast(bidProductNo, json);
+		broadcast(bidProductNo, jsonObject.toString());
+		
+		// 寄信區
+		if(bidrecordHighestVO != null) {
+			
+			// 寄信通知原最高出價者 價格被超過了
+			MailService mailService = new MailService();
+			
+			String to = bidrecordHighestVO.getMemVO().getMemEmail();
+			
+			String subject = "您的出價被超過囉！";
+			
+			String targetName = bidrecordHighestVO.getMemVO().getMemName();
+			
+			String messageText = "親愛的帕GAME會員 " + targetName +" 您好!" + "\n\n" + "在此通知您出價被超過了！";
+			
+			mailService.sendMail(to, subject, messageText);
+		}
 	}
 
 	// 按照房間名進行廣播

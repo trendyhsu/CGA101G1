@@ -522,7 +522,8 @@
         let queryString = window.location.search;
         let urlParams = new URLSearchParams(queryString);
         let bidProductNo = urlParams.get("bidProductNo");
-    
+        let bidProductVO = 0;
+        let bidRecord = 0;
         $.ajax({
             url: `/CGA101G1/bid/bidProductGetOne?bidProductNo=${bidProductNo}`,
             type: "POST",
@@ -533,14 +534,16 @@
 
         function showOneBid(data){
         let all = JSON.parse(data);
-        let bidProductVO = all.bidProductVO;
-        let bidRecordVO = all.bidRecordVO;
+        bidProductVO = all.bidProductVO;
+        bidRecordVO = all.bidRecordVO;
         let productVO = all.productVO;
         let gameTypeVO = all.gameTypeVO;
         let gamePlatformTypeVO = all.gamePlatformTypeVO;
         let gameCompanyVO = all.gameCompanyVO;
         let bidPrice = "目前尚未有出價紀錄";
-
+        if(bidRecordVO){
+            bidPrice = bidRecordVO.bidPrice;
+        }
         let bidLaunchedTime = moment(bidProductVO.bidLaunchedTime).format('YYYY-MM-DD HH:mm:ss');
         let bidSoldTime = moment(bidProductVO.bidSoldTime).format('YYYY-MM-DD HH:mm:ss');
 
@@ -620,7 +623,7 @@
         if(bidRecordVO){
             bidPrice = bidRecordVO.bidPrice;
             let congratulation = document.querySelector("#congratulation");
-            congratulation.innerHTML = `目前最高出價為：${bidRecordVO.memNo}`;
+            congratulation.innerHTML = `目前最高出價為：${bidRecordVO.memVO.memName}`;
         }
 
         // 時間倒數
@@ -637,6 +640,13 @@
             if(Date.parse(bidProductVO.bidSoldTime)< now){
                 setInterval(() => {
                     document.querySelector(".count-down").innerHTML=`<div class="mb-3" style="font-size:2rem">已結束</div>`
+                    document.querySelector("#bidSubmit").disabled="disabled";
+                }, 1000);
+            }
+
+            if(Date.parse(bidProductVO.bidLaunchedTime)> now){
+                setInterval(() => {
+                    document.querySelector(".count-down").innerHTML=`<div class="mb-3" style="font-size:2rem">競標尚未開始</div>`
                     document.querySelector("#bidSubmit").disabled="disabled";
                 }, 1000);
             }
@@ -661,7 +671,7 @@
 
         // 得標恭喜
             if(bidProductVO.buyerNo){
-                document.querySelector("#congratulation").innerHTML=`恭喜 ${bidProductVO.buyerNo} 會員得標`;
+                document.querySelector("#congratulation").innerHTML=`恭喜 ${bidProductVO.memVOByBuyerNo.memName} 會員得標`;
             }
         }
 
@@ -712,16 +722,24 @@ websocket.onopen = function() {
     console.log("WebSocket連線成功");
 }
 //接收到訊息的回撥方法
+// websocket.onmessage = function(event) {
+//     let bidRecordVOs = JSON.parse(event.data);
+//     let bidPirceSpan = document.querySelector("#bidPirceSpan");
+//     let congratulation = document.querySelector("#congratulation");
+//     for(bidr of bidRecordVOs){
+//         if (bidr.bidProductNo == bidProductNo){
+//             bidPirceSpan.innerHTML = bidr.bidPrice;
+//             congratulation.innerHTML = `目前最高出價為：${bidr.memNo}`;
+//         }
+//     }
+// }
 websocket.onmessage = function(event) {
-    let bidRecordVOs = JSON.parse(event.data);
+    bidRecordVO = JSON.parse(event.data);
+    console.log(bidRecordVO);
     let bidPirceSpan = document.querySelector("#bidPirceSpan");
     let congratulation = document.querySelector("#congratulation");
-    for(bidr of bidRecordVOs){
-        if (bidr.bidProductNo == bidProductNo){
-            bidPirceSpan.innerHTML = bidr.bidPrice;
-            congratulation.innerHTML = `目前最高出價為：${bidr.memNo}`;
-        }
-    }
+    bidPirceSpan.innerHTML = bidRecordVO.bidPrice;
+    congratulation.innerHTML = `目前最高出價為：${bidRecordVO.memVO.memName}`;
 }
 //連線關閉的回撥方法
 websocket.onclose = function() {
@@ -750,17 +768,32 @@ function send(event) {
 
 }
 
-// 檢驗登入
+// 檢驗 全部確認完畢後才送出資料
 function checkLogin(data){
     let memNo = data;
     console.log(memNo);
+    // 判斷登入
     if(memNo==="0"){
-        // window.alert("請先登錄");
         swal("登入狀態錯誤","請先登入!","error").then(function () {
         window.location="/CGA101G1/frontend/mem/login.html";
         })
     return;
     }
+
+    // 判斷出價者是不是自己
+    if(memNo==bidProductVO.sellerNo){
+        swal("出價商品為自己","請勿出價!","error")
+    return;
+    }
+
+    // 判斷賣家是不是自己
+    if(bidRecordVO){
+        if(memNo==bidRecordVO.memNo){
+            swal("您已經是最高出價者","請勿出價!","error")
+        return;
+        }
+    }
+
     let bidInput = document.querySelector("#bidInput").value;
     let bidPirceSpan = document.querySelector("#bidPirceSpan").innerHTML;
     let bidPriceIncrementSpan = document.querySelector("#bidPriceIncrementSpan").innerHTML;
@@ -769,7 +802,7 @@ function checkLogin(data){
     let bidPrice = isNaN(bidPirceSpan) ? bidinitialPriceSpan : bidPirceSpan;
 
     if ( bidInput < +bidPrice+(+bidPriceIncrementSpan) ){
-        window.alert("出價請大於最低出價要求");
+        swal("出價請大於最低出價要求","價格錯誤!","error")
     }else{
         let message = {
             memNo:memNo,

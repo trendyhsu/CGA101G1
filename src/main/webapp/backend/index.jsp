@@ -15,17 +15,14 @@
 		<section id="main-content">
 			<section class="wrapper">
 
-				<div class="row">
 
 					<div class="col-lg-9 main-chart">
-							我是首頁
-						<!-- 內容寫在這裡面 -->
-
+						<div id="mainBackend" style="font-size: 3rem; text-align: center;">
+						管理者您好，歡迎來到 POP GAME 管理後臺						
+						</div>
 					</div>
 					<!-- /col-lg-9 END SECTION MIDDLE -->
 
-				</div>
-			</section>
 		</section>
 
 		<!--main content end-->

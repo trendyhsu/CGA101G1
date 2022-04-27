@@ -55,12 +55,14 @@ float: right;
 				</c:forEach>
 			</ul>
 		</c:if>
+		<%-- 成功表列 --%>
+			<p style="color: red;">${successMsg}</p>
 
 		<table class="showPanel" style="table-layout: fixed; color: black ;">
 			<tr align='center' valign="middle">
 				<th style="width: 10%">競標商品編號</th>
 				<th style="width: 15%">商品名稱</th>
-				<th>賣家編號</th>
+				<th>賣家</th>
 				<th>起標價</th>
 				<th>最低增額</th>
 				<th>起標時間</th>
@@ -69,6 +71,7 @@ float: right;
 				<th>得標價</th>
 				<th>商品狀態</th>
 				<th>結帳</th>
+				<th>領收</th>
 			</tr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidProductVO" items="${list}" begin="<%=pageIndex%>"
@@ -77,7 +80,7 @@ float: right;
 				<tr align='center' valign="middle">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td><a href="<%=request.getContextPath()%>/frontend/bid/listonebid.html?bidProductNo=${bidProductVO.bidProductNo}">${bidProductVO.bidName}</a></td>
-					<td>${bidProductVO.sellerNo}</td>
+					<td>${bidProductVO.getMemVOBySellerNo().memName}</td>
 					<td>${bidProductVO.initialPrice}</td>
 					<td>${bidProductVO.bidPriceIncrement}</td>
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidProductVO.bidLaunchedTime}"
@@ -103,14 +106,28 @@ float: right;
 						</c:if> <c:if test="${bidProductVO.orderState == 3}">
 							<c:out value="3<br>已收貨" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 4}">
-							<c:out value="3<br>作廢" escapeXml="false"></c:out>
-						</c:if></td>
+							<c:out value="4<br>已重新申請上架" escapeXml="false"></c:out>
+						</c:if><c:if test="${bidProductVO.orderState == 5}">
+							<c:out value="5<br>已收貨" escapeXml="false"></c:out>
+						</c:if><c:if test="${bidProductVO.orderState == 6}">
+							<c:out value="6<br>已撥款" escapeXml="false"></c:out>
+						</c:if>
+					</td>
 					<td>
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/frontend/bid/bidcheckout.jsp"
 							style="margin-bottom: 0px;">
 							<c:if test="${bidProductVO.orderState == 0}">
 							<input type="submit" value="結帳"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							</c:if>
+						</FORM>
+					</td>
+					<td>
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/bid/bidProductReceive"
+							style="margin-bottom: 0px;">
+							<c:if test="${bidProductVO.orderState == 2}">
+							<input type="submit" value="領收"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 							</c:if>
 						</FORM>
 					</td>

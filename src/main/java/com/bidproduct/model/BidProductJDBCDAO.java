@@ -27,6 +27,8 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	private static final String GET_ALL_STMT = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct";
 
 	private static final String GET_ONE_STMT = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidProductNo = ?";
+	// 使用 bidApplyListNo 取得 對應商品
+	private static final String GET_ONE_STMT_APPLYLIST = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidApplyListNo = ?";
 	// 使用 buyerNo 查詢所有 buyerNo 得標商品
 	private static final String GET_ALL_STMT_BUYERNO = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BuyerNo = ?";
 	// 使用 sellerNo 查詢所有 buyerNo 得標商品
@@ -276,6 +278,73 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			pstmt.setInt(1, bidProductNo);
 			rs = pstmt.executeQuery();
 
+			while (rs.next()) {
+				bidProductVO = new BidProductVO();
+				bidProductVO.setBidProductNo(rs.getInt("BidProductNo"));
+				bidProductVO.setBidApplyListNo(rs.getInt("BidApplyListNo"));
+				bidProductVO.setProductNo(rs.getInt("ProductNo"));
+				bidProductVO.setBidName(rs.getString("BidName"));
+				bidProductVO.setBidProdDescription(rs.getString("BidProdDescription"));
+				bidProductVO.setBuyerNo(rs.getInt("BuyerNo"));
+				bidProductVO.setSellerNo(rs.getInt("SellerNo"));
+				bidProductVO.setInitialPrice(rs.getInt("InitialPrice"));
+				bidProductVO.setBidState(rs.getInt("BidState"));
+				bidProductVO.setBidLaunchedTime(rs.getTimestamp("BidLaunchedTime"));
+				bidProductVO.setBidSoldTime(rs.getTimestamp("BidSoldTime"));
+				bidProductVO.setBidWinnerPrice(rs.getInt("BidWinnerPrice"));
+				bidProductVO.setBidPriceIncrement(rs.getInt("BidPriceIncrement"));
+				bidProductVO.setOrderState(rs.getInt("OrderState"));
+				bidProductVO.setReceiverName(rs.getString("ReceiverName"));
+				bidProductVO.setReceiverAddress(rs.getString("ReceiverAddress"));
+				bidProductVO.setReceiverPhone(rs.getString("ReceiverPhone"));
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return bidProductVO;
+	}
+
+	@Override
+	public BidProductVO findByBidApplyListNo(Integer bidApplyListNo) {
+		BidProductVO bidProductVO = new BidProductVO();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+	
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+	
+			pstmt = con.prepareStatement(GET_ONE_STMT_APPLYLIST);
+			pstmt.setInt(1, bidApplyListNo);
+			rs = pstmt.executeQuery();
+	
 			while (rs.next()) {
 				bidProductVO = new BidProductVO();
 				bidProductVO.setBidProductNo(rs.getInt("BidProductNo"));
@@ -1027,5 +1096,6 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 			}
 		}
 	}
+
 
 }

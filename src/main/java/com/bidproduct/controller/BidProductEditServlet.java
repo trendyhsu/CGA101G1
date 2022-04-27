@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bidpic.model.BidPicService;
+import com.bidpic.model.BidPicVO;
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 
@@ -43,6 +45,12 @@ public class BidProductEditServlet extends HttpServlet {
 			// 3.查詢完成,準備轉交(Send the Success view)
 			// 從資料庫取 bidProductVO 物件, 存入 request 中
 			request.setAttribute("bidProductVO", bidProductVO);
+			
+			// 從資料庫讀取 bidPicVOs 存入 list 中
+			BidPicService bidPicSvc = new BidPicService();
+			List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductVO.getBidProductNo());
+			request.setAttribute("list",list);
+			
 			String url = "/backend/bid/editBid.jsp";
 			// 成功轉交 editBid.jsp
 			RequestDispatcher successView = request.getRequestDispatcher(url);

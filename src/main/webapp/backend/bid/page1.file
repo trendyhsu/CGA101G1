@@ -33,9 +33,13 @@
 %>
 
 <%if (pageNumber>0){%>
+<div id="pageNumber">
   <b><font color=darkcyan>第 <%=whichPage%> / <%=pageNumber%> 頁</font></b>
+</div>
 <%}%>
 <br>
+<div id="dataNumber">
 <b>目前共有 <font color=darkcyan><%=rowNumber%></font> 筆資料</b>
+</div>
 <br>
 <br>

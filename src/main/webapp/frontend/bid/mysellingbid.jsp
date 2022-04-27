@@ -63,11 +63,12 @@ float: right;
 			<tr align='center' valign="middle">
 				<th style="width: 10%">競標商品編號</th>
 				<th style="width: 15%">商品名稱</th>
-				<th>賣家編號</th>
 				<th>起標價</th>
 				<th>最低增額</th>
 				<th>起標時間</th>
 				<th>截標時間</th>
+				<th>得標會員</th>
+				<th>得標價</th>
 				<th>競標狀態</th>
 				<th>商品狀態</th>
 				<th>取回</th>
@@ -80,14 +81,16 @@ float: right;
 				<tr align='center' valign="middle">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td><a href="<%=request.getContextPath()%>/frontend/bid/listonebid.html?bidProductNo=${bidProductVO.bidProductNo}">${bidProductVO.bidName}</a></td>
-					<td>${bidProductVO.sellerNo}</td>
 					<td>${bidProductVO.initialPrice}</td>
 					<td>${bidProductVO.bidPriceIncrement}</td>
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidProductVO.bidLaunchedTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidProductVO.bidSoldTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td><c:if test="${bidProductVO.bidState == 0}" var="condition">
+					<td>${bidProductVO.getMemVOByBuyerNo().memName}</td>
+					<td>${bidProductVO.bidWinnerPrice}</td>
+					<td>
+						<c:if test="${bidProductVO.bidState == 0}" var="condition">
 							<c:out value="0<br>競標中" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 1}" var="condition">
 							<c:out value="1<br>截標" escapeXml="false"></c:out>
@@ -96,7 +99,8 @@ float: right;
 						</c:if> <c:if test="${bidProductVO.bidState == 3}" var="condition">
 							<c:out value="3<br>棄標" escapeXml="false"></c:out>
 						</c:if></td>
-					<td><c:if test="${bidProductVO.orderState == 0}">
+					<td>
+						<c:if test="${bidProductVO.orderState == 0}">
 							<c:out value="0<br>未出貨" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 1}">
 							<c:out value="1<br>訂單處理中" escapeXml="false"></c:out>
@@ -106,7 +110,12 @@ float: right;
 							<c:out value="3<br>取回處理中" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 4}">
 							<c:out value="4<br>已重新申請上架" escapeXml="false"></c:out>
-						</c:if></td>
+						</c:if><c:if test="${bidProductVO.orderState == 5}">
+							<c:out value="5<br>已收貨" escapeXml="false"></c:out>
+						</c:if><c:if test="${bidProductVO.orderState == 6}">
+							<c:out value="6<br>已撥款" escapeXml="false"></c:out>
+						</c:if>
+					</td>
 					<td>
 						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
 							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">

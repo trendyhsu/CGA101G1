@@ -43,9 +43,10 @@ public class BidProductGetBackServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 			/*************************** 2.開始修改資料 *****************************************/
+			// 開始修改競標訂單狀態 3 取回處理中
 			orderState = new Integer(3);
 			BidProductService bidProductSvc = new BidProductService();
-			bidProductSvc.updateOrderStateGetbackAndRelist(orderState, bidProductNo);
+			bidProductSvc.updateOrderState(orderState, bidProductNo);
 			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			request.setAttribute("successMsg", "編號" + bidProductNo + "商品取回已提出申請");

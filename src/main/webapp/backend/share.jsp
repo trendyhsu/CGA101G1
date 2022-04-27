@@ -62,12 +62,12 @@
 					data-original-title="Toggle Navigation"></div>
 			</div>
 			<!--logo start-->
-			<a href="index.html" class="logo"><b>POP.Game</b></a>
+			<a href="<%=request.getContextPath()%>/backend/index.jsp" class="logo"><b>POP.Game</b></a>
 			<!--logo end-->
-
+			
 			<div class="top-menu">
 				<ul class="nav pull-right top-menu">
-					<li><a class="logout" href="login.html">Logout</a></li>
+					<li><a class="logout" href="<%=request.getContextPath()%>/frontend/mem/login.html">登入</li>
 				</ul>
 			</div>
 		</header>
@@ -83,7 +83,7 @@
 				<ul class="sidebar-menu" id="nav-accordion">
 
 					<p class="centered">
-						<a href="profile.html"><img
+						<a href="<%=request.getContextPath()%>/backend/index.jsp"><img
 							src="<%=request.getContextPath()%>/backend/assets/img/logo.png"
 							class="img-circle" width="60"></a>
 					</p>

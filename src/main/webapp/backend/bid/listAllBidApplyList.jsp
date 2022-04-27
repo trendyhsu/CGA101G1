@@ -37,6 +37,9 @@ h3{
 font-weight: bold;
 color: #547492;
 }
+#pageNumber, #dataNumber{
+float: right;
+}
 </style>
 
 </head>
@@ -68,9 +71,9 @@ color: #547492;
 
 		<table class="showPanel" style="table-layout: fixed; color: black;">
 			<tr align='center' valign="middle">
-				<th>申請單編號</th>
-				<th>賣家編號</th>
-				<th style="width: 15%">商品名稱</th>
+				<th style="width: 4%">申請單編號</th>
+				<th>賣家</th>
+				<th style="width: 12%">商品名稱</th>
 				<th>商品敘述</th>
 				<th style="width: 6%">遊戲公司</th>
 				<th style="width: 6%">遊戲種類</th>
@@ -90,7 +93,7 @@ color: #547492;
 
 				<tr align='center' valign="middle">
 					<td>${bidApplyListVO.bidApplyListNo}</td>
-					<td>${bidApplyListVO.memNo}</td>
+					<td>${bidApplyListVO.memVO.memName}</td>
 					<td>${bidApplyListVO.bidName}</td>
 					<td>
 						<div
@@ -115,20 +118,24 @@ color: #547492;
 							<c:out value="2<br>已退貨" escapeXml="false"></c:out>
 						</c:if></td>
 					<td>
+						<c:if test="${bidApplyListVO.applyState == 0}" var="condition">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/backend/bid/addBid.jsp"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="上架">
 							<input type="hidden"name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
+						</c:if>
 					</td>
 					<td>
+						<c:if test="${bidApplyListVO.applyState == 0}" var="condition">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidApplyListReturn"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="退貨">
 							<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>

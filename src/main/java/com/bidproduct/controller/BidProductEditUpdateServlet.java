@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bidpic.model.BidPicService;
+import com.bidpic.model.BidPicVO;
 import com.bidproduct.model.BidProductService;
 import com.bidproduct.model.BidProductVO;
 
@@ -43,7 +45,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("競標商品編號需為數字");
 			}
-			System.out.println(bidProductNo);
+
 			// 申請單編號
 			Integer bidApplyListNo = null;
 			try {
@@ -52,6 +54,7 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("申請單編號需為數字");
 			}
+			
 			// 商品編號
 			Integer productNo = null;
 			try {
@@ -83,7 +86,6 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			if (initialPrice < 0 || initialPrice > 100000) {
 				errorMsgs.add("起標價應在0 - 100000之間");
 			}
-			System.out.println(initialPrice);
 
 			// 判斷競標狀態
 			Integer bidState = null;
@@ -96,7 +98,6 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			if (bidState < 0 || bidState > 2) {
 				errorMsgs.add("競標狀態輸入錯誤(0:未結束 1:截標 2:流標)");
 			}
-			System.out.println(bidState);
 
 			// 判斷最低出價
 			Integer bidPriceIncrement = null;
@@ -109,7 +110,6 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			if (bidPriceIncrement < 0) {
 				errorMsgs.add("最低增額應大於0");
 			}
-			System.out.println(bidPriceIncrement);
 
 			// 判斷起標時間
 			Timestamp bidLaunchedTime = null;
@@ -137,7 +137,6 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 				bidSoldTime = new Timestamp(System.currentTimeMillis() + 600000);
 				errorMsgs.add("截標時間應晚於起標時間，請重新輸入！");
 			}
-			System.out.println(bidSoldTime);
 
 			// 判斷商品狀態
 			Integer orderState = null;
@@ -151,7 +150,6 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 				orderState = 0;
 				errorMsgs.add("競標商品狀態輸入錯誤(0:未出貨 1:訂單處理中 2:已出貨 3:取回處理中 4:已重新申請上架)");
 			}
-			System.out.println(orderState);
 
 			// 判斷收件人資料
 			String receiverName = null;
@@ -206,6 +204,11 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 					 orderState, receiverName, receiverAddress, receiverPhone);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			// 從資料庫讀取 bidPicVOs 存入 list 中
+			BidPicService bidPicSvc = new BidPicService();
+			List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductVO.getBidProductNo());
+			request.setAttribute("list",list);
+			
 			request.setAttribute("bidProductVO", bidProductVO); // 資料庫update成功後,正確的的bidProductVO物件,存入request
 			String url = "/backend/bid/listOneBid.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneBid.jsp

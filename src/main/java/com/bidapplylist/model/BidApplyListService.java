@@ -76,6 +76,21 @@ public class BidApplyListService {
 	public List<BidApplyListVO> getAllBidApplyListByMemNo(Integer memNo) {
 		return dao.findByMemNo(memNo);
 	}
+	
+	// 用 gamePlatformNo 取得所有資料
+	public List<BidApplyListVO> getAllBidApplyListByGamePlatformNo(Integer gamePlatformNo) {
+		return dao.findByGamePlatformNo(gamePlatformNo);
+	}
+	
+	// 用 gameTypeNo 取得所有資料
+	public List<BidApplyListVO> getAllBidApplyListByGameTypeNo(Integer gameTypeNo) {
+		return dao.findByGameTypeNo(gameTypeNo);
+	}
+	
+	// 用 gameCompanyNo 取得所有資料
+	public List<BidApplyListVO> getAllBidApplyListByGameCompanyNo(Integer gameCompanyNo) {
+		return dao.findByGameCompanyNo(gameCompanyNo);
+	}
 
 	// 取得所有 BidApplyList
 	public List<BidApplyListVO> getAll() {
