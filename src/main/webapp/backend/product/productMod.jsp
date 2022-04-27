@@ -75,7 +75,7 @@
                                                 v-model="temp.productName" @change="nameCheck($event)">
                                             <div style="color: red;"
                                                 :style="{visibility: nameInput ? 'visible' : 'hidden'}">
-                                                請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
+                                                請輸入正確格式的名字，不應包含特殊符號+-/^~{}@$!%*?& 或是只填空格!!</div>
                                         </div>
                                         <div>
                                             <label for="productPrice" class="form-label">價格</label>
@@ -426,7 +426,7 @@
                         //驗證表單
                         nameCheck(e) {
                             this.nameInput = false;
-                            const rules = new RegExp('[+-/^~{}:@$!%*?&0-9]');
+                            const rules = new RegExp('[#+-/^~{}@$!%*?&]');
                             if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                                 this.nameInput = true;
                             }

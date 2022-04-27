@@ -105,5 +105,6 @@ public class OrderVO implements java.io.Serializable{
 		OrderDetailDAO_interface dao = new OrderDetailDAO();	
 		return dao.findAllDetailByOrderNo(orderNo);
 	}
+	
 }
 

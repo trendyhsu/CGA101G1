@@ -177,7 +177,7 @@ public class GetParameter extends HttpServlet {
 					session.setAttribute("checkedProductVO", checkedProductVO);
 					RequestDispatcher failureView = request.getRequestDispatcher("/backend/product/productAdd.jsp");
 					failureView.forward(request, response);
-					
+					return; // 程式中斷
 //					response.sendRedirect("/CGA101G1/backend/product/productAdd.jsp");
 				}
 			};
