@@ -104,7 +104,7 @@ color: black;
 		</div>
 		
 		<div id="checkout">
-			<form action="<%=request.getContextPath()%>/bid/bidProductCheckout">
+			<form action="<%=request.getContextPath()%>/bid/bidProductCheckout"id="qqq">
 				<div class="mb-3">
 					<label for="receiverName"><span class="info">收件人姓名</span></label>
 					<input type="text" class="form-control" id="receiverName" name="receiverName"
@@ -132,9 +132,7 @@ color: black;
 				</div>
 				<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 
-				<button class="btn btn-primary btn-lg btn-block" type="submit">確認結帳</button>
-				
-				
+				<button class="btn btn-primary btn-lg btn-block" id="btn222" type="button">確認結帳</button>
 				
 			</form>
 		</div>
@@ -150,7 +148,34 @@ color: black;
     <!-- End Main -->
     <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
     <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script type="text/javascript"></script>
+    
+        <script type="text/javascript">
+    
+    $("#checkout").click(function(){
+        swal({
+            title: "信用卡授權中",
+            text: "正在聯絡信用卡公司 請稍候", 
+            icon: "info",
+            timer: 2000
+        })
+        .then(() => {
+        	swal("刷卡成功，感謝參與競標！", {
+              icon: "success",
+              timer: 2000
+            })
+        })
+        .then(() => {
+            setTimeout(checkout, 1000);
+         })
+	    function checkout() {
+	    	document.querySelector("#qqq").submit();
+		}
+    });
+    
+    
+    </script>
 </body>
 </html>
 <%@include file="/frontend/frontfoot.jsp" %>

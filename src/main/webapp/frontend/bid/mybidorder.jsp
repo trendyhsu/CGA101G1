@@ -116,18 +116,18 @@ float: right;
 					<td>
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/frontend/bid/bidcheckout.jsp"
-							style="margin-bottom: 0px;">
+							>
 							<c:if test="${bidProductVO.orderState == 0}">
-							<input type="submit" value="結帳"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="結帳"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 							</c:if>
 						</FORM>
 					</td>
 					<td>
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidProductReceive"
-							style="margin-bottom: 0px;">
+							>
 							<c:if test="${bidProductVO.orderState == 2}">
-							<input type="submit" value="領收"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="領收"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 							</c:if>
 						</FORM>
 					</td>
@@ -147,6 +147,7 @@ float: right;
         <!--Table -->
     </main>
     <!-- End Main -->
+
 </body>
 </html>
 <%@include file="/frontend/frontfoot.jsp" %>

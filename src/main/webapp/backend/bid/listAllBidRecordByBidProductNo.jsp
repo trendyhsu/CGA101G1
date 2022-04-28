@@ -103,7 +103,9 @@ color: #547492;
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
-<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp">回競標商品列表</a>
+<div style="text-align: center;">
+	<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp" style="font-size: 1.5rem">回競標商品列表</a>
+</div>
 </div>
 	</section>
 

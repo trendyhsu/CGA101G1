@@ -139,7 +139,7 @@ float: right;
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductShipping"
 									style="margin-bottom: 0px;">
-									<input type="submit" value="出貨"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+									<input class="btn btn-primary btn-sm" type="submit" value="出貨"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 								</FORM>
 							</c:if>
 						</td>
@@ -148,7 +148,7 @@ float: right;
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductPay"
 									style="margin-bottom: 0px;">
-									<input type="submit" value="撥付"> <input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
+									<input class="btn btn-primary btn-sm" type="submit" value="撥付"> <input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden" name="action" value="pay">
 								</FORM>
 							</c:if>

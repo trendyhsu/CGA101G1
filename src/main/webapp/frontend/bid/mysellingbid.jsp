@@ -122,7 +122,7 @@ float: right;
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductGetBack"
 									style="margin-bottom: 0px;">
-									<input type="submit" value="取回">
+									<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="取回">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 								</FORM>
@@ -134,8 +134,8 @@ float: right;
 							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductRelist"
-									style="margin-bottom: 0px;">
-									<input type="submit" value="重新上架">
+									>
+									<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="重新上架">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 								</FORM>

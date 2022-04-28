@@ -37,7 +37,6 @@ public class BidRecordGetOneByBidProductNoServlet extends HttpServlet {
 				} catch (NumberFormatException e) {
 					errorMsgs.add("競標商品編號需為數字");
 				}
-				System.out.println(bidProductNo);
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = request
