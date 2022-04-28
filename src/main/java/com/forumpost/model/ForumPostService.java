@@ -126,4 +126,8 @@ public class ForumPostService {
 		return dao.findByPostTypeName(forumtNo, forumPostType, postCharacter);
 	}
 
+	public List<ForumPostVO> getAllMasterPost() {
+		return dao.getAllMasterPost();
+	}
+
 }

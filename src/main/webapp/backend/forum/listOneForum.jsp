@@ -8,8 +8,7 @@
 <%@include file="/backend/share.jsp"%>
 
 <%
-// 取得來自 ForumMsgEditUpdateServlet 的 ForumMsgVO
-
+// 取得來自 ForumEditUpdateServlet 的 ForumVO
 ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
 %>
 
@@ -85,36 +84,79 @@ h3 {
 						<td>版主名稱</td>
 						<td>${forumVO.memVO.memName}</td>
 					</tr>
-					<tr>
-						<td>討論區圖片</td>
-						<td>${forumVO.forumImg}</td>
-					</tr>
 				</table>
 
 				<FORM METHOD="post"
 					ACTION="<%=request.getContextPath()%>/forum/forumOneEditServlet"
 					style="margin-bottom: 0px;">
-					<input type="submit" value="修改狀態"> <input type="hidden"
+					<input type="submit" value="修改"> <input type="hidden"
 						name="forumNo" value="${forumVO.forumNo}">
 				</FORM>
-			</div>
+				<div style="height: 15px"></div>
+				<div style="display: inline-block;">
+					<a
+						href="<%=request.getContextPath()%>/backend/forum/listAllForum.jsp">
+						<button>返回討論區列表</button>
+					</a>
+				</div>
+				<div style="height: 15px"></div>
+
+				<div id="picPreview"
+					style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative;">
+					<img
+						src="<%=request.getContextPath()%>/forum/forumPicGetByForumNo?forumNo=${forumVO.forumNo}"
+						class="uploadedImg" style="width: 525px; padding-left: 0px">
+				</div>
 		</section>
 
 		<!--main content end-->
-		<div style="display: inline-block; padding-left: 15px">
-			<a
-				href="<%=request.getContextPath()%>/backend/forum/listAllForum.jsp">
-				<button>返回討論區列表</button>
-			</a>
-		</div>
-		<div style="display: inline-block;">
-			<a
-				href="<%=request.getContextPath()%>/backend/forum/selectPowerHome.jsp">
-				<button>返回權限編輯首頁</button>
-			</a>
-		</div>
-
-
 	</section>
+
+	<script type="text/javascript">
+		var filereader_support = typeof FileReader != 'undefined';
+
+		if (!filereader_support) {
+			alert("No FileReader support");
+		}
+
+		acceptedTypes = {
+			'image/png' : true,
+			'image/jpeg' : true,
+			'image/gif' : true
+		};
+
+		let upfile = document.getElementById("upfile");
+		upfile.addEventListener("change", function(event) {
+			let files = event.target.files || event.dataTransfer.files;
+			for (let i = 0; i < files.length; i++) {
+				previewfile(files[i])
+			}
+		}, false);
+
+		function previewfile(file) {
+			if (filereader_support === true
+					&& acceptedTypes[file.type] === true) {
+				let reader = new FileReader();
+				reader.onload = function(event) {
+					let image = new Image();
+					image.src = event.target.result;
+					image.width = 525;
+					picPreview.appendChild(image);
+				};
+				reader.readAsDataURL(file);
+			} else {
+				picPreview.innerHTML += "<p>" + "filename: <strong>"
+						+ file.name + "</strong><br>" + "ContentTyp: <strong>"
+						+ file.type + "</strong><br>" + "size: <strong>"
+						+ file.size + "</strong> bytes</p>";
+			}
+		}
+		// 當upload重新選擇 清空舊有資料
+		$("#upload").change(function() {
+			$("#picPreview").empty() // 清空當下預覽
+			previewfile(this.files) // this即為<input>元素
+		})
+	</script>
+
 </body>
 </html>
