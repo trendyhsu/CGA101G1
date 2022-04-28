@@ -19,6 +19,9 @@ public interface OrderDetailDAO_interface {
     //修改訂單項目內容
     public void modByOrder(OrderDetailVO OrderDetailVO);
     
+    //作廢訂單項目內容
+    public OrderDetailVO clearByOrder(OrderDetailVO orderDetailVO);
+    
     //發表評論
     public void newCommentCotent(OrderDetailVO orderDetailVO);
     

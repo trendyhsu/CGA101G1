@@ -17,9 +17,7 @@ import com.google.gson.Gson;
 import com.test.Cartdetail;
 
 
-/**
- * Servlet implementation class Add2ShoppingCart
- */
+
 @WebServlet("/product/add2ShoppingCart")
 public class Add2ShoppingCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
