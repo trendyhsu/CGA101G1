@@ -56,6 +56,8 @@ public class GetAllProductDetail extends HttpServlet {
 				map.put("gameTypeNo", product.getGameTypeNo().toString());
 				map.put("gamePlatformNo", product.getGamePlatformNo().toString());
 				map.put("gamePlatformName", product.getOneGamePlatformType(product.getGamePlatformNo()).getGamePlatformName());
+				map.put("gameCompanyNo", product.getGameCompanyNo().toString());
+				map.put("gameCompanyName", product.getOneGameCompanyVO(product.getGameCompanyNo()).getGameCompanyName());
 				map.put("itemProdDescription", product.getItemProdDescription());
 				map.put("upcNum", product.getUpcNum());
 				map.put("productPrice", product.getProductPrice().toString());

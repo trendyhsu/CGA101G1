@@ -3,6 +3,9 @@ package com.product.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.gamecompany.model.GameCompanyDAO_interface;
+import com.gamecompany.model.GameCompanyJDBCDAO;
+import com.gamecompany.model.GameCompanyVO;
 import com.gameplatformtype.model.GamePlatformTypeDAO_interface;
 import com.gameplatformtype.model.GamePlatformTypeJDBCDAO;
 import com.gameplatformtype.model.GamePlatformTypeVO;
@@ -99,6 +102,11 @@ public class ProductVO implements java.io.Serializable{
 	public GamePlatformTypeVO getOneGamePlatformType(Integer gamePlatformNo) {
 		GamePlatformTypeDAO_interface dao = new GamePlatformTypeJDBCDAO();
 		return dao.findByPrimaryKey(gamePlatformNo);
+	}
+	
+	public GameCompanyVO getOneGameCompanyVO(Integer gameCompanyNo) {
+		GameCompanyDAO_interface dao = new GameCompanyJDBCDAO();
+		return dao.findByPrimaryKey(gameCompanyNo);
 	}
 
 }

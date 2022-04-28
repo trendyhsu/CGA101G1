@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>POP.Game</title>
+
+</head>
 </head>
 
 <body>
+
+
     <div>
         <div>
             <label for="username">帳號: </label> <input type="text" name="username" id="username" />
@@ -33,14 +37,20 @@
                     memPassword: password.value
                 }),
                 success: data => {
-                    const { successful, message } = data;
+                    const { successful, message, initlocation } = data;
                     if (successful) {
                         let { memNo, memName, memStatus, memVrfed } = data;
                         sessionStorage.setItem("memNo", memNo);
                         sessionStorage.setItem("memName", memName);
                         sessionStorage.setItem("memStatus", memStatus);
                         sessionStorage.setItem("memVrfed", memVrfed);
-                        location = "index.html";
+                        alert("歡迎光臨買鳳(ﾉ>ω<)ﾉ");
+
+                        if (initlocation !== undefined) {
+                            location = initlocation;
+                        } else {
+                            location = "/CGA101G1/frontend/mem/index.html";
+                        }
                     } else {
                         $("#errMsg").html(message);
                         //                   

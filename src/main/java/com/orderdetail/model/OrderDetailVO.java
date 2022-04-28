@@ -2,6 +2,11 @@ package com.orderdetail.model;
 
 import java.sql.Date;
 
+import com.product.model.ProductDAO;
+import com.product.model.ProductDAO_interface;
+import com.product.model.ProductService;
+import com.product.model.ProductVO;
+
 public class OrderDetailVO implements java.io.Serializable{
 	private Integer orderNo;
 	private Integer productNo;
@@ -53,5 +58,11 @@ public class OrderDetailVO implements java.io.Serializable{
 	}
 	public void setCommentStar(Integer commentStar) {
 		CommentStar = commentStar;
+	}
+	
+	public com.product.model.ProductVO getProductVO(Integer productNo) {
+		com.product.model.ProductService productService = new ProductService();
+		System.out.println(productService.GetOne(productNo).getProductName());
+		return productService.GetOne(productNo);
 	}
 }

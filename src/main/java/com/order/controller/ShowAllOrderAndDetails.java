@@ -54,7 +54,7 @@ public class ShowAllOrderAndDetails extends HttpServlet {
 			map.put("ReceiverPhone", order.getReceiverPhone().toString());
 
 			List<OrderDetailVO> orderDetaillist = new ArrayList<OrderDetailVO>();
-			orderDetaillist = order.GetAllDetailByOrderNo(order.getOrderNo());
+			orderDetaillist = order.getAllDetailByOrderNo(order.getOrderNo());
 			map.put("OrderDetails", orderDetaillist);
 			list.add(map);
 		}

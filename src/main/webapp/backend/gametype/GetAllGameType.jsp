@@ -77,26 +77,29 @@ color: #547492;
 				</tr>
 				-->
 				</c:forEach>
-			<td sytle="">
+				<div style="margin-top:30px;">
+			<td>
 				<FORM METHOD="post"
 				ACTION="<%=request.getContextPath()%>/backend/gametype/addGameType.jsp"
-				style="margin-bottom: 0px;">
-				<input type="submit" value="新增">
+				style="margin-bottom: 0px;display:inline;">
+				<input type="submit" value="新增" class="btn btn-success btn-beside" sytle=" position: absolute;left: 100%;top: 0;margin-left: -10px;">
 				<input type="hidden"name="gameTypeNo" value="${gameTypeVO.gameTypeNo}">
 				</FORM>
 			</td>
 			<td>
 				<FORM METHOD="post"
 					  ACTION="<%=request.getContextPath()%>/backend/gametype/editGameType.jsp"
-				      style="margin-bottom: 0px;">
-					<input type="submit" value="修改">
+				      style="margin-bottom: 0px;display:inline;">
+					<input type="submit" value="修改" class="btn btn-success" sytle=" position: absolute;left: 100%;top: 0;margin-left: -10px;">
 					<input type="hidden" name="gameTypeNo" value="${gameTypeVO.gameTypeNo}">
 				</FORM>
-			</td>	
-				
-		
+			</td>
+					<div>
+					<%@ include file="page2.file"%>
+					</div>
+			</div>
 		</div>
-		<%@ include file="page2.file"%>
+		
 	</div>
             </section>
             <!--/wrapper -->

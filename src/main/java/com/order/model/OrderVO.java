@@ -101,9 +101,10 @@ public class OrderVO implements java.io.Serializable{
 	public void setPickupTime(Date pickupTime) {
 		this.pickupTime = pickupTime;
 	}
-	public List<OrderDetailVO> GetAllDetailByOrderNo(Integer orderNo){
+	public List<OrderDetailVO> getAllDetailByOrderNo(Integer orderNo){
 		OrderDetailDAO_interface dao = new OrderDetailDAO();	
 		return dao.findAllDetailByOrderNo(orderNo);
 	}
+	
 }
 

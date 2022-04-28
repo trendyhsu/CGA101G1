@@ -12,18 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.couponType.model.CouponTypeService;
 import com.couponType.model.CouponTypeVO;
 
-/**
- * Servlet implementation class GetWhichOneUpdate
- */
-@WebServlet("/couponType/GetWhichOneUpdate")
-public class GetWhichOneUpdate extends HttpServlet {
+@WebServlet("/couponType/GetWhichOneUpdateServlet")
+public class GetWhichOneUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 	

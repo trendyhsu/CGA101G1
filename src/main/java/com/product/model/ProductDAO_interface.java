@@ -14,6 +14,8 @@ public interface ProductDAO_interface {
 
 	public ProductVO findByPrimaryKey(Integer ProductNo);
 	
+	public ProductVO findNameByPrimaryKey(Integer productNo);
+	
 	public List<ProductVO> findByTop3MaxPrimaryKey();
 
 	public List<ProductVO> getAll();

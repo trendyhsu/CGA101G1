@@ -101,6 +101,10 @@ public class ProductService {
 		return dao.findByPrimaryKey(productNo);
 	}
 	
+	public ProductVO GetOneName(Integer productNo) {
+		return dao.findNameByPrimaryKey(productNo);
+	}
+	
 	//查最新新增的商品
 	public List<ProductVO> GetNewestOne() {
 		return dao.findByTop3MaxPrimaryKey();

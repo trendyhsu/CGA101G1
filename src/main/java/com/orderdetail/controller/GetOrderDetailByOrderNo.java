@@ -15,9 +15,7 @@ import com.orderdetail.model.OrderDetailService;
 import com.orderdetail.model.OrderDetailVO;
 
 
-/**
- * Servlet implementation class GetOrderDetailByMemNo
- */
+
 @WebServlet("/product/getOrderDetailByOrderNo")
 public class GetOrderDetailByOrderNo extends HttpServlet {
 	private static final long serialVersionUID = 1L;

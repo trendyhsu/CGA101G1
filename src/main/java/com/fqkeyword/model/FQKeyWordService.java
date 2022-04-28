@@ -40,4 +40,12 @@ public class FQKeyWordService {
 	public List<FQKeyWordVO> getAll(Map<String, String[]>map){
 		return dao.getAll(map);
 	}
+	
+	public List<FQKeyWordVO> getAll(){
+		return dao.getAll();
+	}
+	
+	public FQKeyWordVO getOne(Integer fqKeyWordNo) {
+		return dao.findByPrimaryKey(fqKeyWordNo);
+	}
 }

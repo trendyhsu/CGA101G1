@@ -397,11 +397,11 @@
                             <div class="pt-3 border-top mt-3 small">
                                 <p class="theme-link mb-2">
                                     <label class="m-0 text-dark">支援平台:</label>
-                                    <a href="javascript:void(0);">{{jsonData.gamePlatformNo}} 要改</a>
+                                    <a href="javascript:void(0);">{{jsonData.gamePlatformName}}</a>
                                 </p>
                                 <p class="theme-link mb-2">
                                     <label class="m-0 text-dark">Categories:</label>
-                                    <a href="javascript:void(0);">{{jsonData.gameTypeNo}} 要改</a>
+                                    <a href="javascript:void(0);">{{jsonData.gameTypeName}}</a>
                                 </p>
                                 <p class="theme-link m-0">
                                     <label class="m-0 text-dark">Share:</label>
@@ -558,67 +558,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex review-box border-top mt-3 pt-3">
-                            <div>
-                                <div class="review-image sm">
-                                    <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
+                        <div v-for="(item, index) in CommentsData" :key="index">
+                            <div class="d-flex review-box border-top mt-3 pt-3">
+                                <div>
+                                    <div class="review-image sm">
+                                        <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col ps-3">
-                                <h6 class="m-0">Nancy Bayer</h6>
-                                <div class="rating-star small">
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star"></i>
-                                    <span>13 April 2012</span>
+                                <div class="col ps-3">
+                                    <h6 class="m-0">已購買者</h6>
+                                    <div class="rating-star small">
+                                        <i class="bi small bi-star-fill active"
+                                            v-for="(item, index) in item.CommentStar" :key="index"></i>
+                                        <span>{{item.commentTime}}</span>
+                                    </div>
+                                    <p class="m-0 pt-2 small">{{item.commentCotent}}</p>
                                 </div>
-                                <p class="m-0 pt-2 small">Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex review-box border-top mt-3 pt-3">
-                            <div>
-                                <div class="review-image sm">
-                                    <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
-                                </div>
-                            </div>
-                            <div class="col ps-3">
-                                <h6 class="m-0">Nancy Bayer</h6>
-                                <div class="rating-star small">
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star"></i>
-                                    <span>13 April 2012</span>
-                                </div>
-                                <p class="m-0 pt-2 small">Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex review-box border-top mt-3 pt-3">
-                            <div>
-                                <div class="review-image sm">
-                                    <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
-                                </div>
-                            </div>
-                            <div class="col ps-3">
-                                <h6 class="m-0">Nancy Bayer</h6>
-                                <div class="rating-star small">
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star"></i>
-                                    <span>13 April 2012</span>
-                                </div>
-                                <p class="m-0 pt-2 small">Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua.</p>
                             </div>
                         </div>
                     </div>
@@ -943,6 +898,7 @@
                     // jsonData: [],
                     images: [],
                     ProductName: "",
+                    CommentsData: [],
 
                 }
             },
@@ -961,11 +917,11 @@
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
                             console.log("取ProductData的狀態：" + response.status); //狀態碼
-                            console.log(response.data);
+                            // console.log(response.data);
                             this.jsonData = response.data;//塞進去
                             this.jsonData.Pics = [];
                             console.log("datastore讀取資料ok");
-                            console.log(this.jsonData);
+                            // console.log(this.jsonData);
                             console.log("開始存圖片")
                             this.getPicData();
 
@@ -975,9 +931,9 @@
                     let getUrlString = location.href;
                     let url = new URL(getUrlString);
                     let myURL = url.searchParams.get('ProductNo');
-                    console.log(myURL);
+                    // console.log(myURL);
                     const apiUrl = '/CGA101G1/product/ProductPicAll?ProductNo=' + myURL;
-                    console.log("這是產品圖片詳情：" + apiUrl);
+                    // console.log("這是產品圖片詳情：" + apiUrl);
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
@@ -988,6 +944,21 @@
                             response.data.forEach(element => {
                                 this.jsonData.Pics.push(element);
                             });
+                        });
+                },
+                getCommentsData() {
+                    let getUrlString = location.href;
+                    let url = new URL(getUrlString);
+                    let myURL = url.searchParams.get('ProductNo');
+                    console.log(myURL);
+                    const apiUrl = '/CGA101G1/product/showOneProductAllComments?ProductNo=' + myURL;
+                    console.log("這是評論的：" + apiUrl);
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取評論的狀態：" + response.status); //狀態碼
+                            this.CommentsData = response.data;//塞進去
+                            console.log("取評論的狀態讀取資料ok");
                         });
                 },
                 getComponentInfo() {
@@ -1027,6 +998,7 @@
 
             },
             created() {
+                this.getCommentsData();
                 this.getProductData();
             }
         })

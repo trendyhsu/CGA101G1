@@ -1,8 +1,10 @@
 package com.forumpostreport.controller;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,11 +31,10 @@ public class ForumPostReportOneEditServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-
-		List<String> errorMsgs = new LinkedList<String>();
+		
+		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
-		
 			// 1.接收請求參數
 			Integer forumPostReportNo = Integer.valueOf(request.getParameter("forumPostReportNo"));
 

@@ -21,26 +21,17 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = 
-		"INSERT INTO forumpost (ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostFeatured) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE = 
-		"UPDATE forumpost SET ForumPostType=?,ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
-	private static final String UPDATE_FORUMPOSTSTATE = 
-		"UPDATE forumpost SET ForumPostState=? WHERE ForumPostNo = ?";
-	private static final String UPDATE_MASTER = 
-		"UPDATE forumpost SET ForumPostFeatured=? WHERE ForumPostNo = ?";
-	private static final String UPDATE_ADMIN = 
-		"UPDATE forumpost SET ForumPostType=?, ForumPostState=? WHERE ForumPostNo = ?";
-	private static final String GET_ONE_STMT = 
-		"SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
-	private static final String GET_ALL_STMT = 
-		"SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost ORDER BY ForumPostNo DESC";
-	private static final String GET_ONE_FORUM_STMT = 
-		"SELECT ForumPostFeatured,ForumPostType,ForumPostTitle,MemNo,ForumPostTime FROM forumpost WHERE ForumNo = ?";
-	private static final String GET_ONE_MEM_STMT = 
-		"SELECT ForumNo,ForumPostTitle,ForumPostTime FROM forumpost WHERE MemNo = ?";
-	private static final String GET_FIND_POSTTYPE_POSTNAME = 
-		"SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo=? AND ForumPostType=? AND ForumPostTitle LIKE ?";
+	private static final String INSERT_STMT = "INSERT INTO forumpost (ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostFeatured) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE = "UPDATE forumpost SET ForumPostType=?,ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
+	private static final String UPDATE_FORUMPOSTSTATE = "UPDATE forumpost SET ForumPostState=? WHERE ForumPostNo = ?";
+	private static final String UPDATE_MASTER = "UPDATE forumpost SET ForumPostFeatured=? WHERE ForumPostNo = ?";
+	private static final String UPDATE_ADMIN = "UPDATE forumpost SET ForumPostType=?, ForumPostState=? WHERE ForumPostNo = ?";
+	private static final String GET_ONE_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
+	private static final String GET_ALL_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost ORDER BY ForumPostNo DESC";
+	private static final String GET_ONE_FORUM_STMT = "SELECT ForumPostFeatured,ForumPostType,ForumPostTitle,MemNo,ForumPostTime FROM forumpost WHERE ForumNo = ?";
+	private static final String GET_ONE_MEM_STMT = "SELECT ForumNo,ForumPostTitle,ForumPostTime FROM forumpost WHERE MemNo = ?";
+	private static final String GET_FIND_POSTTYPE_POSTNAME = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo=? AND ForumPostType=? AND ForumPostTitle LIKE ?";
+	private static final String GET_ALL_MASTER_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostState,MemNo,ForumPostTitle,ForumPostContent,ForumPostTime FROM forumpost WHERE ForumPostType = 0 ORDER BY ForumPostNo DESC";
 
 	@Override
 	public void insert(ForumPostVO forumPostVO) {
@@ -65,8 +56,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -94,7 +84,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
@@ -107,8 +97,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -128,7 +117,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		}
 
 	}
-	
+
 	@Override
 	public void updateForumPostState(ForumPostVO forumPostVO) {
 
@@ -144,11 +133,10 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 			pstmt.setInt(2, forumPostVO.getForumPostNo());
 
 			pstmt.executeUpdate();
-;
+			;
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -168,7 +156,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		}
 
 	}
-	
+
 	@Override
 	public void updateMaster(ForumPostVO forumPostVO) {
 
@@ -187,8 +175,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -208,7 +195,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		}
 
 	}
-	
+
 	@Override
 	public void updateAdmin(ForumPostVO forumPostVO) {
 
@@ -228,8 +215,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -268,7 +254,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-		
+
 				forumPostVO = new ForumPostVO();
 				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
 				forumPostVO.setForumNo(rs.getInt("forumNo"));
@@ -283,8 +269,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -328,7 +313,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-			
+
 				forumPostVO = new ForumPostVO();
 				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
 				forumPostVO.setForumNo(rs.getInt("forumNo"));
@@ -344,8 +329,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -372,12 +356,12 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<ForumPostVO> findByForumNo(Integer forumNo) {
 
 		List<ForumPostVO> list = new ArrayList<ForumPostVO>();
-		
+
 		ForumPostVO forumPostVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -391,9 +375,9 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 			pstmt.setInt(1, forumNo);
 
 			rs = pstmt.executeQuery();
-	
+
 			while (rs.next()) {
-				
+
 				forumPostVO = new ForumPostVO();
 				forumPostVO.setForumPostFeatured(rs.getInt("forumPostFeatured"));
 				forumPostVO.setForumPostType(rs.getInt("forumPostType"));
@@ -405,8 +389,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -433,28 +416,28 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<ForumPostVO> findByMemNo(Integer memNo) {
 
 		List<ForumPostVO> list = new ArrayList<ForumPostVO>();
-		
+
 		ForumPostVO forumPostVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_MEM_STMT);
 
 			pstmt.setInt(1, memNo);
 
 			rs = pstmt.executeQuery();
-	
+
 			while (rs.next()) {
-			
+
 				forumPostVO = new ForumPostVO();
 				forumPostVO.setForumNo(rs.getInt("forumNo"));
 				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
@@ -464,8 +447,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -491,10 +473,10 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 			}
 		}
 		return list;
-		
+
 	}
-	
-	public List<ForumPostVO> findByPostTypeName(Integer forumNo ,Integer forumPostType,String postCharacter) {
+
+	public List<ForumPostVO> findByPostTypeName(Integer forumNo, Integer forumPostType, String postCharacter) {
 
 		List<ForumPostVO> list = new ArrayList<ForumPostVO>();
 
@@ -514,7 +496,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-			
+
 				forumPostVO = new ForumPostVO();
 				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
 				forumPostVO.setForumNo(rs.getInt("forumNo"));
@@ -559,6 +541,64 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 	}
 
+	@Override
+	public List<ForumPostVO> getAllMasterPost() {
+		List<ForumPostVO> list = new ArrayList<ForumPostVO>();
+		ForumPostVO forumPostVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_MASTER_POST_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				forumPostVO = new ForumPostVO();
+				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
+				forumPostVO.setForumNo(rs.getInt("forumNo"));
+				forumPostVO.setForumPostState(rs.getInt("forumPostState"));
+				forumPostVO.setMemNo(rs.getInt("memNo"));
+				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
+				forumPostVO.setForumPostContent(rs.getString("forumPostContent"));
+				forumPostVO.setForumPostTime(rs.getTimestamp("forumPostTime"));
+				list.add(forumPostVO); 
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 //	public static void main(String[] args) {
 //
 //		ForumPostJDBCDAO dao = new ForumPostJDBCDAO();
@@ -583,22 +623,20 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 //		
 //		dao.update(updateForumPost);
 
-		
 //OK!	// 修改 UPDATE_FORUMPOSTSTATE 
 //		ForumPostVO updateForumPost = new ForumPostVO();
 //		updateForumPost.setForumPostState(0);
 //		updateForumPost.setForumPostNo(41003);
 //		
 //		dao.updateForumPostState(updateForumPost);
-		
-		
+
 //OK!   // 修改 UPDATE_MASTER
 //		ForumPostVO updateForumPost = new ForumPostVO();
 //		updateForumPost.setForumPostFeatured(1);
 //		updateForumPost.setForumPostNo(41001);
 //				
 //		dao.updateMaster(updateForumPost);
-		
+
 //OK!   // 修改 UPDATE_ADMIN
 //		ForumPostVO updateForumPost = new ForumPostVO();
 //		updateForumPost.setForumPostType(2);
@@ -606,10 +644,10 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 //		updateForumPost.setForumPostNo(41001);
 //						
 //		dao.updateAdmin(updateForumPost);
-			
+
 //
 //OK!	// 查詢 One
-		
+
 //		ForumPostVO oneForumPost = dao.findByPrimaryKey(41006);
 //		System.out.println(oneForumPost.getForumPostNo() + ",");
 //		System.out.println(oneForumPost.getForumNo() + ",");
@@ -637,9 +675,9 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 //			System.out.println("---------------------");
 //		}
 //		
-		
+
 //OK!	// 查詢 GET_ONE_FORUM_STMT
-		
+
 //		List<ForumPostVO> list = dao.findByForumNo(46003);
 //		for (ForumPostVO aForumPost : list) {
 //			
@@ -651,7 +689,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 //			System.out.println("---------------------");
 //		}
 //OK!  // 查詢 GET_ONE_MEM_STMT
-		
+
 //	    List<ForumPostVO> list = dao.findByMemNo(11003);
 //	    for (ForumPostVO aForumPost : list) {
 //		
@@ -660,10 +698,9 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 //		System.out.println(aForumPost.getForumPostTime());
 //		System.out.println("---------------------");
 //	}
-	
-	
+
 //OK!  // 查詢 GET_FIND_POSTNAME
- 
+
 //		List<ForumPostVO> list = dao.findByPostTypeName(46002,0,5,"");
 //	
 //		for (ForumPostVO aForumPost : list) {

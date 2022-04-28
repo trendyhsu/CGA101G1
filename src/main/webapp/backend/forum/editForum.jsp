@@ -8,7 +8,7 @@
 <%@include file="/backend/share.jsp"%>
 
 <%
-// 取得來自 ForumPostReportOneEditServlet 的 ForumPostReportVO
+// 取得來自 ForumOneEditServlet 的 ForumVO
 ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
 %>
 
@@ -65,90 +65,125 @@ h3 {
 
 				<form method="post"
 					action="<%=request.getContextPath()%>/forum/forumEditUpdate"
-					name="form1">
+					name="form1" enctype="multipart/form-data">
 					<table>
 						<tr>
 							<td>討論區編號</td>
-							<td>${forumVO.forumPostNo}</td>
+							<td>${forumVO.forumNo}</td>
 						</tr>
 						<tr>
 							<td>討論區名稱</td>
-							<td>${forumPostVO.forumNo}-${forumPostVO.forumVO.forumName}</td>
-						</tr>
-						<tr>
-							<td>文章精選</td>
-							<td><c:if test="${forumPostVO.forumPostFeatured == 0}"
-									var="condition">
-									<c:out value="0一般" escapeXml="false"></c:out>
-								</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
-									var="condition">
-									<c:out value="1精選" escapeXml="false"></c:out>
-								</c:if></td>
-						</tr>
-						<tr>
-							<td>文章分類</td>
-							<td><select size="1" name="forumPostType">
-									<option value="0"
-										<c:if test="${forumPostVO.forumPostType == 0}"><c:out value="selected"></c:out></c:if>>0管理員文章</option>
-									<option value="1"
-										<c:if test="${forumPostVO.forumPostType == 1}"><c:out value="selected"></c:out></c:if>>1版主文章</option>
-									<option value="2"
-										<c:if test="${forumPostVO.forumPostType == 2}"><c:out value="selected"></c:out></c:if>>2攻略文章</option>
-									<option value="3"
-										<c:if test="${forumPostVO.forumPostType == 3}"><c:out value="selected"></c:out></c:if>>3情報</option>
-									<option value="4"
-										<c:if test="${forumPostVO.forumPostType == 4}"><c:out value="selected"></c:out></c:if>>4閒聊</option>
-									<option value="5"
-										<c:if test="${forumPostVO.forumPostType == 5}"><c:out value="selected"></c:out></c:if>>5其他</option>
+							<td><input type="text" name="forumName" size="45"
+								value="${forumVO.forumName}" /></td>
+							<td>${errorMsgs.forumName}</td>
 
-							</select></td>
 						</tr>
 						<tr>
-							<td>會員編號</td>
-							<td>${forumPostVO.memNo}</td>
-						</tr>
-						<tr>
-							<td>文章狀態</td>
-							<td><select size="1" name="forumPostState">
+							<td>討論區狀態</td>
+							<td><select size="1" name="forumType">
 									<option value="0"
-										<c:if test="${forumPostVO.forumPostState == 0}"><c:out value="selected"></c:out></c:if>>0不顯示</option>
+										<c:if test="${forumVO.forumType == 0}"><c:out value="selected"></c:out></c:if>>0不顯示</option>
 									<option value="1"
-										<c:if test="${forumPostVO.forumPostState == 1}"><c:out value="selected"></c:out></c:if>>1顯示</option>
+										<c:if test="${forumVO.forumType == 1}"><c:out value="selected"></c:out></c:if>>1顯示</option>
 							</select></td>
 						</tr>
 						<tr>
-							<td>文章標題</td>
-							<td>${forumPostVO.forumPostTitle}</td>
+
+
+							<jsp:useBean id="memJDBCDAO" scope="page"
+								class="com.member.model.MemJDBCDAO" />
+							<td>版主名稱</td>
+							<td><select size="1" name="memNo">
+									<option value="0"
+										${(memVO.memNo != forumVO.memNo) ? "selected" : ""}>無版主
+										<c:forEach var="memVO" items="${memJDBCDAO.getAll()}">
+											<option value="${memVO.memNo}"
+												${(forumVO.memNo==memVO.memNo) ? "selected" : ""}>
+												${memVO.memName}
+										</c:forEach>
+							</select></td>
 						</tr>
 						<tr>
-							<td>文章內容</td>
-							<td>${forumPostVO.forumPostContent}</td>
-						</tr>
-						<tr>
-							<td>發表時間</td>
-							<td><fmt:formatDate value="${forumPostVO.forumPostTime}"
-									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<!-- 上傳圖片區 -->
+							<td>討論區圖片</td>
+
+							<td id="upload"><input type="file" name="upfile1"
+								onclick="previewImage()" multiple id="upfile"></td>
 						</tr>
 					</table>
+					<input type="hidden" name="forumNo" value="${forumVO.forumNo}">
+					<input type="submit" value="修改"> <input type="reset"
+						value="重設">
 
-					<input type="hidden" name="forumPostNo"
-						value="${forumPostVO.forumPostNo}"><input type="submit"
-						value="確認修改">
 				</form>
-
 				<div style="height: 15px"></div>
 
 				<div style="display: inline-block;">
 					<a
-						href="<%=request.getContextPath()%>/backend/forum/listAllForumPost.jsp">
-						<button>返回文章列表</button>
+						href="<%=request.getContextPath()%>/backend/forum/listAllForum.jsp">
+						<button>返回討論區列表</button>
 					</a>
 				</div>
+				<div style="height: 15px"></div>
+
+				<div id="picPreview"
+					style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative;">
+
+					<img
+						src="<%=request.getContextPath()%>/forum/forumPicGetByForumNo?forumNo=${forumVO.forumNo}"
+						class="uploadedImg" style="width: 525px; padding-left: 0px">
+				</div>
+
+
 			</div>
 		</section>
-
-		<!--main content end-->
-
 	</section>
+	<!--main content end-->
+	<script type="text/javascript">
+		var filereader_support = typeof FileReader != 'undefined';
+
+		if (!filereader_support) {
+			alert("No FileReader support");
+		}
+
+		acceptedTypes = {
+			'image/png' : true,
+			'image/jpeg' : true,
+			'image/gif' : true
+		};
+
+		let upfile = document.getElementById("upfile");
+		upfile.addEventListener("change", function(event) {
+			let files = event.target.files || event.dataTransfer.files;
+			for (let i = 0; i < files.length; i++) {
+				previewfile(files[i])
+			}
+		}, false);
+
+		function previewfile(file) {
+			if (filereader_support === true
+					&& acceptedTypes[file.type] === true) {
+				let reader = new FileReader();
+				reader.onload = function(event) {
+					let image = new Image();
+					image.src = event.target.result;
+					image.width = 525;
+					picPreview.appendChild(image);
+				};
+				reader.readAsDataURL(file);
+			} else {
+				picPreview.innerHTML += "<p>" + "filename: <strong>"
+						+ file.name + "</strong><br>" + "ContentTyp: <strong>"
+						+ file.type + "</strong><br>" + "size: <strong>"
+						+ file.size + "</strong> bytes</p>";
+			}
+		}
+		// 當upload重新選擇 清空舊有資料
+		$("#upload").change(function() {
+			$("#picPreview").empty() // 清空當下預覽
+			previewfile(this.files) // this即為<input>元素
+		})
+	</script>
+
 </body>
 </html>

@@ -50,7 +50,7 @@ pageContext.setAttribute("list", list);
 		<form method="post"
 			action="<%=request.getContextPath()%>/gametype/gameTypeEdit"
 			name="form1" enctype="multipart/form-data">
-			<table>
+			<table class="showback">
 				<tr>
 				
 					
@@ -62,7 +62,7 @@ pageContext.setAttribute("list", list);
 						</select>
 					</td>
 						
-					<td>新遊戲種類</td>
+					<td style="">新遊戲種類</td>
 					<td><input type="text" name="gameTypeName" size="20"
 						value="${gameTypeVO.gameTypeName}" /></td>	
 						

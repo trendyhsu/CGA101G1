@@ -10,23 +10,31 @@
 
 <body>
     <h1>首頁</h1>
-    <a href="updateMemberData.html" id="a1">會員個人資料及修改</a>
-
-
+    <li id="updateMemberData">
+        <a href="updateMemberData.html" id="a1" class="nav-item">會員個人資料及修改</a>
+    </li>
+    <li id="logout">
+        <a href="#" class="nav-link active">登出</a>
+    </li>
+    <li id="lookUpOneMemCoupon">
+        <a href="/CGA101G1/frontend/memCoupon/lookUpOneMemCoupon.jsp" class="nav-link active">查看我的優惠券</a>
+    </li>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
 
     <script>
-        // new TwCitySelector({
-        //     el: '.city-selector-set',
-        //     elCounty: '.county',
-        //     elDistrict: '.district'
-        // });
-
-        // $("#a1").click(() => {
-        //     alert("123");
-        // });
+        const memNo = sessionStorage.getItem('memNo');
+        const logout = document.querySelector('#logout');
+        if (!memNo) {
+            logout.style.visibility = 'hidden';
+        }
+        logout.addEventListener('click', () => {
+            sessionStorage.removeItem('memNo');
+            fetch('/CGA101G1/mem/logoutServlet');
+            location = `index.html`;
+            alert("88888888888888888888(◜◔。◔◝)");
+        });
 
     </script>
 

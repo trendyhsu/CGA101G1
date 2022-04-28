@@ -70,7 +70,7 @@ color: #547492;
 		<form method="post"
 			action="<%=request.getContextPath()%>/gameplatformtype/gamePlatformTypeInsert"
 			name="form1" enctype="multipart/form-data">
-			<table>
+			<table class="showback">
 				<tr>
 					<td>遊戲平台種類</td>
 					<td><input type="text" name="gamePlatformName" size="20"

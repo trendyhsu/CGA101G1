@@ -198,15 +198,22 @@
                                             <th class="fw-600">遊戲名稱</th>
                                             <th class="fw-600">數量</th>
                                             <th class="fw-600">總價</th>
+                                            <th class="fw-600">發表評論</th>
                                         </tr>
                                     </thead>
-                                    <tbody v-for="(item, index) in item.orderDetail" :key="index">
+                                    <tbody v-for="(orderDetail, index) in item.orderDetail" :key="index">
                                         <tr>
-                                            <td class="p-3">{{item.productNo}}</td>
-                                            <td class="p-3">{{item.productName}}</td>
-                                            <td class="p-3">{{item.productSales}}</td>
+                                            <td class="p-3">{{orderDetail.productNo}}</td>
+                                            <td class="p-3">{{orderDetail.productName}}</td>
+                                            <td class="p-3">{{orderDetail.productSales}}</td>
                                             <td class="p-3"><span
-                                                    class="badge bg-info m-0">{{item.productTotalPrice}}</span>
+                                                    class="badge bg-info m-0">{{orderDetail.productTotalPrice}}</span>
+                                            </td>
+                                            <!-- vshow -->
+                                            <td class="p-3"
+                                                v-show="(item.orderState == 2 && orderDetail.CommentStar == 0 ? true:false)">
+                                                <a
+                                                    :href="`/CGA101G1/frontend/Product/postComment.html?ProductNo=`+orderDetail.productNo+`&OrderNo=`+item.orderNo">我要發表遊戲評論</a>
                                             </td>
                                         </tr>
                                     </tbody>
