@@ -154,8 +154,8 @@ public class GameNewsDAOImpl implements GameNewsDAO{
 				gameNewsVO.setManagerNo(rs.getInt(3));
 				gameNewsVO.setGameNewsTitle(rs.getString(4));
 				gameNewsVO.setGameNewsContent(rs.getString(5));
+				gameNewsVO.setGameNewsPic(rs.getBytes(6));
 				list.add(gameNewsVO);
-
 			}
 			
 		}catch(Exception e) {

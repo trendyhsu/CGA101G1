@@ -3,6 +3,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/backend/share.jsp"%>
+<%@page import="java.util.*"%>
+<%@page import="com.gamenews.model.*" %>
+<%
+	GameNewsService gnSvc = new GameNewsService();
+	List<GameNewsVO> list = gnSvc.getAll();
+	pageContext.setAttribute("list", list);
+	
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,9 +43,11 @@
 							<table class="table table-striped table-advance table-hover"
 								id="myTable">
 								<h4 class="funcTitle02">
-									<i class="fa fa-angle-right"></i> 查詢結果
+									<i class="fa fa-angle-right"></i> 查詢結果 
 								</h4>
+								<%@ include file="page1.file"%>
 								<hr>
+								
 								<thead>
                                     <tr>
                                         <th><i class="fa fa-solid fa-hashtag"></i> 新聞編號</th>
@@ -52,16 +62,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="gameNews" items="${AllQuery}">
+                                
+                             
+                                <c:forEach var="gameNews" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                                     <tr>
                                     
+				
 											<td>${gameNews.gameNewsNo}</td>
 											<td>${gameNews.gamePlatformNo}</td>
 											<td>${gameNews.managerNo}</td>
 											<td>${gameNews.gameNewsTitle}</td>
 											<td>${gameNews.gameNewsContent}</td>
 											<td>
-												<c:if test="${gameNews.gameNewsPic!=null}">
+											<c:if test="${gameNews.gameNewsPic!=null}">
 													<a href="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNews.gameNewsNo}" title="點擊查看" target="_blank">有</a>
 												</c:if>
 												<c:if test="${gameNews.gameNewsPic==null}">
@@ -69,7 +82,7 @@
 												</c:if>
 											</td>
 											<td>
-												<form method="post" action="<%=request.getContextPath()%>/gamenews/gamenews.do">
+											<form method="post" action="<%=request.getContextPath()%>/gamenews/gamenews.do">
 													<button class="btn btn-primary btn-xs edit">
 														<i class="fa fa-pencil"></i>
 													</button>
@@ -91,9 +104,13 @@
 											
                                     </tr>
                                     </c:forEach>
+                                  
                                 </tbody>
+                               
 							</table>
+							  <%@ include file="page2.file"%>
 						</div>
+						 
 						<!-- /content-panel -->
 					</div>
 					<!-- /col-md-12 -->

@@ -36,11 +36,18 @@ public class GameNewsService {
 		return gameNewsVO;
 	}
 	
+	public void deleteGameNews(Integer gameNewsNo) {
+		dao.delete(gameNewsNo);
+	}
 	public List<GameNewsVO> getAll(Map<String, String[]>map){
 		return dao.getAll(map);
 	}
 	
 	public GameNewsVO getOne(Integer gameNewsNo) {
 		return dao.findByPrimaryKey(gameNewsNo);
+	}
+	
+	public List<GameNewsVO> getAll(){
+		return dao.getAll();
 	}
 }

@@ -162,3 +162,11 @@ h4.funcTitle02 {
     white-space: nowrap;
     width: 150px;
 }
+
+#KeyWordTable td[contenteditable='true'] {
+    outline: none;
+}
+
+#KeyWordTable td:focus {
+    background: #ccc;
+}

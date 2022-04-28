@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.fqkeyword.model.*"%>
+<%
+	FQKeyWordService fqSvc = new FQKeyWordService();
+	List<FQKeyWordVO> list = fqSvc.getAll();
+	pageContext.setAttribute("list", list);
+%>
 <%@include file="/backend/share.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,14 +54,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="keyWord" items="${AllQuery}">
+								<c:forEach var="keyWord" items="${list}">
 								<tr>
-
 										<td>${keyWord.fqKeyWordNo}</td>
 										<td>${keyWord.fqKeyWordContent}</td>
 										<td>${keyWord.answerContent}</td>
 										<td>
-											<form method="post" action="<%=request.getContextPath()%>/fqkeyword/fqkeyword.do">
+									<form method="post" action="<%=request.getContextPath()%>/fqkeyword/fqkeyword.do">
 												<button class="btn btn-primary btn-xs edit" type="submit">
 													<i class="fa fa-pencil"></i>
 												</button>
@@ -79,8 +85,9 @@
 											</form>
 
 										</td>
+									
 								</tr>
-								</c:forEach>
+						</c:forEach>
 
 							</tbody>
 						</table>
