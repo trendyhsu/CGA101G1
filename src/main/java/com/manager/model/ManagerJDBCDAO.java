@@ -314,10 +314,10 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 //		ManagerVO managerVO1 = new ManagerVO();
 //		managerVO1.setManagerAccount("A123");
 //		managerVO1.setManagerPassword("a123");
-//		managerVO1.setManagerName("��x�޲z��");
+//		managerVO1.setManagerName("國國國國");
 //		managerVO1.setManagerPhone("0988888888");
 //		managerVO1.getMyManagerPic();
-//		managerVO1.setManagerState(0);
+//		managerVO1.setManagerState(1);
 //		
 //		dao.insert(managerVO1);
 //

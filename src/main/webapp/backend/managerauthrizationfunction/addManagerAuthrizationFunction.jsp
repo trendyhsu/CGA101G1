@@ -1,5 +1,5 @@
-<%@page import="com.gametype.model.GameTypeVO"%>
-<%@page import="com.gametype.model.GameTypeService"%>
+<%@page import="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionVO"%>
+<%@page import="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/backend/share.jsp"%>
@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新增遊戲平台種類</title>
+<title>新增管理員權限</title>
 
 <style>
 table {
@@ -50,7 +50,7 @@ color: #547492;
 		<table id="table-1">
 			<tr>
 				<td>
-			 		<h3>新增遊戲平台種類</h3>
+			 		<h3>新增管理員權限</h3>
 				</td>
 			</tr>
 		</table>
@@ -68,13 +68,13 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/gameplatformtype/gamePlatformTypeInsert"
+			action="<%=request.getContextPath()%>/managerauthrizationfunction/managerAuthrizationFunctionInsert"
 			name="form1" enctype="multipart/form-data">
-			<table class="showback">
+			<table>
 				<tr>
-					<td>遊戲平台種類</td>
-					<td><input type="text" name="gamePlatformName" size="20"
-						value="${gamePlatformTypeVO.gamePlatformName}" /></td>
+					<td>管理員權限</td>
+					<td><input type="text" name="managerAuthrizationFunction" size="20"
+						value="${managerAuthrizationFunctionVO.managerAuthrizationFunction}" /></td>
 				</tr>
 				<tr>
 					<td>
@@ -101,6 +101,9 @@ color: #547492;
 	<!--main content end-->
 
 </section>
+	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
+
+
 
 	<script type="text/javascript">
 
