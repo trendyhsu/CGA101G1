@@ -42,11 +42,11 @@ public class ShowCart extends HttpServlet {
 //		if (session.getAttribute("member") == null) {
 //			response.sendRedirect("/CGA101G1/frontend/mem/login.html");
 //		} else if(!(session.getAttribute("member") == null)){
-//			MemVO memVO = (MemVO) (session.getAttribute("member"));
-//			memNo = memVO.getMemNo();
-//			System.out.println("現在登入的會員編號是：" + memNo);
+			MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+			Integer memNo = memVO.getMemNo();
+			System.out.println("現在登入的會員編號是：" + memNo);
 		
-		String memNo = "11001";
+//		String memNo = "11001";
 
 			List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart") == null
 					? new ArrayList<Cartdetail>()
