@@ -69,7 +69,7 @@
 </c:if>
 <!-- 單獨搜尋會員 -->
 <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/GetOneMem" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/GetOneMemServlet" >
         <b>輸入會員手機查詢 (如:0912345678):</b>
         <input type="text" name="memMobile" value=""><font color=red>${errorMsgs.memNo}</font>
         <input type="hidden" name="action" value="getOne_By_Mobile">
@@ -78,7 +78,7 @@
 </li>
   
  <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/GetOneMem" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/GetOneMemServlet" >
         <b>輸入會員帳號查詢 (如:abc123):</b>
         <input type="text" name="memAccount" value=""><font color=red>${errorMsgs.empno}</font>
         <input type="hidden" name="action" value="getOne_By_MemAccount">
@@ -106,7 +106,7 @@
 <%-- 	<%@ include file="page1.file" %>  --%>
 	<c:forEach var="memVO" items="${list}" >
 <%-- 這行原本在上面 		begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/ChangeMemStatus" style="margin-bottom: 0px;">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/ChangeMemStatusServlet" style="margin-bottom: 0px;">
 		<input type="hidden" name="memAccount"  value="${memVO.memAccount}">
 		<tr>
 			<td>${memVO.memNo}</td>

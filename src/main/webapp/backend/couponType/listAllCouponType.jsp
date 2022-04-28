@@ -70,7 +70,7 @@
 </c:if>
 <!-- 搜尋優惠券 -->
 <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/GetOneCouponType" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/GetOneCouponTypeServlet" >
         <b>輸入優惠券編號查詢 (如:13001):</b>
         <input type="text" name="couponTypeNo" value=""><font color=red>${errorMsgs.couponTypeNo}</font>
         <input type="submit" value="送出">
@@ -100,7 +100,7 @@
 			<td>${couponTypeVO.couponQuantity}</td>
 			<td>${couponTypeVO.couponDescription}</td> 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/GetWhichOneUpdate" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/GetWhichOneUpdateServlet" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="couponTypeNo"  value="${couponTypeVO.couponTypeNo}">
 			     <input type="hidden" name="action" value="delete"></FORM>

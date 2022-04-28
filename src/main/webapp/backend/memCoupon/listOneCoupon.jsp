@@ -4,16 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.memCoupon.model.*"  %>
-<%@ page import="com.member.model.*"  %>
-<%@ page import="java.util.*"  %>
 
 <%
-	MemVO memVO=(MemVO)session.getAttribute("memVO");
-	MemCouponService memCouponService = new MemCouponService();
-	List<MemCouponVO> list = memCouponService.listOneMemCoupon(memVO.getMemNo());
-    pageContext.setAttribute("list",list);
-%>    
-        
+List<MemCouponVO> list = (List<MemCouponVO>)request.getAttribute("list");//存入req的物件
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,53 +54,43 @@
 <!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
 <table id="table-1">
 	<tr><td>
-		 <h3>${memVO.memName}的優惠券 (*´∀`)~♥</h3>
+		 <h3>這種優惠券有哪些會員擁有</h3>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
+		<th>優惠券種類編號</th>
 		<th>會員編號(買家)</th>
 <!-- 		<th>會員優惠券種類編號</th> -->
-		<th>優惠券種類編號</th>
 		<th>使用狀態</th>
 		<th>優惠券時效</th>
+<!-- 		<th>刪除此種優惠券</th> -->
 	</tr>
 <%-- 	<%@ include file="page1.file" %>  --%>
 <c:forEach var="memCouponVO" items="${list}" >
 <%-- 這行原本在上面 		begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
-		
-		<c:if  test="${memCouponVO.couponState == 0 }" var="true">
 		<tr>
+			<td>${memCouponVO.couponTypeNo}</td>
 			<td>${memCouponVO.memNo}</td>
 <%-- 			<td>${memCouponVO.memCouponNo}</td> --%>
-			<td>${memCouponVO.couponTypeNo}</td>
-			<td>
-			<c:if test="${memCouponVO.couponState == 0 }" var="true">
-			未使用
-			</c:if>
-			<c:if test="${memCouponVO.couponState == 1}" var="true">
-			已使用
-			</c:if>
-			</td>
-			<td>${memCouponVO.couponTypeVO.couponDeadline}</td>			
-		</tr>
-		</c:if>
-	</c:forEach>
-<%-- 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/memCoupon/DeleteMemCouponServlet" style="margin-bottom: 0px;"> --%>
+			<td>${memCouponVO.couponState}</td>
+			<td>${memCouponVO.couponTypeVO.couponDeadline}</td>
+<!-- 			<td> -->
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/DeleteCouponTypeServlet" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="刪除"> -->
 <%-- 			     <input type="hidden" name="memCouponNo"  value="${memCouponVO.memCouponNo}"> --%>
 <%-- 			   	 <input type="hidden" name="couponTypeNo"  value="${memCouponVO.couponTypeNo}"> --%>
 <%-- 				 <input type="hidden" name="memNo"  value="${memCouponVO.memNo}"> --%>
-<!-- 	</FORM> -->
-
-<%-- 		<td><c:if test="${memCouponVO.couponState == 0}" var="condition"> --%>
-<%-- 				<c:out value="未使用" escapeXml="false"></c:out> --%>
-<%-- 			</c:if> <c:if test="${memCouponVO.couponState == 1}" var="condition"> --%>
-<%-- 				<c:out value="已使用" escapeXml="false"></c:out> --%>
-<%-- 			</c:if></td> --%>
-	</table>
-
+<!-- 			   </FORM> -->
+<!-- 			</td> -->
+		</tr>
+	</c:forEach>
+</table>
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/memCoupon/DeleteMemCouponServlet" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除此種優惠券">
+			   	 <input type="hidden" name="couponTypeNo"  value="${couponTypeNo}">
+			   </FORM>
 <%-- <%@ include file="page2.file" %> --%>
 
 </body>

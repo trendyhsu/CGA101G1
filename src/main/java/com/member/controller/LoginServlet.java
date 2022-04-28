@@ -17,11 +17,11 @@ import static com.member.utils.MemeberConstants.MEM_SERVICE;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
 		//將JSON轉成MemVO
@@ -54,16 +54,28 @@ public class LoginServlet extends HttpServlet {
 			writePojo2Json(response, memVO);
 			return;
 		}
+		final HttpSession session = request.getSession();
 		//驗證成功設定session
 		if(memVO.isSuccessful()) {
 			if(request.getSession(false) != null) {
 				request.changeSessionId();
 			}
-			final HttpSession session = request.getSession();
 			session.setAttribute("loggedin", true);
 			session.setAttribute("memVO", memVO);
 		}
+		String initlocation = (String) session.getAttribute("initlocation");
+		memVO.setInitlocation(initlocation);
 		writePojo2Json(response, memVO);
+//		 try {                                                        
+//	         String location = (String) session.getAttribute("location");
+//	         if (location != null) {
+//	           session.removeAttribute("location");   // 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+//	           request.sendRedirect(location);            
+//	           return;
+//	         }
+//	       }catch (Exception ignored) { }
+//
+//		 request.sendRedirect(request.getContextPath()+"/login_success.jsp");  
 	}
 	
 	

@@ -76,7 +76,7 @@ CouponTypeVO couponTypeVO = (CouponTypeVO) request.getAttribute("couponTypeVO");
 			<td>${couponTypeVO.couponQuantity}</td>
 			<td>${couponTypeVO.couponDescription}</td> 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/GetWhichOneUpdate" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/GetWhichOneUpdateServlet" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="couponTypeNo"  value="${couponTypeVO.couponTypeNo}">
 			     <input type="hidden" name="action" value="delete"></FORM>

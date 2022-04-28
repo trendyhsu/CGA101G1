@@ -15,11 +15,11 @@ import com.couponType.model.CouponTypeService;
 public class DeleteCouponTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/***************************1.接收請求參數***************************************/
 		Integer couponTypeNo = Integer.valueOf(request.getParameter("couponTypeNo"));
 		
