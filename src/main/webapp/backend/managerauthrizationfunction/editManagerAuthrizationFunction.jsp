@@ -1,44 +1,25 @@
-<%@page import="com.gametype.model.GameTypeVO"%>
-<%@page import="com.gametype.model.GameTypeService"%>
+<%@page import="java.util.List"%>
+<%@page import="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionService"%>
+<%@page import="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/backend/share.jsp"%>
+    
+ <%@include file="/backend/share.jsp"%>
+ 
+ <%
+// 取得所有資料
+ManagerAuthrizationFunctionService managerAuthrizationFunctionServiceService = new ManagerAuthrizationFunctionService();
+List<ManagerAuthrizationFunctionVO> list = managerAuthrizationFunctionServiceService.getAll();
+pageContext.setAttribute("list", list);
 
 
-
+%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新增遊戲平台種類</title>
-
-<style>
-table {
-/* 	background-color: white; */
-	margin-bottom: 5px;
-	font-size: 13px;
-	color:black;
-}
-
-table, th, td {
-	border-bottom: 1px solid #CCC;
-	font-weight:bold;
-}
-
-th, td {
-	padding: 5px;
-	text-align: left;
-}
-.uploadedImg{
-padding: 10px
-}
-
-h3{
-font-weight: bold;
-color: #547492;
-}
-</style>
-
+<title>修改管理員權限</title>
 </head>
 <body>
 <section id="main-content">
@@ -50,7 +31,7 @@ color: #547492;
 		<table id="table-1">
 			<tr>
 				<td>
-			 		<h3>新增遊戲平台種類</h3>
+			 		<h3>修改管理員權限</h3>
 				</td>
 			</tr>
 		</table>
@@ -68,17 +49,29 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/gameplatformtype/gamePlatformTypeInsert"
+			action="<%=request.getContextPath()%>/managerauthrizationfunction/managerAuthrizationFunctionEdit"
 			name="form1" enctype="multipart/form-data">
-			<table class="showback">
+			<table>
 				<tr>
-					<td>遊戲平台種類</td>
-					<td><input type="text" name="gamePlatformName" size="20"
-						value="${gamePlatformTypeVO.gamePlatformName}" /></td>
+				
+					
+					<td>原管理員權限</td>
+					<td><select name="managerAuthrizationFunctionNo" size="1">   <!-- -->
+						<c:forEach var="managerAuthrizationFunctionVO" items="${list}">
+						<option value="${managerAuthrizationFunctionVO.managerAuthrizationFunctionNo}">
+						${managerAuthrizationFunctionVO.managerAuthrizationFunction}
+						</c:forEach>
+						</select>
+					</td>
+						
+					<td>新管理員權限</td>
+					<td><input type="text" name="managerAuthrizationFunction" size="20"
+						value="${managerAuthrizationFunctionVO.managerAuthrizationFunction}" /></td>	
+						
 				</tr>
 				<tr>
 					<td>
-			<input type="submit" value="新增">
+			<input type="submit" value="修改">
 			<input type="reset" value="重設">
 					</td>
 				</tr>
@@ -102,7 +95,7 @@ color: #547492;
 
 </section>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 
 		var filereader_support = typeof FileReader != 'undefined';
 

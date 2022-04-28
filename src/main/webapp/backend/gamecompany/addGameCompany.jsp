@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新增遊戲平台種類</title>
+<title>新增遊戲公司</title>
 
 <style>
 table {
@@ -50,7 +50,7 @@ color: #547492;
 		<table id="table-1">
 			<tr>
 				<td>
-			 		<h3>新增遊戲平台種類</h3>
+			 		<h3>新增遊戲公司</h3>
 				</td>
 			</tr>
 		</table>
@@ -68,13 +68,13 @@ color: #547492;
 <!-- 		主要修改資訊區 -->
 
 		<form method="post"
-			action="<%=request.getContextPath()%>/gameplatformtype/gamePlatformTypeInsert"
+			action="<%=request.getContextPath()%>/gamecompany/gameCompanyInsert"
 			name="form1" enctype="multipart/form-data">
-			<table class="showback">
+			<table>
 				<tr>
-					<td>遊戲平台種類</td>
-					<td><input type="text" name="gamePlatformName" size="20"
-						value="${gamePlatformTypeVO.gamePlatformName}" /></td>
+					<td>遊戲公司</td>
+					<td><input type="text" name="gameCompanyName" size="20"
+						value="${gameCompanyVO.gameCompanyName}" /></td>
 				</tr>
 				<tr>
 					<td>
@@ -101,6 +101,9 @@ color: #547492;
 	<!--main content end-->
 
 </section>
+	<!-- 為了要去除下面從資料庫取 timestamp 資料會有 nano 小數點的問題 -->
+
+
 
 	<script type="text/javascript">
 
