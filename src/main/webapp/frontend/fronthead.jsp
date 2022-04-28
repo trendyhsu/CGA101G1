@@ -45,25 +45,25 @@
 
         <div class="logo-div">
             <img src="<%=request.getContextPath()%>/frontend/mainCss/images/logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
+            <a href="<%=request.getContextPath()%>/frontend/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
-            <a href="#pd_description" class="nav-link">遊戲商城</a>
+            <a class="active" href="<%=request.getContextPath()%>/frontend/HomePage.html">首頁</a>
+            <a href="<%=request.getContextPath()%>/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
             <a href="<%=request.getContextPath()%>/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
-            <a href="#pd_review" class="nav-link">遊戲討論區</a>
+            <a href="<%=request.getContextPath()%>/frontend/forum/ForumAllHome.html" class="nav-link">遊戲討論區</a>
         </nav>
 
         <div class="icons">
             <!--右上方小icon區-->
             <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+            <a href="<%=request.getContextPath()%>/frontend/memLogin/login.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
+            <a href="#" class="fas fa-search" id="search-icon"></a>
+            <a href="<%=request.getContextPath()%>/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
+            <a href="<%=request.getContextPath()%>/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
     </header>
@@ -313,11 +313,11 @@
                         <div class="bg-white border border-bottom-0 shadow-lg">
                             <div class="d-flex p-3 align-items-center">
                                 <div class="avatar avatar-lg rounded-circle">
-                                    <img src="<%=request.getContextPath()%>/frontend/mainCss/assets/img/avatar-2.jpg" title="" alt="">
+                                    <img src="<%=request.getContextPath()%>/mem/MemSelfPicServlet?memNo=${memVO.memNo}" title="" alt="">
                                 </div>
                                 <div class="col ps-3">
-                                    <h6 class="m-0">侯宇陽</h6>
-                                    <small><a href="javascript:void(0);">the38245691@gmail.com</a></small>
+                                    <h6 class="m-0">${memVO.memName}</h6>
+                                    <small><a href="javascript:void(0);">${memVO.memEmail}</a></small>
                                 </div>
                             </div>
                             <div class="bg-gray-200 p-3 border-bottom border-top">
@@ -326,13 +326,13 @@
                             <ul class="list-unstyled mb-0 theme-link">
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center active p-3" style="color:black"
-                                        href="account-order.html">
+                                        href="<%=request.getContextPath()%>/frontend/Product/account-order.html">
                                         <i class="bi bi-bag me-2"></i> 我的訂單
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="account-wishlist.html">
+                                        href="<%=request.getContextPath()%>/frontend/Product/HomePageinProduct-wishlist.html">
                                         <i class="bi bi-heart me-2"></i>我的最愛
                                     </a>
                                 </li>
@@ -368,25 +368,25 @@
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="account-wishlist.html">
+                                        href="<%=request.getContextPath()%>/frontend/forum/">
                                         <i class="bi bi-heart me-2"></i>我的文章收藏
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="account-wishlist.html">
+                                        href="<%=request.getContextPath()%>/frontend/forum/">
                                         <i class="bi bi-heart me-2"></i>我的文章
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="account-wishlist.html">
+                                        href="<%=request.getContextPath()%>/frontend/chat/">
                                         <i class="bi bi-emoji-angry me-2"></i>我的忽略會員清單
                                     </a>
                                 </li>
 
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="account-tickets.html">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="<%=request.getContextPath()%>/frontend/mem/lookUpOneMemCoupon.jsp">
                                         <i class="bi bi-bookmark me-2"></i>我的優惠卷
                                     </a>
                                 </li>
@@ -396,12 +396,12 @@
                             </div>
                             <ul class="list-unstyled mb-0 theme-link">
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="account-profile.html">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="<%=request.getContextPath()%>/frontend/mem/updateMemberData.html">
                                         <i class="bi bi-person-circle me-2"></i>個人資訊
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="javascript:void(0);">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="<%=request.getContextPath()%>/mem/logoutServlet">
                                         <i class="bi bi-box-arrow-left me-2"></i>登出
                                     </a>
                                 </li>
