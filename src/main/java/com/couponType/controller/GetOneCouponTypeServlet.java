@@ -14,15 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.couponType.model.CouponTypeService;
 import com.couponType.model.CouponTypeVO;
 
-@WebServlet("/couponType/GetOneCouponType")
-public class GetOneCouponType extends HttpServlet {
+@WebServlet("/couponType/GetOneCouponTypeServlet")
+public class GetOneCouponTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
@@ -58,9 +58,9 @@ public class GetOneCouponType extends HttpServlet {
 			return;//程式中斷
 		}
 		/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-		request.setAttribute("couponTypeVO", couponTypeVO); // 資料庫取出的empVO物件,存入req
+		request.setAttribute("couponTypeVO", couponTypeVO); 
 		String url = "/backend/couponType/listOneCouponType.jsp";
-		RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+		RequestDispatcher successView = request.getRequestDispatcher(url); 
 		successView.forward(request, response);
 
 	}

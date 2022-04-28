@@ -4,17 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.memCoupon.model.*"  %>
-<%@ page import="com.member.model.*"  %>
-<%@ page import="java.util.*"  %>
 
 <%
-	MemVO memVO=(MemVO)session.getAttribute("memVO");
-	MemCouponService memCouponService = new MemCouponService();
-	List<MemCouponVO> list = memCouponService.listOneMemCoupon(memVO.getMemNo());
-    pageContext.setAttribute("list",list);
-%>    
-        
-<!DOCTYPE html>
+List<MemCouponVO> list = (List<MemCouponVO>)request.getAttribute("list");//存入req的物件
+%>
+
+<!DOCTYPE html>	
 <html>
 <head>
 <meta charset="UTF-8">
@@ -58,7 +53,7 @@
 <!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
 <table id="table-1">
 	<tr><td>
-		 <h3>${memVO.memName}的優惠券 (*´∀`)~♥</h3>
+		 <h3>這位會員有的優惠券</h3>
 	</td></tr>
 </table>
 
@@ -73,23 +68,14 @@
 <%-- 	<%@ include file="page1.file" %>  --%>
 <c:forEach var="memCouponVO" items="${list}" >
 <%-- 這行原本在上面 		begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
-		
-		<c:if  test="${memCouponVO.couponState == 0 }" var="true">
 		<tr>
 			<td>${memCouponVO.memNo}</td>
 <%-- 			<td>${memCouponVO.memCouponNo}</td> --%>
 			<td>${memCouponVO.couponTypeNo}</td>
-			<td>
-			<c:if test="${memCouponVO.couponState == 0 }" var="true">
-			未使用
-			</c:if>
-			<c:if test="${memCouponVO.couponState == 1}" var="true">
-			已使用
-			</c:if>
-			</td>
-			<td>${memCouponVO.couponTypeVO.couponDeadline}</td>			
+			<td>${memCouponVO.couponState}</td>
+			<td>${memCouponVO.couponTypeVO.couponDeadline}</td>
+			
 		</tr>
-		</c:if>
 	</c:forEach>
 <%-- 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/memCoupon/DeleteMemCouponServlet" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="刪除"> -->
@@ -97,13 +83,7 @@
 <%-- 			   	 <input type="hidden" name="couponTypeNo"  value="${memCouponVO.couponTypeNo}"> --%>
 <%-- 				 <input type="hidden" name="memNo"  value="${memCouponVO.memNo}"> --%>
 <!-- 	</FORM> -->
-
-<%-- 		<td><c:if test="${memCouponVO.couponState == 0}" var="condition"> --%>
-<%-- 				<c:out value="未使用" escapeXml="false"></c:out> --%>
-<%-- 			</c:if> <c:if test="${memCouponVO.couponState == 1}" var="condition"> --%>
-<%-- 				<c:out value="已使用" escapeXml="false"></c:out> --%>
-<%-- 			</c:if></td> --%>
-	</table>
+</table>
 
 <%-- <%@ include file="page2.file" %> --%>
 

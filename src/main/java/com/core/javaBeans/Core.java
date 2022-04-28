@@ -5,8 +5,16 @@ public class Core implements Serializable {
 	private static final long serialVersionUID = 1457755989409740329L;
 	private boolean successful;
 	private String message;
-	
+	private String initlocation;
+
 	public Core() {
+	}
+	public String getInitlocation() {
+		return initlocation;
+	}
+	
+	public void setInitlocation(String initlocation) {
+		this.initlocation = initlocation;
 	}
 
 	public Core(boolean successful, String message) {

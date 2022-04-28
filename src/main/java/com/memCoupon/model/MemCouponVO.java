@@ -41,5 +41,17 @@ public class MemCouponVO {
 		this.couponState = couponState;
 	}
 	
+	// join 
+	public com.member.model.MemVO getMemVO(){
+		com.member.model.MemService memService=new com.member.model.MemService();
+		com.member.model.MemVO memVO =memService.getMemVObyMemNo(memNo);
+		return memVO;
+	}
+	
+	public com.couponType.model.CouponTypeVO getCouponTypeVO(){
+		com.couponType.model.CouponTypeService couponTypeService=new com.couponType.model.CouponTypeService();
+		com.couponType.model.CouponTypeVO couponTypeVO=couponTypeService.listOneCouponType(couponTypeNo);
+		return couponTypeVO;
+	}
 	
 }

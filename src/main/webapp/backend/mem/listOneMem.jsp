@@ -57,7 +57,7 @@
 </table>
 
 <table>
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/ChangeMemStatus" style="margin-bottom: 0px;">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/ChangeMemStatusServlet" style="margin-bottom: 0px;">
 	<input type="hidden" name="memAccount"  value="${memVO.memAccount}">
 	<tr>
 		<th>會員編號</th>
