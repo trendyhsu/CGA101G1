@@ -23,8 +23,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 	
 	//查某張訂單的項目
-	private static final String FindAllProductByOrderNo = "SELECT OrderNo,ProductNo,ProductSales,ProductTotalPrice FROM cga101g1.orderdetail where OrderNo=? ;";
-                                                             //      1        2           3              4
+	private static final String FindAllProductByOrderNo = "SELECT OrderNo,ProductNo,ProductSales,ProductTotalPrice,CommentStar,CommentCotent FROM cga101g1.orderdetail where OrderNo=? ;";
+                                                             //      1        2           3              4              5           6
 	
 	//新增訂單項目
 	private static final String NewByOrder = "INSERT INTO orderdetail (OrderNo, ProductNo, ProductSales, ProductTotalPrice) VALUES (?, ?, ?, ?);";
@@ -34,12 +34,18 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static final String ModByOrder = "UPDATE `cga101g1`.`orderdetail` SET ProductSales = ?, ProductTotalPrice = ?  WHERE (OrderNo = ?) and (ProductNo = ?);";
  
 	
+	//作廢訂單項目內容
+	private static final String ClearByOrder = "UPDATE `cga101g1`.`orderdetail` SET ProductSales = 0, ProductTotalPrice = 0  WHERE (OrderNo = ?) and (ProductNo = ?);";
+	
+	
 	//發表評論
 	private static final String NewCommentCotent = "UPDATE `cga101g1`.`orderdetail` SET `CommentCotent` = ?,`CommentTime` = now(), `CommentStar` = ? WHERE (`OrderNo` = ?) and (`ProductNo` = ? );";
 	
 	//查某會員的所有評論
 //	private static final String FindCommentbyMemNo = "select MemNo , ProductNo,ProductSales, ProductTotalPrice,CommentCotent,CommentTime, CommentStar FROM cga101g1.orderdetail WHERE MemNo = ?;";
                                                          //    1           2       3               4                 5             6             7                (1)  
+	
+	
 	//查某商品的所有評論
 	private static final String FindCommentbyProductNo = "select ProductNo,ProductSales, ProductTotalPrice,CommentCotent,CommentTime, CommentStar FROM cga101g1.orderdetail WHERE ProductNo = ?;";
 	                                                        //    1           2                 3                4                 5         6                                                (1) 
@@ -162,8 +168,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(ModByOrder);
 
-			pstmt.setDouble(1, orderDetailVO.getProductSales());
-			pstmt.setDouble(2, orderDetailVO.getProductTotalPrice());
+			pstmt.setInt(1, orderDetailVO.getProductSales());
+			pstmt.setInt(2, orderDetailVO.getProductTotalPrice());
 			pstmt.setInt(3, orderDetailVO.getOrderNo());
 			pstmt.setInt(4, orderDetailVO.getProductNo());
 
@@ -209,7 +215,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			pstmt = con.prepareStatement(NewCommentCotent);
 
 			pstmt.setString(1, orderDetailVO.getCommentCotent());
-			pstmt.setDouble(2, orderDetailVO.getCommentStar());
+			pstmt.setInt(2, orderDetailVO.getCommentStar());
 			pstmt.setInt(3, orderDetailVO.getOrderNo());
 			pstmt.setInt(4, orderDetailVO.getProductNo());
 
@@ -242,72 +248,6 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		}
 		
 	}
-
-//	@Override
-//	public List<OrderDetailVO> findCommentbyMemNo(Integer memNo) {
-//		List<OrderDetailVO> list = new ArrayList<>();
-//		OrderDetailVO orderDetailVO = null;
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//
-//		try {
-//			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
-//			pstmt = con.prepareStatement(FindCommentbyMemNo);
-//			pstmt.setInt(1, memNo);
-//
-//			rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				// orderDetailVO 也稱為 Domain objects
-//				orderDetailVO = new OrderDetailVO();
-//				orderDetailVO.setMemNo(rs.getInt("MemoNo"));
-//				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
-//				orderDetailVO.setOrderNo(rs.getInt("OrderNo"));
-//				orderDetailVO.setProductSales(rs.getDouble("totalSales"));
-//				orderDetailVO.setProductTotalPrice(rs.getDouble("TotalPrice"));
-//				orderDetailVO.setCommentCotent(rs.getString("CommentCotent"));
-//				orderDetailVO.setCommentStar(rs.getDouble("CommentStar"));
-//				list.add(orderDetailVO);			
-//			}
-//
-//			// Handle any driver errors
-//		} catch (ClassNotFoundException e) {
-//			throw new RuntimeException("Couldn't load database driver. "
-//					+ e.getMessage());
-//			// Handle any SQL errors
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. "
-//					+ se.getMessage());
-//			// Clean up JDBC resources
-//		} finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//			return list;
-//	}
-//		return list;
-//	}
 
 	@Override
 	public List<OrderDetailVO> findCommentbyProductNo(Integer productNo) {
@@ -455,6 +395,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
 				orderDetailVO.setProductSales(rs.getInt("ProductSales"));
 				orderDetailVO.setProductTotalPrice(rs.getInt("ProductTotalPrice"));
+				orderDetailVO.setCommentStar(rs.getInt("CommentStar"));
+				orderDetailVO.setCommentCotent(rs.getString("CommentCotent"));
 				list.add(orderDetailVO);			
 			}
 
@@ -491,5 +433,50 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public OrderDetailVO clearByOrder(OrderDetailVO orderDetailVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(ClearByOrder);
+
+			pstmt.setInt(1, orderDetailVO.getOrderNo());
+			pstmt.setInt(2, orderDetailVO.getProductNo());
+
+
+			pstmt.executeUpdate();
+			return orderDetailVO;
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 }

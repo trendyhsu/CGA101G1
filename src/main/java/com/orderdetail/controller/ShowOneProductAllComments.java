@@ -15,30 +15,30 @@ import com.orderdetail.model.OrderDetailService;
 import com.orderdetail.model.OrderDetailVO;
 
 
-
-@WebServlet("/product/getOrderDetailByOrderNo")
-public class GetOrderDetailByOrderNo extends HttpServlet {
+@WebServlet("/product/showOneProductAllComments")
+public class ShowOneProductAllComments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public GetOrderDetailByOrderNo() {
+    public ShowOneProductAllComments() {
         super();
 
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html ; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		OrderDetailService orderDetailService = new OrderDetailService();
-		Integer orderNo = Integer.valueOf(request.getParameter("OrderNo"));
-		List<OrderDetailVO> list = orderDetailService.GetAllDetailByOrderNo(orderNo);
 		
+		Integer productNo = Integer.valueOf(request.getParameter("ProductNo"));
+		
+		List<OrderDetailVO> list = orderDetailService.AllCommentByProductNo(productNo);
 		Gson gson = new Gson();
 		String json = gson.toJson(list);
-		out.print(json);
+		out.write(json);
 		
 	}
 

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import com.order.model.OrderService;
 import com.order.model.OrderVO;
+import com.orderdetail.model.OrderDetailService;
+import com.orderdetail.model.OrderDetailVO;
 
 
 
@@ -125,6 +127,10 @@ public class ModOrder extends HttpServlet {
 		/****** 物流編號 **********/
 		String trackingNum = request.getParameter("TrackingNum");
 		System.out.println(trackingNum);
+		if (orderState == 4 && !trackingNum.equals("0")) {
+			errorMsgs.add("訂單作廢的話，物流編號請填0");
+		} 
+		checkedOrderVO.setReceiverPhone(receiverPhone);
 
 		checkedOrderVO.setTrackingNum(trackingNum);
 		
@@ -150,6 +156,18 @@ public class ModOrder extends HttpServlet {
 		System.out.println("開始更新訂單");
 		OrderService orderService = new OrderService();
 		orderService.updateOrder(checkedOrderVO);
+		
+		
+		/**********訂單如果作廢也要同步更新明細*****/
+		if(orderState==4) {
+			System.out.println("訂單作廢也把明細歸0");
+			List<OrderDetailVO> list = checkedOrderVO.getAllDetailByOrderNo(orderNo);
+			for(OrderDetailVO orderDetailVO : list) {
+				OrderDetailService orderDetailService =new OrderDetailService();
+				orderDetailService.clearDetail(orderDetailVO);
+			}
+		}
+		
 		
 		
 		/***********更新完成轉看更新後成果*********************/

@@ -19,5 +19,15 @@ public class OrderDetailService {
 		return dao.findAllDetailByOrderNo(orderNo);
 	}
 	
+	public OrderDetailVO clearDetail(OrderDetailVO orderDetailVO) {
+		return dao.clearByOrder(orderDetailVO);
+	}
 	
+	public void AddComment(OrderDetailVO orderDetailVO) {
+		dao.newCommentCotent(orderDetailVO);
+	}
+	
+	public List<OrderDetailVO> AllCommentByProductNo(Integer productNo){
+		return dao.findCommentbyProductNo(productNo);
+	}
 }
