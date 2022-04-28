@@ -48,12 +48,23 @@ h3 {
 
 			</tr>
 		</table>
+		<div style="display: inline-block;">
+			<a href="selectPowerHome.jsp">
+				<button>返回權限編輯首頁</button>
+			</a>
+		</div>
+		<div style="display: inline-block;">
+			<a href="addForum.jsp">
+				<button>新增討論區</button>
+			</a>
+		</div>
+		<div style="height: 10px"></div>
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message.key} : ${message.value}</li>
+					<li style="color: red">${message.key}:${message.value}</li>
 				</c:forEach>
 			</ul>
 		</c:if>
@@ -63,7 +74,6 @@ h3 {
 				<th>討論區編號&emsp;</th>
 				<th>討論區名稱&emsp;</th>
 				<th>討論區狀態&emsp;</th>
-				<th>版主會員編號&emsp;</th>
 				<th>版主名稱&emsp;</th>
 				<th></th>
 			</tr>
@@ -74,15 +84,14 @@ h3 {
 					<td>${forumVO.forumNo}</td>
 					<td><div
 							style="width: 500px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-							${forumVO.forumName}&emsp;</div></td>
+							${forumVO.forumName}</div></td>
 
 					<td><c:if test="${forumVO.forumType == 0}" var="condition">
 							<c:out value="0不顯示" escapeXml="false"></c:out>
 						</c:if> <c:if test="${forumVO.forumType == 1}" var="condition">
 							<c:out value="1顯示" escapeXml="false"></c:out>
 						</c:if></td>
-					<td>${forumVO.memNo}</td>
-					
+
 					<td>${forumVO.memVO.memName}&emsp;</td>
 
 					<td>
