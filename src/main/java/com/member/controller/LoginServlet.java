@@ -66,16 +66,6 @@ public class LoginServlet extends HttpServlet {
 		String initlocation = (String) session.getAttribute("initlocation");
 		memVO.setInitlocation(initlocation);
 		writePojo2Json(response, memVO);
-//		 try {                                                        
-//	         String location = (String) session.getAttribute("location");
-//	         if (location != null) {
-//	           session.removeAttribute("location");   // 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-//	           request.sendRedirect(location);            
-//	           return;
-//	         }
-//	       }catch (Exception ignored) { }
-//
-//		 request.sendRedirect(request.getContextPath()+"/login_success.jsp");  
 	}
 	
 	

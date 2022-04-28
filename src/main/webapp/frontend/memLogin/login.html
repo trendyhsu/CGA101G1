@@ -307,52 +307,36 @@
                                 <h3 class="h4 mb-0">登入會員 </h3>
                             </div>
                             <div class="card-body">
-                                <form class="">
-                                    <div class="form-group mb-3">
-                                        <label for="email_1" class="form-label">帳號:<span
+
+                                <div class="form-group mb-3">
+                                    <label for="email_1" class="form-label">帳號:<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" id="email_1" class="form-control" placeholder="輸入帳號">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="row align-items-center">
+                                        <label class="form-label col" for="exampleInputPassword01">密碼:<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" id="email_1" class="form-control" placeholder="輸入帳號">
+                                        <span class="col ms-auto small text-end"><a href="#!">
+                                                忘記密碼?</a></span>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <div class="row align-items-center">
-                                            <label class="form-label col" for="exampleInputPassword01">密碼:<span
-                                                    class="text-danger">*</span></label>
-                                            <span class="col ms-auto small text-end"><a href="#!">
-                                                    忘記密碼?</a></span>
-                                        </div>
-                                        <input type="password" class="form-control" id="exampleInputPassword01"
-                                            placeholder="*********">
-                                    </div>
+                                    <input type="password" class="form-control" id="exampleInputPassword01"
+                                        placeholder="*********">
+                                </div>
 
 
-                                    <!-- 
-                                    <div>
-                                        <div>
-                                            <label for="username">帳號: </label> <input type="text" name="username"
-                                                id="username" />
-                                        </div>
-                                        <div>
-                                            <label for="password">密碼: </label> <input type="password" name="password"
-                                                id="password" />
-                                        </div>
-                                        <div>
-                                            <button id="btn1" type="button" class="btn btn-primary">登入</button>
-                                        </div>
-                                        <div id="errMsg" class="error"></div>
-                                    </div> -->
 
-                                    <!-- Checkbox -->
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" value="" id="form2Example3"
-                                            checked />
-                                        <label class="form-check-label" for="form2Example3"> 記住帳號 </label>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <button type="submit" class="btn btn-primary w-100" id="btn1">
-                                            登入
-                                        </button>
-                                    </div>
-                                </form>
+                                <!-- Checkbox -->
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="form2Example3"
+                                        checked />
+                                    <label class="form-check-label" for="form2Example3"> 記住帳號 </label>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn btn-primary w-100" id="btn1">
+                                        登入
+                                    </button>
+                                </div>
                                 <div id="errMsg" class="error" style="color: red; font-size: 15;"></div>
                                 <!-- <div class="text-center pt-4 pb-5">
                                     <span class="px-3 bg-white d-inline-block align-top lh-sm">OR</span>
@@ -431,31 +415,31 @@
     </footer>
     <!-- End Footer -->
 
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!-- <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script> -->
     <!-- 外來區 -->
     <!-- jquery -->
-    <script src="/CGA101G1/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script> -->
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- appear -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script> -->
     <!--bootstrap-->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
     <!-- owl-carousel -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.min.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.min.js"></script> -->
     <!-- magnific -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script> -->
     <!-- isotope -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script> -->
     <!-- count-down -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script> -->
     <!-- Theme Js -->
-    <script src="/CGA101G1/frontend/mainCss/assets/js/custom.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/assets/js/custom.js"></script> -->
     <!-- 外來區over -->
     <!-- custom js file link-->
-    <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
+    <!-- <script src="/CGA101G1/frontend/mainCss/js/script.js"></script> -->
 
     <script>
         $("#btn1").click(() => {
-            alert("aaa");
             $.ajax({
                 type: 'POST',
                 url: "/CGA101G1/mem/LoginServlet",
@@ -465,6 +449,7 @@
                     memPassword: exampleInputPassword01.value
                 }),
                 success: data => {
+                    console.log(data);
                     const { successful, message, initlocation } = data;
                     if (successful) {
                         let { memNo, memName, memStatus, memVrfed } = data;

@@ -31,7 +31,7 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 	private static final String GET_WHICH_COUPON="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
 			+ "FROM memcoupon WHERE couponTypeNo= ? ORDER BY memNo;";
 	private static final String GET_WHICH_MEMBER ="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
-			+ "FROM memcoupon WHERE memNo= ? ORDER BY couponTypeNo;";
+			+ "FROM memcoupon WHERE memNo= ? and couponState=0 ORDER BY couponTypeNo;";
 	@Override
 	public void insert(MemCouponVO memCouponVO) {
 
