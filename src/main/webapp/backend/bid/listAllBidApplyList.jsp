@@ -8,7 +8,6 @@
 <%@ page import="java.util.*"%>
 
 <%@include file="/backend/share.jsp"%>
-<%-- <%@include file="/backend/bid/assets/headerCDN.txt" %> --%>
 
 <%
 BidApplyListService bidApplyListSvc = new BidApplyListService();
@@ -122,7 +121,7 @@ float: right;
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/backend/bid/addBid.jsp"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="上架">
+							<input class="btn btn-primary btn-sm" type="submit" value="上架">
 							<input type="hidden"name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
 						</c:if>
@@ -132,7 +131,7 @@ float: right;
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidApplyListReturn"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="退貨">
+							<input class="btn btn-primary btn-sm" type="submit" value="退貨">
 							<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
 						</c:if>

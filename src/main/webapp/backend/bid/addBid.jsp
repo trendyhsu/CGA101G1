@@ -59,6 +59,35 @@ h3{
 font-weight: bold;
 color: #547492;
 }
+
+.file {
+    position: relative;
+    left:360px ;
+    bottom: 530px;
+    display: inline-block;
+    background: #428bca;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 6px 16px;
+    overflow: hidden;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #3071a9;
+    border-color: #78C3F3;
+    color: #FFFFFF;
+    text-decoration: none;
+}
 </style>
 
 </head>
@@ -147,20 +176,22 @@ color: #547492;
 					<td>
 					<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 					<input type="hidden" name="sellerNo" value="${bidApplyListVO.memNo}">
-			<input type="submit" value="新增">
-			<input type="reset" value="重設">
+			<input class="btn btn-primary" type="submit" value="新增">
+			<input class="btn btn-primary" type="reset" value="重設">
 					</td>
 				</tr>
 <!-- 	上傳圖片區 -->
 				<tr>
 					<td id="upload">
-	        		<input type="file" name="upfile1" multiple id="upfile" style="position: relative; left:480px ;bottom: 530px;">
+						<a href="javascript:;" class="file">選擇圖片
+		        			<input type="file" name="upfile1" multiple id="upfile">
+						</a>
 					</td>
 				</tr>
 			</table>
 		</form>
 		<div id="picPreview" style="display: flex; width: 400px ;flex-wrap:wrap;
-		position: relative; left:480px ;bottom: 530px"></div>
+		position: relative; left:360px ;bottom: 530px"></div>
 
 	</div>
 

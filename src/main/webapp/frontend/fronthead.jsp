@@ -52,7 +52,6 @@
         <nav class="navbar">
             <!-- 上方標籤列 -->
             <a class="active" href="#home">首頁</a>
-            <a href="#pd_review" class="nav-link">遊戲新聞</a>
             <a href="#pd_description" class="nav-link">遊戲商城</a>
             <a href="<%=request.getContextPath()%>/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
             <a href="#pd_review" class="nav-link">遊戲討論區</a>
@@ -310,7 +309,7 @@
             <div class="container">
                 <div class="row">
                     <!-- Profile Menu -->
-                    <div class="col-lg-3 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5" style="font-weight: bold;">
+                    <div class="col-lg-3 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5" style="font-weight: bold; font-size: 16px">
                         <div class="bg-white border border-bottom-0 shadow-lg">
                             <div class="d-flex p-3 align-items-center">
                                 <div class="avatar avatar-lg rounded-circle">

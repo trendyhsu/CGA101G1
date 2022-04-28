@@ -17,6 +17,7 @@ pageContext.setAttribute("list", list);
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>所有競標商品</title>
 
@@ -144,14 +145,14 @@ float: right;
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidRecordGetOneByBidProductNo"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="查看"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							<input class="btn btn-primary btn-sm" type="submit" value="查看"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
 					</td>
 					<td>
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidProductEdit"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="修改">
+							<input class="btn btn-primary btn-sm" type="submit" value="修改">
 							<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
 					</td>
