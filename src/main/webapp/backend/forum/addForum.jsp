@@ -96,12 +96,12 @@ h3 {
 							</select></td>
 						</tr>
 						<tr>
-
 							<!-- 上傳圖片區 -->
 							<td>討論區圖片</td>
 
-							<td><input type="file" name="upfile1"
-								onclick="previewImage()" multiple id="upfile"></td>
+							<td id="upload"><input type="file" name="upfile1"
+								onclick="previewImage()" multiple id="upfile">
+							</td><td>${errorMsgs.upfile1}</td>
 						</tr>
 					</table>
 					<input type="submit" value="新增"> <input type="reset"
@@ -117,9 +117,9 @@ h3 {
 				</div>
 
 				<div style="height: 15px"></div>
-				
+
 				<div id="picPreview"
-					style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative; left: 0 px; bottom: 0px"></div>
+					style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative;"></div>
 			</div>
 		</section>
 	</section>
@@ -139,24 +139,22 @@ h3 {
 			'image/gif' : true
 		};
 
-		function previewImage() {
-			var upfile = document.getElementById("upfile");
-			upfile.addEventListener("change", function(event) {
-				var files = event.target.files || event.dataTransfer.files;
-				for (var i = 0; i < files.length; i++) {
-					previewfile(files[i])
-				}
-			}, false);
-		}
+		let upfile = document.getElementById("upfile");
+		upfile.addEventListener("change", function(event) {
+			let files = event.target.files || event.dataTransfer.files;
+			for (let i = 0; i < files.length; i++) {
+				previewfile(files[i])
+			}
+		}, false);
 
 		function previewfile(file) {
 			if (filereader_support === true
 					&& acceptedTypes[file.type] === true) {
-				var reader = new FileReader();
+				let reader = new FileReader();
 				reader.onload = function(event) {
-					var image = new Image();
+					let image = new Image();
 					image.src = event.target.result;
-					image.width = 450;
+					image.width = 525;
 					picPreview.appendChild(image);
 				};
 				reader.readAsDataURL(file);

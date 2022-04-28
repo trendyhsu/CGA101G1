@@ -84,14 +84,13 @@ public class ForumService {
 		dao.update(forumVO);
 	}
 
-	public ForumVO updateForumNoMem(Integer forumNo, String forumName, Integer forumType/* ,byte[] forumImg */) {
+	public ForumVO updateForumNoMem(Integer forumNo, String forumName, Integer forumType) {
 
 		ForumVO forumVO = new ForumVO();
 
 		forumVO.setForumNo(forumNo);
 		forumVO.setForumName(forumName);
 		forumVO.setForumType(forumType);
-//		forumVO.setForumImg(forumImg);
 
 		dao.updateNoMem(forumVO);
 

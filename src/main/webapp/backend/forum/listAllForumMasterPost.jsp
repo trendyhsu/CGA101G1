@@ -9,7 +9,7 @@
 
 <%
 ForumPostService forumPostSvc = new ForumPostService();
-List<ForumPostVO> list = forumPostSvc.getAll();
+List<ForumPostVO> list = forumPostSvc.getAllMasterPost();
 pageContext.setAttribute("list", list);
 %>
 
@@ -17,7 +17,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有討論區文章</title>
+<title>所有管理員文章</title>
 
 <style type="text/css">
 th {
@@ -44,13 +44,14 @@ h3 {
 		<table id="table-1">
 			<tr>
 
-				<h3>討論區文章列表</h3>
+				<h3>管理員文章列表</h3>
 
 			</tr>
 		</table>
-		<div>
-			<a href="selectReportHome.jsp">
-				<button>返回檢舉首頁</button>
+		
+		<div style="display: inline-block;">
+			<a href="addForumMasterPost.jsp">
+				<button>新增管理員文章</button>
 			</a>
 		</div>
 		<div style="height: 10px"></div>
@@ -59,7 +60,7 @@ h3 {
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message.key} : ${message.value}</li>
+					<li style="color: red">${message.key}:${message.value}</li>
 				</c:forEach>
 			</ul>
 		</c:if>
@@ -69,13 +70,11 @@ h3 {
 				<th>文章編號&emsp;</th>
 				<th>討論區編號&emsp;</th>
 				<th>討論區名稱&emsp;</th>
-				<th>文章分類&emsp;</th>
-				<th>會員編號&emsp;</th>
 				<th>文章狀態&emsp;</th>
+				<th>管理員編號&emsp;</th>
+				<!-- <th>管理員姓名&emsp;</th> -->
 				<th>文章標題&emsp;</th>
-				<!--<th>文章內容&emsp;</th> -->
 				<th>發表時間&emsp;</th>
-				<th>文章精選&emsp;</th>
 				<th></th>
 			</tr>
 			<%@ include file="page1.file"%>
@@ -86,50 +85,28 @@ h3 {
 					<td>${forumPostVO.forumNo}</td>
 					<td>
 						<div
-							style="width: 125px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+							style="width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							${forumPostVO.forumVO.forumName}&emsp;</div>
 					</td>
-					<td><c:if test="${forumPostVO.forumPostType == 0}"
-							var="condition">
-							<c:out value="0管理員文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 1}" var="condition">
-							<c:out value="1版主文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 2}" var="condition">
-							<c:out value="2攻略文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 3}" var="condition">
-							<c:out value="3情報" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 4}" var="condition">
-							<c:out value="4閒聊" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 5}" var="condition">
-							<c:out value="5其他" escapeXml="false"></c:out>
-						</c:if></td>
-					<td>${forumPostVO.memNo}</td>
 					<td><c:if test="${forumPostVO.forumPostState == 0}"
 							var="condition">
 							<c:out value="0不顯示" escapeXml="false"></c:out>
 						</c:if> <c:if test="${forumPostVO.forumPostState == 1}" var="condition">
 							<c:out value="1顯示" escapeXml="false"></c:out>
 						</c:if></td>
+					<td>${forumPostVO.memNo}</td>
 					<td>
 						<div
-							style="width: 275px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+							style="width: 350px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							${forumPostVO.forumPostTitle}&emsp;</div>
 					</td>
 					<td><fmt:formatDate value="${forumPostVO.forumPostTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" />&emsp;</td>
-					<td><c:if test="${forumPostVO.forumPostFeatured == 0}"
-							var="condition">
-							<c:out value="0一般" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
-							var="condition">
-							<c:out value="1精選" escapeXml="false"></c:out>
-						</c:if></td>
-
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/forum/forumPostOneEditServlet"
+							ACTION="<%=request.getContextPath()%>/forum/forumMasterPostOneEditServlet"
 							style="margin-bottom: 0px;">
-							<input type="submit" value="修改狀態"> <input type="hidden"
+							<input type="submit" value="修改"> <input type="hidden"
 								name="forumPostNo" value="${forumPostVO.forumPostNo}">
 						</FORM>
 					</td>

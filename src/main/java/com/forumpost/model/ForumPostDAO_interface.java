@@ -33,6 +33,8 @@ public interface ForumPostDAO_interface {
 //	用文章標題&分類收尋
 	public List<ForumPostVO> findByPostTypeName(Integer forumtNo,Integer forumPostType,String postCharacter);
 	
+//  管理員全文章
+	public List<ForumPostVO> getAllMasterPost();
 	
 	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
 	// public List<ForumPostVO> getAll(Map<String, String[]> map);

@@ -17,7 +17,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有討論區</title>
+<title>討論區列表</title>
 
 <style type="text/css">
 th {
@@ -44,15 +44,10 @@ h3 {
 		<table id="table-1">
 			<tr>
 
-				<h3>所有討論區資料</h3>
+				<h3>討論區列表</h3>
 
 			</tr>
 		</table>
-		<div style="display: inline-block;">
-			<a href="selectPowerHome.jsp">
-				<button>返回權限編輯首頁</button>
-			</a>
-		</div>
 		<div style="display: inline-block;">
 			<a href="addForum.jsp">
 				<button>新增討論區</button>

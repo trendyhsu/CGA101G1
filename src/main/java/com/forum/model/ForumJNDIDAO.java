@@ -23,11 +23,11 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO forum (ForumName,ForumType,MemNo,ForumImg) VALUES (?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO forum (ForumName,ForumType,MemNo) VALUES (?, ?, ?)";
 	private static final String INSERT_NOMEM_STMT = "INSERT INTO forum (ForumName,ForumType) VALUES (?, ?)";
 	private static final String INSERT_FORUMIMG = "UPDATE forum SET ForumImg=? WHERE ForumNo = ?";
-	private static final String UPDATE = "UPDATE forum SET ForumName=?, ForumType=?, MemNo=?, ForumImg=? WHERE ForumNo = ?";
-	private static final String UPDATENOMEM = "UPDATE forum SET ForumName=?, ForumType=?, MemNo=NULL, ForumImg=? WHERE ForumNo = ?";
+	private static final String UPDATE = "UPDATE forum SET ForumName=?, ForumType=?, MemNo=? WHERE ForumNo = ?";
+	private static final String UPDATENOMEM = "UPDATE forum SET ForumName=?, ForumType=?, MemNo=NULL WHERE ForumNo = ?";
 	private static final String GET_ONE_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum WHERE ForumNo = ?";
 	private static final String GET_ONE_ONLY_NAME_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum WHERE ForumName = ?";
 	private static final String GET_ALL_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum ORDER BY ForumNo";
@@ -47,7 +47,6 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 			pstmt.setString(1, forumVO.getForumName());
 			pstmt.setInt(2, forumVO.getForumType());
 			pstmt.setInt(3, forumVO.getMemNo());
-			pstmt.setBytes(4, forumVO.getForumImg());
 			pstmt.executeUpdate();
 
 			// Handle any SQL errors
@@ -80,7 +79,6 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_NOMEM_STMT);
@@ -165,8 +163,7 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 			pstmt.setString(1, forumVO.getForumName());
 			pstmt.setInt(2, forumVO.getForumType());
 			pstmt.setInt(3, forumVO.getMemNo());
-			pstmt.setBytes(4, forumVO.getForumImg());
-			pstmt.setInt(5, forumVO.getForumNo());
+			pstmt.setInt(4, forumVO.getForumNo());
 
 			pstmt.executeUpdate();
 
@@ -206,8 +203,7 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 
 			pstmt.setString(1, forumVO.getForumName());
 			pstmt.setInt(2, forumVO.getForumType());
-			pstmt.setBytes(3, forumVO.getForumImg());
-			pstmt.setInt(4, forumVO.getForumNo());
+			pstmt.setInt(3, forumVO.getForumNo());
 
 			pstmt.executeUpdate();
 
@@ -291,7 +287,7 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 		}
 		return forumVO;
 	}
-	
+
 	@Override
 	public ForumVO findByOnlyName(String forumCharacter) {
 		ForumVO forumVO = null;
@@ -301,7 +297,6 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 
 		try {
 
-			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_ONLY_NAME_STMT);
 
@@ -317,9 +312,7 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 				forumVO.setForumType(rs.getInt("forumType"));
 				forumVO.setMemNo(rs.getInt("memNo"));
 				forumVO.setForumImg(rs.getBytes("forumImg"));
-
 			}
-
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -350,7 +343,6 @@ public class ForumJNDIDAO implements ForumDAO_interface {
 		}
 		return forumVO;
 	}
-
 
 	@Override
 	public List<ForumVO> getAll() {

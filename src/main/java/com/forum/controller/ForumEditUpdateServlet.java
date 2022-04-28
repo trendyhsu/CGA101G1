@@ -42,7 +42,7 @@ public class ForumEditUpdateServlet extends HttpServlet {
 		/*************************** 1.接收請求參數 **********************/
 		ForumService forumSvc = new ForumService();
 		ForumVO forumVO = new ForumVO();
-		
+
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
 		String forumName = request.getParameter("forumName").trim();
@@ -56,25 +56,24 @@ public class ForumEditUpdateServlet extends HttpServlet {
 
 		Integer forumType = Integer.valueOf(request.getParameter("forumType").trim());
 		Integer memNo = Integer.valueOf(request.getParameter("memNo").trim());
-		
+
 		// 將取得圖片資料裝入 List<byte[]> 物件
-				Collection<Part> list = request.getParts();
-				List<byte[]> picList = new ArrayList<byte[]>();
-				InputStream is = null;
-				BufferedInputStream bis = null;
-				byte[] forumImg = null;
+		Collection<Part> list = request.getParts();
+		List<byte[]> picList = new ArrayList<byte[]>();
+		InputStream is = null;
+		BufferedInputStream bis = null;
+		byte[] forumImg = null;
 
-				// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
-				for (Part part : list) {
-					is = part.getInputStream();
-					bis = new BufferedInputStream(is);
-					if (bis.available() > 1024) {
-						forumImg = new byte[bis.available()];
-						bis.read(forumImg);
-						picList.add(forumImg);
-					}
-				}
-
+		// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
+		for (Part part : list) {
+			is = part.getInputStream();
+			bis = new BufferedInputStream(is);
+			if (bis.available() > 1024) {
+				forumImg = new byte[bis.available()];
+				bis.read(forumImg);
+				picList.add(forumImg);
+			}
+		}
 
 		// 回傳錯誤訊息
 		if (!errorMsgs.isEmpty()) {
@@ -92,24 +91,25 @@ public class ForumEditUpdateServlet extends HttpServlet {
 
 		/*************************** 2.開始修改資料 *****************************************/
 		if (memNo != 0) {
-			
-			 forumVO = forumSvc.updateForum(forumNo, forumName, forumType, memNo);
+
+			forumVO = forumSvc.updateForum(forumNo, forumName, forumType, memNo);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 
 		} else {
 
-			 forumVO = forumSvc.updateForumNoMem(forumNo, forumName, forumType);
+			forumVO = forumSvc.updateForumNoMem(forumNo, forumName, forumType);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 
 		}
-		
-		
+
 		for (int i = 0; i < picList.size(); i++) {
 			forumSvc.addForumImg(forumNo, picList.get(i));
 		}
-		
+
+		forumVO = forumSvc.getOneForum(forumNo);
+
 		request.setAttribute("forumVO", forumVO); // 資料庫update成功後,正確的的forumVO物件,存入request
 		String url = "/backend/forum/listOneForum.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneForum.jsp
