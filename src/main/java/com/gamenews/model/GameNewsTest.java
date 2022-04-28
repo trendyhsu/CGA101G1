@@ -45,7 +45,7 @@ public class GameNewsTest {
 //		dao.delete(76003);
 
 		// 查詢單筆
-		System.out.println(dao.findByPrimaryKey(76001));
+		System.out.println(dao.findByPrimaryKey(76003).getGameNewsPic().length);
 		
 
 		// 查詢
@@ -53,6 +53,8 @@ public class GameNewsTest {
 //		for (GameNewsVO oneGameNews : list) {
 //			System.out.println(oneGameNews);
 //		}
+		
+		
 	}
 	
 	// 使用byte[]方式建立圖片

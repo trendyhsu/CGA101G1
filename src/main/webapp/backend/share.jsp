@@ -143,7 +143,7 @@
 					</a>
 						<ul class="sub">
 							<li><a href="#">真人文字客服</a></li>
-							<li><a href="#">關鍵字設定</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/fq/KeyWord-final.jsp">關鍵字設定</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
@@ -158,7 +158,7 @@
 							class="fa-solid fa-newspaper"></i> <span>行銷管理</span>
 					</a>
 						<ul class="sub">
-							<li><a href="#">編輯新聞</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/news/GameNews-final.jsp">編輯新聞</a></li>
 							<li><a href="#">優惠券管理</a></li>
 						</ul></li>
 

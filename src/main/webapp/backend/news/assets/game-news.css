@@ -12,7 +12,6 @@
 }
 
 
-
 .radio-group label {
     padding: 8px 14px;
     font-size: 14px;
@@ -23,8 +22,6 @@
     transition: background 0.1s;
     margin: 0;
 }
-
-
 
 
 /* .radio-group label:not(:last-of-type) {
@@ -170,3 +167,12 @@ h4.funcTitle02 {
 #myTable th {
     white-space: nowrap;
 }
+
+/*------------------------update頁面--------------------------*/
+.showPic {
+    width: 240px;
+}
+
+/* .showPic img { */
+/*     width: inherit; */
+/* } */
