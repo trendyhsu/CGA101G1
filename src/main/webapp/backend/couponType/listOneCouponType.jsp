@@ -7,6 +7,8 @@
 CouponTypeVO couponTypeVO = (CouponTypeVO) request.getAttribute("couponTypeVO");//存入req的物件
 %>
 
+<%@include file="/backend/share.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
