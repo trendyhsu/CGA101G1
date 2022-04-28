@@ -34,19 +34,12 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html ; charset=UTF-8");
 		HttpSession session = request.getSession();
-//		Integer memNo = null;
-//
-//		if (session.getAttribute("member") == null) {
-//			response.sendRedirect("/CGA101G1/frontend/mem/login.html");
-//		} else {
-//			
-//			
-//			MemVO memVO = (MemVO) (session.getAttribute("member"));
-//			memNo = memVO.getMemNo();
-//
-//			System.out.println("現在登入的會員編號是："+memNo);
 
-		Integer memNo = 11001;
+		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+		Integer memNo = memVO.getMemNo();
+
+		System.out.println("現在下訂單的會員編號是：memNo");
+//		Integer memNo = 11001;
 			String memCNoString = request.getParameter("MemCouponNo");
 			System.out.println("會員專屬優惠券號碼" + memCNoString);
 			Integer memCouponNo = Integer.valueOf(request.getParameter("MemCouponNo"));

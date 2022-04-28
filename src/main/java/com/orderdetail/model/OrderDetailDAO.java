@@ -47,7 +47,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	
 	
 	//查某商品的所有評論
-	private static final String FindCommentbyProductNo = "select ProductNo,ProductSales, ProductTotalPrice,CommentCotent,CommentTime, CommentStar FROM cga101g1.orderdetail WHERE ProductNo = ?;";
+	private static final String FindCommentbyProductNo = "select ProductNo,ProductSales, ProductTotalPrice,CommentCotent,CommentTime, CommentStar FROM cga101g1.orderdetail WHERE ProductNo = ? and CommentStar >= 0;";
 	                                                        //    1           2                 3                4                 5         6                                                (1) 
 	
 	

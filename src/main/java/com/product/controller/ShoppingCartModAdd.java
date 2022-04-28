@@ -32,76 +32,67 @@ public class ShoppingCartModAdd extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
+		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+		Integer memNo = memVO.getMemNo();
+		System.out.println("現在登入的會員編號是：" + memNo);
+//		String memNo = "11001";
 
-//		Integer memNo = null;
+		List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart") == null
+				? new ArrayList<Cartdetail>()
+				: (List<Cartdetail>) session.getAttribute("shoppingCart"));
+		if (session.getAttribute("shoppingCart") == null) {
+			System.out.println("session is null");
+			Cartdetail orderdetail = new Cartdetail();
+			System.out.println(request.getParameter("ProductNo"));
+			System.out.println(request.getParameter("ProductTotalPrice"));
 
-//		if (session.getAttribute("member") == null) {
-//			response.sendRedirect("/CGA101G1/frontend/mem/login.html");
-//		} else {
+			orderdetail.setProductName(request.getParameter("ProductName"));
+			orderdetail.setProductNo(request.getParameter("ProductNo"));
+			orderdetail.setProductSales(request.getParameter("ProductSales") == null ? 1
+					: Integer.parseInt(request.getParameter("ProductSales")));
+			orderdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")));
 
-//			MemVO memVO = (MemVO) (session.getAttribute("member"));
-//			memNo = memVO.getMemNo();
-//
-//			System.out.println("現在登入的會員編號是：" + memNo);
-		String memNo = "11001";
-
-			List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart") == null
-					? new ArrayList<Cartdetail>()
-					: (List<Cartdetail>) session.getAttribute("shoppingCart"));
-			if (session.getAttribute("shoppingCart") == null) {
-				System.out.println("session is null");
-				Cartdetail orderdetail = new Cartdetail();
-				System.out.println(request.getParameter("ProductNo"));
-				System.out.println(request.getParameter("ProductTotalPrice"));
-
-				orderdetail.setProductName(request.getParameter("ProductName"));
-				orderdetail.setProductNo(request.getParameter("ProductNo"));
-				orderdetail.setProductSales(request.getParameter("ProductSales") == null ? 1
-						: Integer.parseInt(request.getParameter("ProductSales")));
-				orderdetail.setProductTotalPrice(Integer.parseInt(request.getParameter("ProductTotalPrice")));
-
-				System.out.println(orderdetail.getProductName());
-				System.out.println(orderdetail.getProductNo());
-				System.out.println(orderdetail.getProductSales());
-				System.out.println(orderdetail.getProductTotalPrice());
-				orderList.add(orderdetail);
-				session.setAttribute("shoppingCart", orderList);
-				Gson gson = new Gson();
-				String json = gson.toJson(orderList);
-				System.out.println(json);
+			System.out.println(orderdetail.getProductName());
+			System.out.println(orderdetail.getProductNo());
+			System.out.println(orderdetail.getProductSales());
+			System.out.println(orderdetail.getProductTotalPrice());
+			orderList.add(orderdetail);
+			session.setAttribute("shoppingCart", orderList);
+			Gson gson = new Gson();
+			String json = gson.toJson(orderList);
+			System.out.println(json);
 //			out.print(json);
-				response.sendRedirect("/CGA101G1/frontend/Product/shopping-cart.html");
+			response.sendRedirect("/CGA101G1/frontend/Product/shopping-cart.html");
+		} else {
+			System.out.println("有購物車");
+			Cartdetail newOrderdetail = getCartdetail(request);
+			System.out.println(newOrderdetail.getProductNo());
+			System.out.println(newOrderdetail.getProductName());
+
+			System.out.println(orderList.contains(newOrderdetail));
+
+			if (orderList.contains(newOrderdetail)) {
+				System.out.println("添加舊的書在原本的購物車上");
+				Cartdetail innerOrderdetail = orderList.get(orderList.indexOf(newOrderdetail));
+				System.out.println("增加的數量：" + newOrderdetail.getProductSales());
+				System.out.println("購物車上的數量：" + innerOrderdetail.getProductSales());
+
+				innerOrderdetail.setProductSales(innerOrderdetail.getProductSales() + newOrderdetail.getProductSales());
+				innerOrderdetail.setProductTotalPrice(
+						innerOrderdetail.getProductTotalPrice() + newOrderdetail.getProductTotalPrice());
+
 			} else {
-				System.out.println("有購物車");
-				Cartdetail newOrderdetail = getCartdetail(request);
-				System.out.println(newOrderdetail.getProductNo());
-				System.out.println(newOrderdetail.getProductName());
+				System.out.println("添加新的書在原本的購物車上");
 
-				System.out.println(orderList.contains(newOrderdetail));
-
-				if (orderList.contains(newOrderdetail)) {
-					System.out.println("添加舊的書在原本的購物車上");
-					Cartdetail innerOrderdetail = orderList.get(orderList.indexOf(newOrderdetail));
-					System.out.println("增加的數量：" + newOrderdetail.getProductSales());
-					System.out.println("購物車上的數量：" + innerOrderdetail.getProductSales());
-
-					innerOrderdetail
-							.setProductSales(innerOrderdetail.getProductSales() + newOrderdetail.getProductSales());
-					innerOrderdetail.setProductTotalPrice(
-							innerOrderdetail.getProductTotalPrice() + newOrderdetail.getProductTotalPrice());
-
-				} else {
-					System.out.println("添加新的書在原本的購物車上");
-
-					orderList.add(newOrderdetail);
-				}
-
-				Gson gson = new Gson();
-				String json = gson.toJson(session.getAttribute("shoppingCart"));
-				System.out.println(json);
-//			out.print(json);
-				response.sendRedirect("/CGA101G1/frontend/Product/shopping-cart.html");
+				orderList.add(newOrderdetail);
 			}
+
+			Gson gson = new Gson();
+			String json = gson.toJson(session.getAttribute("shoppingCart"));
+			System.out.println(json);
+//			out.print(json);
+			response.sendRedirect("/CGA101G1/frontend/Product/shopping-cart.html");
+		}
 
 //		}
 	}
