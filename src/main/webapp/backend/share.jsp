@@ -1,6 +1,8 @@
+<%@page import="com.manager.model.ManagerVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 	isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,12 +66,7 @@
 			<!--logo start-->
 			<a href="<%=request.getContextPath()%>/backend/index.jsp" class="logo"><b>POP.Game</b></a>
 			<!--logo end-->
-			
-			<div class="top-menu">
-				<ul class="nav pull-right top-menu">
-					<li><a class="logout" href="<%=request.getContextPath()%>/frontend/mem/login.html">登入</li>
-				</ul>
-			</div>
+
 		</header>
 		<!--header end-->
 
@@ -87,7 +84,7 @@
 							src="<%=request.getContextPath()%>/backend/assets/img/logo.png"
 							class="img-circle" width="60"></a>
 					</p>
-					<h5 class="centered">侯宇陽</h5>
+					<h5 class="centered">${managerVO.managerName}</h5>
 
 					<li class="mt"><a class="active"
 						href="<%=request.getContextPath()%>/backend/index.jsp"> <i class="fa-solid fa-house-chimney"></i> <span>首頁</span>
@@ -97,16 +94,17 @@
 							<i class="fa-solid fa-user-astronaut"></i> <span>使用者管理</span>
 					</a>
 						<ul class="sub">
-							<li><a href=" blank.html">管理員資料管理</a></li>
-							<li><a href=" blank.html">管理員權限管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/manager/getAllManager.jsp">管理員資料管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/managerauth/getAllManagerAuth.jsp">管理員權限管理</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> 
 					<i class="fa-solid fa-tag"></i> <span>主要商城後臺系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="#">商品管理</a></li>
-							<li><a href="#">主要訂單管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/product/productAdd.jsp">新增商品</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/product/productMod.jsp">修改商品</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/product/order.jsp">訂單管理</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> 
@@ -125,17 +123,16 @@
 							class="fa fa-desktop"></i> <span>前台網站管理系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="#">會員資料管理</a></li>
-							<li><a href="#">討論區檢舉管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/mem/listAllMem.jsp">會員資料管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/forum/selectReportHome.jsp">討論區檢舉管理</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
 							class="fa-solid fa-chalkboard-user"></i> <span>討論區管理系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="#">討論區權限編輯</a></li>
-							<li><a href="#">新增或關閉討論區</a></li>
-							<li><a href="#">發表管理員文章</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/forum/listAllForum.jsp">討論區編輯</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/forum/listAllForumMasterPost.jsp">發表管理員文章</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
@@ -147,11 +144,12 @@
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
-							class="fa fa-cogs"></i> <span>遊戲平台及種類管理</span>
+							class="fa fa-cogs"></i> <span>遊戲分類管理</span>
 					</a>
 						<ul class="sub">
-							<li><a href="#">遊戲平台管理</a></li>
-							<li><a href="#">遊戲種類管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/gameplatformtype/GetAllGamePlatformType.jsp">遊戲平台管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/gametype/GetAllGameType.jsp">遊戲種類管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/gamecompany/GetAllGameCompany.jsp">遊戲公司管理</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> <i
@@ -159,7 +157,10 @@
 					</a>
 						<ul class="sub">
 							<li><a href="<%=request.getContextPath()%>/backend/news/GameNews-final.jsp">編輯新聞</a></li>
-							<li><a href="#">優惠券管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/couponType/listAllCouponType.jsp">優惠券管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/couponType/addCouponType.jsp">新增優惠券</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/memCoupon/showMemCoupon.jsp">已發放優惠券管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/memCoupon/sendMemCoupon.jsp">發放優惠券</a></li>
 						</ul></li>
 
 					<!-- <li class="sub-menu">

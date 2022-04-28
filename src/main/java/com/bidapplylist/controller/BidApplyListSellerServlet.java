@@ -34,6 +34,12 @@ public class BidApplyListSellerServlet extends HttpServlet {
 		
 		request.setAttribute("bidApplyListVOs", bidApplyListVOs);
 		
+		
+		// 顯示數量
+		
+		// 多少頁
+		
+		
 		RequestDispatcher successView = request.getRequestDispatcher("/frontend/bid/myapplylist.jsp");
 		successView.forward(request, response);
 	}

@@ -132,7 +132,7 @@ color: black;
 				</div>
 				<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 
-				<button class="btn btn-primary btn-lg btn-block" id="btn222" type="button">確認結帳</button>
+				<button class="btn btn-primary btn-lg btn-block" id="btnConfirm" type="button">確認結帳</button>
 				
 			</form>
 		</div>
@@ -153,7 +153,7 @@ color: black;
     
         <script type="text/javascript">
     
-    $("#checkout").click(function(){
+    $("#btnConfirm").click(function(){
         swal({
             title: "信用卡授權中",
             text: "正在聯絡信用卡公司 請稍候", 
