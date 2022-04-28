@@ -92,7 +92,7 @@ h3 {
 						</tr>
 						<tr>
 							<td><label for="managerState" class="form-label">管理員狀態</label>
-								<input type="radio" name="managerState" value="1"> <label
+								<input type="radio" name="managerState" value="0"> <label
 								class="form-control">在職</label></td>
 						</tr>
 						<tr>

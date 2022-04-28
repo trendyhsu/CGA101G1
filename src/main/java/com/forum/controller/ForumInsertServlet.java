@@ -76,6 +76,11 @@ public class ForumInsertServlet extends HttpServlet {
 				picList.add(forumImg);
 			}
 		}
+		bis.close();
+		is.close();
+		if (picList.size() == 0) {
+			errorMsgs.put("upfile1", "請新增圖片");
+		}
 
 		// 錯誤處理回傳forumVO
 		if (!errorMsgs.isEmpty()) {
@@ -83,7 +88,7 @@ public class ForumInsertServlet extends HttpServlet {
 			forumVO.setForumName(request.getParameter("forumName"));
 			forumVO.setForumType(Integer.valueOf(request.getParameter("forumType")));
 			forumVO.setMemNo(Integer.valueOf(request.getParameter("memNo")));
-			
+
 			request.setAttribute("forumVO", forumVO); // 含有輸入格式錯誤的forumVO物件,也存入req
 			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/addForum.jsp");
 			failureView.forward(request, response);
@@ -110,9 +115,11 @@ public class ForumInsertServlet extends HttpServlet {
 
 		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 
+		forumVO = forumSvc.getOneForum(forumVO.getForumNo());
+
 		request.setAttribute("forumVO", forumVO);
 		String url = "/backend/forum/listOneForum.jsp";
-		RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交listAllBid.jsp
+		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
 
 	}

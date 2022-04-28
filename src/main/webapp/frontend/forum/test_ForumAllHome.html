@@ -1,0 +1,321 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POP.Game</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- custom css file link -->
+    <link rel="stylesheet" href=".\\css\\allStyle.css">
+    <link rel="stylesheet" href=".\\css\\style.css">
+    <link rel="stylesheet" href=".\\css\\headerStyle.css">
+    <link rel="stylesheet" href=".\\css\\footerStyle.css">
+
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <!-- header section starts-->
+
+    <header>
+
+        <div class="logo-div">
+            <img src=".\\images\\logo.png" alt="">
+            <a href="#" class="logo">帕Game</a>
+        </div>
+
+
+        <nav class="navbar">
+            <!-- 上方標籤列 -->
+            <a href="#home">首頁</a>
+            <a href="#items">商品區</a>
+            <!-- <a href="#news">遊戲新聞</a> -->
+            <a href="#sale">競標區</a>
+            <a class="active" href="#review">討論區</a>
+        </nav>
+
+        <div class="icons">
+            <!--右上方小icon區-->
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a href="#" class="fas fa-heart"></a>
+            <i class="fas fa-shopping-cart" id="cart"></i>
+        </div>
+
+    </header>
+
+    <!-- header section ends-->
+
+    <!-- Robot div starts -->
+
+
+    <div id="robot">
+        <img src=".\\images\\robot_hover.png">
+    </div>
+
+    <div id="service">
+        <div class="title"><span>帕Game智能客服</span></div>
+        <div class="content"></div>
+        <div class="OneMessage">
+            <i class="fa-solid fa-user-astronaut"></i>
+            <span>Hello, Are you here?</span>
+        </div>
+        <div class="OneService">
+            <span>Don't worry! I'm here!</span>
+            <img src=".\\images\\robot_hover.png">
+        </div>
+
+        <ul class="service-form">
+            <li id='訂單問題'>
+                訂單問題<br>
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+            </li>
+            <li id='商品問題'>
+                商品問題<br>
+                <i class="fas fa-solid fa-gamepad"></i>
+            </li>
+            <li id='帳號問題'>
+                帳號問題<br>
+                <i class="fas fa-solid fa-user-astronaut"></i>
+            </li>
+            <li id='討論區問題'>
+                討論區問題<br>
+                <i class="fas fa-solid fa-chalkboard-user"></i>
+            </li>
+            <li id='聊天室問題'>
+                聊天室問題<br>
+                <i class="fas fa-solid fa-comment-dots"></i>
+            </li>
+            <li id='表單回報'>
+                表單回報<br>
+                <i class="fas fa-solid fa-scroll"></i>
+            </li>
+        </ul>
+
+
+        <div class="chat">
+            <i class="fas fa-bars" id="service-menu"></i>
+            <input type="text">
+            <i class="fas fa-solid fa-image"></i>
+            <i class="fas fa-solid fa-paper-plane" id="send"></i>
+        </div>
+
+
+    </div>
+
+    <!-- Robot div ends -->
+
+    <!--Login starts-->
+
+    <div action="" id="login-form">
+        <i class="fas fa-times" id="login-close"></i>
+
+
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+
+            <form id="login" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>Remeber Password</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+
+            <form id="register" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-envelope"></i>
+                    <input type="email" class="input-field" placeholder="E-mail" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>I agree to the terms & conditions</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Login ends -->
+
+    <!-- search form starts-->
+
+    <form action="" id="search-form">
+        <div class="search-group">
+
+            <input type="search" placeholder="search here..." name="" id="search-box">
+            <label for="search-box" class="fas fa-search"></label>
+
+        </div>
+
+
+        <i class="fas fa-times" id="search-close"></i>
+    </form>
+
+    <!-- search form ends-->
+
+
+
+    <!-- shopping-cart div starts -->
+
+    <div id="shopping-cart">
+        <div class="box">
+            <i class="fas fa-trash"></i>
+            <img src=".\\images\\Monopoly.png" alt="">
+            <div class="content">
+                <h3>ItemName</h3>
+                <span class="price">$0.00/-</span>
+                <span class="quantity">qty : 1</span>
+            </div>
+        </div>
+        <div class="box">
+            <i class="fas fa-trash"></i>
+            <img src=".\\images\\Mario.png" alt="">
+            <div class="content">
+                <h3>ItemName</h3>
+                <span class="price">$0.00/-</span>
+                <span class="quantity">qty : 1</span>
+            </div>
+        </div>
+        <div class="total"> total : $0.00/-</div>
+        <a href="#" class="btn">check out</a>
+
+    </div>
+
+    <!-- shopping-cart div ends -->
+
+    <div style="height:60px"></div>
+
+    <!-- home section starts-->
+
+    <section class="home" id="home">
+
+        <div class="items" id="items">
+
+            <div class="box-container">
+                <!-- 討論區 -->
+                <div class="box">
+                    <div class="item-img-container">
+                        <img src=".\\images\\Pokemon.jpg" alt="" width="300px">
+                    </div>
+                    <h3 style="color: var(--darkBlue);">Pokemon 寶可夢</h3>
+                    <div class="buttons">
+                        <a href="#" class="btn btn-3">Enter</a>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="item-img-container">
+                        <img src=".\\images\\NBA1.jpg" alt="" width="300px">
+                    </div>
+                    <h3 style="color: var(--darkBlue);">NBA 2K</h3>
+                    <div class="buttons">
+                        <a href="#" class="btn btn-3">Enter</a>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="item-img-container">
+                        <img src=".\\images\\Demon_Slayer.png" alt="" width="300px">
+                    </div>
+                    <h3 style="color: var(--darkBlue);">鬼滅之刃</h3>
+                    <div class="buttons">
+                        <a href="#" class="btn btn-3">Enter</a>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="item-img-container">
+                        <img src=".\\images\\F1.jpg" alt="" width="300px">
+                    </div>
+                    <h3 style="color: var(--darkBlue);">F1 2K</h3>
+                    <div class="buttons">
+                        <a href="#" class="btn btn-3">Enter</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+    <!-- home section ends-->
+
+    <!-- footer section starts -->
+
+    <section class="footer" id="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="#">home</a>
+                <a href="#">dishes</a>
+                <a href="#">about</a>
+                <a href="#">menu</a>
+                <a href="#">review</a>
+                <a href="#">order</a>
+            </div>
+
+            <div class="box">
+                <h3>contact info</h3>
+                <a href="#">+123-456-7890</a>
+                <a href="#">+111-222-3333</a>
+                <a href="#">shailhanas@gmail.com</a>
+                <a href="#">anasbhai@gmail.com</a>
+                <a href="#">mumbai, india - 400104</a>
+            </div>
+
+            <div class="box">
+                <h3>follow us</h3>
+                <a href="#">facebook</a>
+                <a href="#">twitter</a>
+                <a href="#">insuagram</a>
+                <a href="#">linkedin</a>
+            </div>
+        </div>
+
+        <div class="credit">copyright@2021 by <span>Group 1</span></div>
+
+    </section>
+
+
+    <!-- footer section ends -->
+
+    <!-- loader part -->
+
+    <!-- custom js file link-->
+    <script src=".\\js\\script.js"></script>
+</body>
+
+</html>

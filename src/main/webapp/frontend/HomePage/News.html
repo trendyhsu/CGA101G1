@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POP.Game</title>
+
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href=".\\css\\allStyle.css">
+    <link rel="stylesheet" href=".\\css\\headerStyle.css">
+    <link rel="stylesheet" href=".\\css\\footerStyle.css">
+    <link rel="stylesheet" href=".\\css\\headerFunctionStyle.css">
+    <link rel="stylesheet" href=".\\css\\newsStyle.css">
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- header section starts-->
+
+    <header>
+
+        <div class="logo-div">
+            <img src=".\\images\\logo.png" alt="">
+            <a href="#" class="logo">帕Game</a>
+        </div>
+
+
+        <nav class="navbar">
+            <!-- 上方標籤列 -->
+            <a class="active" href="#home">首頁</a>
+            <a href="#items">商品區</a>
+            <!-- <a href="#news">遊戲新聞</a> -->
+            <a href="#sale">競標區</a>
+            <a href="#review">討論區</a>
+        </nav>
+
+        <div class="icons">
+            <!--右上方小icon區-->
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a href="#" class="fas fa-heart"></a>
+            <i class="fas fa-shopping-cart" id="cart"></i>
+        </div>
+
+    </header>
+
+    <!-- header section ends-->
+
+    <!--Login starts-->
+
+    <div action="" id="login-form">
+        <i class="fas fa-times" id="login-close"></i>
+
+
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+
+            <form id="login" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>Remeber Password</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+
+            <form id="register" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-envelope"></i>
+                    <input type="email" class="input-field" placeholder="E-mail" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>I agree to the terms & conditions</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Login ends -->
+
+    <!-- search form starts-->
+
+    <form action="" id="search-form">
+        <div class="search-group">
+
+            <input type="search" placeholder="search here..." name="" id="search-box">
+            <label for="search-box" class="fas fa-search"></label>
+
+        </div>
+
+
+        <i class="fas fa-times" id="search-close"></i>
+    </form>
+
+    <!-- search form ends-->
+
+
+
+    <!-- shopping-cart div starts -->
+
+    <div id="shopping-cart">
+        <div class="box">
+            <i class="fas fa-trash"></i>
+            <img src=".\\images\\Monopoly.png" alt="">
+            <div class="content">
+                <h3>ItemName</h3>
+                <span class="price">$0.00/-</span>
+                <span class="quantity">qty : 1</span>
+            </div>
+        </div>
+        <div class="box">
+            <i class="fas fa-trash"></i>
+            <img src=".\\images\\Mario.png" alt="">
+            <div class="content">
+                <h3>ItemName</h3>
+                <span class="price">$0.00/-</span>
+                <span class="quantity">qty : 1</span>
+            </div>
+        </div>
+        <div class="total"> total : $0.00/-</div>
+        <a href="#" class="btn">check out</a>
+
+    </div>
+
+    <!-- shopping-cart div ends -->
+
+    <!-- News section -->
+    <section>
+
+        <div class="title">「國民老婆」新垣結衣新廣告，《Nintendo Switch運動》羽球打起來！</div>
+        <div class="img-container">
+            <img src="./images/GakiNintendo.png" alt="">
+        </div>
+
+        <div class="content">
+            任天堂 今（25）日公開《Nintendo Switch 運動》最新宣傳廣告「健身也是運動篇」，繼續邀請「國民老婆」新垣結衣拍攝！
+            <br>
+            <br>
+            任天堂為新垣結衣量身打造的清爽居家風格，這次是放下了健身環，改拿起 Joy-Con 在《Nintendo Switch 運動》裡面來場爽快的球場對決。
+            <br>
+            <br>
+            Switch《Nintendo Switch 運動》即將在 4 月 29 日推出，買遊戲不會自帶新垣結衣，敬請注意。
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src=".\\js\\script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+/*-------------------ShoppingCart----------------------*/
+
+#shopping-cart {
+    width: 28rem;
+    position: fixed;
+    top: 12%;
+    right: -100%;
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    z-index: 1002;
+    background-color: rgba(22, 12, 45, .9);
+}
+
+#shopping-cart.active {
+    right: 0;
+    transition: .3s linear;
+}
+
+#shopping-cart .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    margin: 1.5rem 0;
+}
+
+#shopping-cart .box img {
+    height: 10rem;
+}
+
+#shopping-cart .box .fa-trash {
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    cursor: pointer;
+    color: var(--black);
+    transform: translateY(-50%);
+}
+
+#shopping-cart .box .fa-trash:hover {
+    color: #fff;
+}
+
+#shopping-cart .box .content h3 {
+    color: #fff;
+    font-size: 1.7rem;
+    padding-bottom: 1rem;
+}
+
+#shopping-cart .box .content span {
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+#shopping-cart .box .content .quantity {
+    padding-left: 1rem;
+}
+
+#shopping-cart .total {
+    font-size: 2.5rem;
+    padding: 1rem 0;
+    text-align: center;
+    color: #fff;
+}
+
+#shopping-cart .btn {
+    margin-top: 1rem;
+    display: block;
+    padding: .8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: .5rem;
+    border: .2rem solid #fff;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    margin: 1rem;
+    background: var(--darkBlue);
+    transition: .5s;
+}
+
+#shopping-cart .btn:hover {
+    background: #fff;
+    color: var(--space);
+    letter-spacing: 1px;
+}
+
+/*------LOGIN------------------------------------------*/
+/*整個畫面*/
+#login-form {
+    position: fixed;
+    top: -110%;
+    left: 0;
+    /*目前為隱藏*/
+    height: 100%;
+    width: 100%;
+    z-index: 1006;
+    background: var(--space);
+    padding: 0 1rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("..\\..\\images\\astronaut.gif");
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+}
+
+/*畫面啟用*/
+#login-form.active {
+    top: 0;
+}
+
+/*右上角的叉叉*/
+#login-form #login-close {
+    position: absolute;
+    color: #fff;
+    cursor: pointer;
+    top: 2rem;
+    right: 3rem;
+    font-size: 5rem;
+}
+
+#login-form .form-box {
+    /* border:2px solid red; */
+    width: 350px;
+    height: 450px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: center;
+    overflow: hidden;
+
+}
+
+#login-form .button-box {
+    /* border:2px solid yellowgreen; */
+    width: fit-content;
+    box-shadow: 0 0 1rem .3rem #4c6292;
+    border-radius: 3rem;
+    position: relative;
+    margin: 3rem 0;
+    overflow: hidden;
+}
+
+#login-form .toggle-btn {
+    /* border:2px solid pink; */
+    color: #fff;
+    background: transparent;
+    font-size: 2.5rem;
+    margin: 0 1.5rem;
+    padding: .2rem .5rem;
+    cursor: pointer;
+    position: relative;
+    border-radius: 3rem;
+}
+
+#login-form #btn {
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(to right, #192a56, #7192db);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: .5s;
+    border-radius: 3rem;
+}
+
+#login-form .input-group {
+    /* border:2px solid blue; */
+    height: 80%;
+    width: 80%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-right:100px; */
+}
+
+#login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -35%);
+}
+
+#register {
+    position: absolute;
+    top: 50%;
+    left: 150%;
+    transform: translate(-50%, -35%);
+}
+
+
+#login-form .form-box .input-group .input-div {
+    /* border:2px solid yellow; */
+    width: 100%;
+    margin: 1.5rem 3rem;
+    border-bottom: 2px solid #fff;
+    padding-bottom: .5rem;
+    position: relative;
+}
+
+#login-form .form-box .input-group i {
+    font-size: 3rem;
+}
+
+#login-form .form-box .input-group .input-field {
+    font-size: 2rem;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    margin-left: .6rem;
+}
+
+#login-form .form-box .input-group .input-field::placeholder {
+    color: #fff;
+    font-size: 2rem;
+}
+
+#login-form .form-box .input-group .others {
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    /* border:2px solid purple; */
+}
+
+#login-form .form-box .input-group .others span {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+#login-form .form-box .input-group .submit-btn {
+    background: linear-gradient(to right, #192a56, #7192db);
+    width: 30%;
+    font-size: 1.7rem;
+    border-radius: 3rem;
+    margin: 2rem 0;
+    color: #fff;
+    padding: .5rem 1rem;
+}
+
+
+
+/*----------------------------------查詢頁面---------------------------------*/
+
+#search-form {
+    position: fixed;
+    top: -110%;
+    left: 0;
+    /*目前為隱藏*/
+    height: 100%;
+    width: 100%;
+    z-index: 1004;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    overflow: hidden;
+}
+
+/*點選查詢後，浮出查詢視窗*/
+#search-form.active {
+    top: 0;
+}
+
+/*查詢盒子*/
+#search-form #search-box {
+    width: 50rem;
+    border-bottom: .1rem solid #fff;
+    padding: 1rem 0;
+    color: #fff;
+    /*輸入搜尋的文字顏色*/
+    font-size: 3rem;
+    text-transform: none;
+    background: none;
+    /* border:2px solid white; */
+}
+
+#search-form .search-group {
+    display: flex;
+    align-items: center;
+}
+
+#search-form .search-group div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/*查詢預設字的顏色*/
+#search-form #search-box::placeholder {
+    color: #fff;
+}
+
+/*查詢輸入列的X，建議改掉*/
+#search-form #search-box::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/*放大鏡*/
+#search-form label {
+    color: #fff;
+    cursor: pointer;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+#search-form label:hover {
+    color: #fff;
+}
+
+
+
+/*右上角的叉叉*/
+#search-form #search-close {
+    position: absolute;
+    color: #fff;
+    cursor: pointer;
+    top: 2rem;
+    right: 3rem;
+    font-size: 5rem;
+}

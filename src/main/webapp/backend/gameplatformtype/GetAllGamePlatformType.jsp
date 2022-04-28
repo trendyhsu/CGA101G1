@@ -78,26 +78,29 @@ color: #547492;
 				</tr>
 				-->
 				</c:forEach>
+				<div style="margin-top:30px;">
 			<td sytle="">
 				<FORM METHOD="post"
 				ACTION="<%=request.getContextPath()%>/backend/gameplatformtype/addGamePlatformType.jsp"
-				style="margin-bottom: 0px;">
-				<input type="submit" value="新增">
+				style="margin-bottom: 0px;display:inline;">
+				<input type="submit" value="新增" class="btn btn-success btn-beside">
 				<input type="hidden"name="gamePlatformNo" value="${gamePlatformTypeVO.gamePlatformNo}">
 				</FORM>
 			</td>
 			<td>
 				<FORM METHOD="post"
 					  ACTION="<%=request.getContextPath()%>/backend/gameplatformtype/editGamePlatformType.jsp"
-				      style="margin-bottom: 0px;">
-					<input type="submit" value="修改">
+				      style="margin-bottom: 0px;display:inline;">
+					<input type="submit" value="修改" class="btn btn-success btn-beside">
 					<input type="hidden" name="gamePlatformNo" value="${gamePlatformTypeVO.gamePlatformNo}">
 				</FORM>
 			</td>	
-				
+				<div>
+					<%@ include file="page2.file"%>
+					</div>
 		
 		</div>
-		<%@ include file="page2.file"%>
+		
 	</div>
             </section>
             <!--/wrapper -->

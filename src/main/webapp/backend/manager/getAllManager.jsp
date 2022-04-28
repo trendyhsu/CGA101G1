@@ -65,13 +65,14 @@ h3 {
 					<table class="table table-striped table-advance table-hover">
 						<h4>
 							<i class="fa fa-angle-right"></i> 管理員列表
-							<td>
+							<div style="float:right;">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/backend/manager/addManager.jsp">
-									<input type="submit" value="新增"> <input type="hidden"
+									<input type="submit" value="新增" style="background-color:lightgreen; color:black;"> 
+									<input type="hidden"
 										name="managerNo" value="${managerVO.managerNo}">
 								</FORM>
-							</td>
+							</div>
 						</h4>
 
 						<hr>
@@ -92,7 +93,12 @@ h3 {
 									<td>${managerVO.myManagerPic}</td>
 									<td class="hidden-phone">${managerVO.managerNo}</td>
 									<td>${managerVO.managerName}</td>
-									<td><span class="label label-info label-mini">${managerVO.managerState}</span></td>
+									<td><span class="label label-info label-mini">
+									<c:if test="${managerVO.managerState == 0}">在職</c:if>
+									<c:if test="${managerVO.managerState == 1}">離職</c:if>
+									</span>
+									
+									</td>
 									<td sytle="">
 									<td>
 										<FORM METHOD="post"
