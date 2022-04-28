@@ -49,7 +49,7 @@ public class ShowOneCouponServelet extends HttpServlet {
 		List<MemCouponVO> list = memCouponService.listOneCoupon(couponTypeNo);
 		
 		if (list.size() == 0) {
-			errorMsgs.put("couponTypeNo", "查無資料");
+			errorMsgs.put("couponTypeNo", "該優惠券目前沒有會員擁有");
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
