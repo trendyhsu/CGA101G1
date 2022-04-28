@@ -10,6 +10,9 @@
 	List<CouponTypeVO> list = couponTypeSvc.showAllCouponType();
     pageContext.setAttribute("list",list);
 %>
+
+<%@include file="/backend/share.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>

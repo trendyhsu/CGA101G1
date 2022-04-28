@@ -1,0 +1,35 @@
+section {
+    padding: 5rem 9%;
+    padding-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.title {
+    /* border: 2px solid blue; */
+    width: 80%;
+    font-size: 44px;
+    margin: 3rem;
+    font-weight: bold;
+    word-wrap: break-all;
+}
+
+.img-container {
+    /* border: 2px solid red; */
+    width: 80%;
+
+}
+
+.img-container img {
+    width: 100%;
+}
+
+.content {
+    /* border: 2px solid yellowgreen; */
+    width: 80%;
+    font-size: 18px;
+    margin: 3rem;
+
+}

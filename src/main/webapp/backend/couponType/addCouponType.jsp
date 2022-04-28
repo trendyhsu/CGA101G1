@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.couponType.model.*"  %>
 
-
+<%@include file="/backend/share.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -63,6 +63,11 @@
 <!-- 	</ul> -->
 <%-- </c:if> --%>
 
+				<section id="main-content">
+					<section class="wrapper">
+
+						<div class="row">
+
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/AddCouponTypeServlet" name="form1">
 
     <table>
@@ -97,6 +102,11 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="couponName" value="${param.couponName}">
 <input type="submit" value="送出新增"></FORM><td>${errorMsgs.Dup}</td>
+
+
+						</div>
+					</section>
+				</section>
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 

@@ -49,11 +49,11 @@ public class ShowOneMemCouponServlet extends HttpServlet {
 		List<MemCouponVO> list = memCouponService.listOneMemCoupon(memNo);
 		
 		if (list.size() == 0) {
-			errorMsgs.put("memNo", "查無資料");
+			errorMsgs.put("memNo", "該會員無優惠券");
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = request.getRequestDispatcher("/backend/couponType/showMemCoupon.jsp");
+			RequestDispatcher failureView = request.getRequestDispatcher("/backend/memCoupon/showMemCoupon.jsp");
 			failureView.forward(request, response);
 			return;// 程式中斷
 		}
