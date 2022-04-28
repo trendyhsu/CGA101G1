@@ -32,10 +32,11 @@ public class ShowOneMemsOrder extends HttpServlet {
 		response.setContentType("text/html ; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-//		HttpSession session = request.getSession();
-//		MemVO memVO = (MemVO) session.getAttribute("member");
-//		Integer memNo = memVO.getMemNo();
-		Integer memNo = 11001;
+		HttpSession session = request.getSession();
+		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+		Integer memNo = memVO.getMemNo();
+		System.out.println("現在查看訂單的會員編號是："+memNo);
+//		Integer memNo = 11001;
 		OrderService orderService = new OrderService();
 		List<OrderVO> list = orderService.findAllOrdersByMemNo(memNo);
 		Gson gson = new Gson();

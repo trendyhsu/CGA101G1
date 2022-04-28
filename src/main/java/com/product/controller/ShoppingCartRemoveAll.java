@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.member.model.MemVO;
 import com.test.Cartdetail;
 
 
@@ -39,8 +40,11 @@ public class ShoppingCartRemoveAll extends HttpServlet {
 //		if(session.getAttribute("member").getMemNo()==null) {
 //			response.sendRedirect("登入畫面");
 //		}else {
-//			String memNo = session.getAttribute("member").getMemNo();
-		String memNo = "11001";
+
+		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+		Integer memNo = memVO.getMemNo();
+		System.out.println("現在登入的會員編號是：" + memNo);
+//		String memNo = "11001";
 //		List<Orderdetail> orderList = new ArrayList<Orderdetail>();
 //		List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart")==null?new ArrayList<Cartdetail>():(List<Cartdetail>) session.getAttribute("shoppingCart"));
 		List<Cartdetail> cartList = ((List<Cartdetail>) session.getAttribute("shoppingCart"));
