@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
 		//寄信驗證
 		String subject = "歡迎加入POPGAME";
 		String messageText = "Hello!! " + memVO.getMemName() + "  以下是您的驗證網址: "
-				  +"\n" +request.getScheme()+"://" +request.getServerName() +":"+request.getServerPort()+ request.getContextPath()+"/mem"+"/MemVerify";
+				  +"\n" +request.getScheme()+"://" +request.getServerName() +":"+request.getServerPort()+ request.getContextPath()+"/mem"+"/MemVerify"+"?memAccount="+memVO.getMemAccount();
 		MailService mail= new MailService();
 		mail.sendMail(memVO.getMemEmail(), subject, messageText);
 		//調用service

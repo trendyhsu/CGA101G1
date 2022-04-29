@@ -178,4 +178,8 @@ public class MemService {
 		MemVO memVO=dao.getOneByMemNo(memNo);
 		return memVO;
 	}
+	// 修改會員禁言狀態
+	public void isMuteChange(Integer memNo) {
+		dao.ChangeisMute(memNo);
+	}
 }

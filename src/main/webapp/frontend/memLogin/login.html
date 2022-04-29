@@ -321,7 +321,7 @@
                                                 忘記密碼?</a></span>
                                     </div>
                                     <input type="password" class="form-control" id="exampleInputPassword01"
-                                        placeholder="*********">
+                                        placeholder="輸入密碼">
                                 </div>
 
 
@@ -449,7 +449,6 @@
                     memPassword: exampleInputPassword01.value
                 }),
                 success: data => {
-                    console.log(data);
                     const { successful, message, initlocation } = data;
                     if (successful) {
                         let { memNo, memName, memStatus, memVrfed } = data;
@@ -464,9 +463,9 @@
                         } else {
                             location = "/CGA101G1/frontend/mem/index.html";
                         }
+                        initlocation = "/CGA101G1/frontend/mem/index.html";
                     } else {
                         $("#errMsg").html(message);
-                        //                   
                     }
                 },
 

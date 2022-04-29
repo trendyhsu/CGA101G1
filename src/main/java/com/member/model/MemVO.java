@@ -28,6 +28,13 @@ public class MemVO extends Core{
 	private String bankAccountOwner;
 	private Integer userStatus;
 	private byte[] myPic;
+	private Integer isMute;
+	public Integer getIsMute() {
+		return isMute;
+	}
+	public void setIsMute(Integer isMute) {
+		this.isMute = isMute;
+	}
 	public Integer getMemNo() {
 		return memNo;
 	}

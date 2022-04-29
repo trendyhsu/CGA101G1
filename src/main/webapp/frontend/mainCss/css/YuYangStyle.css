@@ -1,0 +1,53 @@
+.card {
+    width: 500px;
+
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card-body>div {
+    margin: 1rem 2rem;
+
+    /*水平置中*/
+    justify-content: center;
+    /* 垂直置中 */
+    align-items: center;
+}
+
+.card-body>div>div {
+    margin: 1rem 2rem;
+
+
+}
+
+#memCity {
+    display: block;
+    width: 100%;
+    font-size: 0.93rem;
+    border: 1px solid #aeb4be;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: #f6f9fc;
+    background-clip: padding-box;
+    line-height: 3.2;
+    padding: 0.65rem 1.25rem;
+}
+
+#memDist {
+    display: block;
+    width: 100%;
+    font-size: 0.93rem;
+    border: 1px solid #aeb4be;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: #f6f9fc;
+    background-clip: padding-box;
+    line-height: 3.2;
+    padding: 0.65rem 1.25rem;
+}

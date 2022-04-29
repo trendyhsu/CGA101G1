@@ -32,7 +32,7 @@
             <label id="l5"></label>
         </div>
 
-        <div>
+        <!-- <div>
             <label for="memCity">居住縣市: </label>
             <input type="text" name="memCity" id="memCity">
             <label id="s1"></label>
@@ -41,6 +41,17 @@
             <label for="memDist">鄉/鎮/市/區: </label>
             <input type="text" name="memDist" id="memDist">
             <label id="s2"></label>
+        </div> -->
+        <div role="city-selector-set" class="city-selector-set" id="forAddress">
+            <div class="form-group mb-3">
+                <label for="memCity" class="form-label">居住縣市:<span class="text-danger">*</span></label>
+                <select class="county" id="memCity" class="form-control"></select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="memDist" class="form-label">鄉/鎮/市/區:<span class="text-danger">*</span></label>
+                <select class="district" id="memDist" class="form-control"></select>
+            </div>
         </div>
 
         <div>
@@ -237,10 +248,23 @@
                     $("#memName").val(memName);
                     $("#memMobile").val(memMobile);
                     $("#memEmail").val(memEmail);
-                    $("#memCity").val(memCity);
-                    // $("#memDist").append('<option value=1>test</option>');
-                    // $('#memDist').data("value", memDist);
-                    $("#memDist").val(memDist);
+                    // $("#memCity").val(memCity);
+                    // $("#memCity").attr("data-value", memCity);
+                    // $("#memDist").attr("data-value", memDist);
+                    // $("#memDist").val(memDist);
+                    //居住地
+                    new TwCitySelector({
+                        el: '.city-selector-set',
+                        elCounty: '.county',
+                        countyValue: memCity,
+                        elDistrict: '.district',
+                        districtValue: memDist
+                    });
+                    new TwCitySelector({
+                        el: '.city-selector',
+                        countyValue: memCity, // 注意此項為關聯參數
+                        districtValue: memDist
+                    });
                     $("#memAdd").val(memAdd);
                     $("#memBirth").attr("value", memBirth);
 
@@ -340,6 +364,7 @@
         })
 
     </script>
+
 </body>
 
 </html>
