@@ -88,6 +88,11 @@ public class MemService {
 		memVO = dao.getOne(memVO.getMemNo());
 		return memVO;
 	}
+	// 回傳會員個人資料
+	public MemVO getMemVOByEmail(String memEmail) {
+		MemVO memVO = dao.getOneByEmail(memEmail);
+		return memVO;
+	}
 
 	// 顯示會員個人照片
 	public MemVO showMemPic(int memNo, InputStream defaultPath) {
@@ -120,6 +125,10 @@ public class MemService {
 		dao.updateMemPassword(conNewPassword, memNo);
 	}
 
+	// 忘記密碼 改成新密碼
+		public void insertPassword(String conNewPassword, String memEmail) {
+			dao.NewMemPassword(conNewPassword, memEmail);
+		}
 	// 修改會員個人資料
 	public MemVO memEdit(MemVO memVO) {
 		dao.update(memVO);

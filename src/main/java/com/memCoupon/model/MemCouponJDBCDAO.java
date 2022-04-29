@@ -20,6 +20,7 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 	private static final String UPDATE="UPDATE memcoupon SET couponTypeNo= ?, memNo= ?,\r\n"
 			+ "couponState= ? couponDate=?  WHERE memCouponNo= ?;";
 	
+	private static final String CHANGE_STATE="UPDATE memcoupon SET couponState=2 WHERE memCouponNo =?";
 	
 	private static final String DELETE="DELETE FROM memcoupon WHERE couponTypeNo= ?";
 	private static final String GETALL="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
@@ -115,6 +116,45 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 		}
 		
 	}
+	
+	public void changestate(MemCouponVO memCouponVO) {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(CHANGE_STATE);
+			
+			ps.setInt(1, memCouponVO.getMemCouponNo());
+			ps.executeUpdate();
+			
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		}  finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
 	
 	@Override
 	public void delete(Integer couponTypeNo) {

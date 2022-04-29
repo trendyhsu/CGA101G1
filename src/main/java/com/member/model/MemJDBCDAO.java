@@ -53,6 +53,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	private static final String UPDATE_MEM_PASSWORD = "UPDATE mem SET memPassword=? WHERE memNo=?";
 
+	private static final String UPDATE_MEM_FORGETPASSWORD = "UPDATE mem SET memPassword=? WHERE memEmail=?";
+	
 	private static final String UPDATE_MEM_PIC = "UPDATE mem SET myPic=? WHERE memAccount=?";
 
 	private static final String UPDATE_MEM_STATUS = "UPDATE mem SET memStatus=? WHERE memAccount=?";
@@ -66,7 +68,11 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String GET_ONE = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
 			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
 			+ " mem WHERE memNo = ?";
-
+	
+	private static final String GET_ONE_BY_EMAIL="SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " mem WHERE memEmail = ?";
+	
 	private static final String GET_ONE_BY_MEMNO = "SELECT * FROM mem WHERE memNo = ?";
 	
 	@Override
@@ -232,6 +238,74 @@ public class MemJDBCDAO implements MemDAO_interface {
 		return memVO;
 	}
 
+	public MemVO getOneByEmail(String memEmail) {
+		MemVO memVO = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(GET_ONE_BY_EMAIL);
+
+			ps.setString(1, memEmail);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				memVO = new MemVO();
+				memVO.setMemNo(rs.getInt("memNo"));
+				memVO.setMemAccount(rs.getString("memAccount"));
+				memVO.setMemPassword(rs.getString("memPassword"));
+				memVO.setMemStatus(rs.getInt("memStatus"));
+				memVO.setMemVrfed(rs.getInt("memVrfed"));
+				memVO.setMemNoVrftime(rs.getDate("memNoVrftime"));
+				memVO.setMemName(rs.getString("memName"));
+				memVO.setMemMobile(rs.getString("memMobile"));
+				memVO.setMemCity(rs.getString("memCity"));
+				memVO.setMemDist(rs.getString("memDist"));
+				memVO.setMemAdd(rs.getString("memAdd"));
+				memVO.setMemEmail(rs.getString("memEmail"));
+				memVO.setMemBirth(rs.getDate("memBirth"));
+				memVO.setMemJoinTime(rs.getDate("memJoinTime"));
+				memVO.setCreditcardNo(rs.getString("creditcardNo"));
+				memVO.setCreditcardDate(rs.getString("creditcardDate"));
+				memVO.setCreditcardSecurityNo(rs.getString("creditcardSecurityNo"));
+				memVO.setBankAccount(rs.getString("bankAccount"));
+				memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
+				memVO.setUserStatus(rs.getInt("userStatus"));
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return memVO;
+	}
+	
+	
 	public MemVO getOneByMemAccount(String memAccount) {
 		MemVO memVO = null;
 		Connection con = null;
@@ -567,6 +641,22 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 	}
 
+	public void NewMemPassword(String memPassword, String memEmail) {
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement ps = con.prepareStatement(UPDATE_MEM_FORGETPASSWORD)) {
+			ps.setString(1, memPassword);
+			ps.setString(2, memEmail);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void updateMemStatus(String memAccount, int memStatus) {
 		try {
 			Class.forName(driver);
