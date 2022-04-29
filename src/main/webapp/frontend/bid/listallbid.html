@@ -654,20 +654,25 @@
 
 // 最高出價刷新
                 $.ajax({
-                url: "/CGA101G1/bid/bidRecordGetAllJson",
-                type: "POST",
-                success: function(data){
-                    changeBidPrice(data);
-                }
-            })
+                    url: "/CGA101G1/bid/bidRecordGetAllJson",
+                    type: "POST",
+                    success: function(data){
+                        changeBidPrice(data);
+                    }
+                })
 
-            function changeBidPrice(data){
-                let allBidRecords = JSON.parse(data);
-                    for( let bidRecordVO of allBidRecords){
-                        let bidProduct = document.querySelector(`#bidHighestPrice${bidRecordVO.bidProductNo}`)
-                        bidProduct.innerHTML=`目前出價 $ ${bidRecordVO.bidPrice}`;
+                function changeBidPrice(data){
+                    let allBidRecords = JSON.parse(data);
+                    let i = 0;
+                        for( let bidRecordVO of allBidRecords){
+                            let bidProduct = document.querySelector(`#bidHighestPrice${bidRecordVO.bidProductNo}`);
+                            if(bidProduct){
+                                bidProduct.innerHTML=`目前出價 $ ${bidRecordVO.bidPrice}`;
+                            }
+                            console.log(i++);
+                            console.log(bidRecordVO);
+                    }
                 }
-            }
 
     }
 

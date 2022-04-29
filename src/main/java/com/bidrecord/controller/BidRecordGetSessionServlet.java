@@ -27,17 +27,19 @@ public class BidRecordGetSessionServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		String bidProductNo = request.getParameter("bidProductNo");
 		System.out.println(bidProductNo);
-//		request.getSession().setAttribute("location", "/CGA101G1/frontend/bid/listallbid"+bidProductNo);
+		request.getSession().setAttribute("initlocation", request.getContextPath() + "/frontend/bid/listonebid.html?bidProductNo="+bidProductNo);
 		
 		Writer out = response.getWriter();
 		HttpSession session = request.getSession();
 		Integer memNo = null;
+		
 		try {
 			MemVO memVO =(MemVO)session.getAttribute("memVO");
 			memNo = memVO.getMemNo();
 		} catch (NullPointerException e) {
 			memNo = 0;
 		}
+		
 		String outMemNo = String.valueOf(memNo);
 		out.write(outMemNo);
 

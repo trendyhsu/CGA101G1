@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&display=swap');
+
+/*整個頁面都能使用的變數區*/
+:root {
+    --black: rgb(84, 117, 147);
+    --light-color: #666;
+    --darkBlue: rgb(47, 54, 96);
+    --orange: rgb(204, 109, 61);
+    --box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    --space: #160c2d;
+}
+
+* {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    /*外框線*/
+    border: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+    /*調整 CSS animation 變動的速度*/
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    /*定義元素超過某個範圍的時候該如何呈現(ex.Scrollbar)*/
+    scroll-padding-top: 5.5rem;
+    scroll-behavior: smooth;
+}

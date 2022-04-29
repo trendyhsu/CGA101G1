@@ -1,0 +1,122 @@
+:root {
+    --black: rgb(84, 117, 147);
+    --light-color: #666;
+    --darkBlue: rgb(47, 54, 96);
+    --orange: rgb(204, 109, 61);
+    --box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    --space: #160c2d;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 1rem 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*均匀排列元素，首元素放置於起點，末元素放置於終點 */
+    z-index: 1000;
+    /*元素及其子元素的堆疊，z-index較大的元素會覆蓋較小的元素在上層顯示。*/
+    box-shadow: var(--box-shadow);
+}
+
+header .logo-div {
+    width: fit-content;
+    max-width: 15%;
+    display: flex;
+
+}
+
+header .logo-div .logo {
+    color: var(--black);
+    width: fit-content;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    white-space: nowrap;
+}
+
+/*LOGO圖片*/
+header .logo-div img {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+/*上方列表標籤*/
+header .navbar a {
+    font-size: 1.8rem;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    color: var(--light-color);
+}
+
+header .navbar a.active,
+header .navbar a:hover {
+    color: #fff;
+    background: var(--black);
+
+
+}
+
+header .icons i,
+header .icons a {
+    cursor: pointer;
+    margin-left: .5rem;
+    height: 4.5rem;
+    line-height: 4.5rem;
+    width: 4.5rem;
+    text-align: center;
+    font-size: 1.7rem;
+    /*icon大小*/
+    color: var(--black);
+    border-radius: 50%;
+    background: #eee;
+    /*icon背景色*/
+}
+
+header .icons i:hover,
+header .icons a:hover {
+    color: #fff;
+    background: var(--black);
+    transform: rotate(360deg);
+}
+
+header .icons #menu-bars {
+    display: none;
+}
+
+@media(max-width:768px) {
+
+    /*縮到一定範圍時，將列表icon顯示出來*/
+    header .icons #menu-bars {
+        display: inline-block;
+    }
+
+    /*縮到一定範圍時，將上方列往下推*/
+    header .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        border-bottom: .1rem solid rgba(0, 0, 0, .2);
+        padding: 1rem;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header .navbar.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    /*縮到一定範圍時，改變上方列display，*/
+    header .navbar a {
+        display: block;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-size: 2rem;
+        background-color: #eee;
+    }
+}
