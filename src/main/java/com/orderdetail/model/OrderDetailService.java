@@ -30,4 +30,8 @@ public class OrderDetailService {
 	public List<OrderDetailVO> AllCommentByProductNo(Integer productNo){
 		return dao.findCommentbyProductNo(productNo);
 	}
+	
+	public List<OrderDetailVO> GetTop9Product(){
+		return dao.findTop9AllProduct();
+	}
 }

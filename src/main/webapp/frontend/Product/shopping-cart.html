@@ -390,30 +390,32 @@
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverName">收件人姓名</label>
-                                <input class="form-control" type="text" id="ReceiverName" required=""
-                                    name="ReceiverName" @change="nameCheck($event)">
+                                <input class="form-control" type="text" id="ReceiverName" required name="ReceiverName"
+                                    @change="nameCheck($event)">
                                 <div style="color: red;" :style="{visibility: nameInput ? 'visible' : 'hidden'}">
                                     請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverPhone">電話</label>
-                                <input class="form-control" type="number" id="ReceiverPhone" required=""
+                                <input class="form-control" type="number" id="ReceiverPhone" required
                                     name="ReceiverPhone">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="Rod">地址</label>
                                 <input class="js-demeter-tw-zipcode-selector form-select" data-city="#city4"
                                     data-dist="#dist4" placeholder="請輸入郵遞區號" value="" hidden>
-                                <select id="city4" placeholder="請選擇縣市" class="form-select" name="city"></select>
-                                <select id="dist4" placeholder="請選擇鄉鎮區" class="form-select" name="dist"></select>
-                                <input class="form-control" type="text" id="Rod" required="" name="Rod"
+                                <select id="city4" placeholder="請選擇縣市" class="form-select" name="city"
+                                    required></select>
+                                <select id="dist4" placeholder="請選擇鄉鎮區" class="form-select" name="dist"
+                                    required></select>
+                                <input class="form-control" type="text" id="Rod" required name="Rod"
                                     @change="RodInputCheck($event)">
                                 <div style="color: red;" :style="{visibility: RodInput ? 'visible' : 'hidden'}">
                                     請輸入正確格式的地址，不應包含特殊符號或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="PickupMethod">取貨方式</label>
-                                <select class="form-select" id="PickupMethod" required="" name="PickupMethod"
+                                <select class="form-select" id="PickupMethod" required name="PickupMethod"
                                     @change="feeCheck($event)">
                                     <option value="0">宅配</option>
                                     <option value="1">超商取貨</option>
@@ -427,7 +429,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="payMethod">付款方式</label>
-                                <select class="form-select" id="payMethod" required="" name="payMethod">
+                                <select class="form-select" id="payMethod" required name="payMethod">
                                     <option value="0">信用卡</option>
                                     <option value="1">超商取貨付款</option>
                                     <option value="2">匯款</option>
@@ -441,14 +443,15 @@
                                     <div class="card-body ">
                                         <div class="form-group mb-3">
                                             <label class="form-label">優惠券</label>
-                                            <select class="form-select" id="MemCouponNo" required=""
+                                            <select class="form-select" id="MemCouponNo" required
                                                 @change="getCoup($event)">
                                                 <option value="0">不使用優惠券</option>
                                                 <option v-for="(item, index) in coupons" :key="index"
                                                     :value="item.discountPrice+a+item.couponTypeNo">
                                                     {{item.couponTypeNo}}：優惠金額-{{item.discountPrice}}</option>
                                             </select>
-                                            <input :value="memCouponNo" name="MemCouponNo" hidden>
+                                            <input :value="memCouponNo" name="MemCouponNo">
+                                            <input :value="selectCouponNo" name="couponTypeNo">
                                         </div>
                                     </div>
                                 </div>
@@ -671,7 +674,7 @@
                 this.form = true;
             },
             getMemCoupons() {
-                const apiUrl = 'http://localhost:8081/HomeTest/SelectMemCoupon';
+                const apiUrl = '/CGA101G1/order/showMemAllC';
                 axios.get(apiUrl)
                     // 一定要用箭頭函示!!!!
                     .then((response) => {
@@ -689,6 +692,7 @@
                 for (i = 0; i < this.coupons.length; i++) {
                     if (this.coupons[i].couponTypeNo == (parseInt(this.selectCouponNo))) {
                         this.memCouponNo = this.coupons[i].memCouponNo;
+                        this.selectCouponNo = this.this.coupons[i].couponTypeNo;
                     }
                 }
             },

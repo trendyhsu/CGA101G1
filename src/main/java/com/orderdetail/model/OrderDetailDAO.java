@@ -22,6 +22,11 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static final String FindAllProduct = "SELECT ProductNo,sum(ProductSales) totalSales,sum(ProductTotalPrice) TotalPrice,avg(CommentStar) avgCommentStar  FROM cga101g1.orderdetail group by ProductNo order by TotalPrice desc;";
 
 	
+	//查前九熱銷項產品
+	private static final String FindTop9Product = "select sum(ProductSales),ProductNo,sum(CommentStar) from cga101g1.orderdetail group by ProductNo order by sum(ProductSales) desc limit 9;";
+	                                            //             1                  2           3
+	
+	
 	//查某張訂單的項目
 	private static final String FindAllProductByOrderNo = "SELECT OrderNo,ProductNo,ProductSales,ProductTotalPrice,CommentStar,CommentCotent FROM cga101g1.orderdetail where OrderNo=? ;";
                                                              //      1        2           3              4              5           6
@@ -478,5 +483,63 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<OrderDetailVO> findTop9AllProduct() {
+		List<OrderDetailVO> list = new ArrayList<>();
+		OrderDetailVO orderDetailVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FindTop9Product);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// orderDetailVO 也稱為 Domain objects
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
+				orderDetailVO.setProductSales(rs.getInt("sum(ProductSales)"));
+				orderDetailVO.setCommentStar(rs.getInt("sum(CommentStar)"));
+				list.add(orderDetailVO);			
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }
