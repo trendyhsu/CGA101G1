@@ -1,6 +1,5 @@
 package com.gamenews.model;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -121,7 +120,6 @@ public class GameNewsDAOImpl implements GameNewsDAO{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -162,6 +160,48 @@ public class GameNewsDAOImpl implements GameNewsDAO{
 			e.printStackTrace();
 		}
 		
+		return list;
+	}
+
+	@Override
+	public void updateWithoutPic(GameNewsVO gameNewsVO) {
+		String sql = "UPDATE gamenews set GamePlatformNo = ?, ManagerNo = ?, GameNewsTitle = ?, GameNewsContent = ? where GameNewsNo = ?;";
+		
+		try(Connection conn = ds.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setInt(1,gameNewsVO.getGamePlatformNo());
+			ps.setInt(2, gameNewsVO.getManagerNo());
+			ps.setString(3, gameNewsVO.getGameNewsTitle());
+			ps.setString(4, gameNewsVO.getGameNewsContent());
+			ps.setInt(5, gameNewsVO.getGameNewsNo());
+			ps.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public List<GameNewsVO> getTopSix() {
+		String sql = "SELECT GameNewsNo, GamePlatformNo, ManagerNo, GameNewsTitle, GameNewsContent from gamenews limit 6;";
+		List<GameNewsVO> list = new ArrayList<GameNewsVO>();
+		try(Connection conn = ds.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql)){
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				GameNewsVO gameNewsVO = new GameNewsVO();
+				gameNewsVO.setGameNewsNo(rs.getInt(1));
+				gameNewsVO.setGamePlatformNo(rs.getInt(2));
+				gameNewsVO.setManagerNo(rs.getInt(3));
+				gameNewsVO.setGameNewsTitle(rs.getString(4));
+				gameNewsVO.setGameNewsContent(rs.getString(5));
+
+				list.add(gameNewsVO);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return list;
 	}
 

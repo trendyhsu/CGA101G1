@@ -110,8 +110,7 @@ function previewfile(file) {
 		var reader = new FileReader();
 		reader.onload = function(event) {
 			var image = document.querySelector(".showPic");
-			image.src = event.target.result;
-			image.width = 128;			
+			image.src = event.target.result;		
 		};
 		reader.readAsDataURL(file);
 	} else {
