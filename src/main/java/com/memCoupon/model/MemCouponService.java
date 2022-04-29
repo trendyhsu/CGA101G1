@@ -32,6 +32,10 @@ public class MemCouponService {
 	public List<MemCouponVO> listOneMemCoupon(Integer memNo) {
 		return dao.getOneMember(memNo);
 	}
+	// 自動改變日期過期的優惠券狀態
+	public void changeCouponState(MemCouponVO memCouponVO) {
+		dao.changestate(memCouponVO);
+	}
 
 	// 發放優惠券給指定的隨機數量會員
 	public void sendRandomCouponToMem(Integer couponQuantity, Integer couponTypeNo) {
@@ -73,10 +77,8 @@ public class MemCouponService {
 		}
 	}
 
-	// 指定優惠券給指定的會員
 	// 直接刪除某個優惠券種類，所有會員都不會有該優惠券
 	public void deleteOneCoupon(Integer couponTypeNo) {
 		dao.delete(couponTypeNo);
 	}
-	// 自動刪除日期過期的優惠券
 }
