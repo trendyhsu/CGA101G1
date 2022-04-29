@@ -1,75 +1,485 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>POP.Game</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/allStyle.css">
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/style.css">
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/headerStyle.css">
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/footerStyle.css">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/CGA101G1/frontend/mainCss/images/logo.png">
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/vendor/fonts/fonts.css">
+    <!-- Bootstrap-icons CSS -->
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
+    <!--Magnific-Popup CSS -->
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/vendor/magnific/magnific-popup.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/css/style01.css">
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/YuYangStyle.css">
 </head>
 
 <body>
-    <div>
-        <div>
-            <label for="memAccount">帳號: </label>
-            <input type="text" name="memAccount" id="memAccount">
-            <label id="l1"></label>
-        </div>
-        <div>
-            <label for="memPassword">密碼: </label>
-            <input type="password" name="memPassword" id="memPassword">
-            <label id="l2"></label>
-        </div>
-        <div>
-            <label for="confirmPassword">確認密碼: </label>
-            <input type="password" name="confirmPassword" id="confirmPassword">
-            <label id="l3"></label>
-        </div>
-        <div>
-            <label for="memName">帳戶名稱: </label>
-            <input type="text" name="memName" id="memName">
-            <label id="l4"></label>
-        </div>
-        <div>
-            <label for="memMobile">行動電話: </label>
-            <input type="text" name="memMobile" id="memMobile">
-            <label id="l5"></label>
+
+    <!-- header section starts-->
+
+    <header>
+
+        <div class="logo-div">
+            <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
+            <a href="#" class="logo">帕Game</a>
         </div>
 
-        <div class="city-selector-set">
-            <div>
-                <label for="memCity">居住縣市: </label>
-                <select class="county" id="memCity"></select>
-                <label id="s1"></label>
-            </div>
-            <div>
-                <label for="memDist">鄉/鎮/市/區: </label>
-                <select class="district" id="memDist"></select>
-                <label id="s2"></label>
-            </div>
+
+        <nav class="navbar">
+            <!-- 上方標籤列 -->
+            <a class="active" href="#home">首頁</a>
+            <a href="#pd_review" class="nav-link">遊戲新聞</a>
+            <a href="#pd_description" class="nav-link">遊戲商城</a>
+            <a href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
+            <a href="#pd_review" class="nav-link">遊戲討論區</a>
+        </nav>
+
+        <div class="icons">
+            <!--右上方小icon區-->
+            <i class="fas fa-bars" id="menu-bars"></i>
+            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
+            <i class="fas fa-search" id="search-icon"></i>
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
-        <div>
-            <label for="memAdd">地址: </label>
-            <input type="text" name="memAdd" id="memAdd">
-            <label id="l6"></label>
-        </div>
-        <div>
-            <label for="memEmail">E-mail: </label>
-            <input type="text" name="memEmail" id="memEmail">
-            <label id="l7"></label>
-        </div>
-        <div>
-            <label for="memBirth">出生年月日: </label>
-            <input type="text" name="memBirth" id="memBirth">
-            <label id="d1"></label>
-        </div>
-        <div>
-            <button id="btn1" type="button" class="btn btn-primary">註冊</button>
-            <label id="l8"></label>
+    </header>
+
+    <!-- header section ends-->
+
+    <!--Login starts-->
+
+    <div action="" id="login-form">
+        <i class="fas fa-times" id="login-close"></i>
+
+
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+
+            <form id="login" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>Remeber Password</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+
+            <form id="register" class="input-group">
+                <div class="input-div">
+                    <i class="fas fa-solid fa-user-astronaut"></i>
+                    <input type="text" class="input-field" placeholder="Username" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-envelope"></i>
+                    <input type="email" class="input-field" placeholder="E-mail" required>
+                </div>
+                <div class="input-div">
+                    <i class="fas fa-solid fa-lock"></i>
+                    <input type="password" class="input-field" placeholder="Password" required>
+                </div>
+
+                <div class="others">
+                    <input type="checkbox" class="check-box">
+                    <span>I agree to the terms & conditions</span>
+                </div>
+
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
         </div>
 
     </div>
+
+    <!-- Login ends -->
+
+    <!-- search form starts-->
+
+    <form action="" id="search-form">
+        <div class="search-group">
+
+            <div>
+                <input type="search" placeholder="search here..." name="" id="search-box">
+                <input type="button" id="advanced" value="&#x21FE;Advanced search">
+                <!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
+            </div>
+            <label for="search-box" class="fas fa-search"></label>
+
+        </div>
+
+
+        <i class="fas fa-times" id="search-close"></i>
+    </form>
+
+    <!-- search form ends-->
+
+    <!-- advanced search form starts -->
+
+    <form action="" id="advanced-search-form">
+
+        <i class="fas fa-times" id="advanced-search-close"></i>
+
+        <div id="search-select">
+            <div class="search-type">
+                <span class="list-title">Condition</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>New </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Used </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Platforms</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>PS5 </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Nintendo Switch </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                        <span>Xbox </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check4" class="check" value="PS5">
+                        <span>PS4 </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Items Type</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="PS5">
+                        <span>Game Software </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                        <span>Hardware </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                        <span>Figures </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="search-type">
+                <span class="list-title">Game Type</span>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="check" class="check" value="RPG">
+                        <span>RPG </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check2" class="check" value="Strategy">
+                        <span>Strategy</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check3" class="check" value="Gal-Game">
+                        <span>Gal-Game </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check4" class="check" value="FPS">
+                        <span>FPS </span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="check9" class="check" value="Simulation">
+                        <span>Simulation </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check6" class="check" value="Action">
+                        <span>Action </span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" id="check7" class="check" value="Adventure">
+                        <span>Adventure </span>
+                    </label>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="advanced-btn-group">
+            <div>
+                <input type="button" class="advanced-reset" value="&#x21BA;Reset">
+            </div>
+            <div>
+                <!-- <i class="fas fa-solid fa-rocket"></i> -->
+                <button type="submit"><i class="fas fa-solid fa-rocket"></i>Submit</button>
+                <!-- <input type="button" class="advanced-submit" value="&#x21C0;Submit"> -->
+            </div>
+
+
+        </div>
+
+
+
+    </form>
+
+
+    <!-- advanced search form ends -->
+
+    <!-- shopping-cart div starts -->
+    <div id="shopping-cart">
+        <span>Monopoly</span>
+    </div>
+    <!-- shopping-cart div ends -->
+
+    <!-- home section starts-->
+
+    <!-- Main -->
+    <main>
+        <!-- Breadcrumb -->
+        <div class="py-3 bg-gray-100">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 my-2">
+                        <h1 class="m-0 h4 text-center text-lg-start">Shop</h1>
+                    </div>
+                    <div class="col-lg-6 my-2">
+                        <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
+                            <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i
+                                        class="bi bi-home"></i>Home</a></li>
+                            <li class="breadcrumb-item text-nowrap active" aria-current="page">Product</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb -->
+        <!-- login page -->
+        <div class="section">
+            <div class="container">
+                <div class="justify-content-center row">
+                    <div class="col-lg-5 col-xxl-4">
+                        <div class="card">
+                            <div class="card-header bg-transparent py-3">
+                                <h3 class="h4 mb-0">登入會員 </h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex;">
+                                    <div>
+                                        <div class="form-group mb-3">
+                                            <label for="memAccount" class="form-label">帳號:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="memAccount" class="form-control" placeholder="您的帳號">
+                                            <label id="l1" style="color: red; font-size: 15;"></label>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="memPassword" class="form-label">密碼:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="password" id="memPassword" class="form-control"
+                                                placeholder="您的密碼">
+                                            <label id="l2" style="color: red; font-size: 15;"></label>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="confirmPassword" class="form-label">確認密碼:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="password" id="confirmPassword" class="form-control"
+                                                placeholder="確認密碼">
+                                            <label id="l3" style="color: red; font-size: 15;"></label>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="memName" class="form-label">帳戶名稱:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="memName" class="form-control" placeholder="您的帳戶名稱">
+                                            <label id="l4" style="color: red; font-size: 15;"></label>
+                                        </div>
+
+
+                                        <div class="form-group mb-3">
+                                            <label for="memMobile" class="form-label">行動電話:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="memMobile" class="form-control" placeholder="您的行動電話">
+                                            <label id="l5" style="color: red; font-size: 15;"></label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class=" form-group mb-3">
+                                            <label for="memEmail" class="form-label">E-mail:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="memEmail" class="form-control"
+                                                placeholder="您的E-mail">
+                                            <label id="l7" style="color: red; font-size: 15;"></label>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="memBirth" class="form-label">出生年月日:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="memBirth" class="form-control" placeholder="您的出生年月日">
+                                            <label id="d1" style="color: red; font-size: 15;"></label>
+                                        </div>
+                                        <div class="city-selector-set">
+                                            <div class="form-group mb-3">
+                                                <label for="memCity" class="form-label">居住縣市:<span
+                                                        class="text-danger">*</span></label>
+                                                <!-- <input type="text" id="email_1" class="form-control"
+                                                    placeholder="您的居住縣市"> -->
+                                                <select class="county" id="memCity" class="form-control"></select>
+                                                <label id="s1" style="color: red; font-size: 15;"></label>
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="memDist" class="form-label">鄉/鎮/市/區:<span
+                                                        class="text-danger">*</span></label>
+                                                <!-- <input type="text" id="memDist" class="form-control"
+                                                    placeholder="您的鄉/鎮/市/區"> -->
+                                                <select class="district" id="memDist" class="form-control"></select>
+                                                <label id="s2" style="color: red; font-size: 15;"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="memAdd" class="form-label">地址:<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" id="memAdd" class="form-control" placeholder="您的地址">
+                                            <label id="l6" style="color: red; font-size: 15;"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Checkbox -->
+                                <!-- <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="form2Example3"
+                                        checked />
+                                    <label class="form-check-label" for="form2Example3"> 記住帳號 </label>
+                                </div> -->
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn btn-primary w-100" id="btn1">
+                                        註冊
+                                    </button>
+                                </div>
+                                <label id="l8" style="color: red; font-size: 15;"></label>
+                                <div id="errMsg" class="error" style="color: red; font-size: 15;"></div>
+                                <!-- <div class="text-center pt-4 pb-5">
+                                    <span class="px-3 bg-white d-inline-block align-top lh-sm">OR</span>
+                                    <div class="border-bottom mt-n3"></div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <button class="btn w-100 btn-dark" type="button"><i
+                                                class="bi bi-facebook me-2"></i> Facebook</button>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn w-100 btn-dark" type="button"><i
+                                                class="bi bi-twitter me-2"></i> Twitter</button>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="pt-4 text-center">
+                                    <span class="text-muted">還沒有加入會員嗎? <a href="sign-up.html">點選這裡前往註冊!!
+                                        </a></span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end login -->
+    </main>
+    <!-- End Main -->
+    <!-- Footer -->
+    <footer class="bg-white footer">
+        <div class="footer-top py-6">
+            <div class="container">
+                <div class="row">
+                    <section class="footer">
+                        <div class="box-container">
+                            <div class="box">
+                                <h3>會員專區</h3>
+                                <a href="#">會員登入</a>
+                                <a href="#">會員註冊</a>
+                                <a href="#">訂單管理</a>
+                                <a href="#">二手遊戲申請上架單管理</a>
+                            </div>
+
+                            <div class="box">
+                                <h3>快速連結</h3>
+                                <a href="#">首頁</a>
+                                <a href="#">遊戲商城</a>
+                                <a href="#">二手競標商城</a>
+                                <a href="#">遊戲討論區</a>
+                            </div>
+
+                            <div class="box">
+                                <h3>聯絡我們</h3>
+                                <a href="#">02-3456-7890</a>
+                                <a href="#">03-1111-2222</a>
+                                <a href="#">CGA101G1@gmail.com</a>
+                                <a href="#">anasbhai@gmail.com</a>
+                            </div>
+
+                            <div class="box">
+                                <h3>關於我們</h3>
+                                <a href="#">管理團隊</a>
+                                <a href="#">創始理念</a>
+                                <a href="#">insuagram</a>
+                                <a href="#">linkedin</a>
+                            </div>
+                        </div>
+
+                        <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
@@ -83,7 +493,7 @@
             timepicker: false,   //timepicker: false,
             step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
             format: 'Y-m-d ',
-            value: new Date(),
+            value: new Date()
             //disabledDates:    ['2022/06/08','2022/06/09','2022/06/10'], // 去除特定不含
             //startDate:	        '2022/07/10',  // 起始日
             //minDate:           '-1970-01-01', // 去除今日(不含)之前
@@ -105,8 +515,34 @@
         new TwCitySelector({
             el: '.city-selector-set',
             elCounty: '.county',
+            // countyValue: "台北市",
             elDistrict: '.district'
+            // districtValue: "大安區"
         });
+        $('#memBirth').blur(
+            () => {
+                if ($('#memBirth').val().length === 0) {
+                    $('#d1').text(`尚未選擇`)
+                } else {
+                    $('#d1').text(`選擇完畢`)
+                }
+            })
+        $('#memCity').blur(
+            () => {
+                if ($('#memCity').find('option:selected').text().length === 0) {
+                    $('#s1').text(`尚未選擇`)
+                } else {
+                    $('#s1').text(`選擇完畢`)
+                }
+            })
+        $('#memDist').blur(
+            () => {
+                if ($('#memDist').find('option:selected').text().length === 0) {
+                    $('#s2').text(`尚未選擇`)
+                } else {
+                    $('#s2').text(`選擇完畢`)
+                }
+            })
 
         $('#memAccount').blur(
             () => {
@@ -121,7 +557,7 @@
                         let { successful, message } = data;
                         const r1 = /^[A-Za-z\d]{6,12}$/;
                         if (r1.test($('#memAccount').val()) && successful) {
-                            $('#l1').text(`格式正確`)
+                            $('#l1').text(`輸入完畢`)
                         } else if ($('#memAccount').val().length === 0) {
                             $('#l1').text(`尚未輸入`);
                         } else if (!successful) {
@@ -137,7 +573,7 @@
             () => {
                 const r1 = /^[A-Za-z\d]{6,12}$/;
                 if (r1.test($('#memPassword').val())) {
-                    $('#l2').text(`格式正確`)
+                    $('#l2').text(`輸入完畢`)
                 } else if ($('#memPassword').val().length === 0) {
                     $('#l2').text(`尚未輸入`);
                 } else
@@ -164,7 +600,7 @@
             () => {
                 const r1 = /^09\d{8}$/;
                 if (r1.test($('#memMobile').val())) {
-                    $('#l5').text(`格式正確`)
+                    $('#l5').text(`輸入完畢`)
                 } else if ($('#memMobile').val().length === 0) {
                     $('#l5').text(`尚未輸入`);
                 } else
@@ -191,7 +627,7 @@
                         console.log(message)
                         const r1 = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
                         if (r1.test($('#memEmail').val()) && successful) {
-                            $('#l7').text(`格式正確`)
+                            $('#l7').text(`輸入完畢`)
                         } else if ($('#memEmail').val().length === 0) {
                             $('#l7').text(`尚未輸入`);
                         } else if (!successful) {
@@ -232,7 +668,10 @@
                     $('#l6').text() === '尚未輸入' ||
                     $('#l7').text() === '請輸入電子郵件格式' ||
                     $('#l7').text() === '此信箱已註冊過' ||
-                    $('#l7').text() === '尚未輸入'
+                    $('#l7').text() === '尚未輸入' ||
+                    $('#d1').text() === '尚未選擇' ||
+                    $('#s2').text() === '尚未選擇' ||
+                    $('#s1').text() === '尚未選擇'
                 ) {
                     $('#l8').text(`格式有誤或尚有欄位未輸入`);
                 } else {
@@ -271,6 +710,11 @@
 
 
     </script>
+
+
+
+
 </body>
+<!-- end body -->
 
 </html>

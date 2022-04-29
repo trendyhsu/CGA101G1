@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 
 
 
@@ -41,7 +42,10 @@ public class SetCharacterEncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain)
         throws IOException, ServletException {
-
+    	HttpServletResponse res = (HttpServletResponse) response;
+    	res.setDateHeader("Expires", 0);
+    	res.setHeader("Cache-Control", "no-cache");
+    	res.setHeader("Pragma", "no-cache");
         // Conditionally select and set the character encoding to be used
         if (ignore || (request.getCharacterEncoding() == null)) {
             String characterEncoding = selectEncoding(request);
