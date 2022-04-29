@@ -39,7 +39,7 @@
 		<filter-name>MemberLoginFilter</filter-name>
 		<url-pattern>/frontend/memCoupon/lookUpOneMemCoupon.jsp</url-pattern>
 		<url-pattern>/frontend/mem/updateMemberData.html</url-pattern>
-		
+
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
