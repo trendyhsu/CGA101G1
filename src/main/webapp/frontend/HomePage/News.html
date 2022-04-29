@@ -159,9 +159,9 @@
     <!-- News section -->
     <section>
 
-        <div class="title">「國民老婆」新垣結衣新廣告，《Nintendo Switch運動》羽球打起來！</div>
+        <div class="title"></div>
         <div class="img-container">
-            <img src="./images/GakiNintendo.png" alt="">
+            <img>
         </div>
 
         <div class="content">
@@ -185,33 +185,31 @@
 
 
 
+	<script>
+		let queryString = window.location.search;
+		let urlParams = new URLSearchParams(queryString);
+		let gameNewsNo = urlParams.get("gameNewsNo");
+		let news = null;
+		$.ajax({
+			url:"/CGA101/gamenews/GameNewsGetOne?gameNewsNo=${gameNewsNo}",
+			type : "Get",
+			success: function(data){
+				
+				news = JSON.parse(data);
+				console.log(news);
+			}
+		});
+		
+// 		let titleDiv = document.querySelector(".title");
+// 		titleDiv.append(news.gameNewsTitle);
+// 		let img = document.querySelector(".img-container img");
+// 		img.setAttribute("src", );
+	</script>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src=".\\js\\script.js"></script>
+     <script src=".\\js\\HeaderJS.js"></script>
 </body>
 
 </html>
