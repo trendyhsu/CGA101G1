@@ -30,9 +30,15 @@ public class GameNewsService {
 		gameNewsVO.setManagerNo(managerNo);
 		gameNewsVO.setGameNewsTitle(gameNewsTitle);
 		gameNewsVO.setGameNewsContent(gameNewsContent);
-		gameNewsVO.setGameNewsPic(pic);
 		gameNewsVO.setGameNewsNo(gameNewsNo);
-		dao.update(gameNewsVO);
+		
+		if(pic.length != 0) {
+			gameNewsVO.setGameNewsPic(pic);
+			dao.update(gameNewsVO);
+		}else {
+			dao.updateWithoutPic(gameNewsVO);
+		}
+
 		return gameNewsVO;
 	}
 	
@@ -43,11 +49,15 @@ public class GameNewsService {
 		return dao.getAll(map);
 	}
 	
+	public List<GameNewsVO> getAll(){
+		return dao.getAll();
+	}
+	
 	public GameNewsVO getOne(Integer gameNewsNo) {
 		return dao.findByPrimaryKey(gameNewsNo);
 	}
 	
-	public List<GameNewsVO> getAll(){
-		return dao.getAll();
+	public List<GameNewsVO> getTopSix(){
+		return dao.getTopSix();
 	}
 }

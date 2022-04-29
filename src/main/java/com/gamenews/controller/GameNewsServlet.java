@@ -144,10 +144,7 @@ public class GameNewsServlet extends HttpServlet {
 			byte[] gameNewsPic = null;
 			Part part = req.getPart("gameNewsPic");
 			gameNewsPic = part.getInputStream().readAllBytes();
-			if(gameNewsPic.length == 0) {
-				gameNewsPic = null;
-			}
-			
+
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req

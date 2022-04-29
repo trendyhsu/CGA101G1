@@ -62,10 +62,7 @@
 											<td>${gameNews.gameNewsContent}</td>
 											<td>
 												<c:if test="${gameNews.gameNewsPic!=null}">
-													<a href="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNews.gameNewsNo}" title="點擊查看" target="_blank">有</a>
-												</c:if>
-												<c:if test="${gameNews.gameNewsPic==null}">
-												無
+													<a href="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNews.gameNewsNo}" title="點擊查看" target="_blank">查看</a>
 												</c:if>
 											</td>
 											<td>

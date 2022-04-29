@@ -35,8 +35,11 @@ public class GameNewsPicServlet extends HttpServlet {
 		System.out.print(gameNewsNo);
 		GameNewsService gnSvc = new GameNewsService();
 		GameNewsVO gameNewsVO = gnSvc.getOne(gameNewsNo);
-		System.out.println(gameNewsVO.getGamePlatformNo());
-		out.write(gameNewsVO.getGameNewsPic());
+		if(gameNewsVO.getGameNewsPic() != null) {
+			System.out.println(gameNewsVO.getGamePlatformNo());
+			out.write(gameNewsVO.getGameNewsPic());
+		}
+		
 	}
 	
 	

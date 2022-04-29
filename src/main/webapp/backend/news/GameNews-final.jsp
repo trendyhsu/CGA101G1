@@ -75,14 +75,14 @@
 							<li><label style="text-decoration: line-through;">新聞編號</label></li>
 							<li><input type="text" name="gameNewsNo" disabled></li>
 							<li><label>遊戲平台</label></li>
-							<li><select size="1" name="gamePlatformNo">
+							<li><select size="1" name="gamePlatformNo" required>
 							 		<option value="">請選擇
                                     <c:forEach var="platformVO" items="${gpftSvc.all}">
                                     	<option value="${platformVO.gamePlatformNo}">${platformVO.gamePlatformName}
                                     </c:forEach>
                                 </select></li>
 							<li><label>編輯者</label></li>
-							<li><select size="1" name="managerNo">
+							<li><select size="1" name="managerNo" required>
 							 		<option value="">請選擇
                                     <c:forEach var="managerVO" items="${mngSvc.all}">
                                     	<option value="${managerVO.managerNo}">${managerVO.managerName}
@@ -91,7 +91,7 @@
 							<li><label>新聞標題</label></li>
 							<li><input type="text" name="gameNewsTitle" required></li>
 							<li><label>新聞封面照片</label></li>
-							<li><input type="file" name="gameNewsPic"></li>
+							<li><input type="file" name="gameNewsPic" required></li>
 							<li><label>新聞內容</label></li>
 							<li><textarea name="gameNewsContent" id="" cols="30"
 									rows="10"></textarea></li>

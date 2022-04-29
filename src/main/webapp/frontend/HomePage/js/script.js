@@ -248,4 +248,13 @@ function scroll() {
 //     console.log("-----------------------")
 // }, 1000)
 
+/*--------------------------NewsAjax------------------------ */
+let news;
+$.ajax({
+    url: "/CGA101G1/gamenews/HomePageGetNews",
+    type: "Post",
+    success: function (data) {
+        news = JSON.parse(data);
+    }
+});
 
