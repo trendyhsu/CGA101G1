@@ -32,16 +32,19 @@ public class ForumPostEditUpdateServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		/*************************** 1.接收請求參數 **********************/
+		ForumPostService forumPostSvc = new ForumPostService();
+		ForumPostVO forumPostVO = new ForumPostVO();
+
 		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
 		Integer forumPostType = Integer.valueOf(request.getParameter("forumPostType").trim());
 		Integer forumPostState = Integer.valueOf(request.getParameter("forumPostState").trim());
 
 		// 回傳錯誤訊息
 		if (!errorMsgs.isEmpty()) {
-			
-			ForumPostService forumPostSvc = new ForumPostService();
-			ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
-			
+
+			forumPostSvc = new ForumPostService();
+			forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+
 			request.setAttribute("forumPostVO", forumPostVO);
 			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumPost.jsp");
 			failureView.forward(request, response);
@@ -49,9 +52,8 @@ public class ForumPostEditUpdateServlet extends HttpServlet {
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
-		ForumPostService forumPostSvc = new ForumPostService();
-		ForumPostVO forumPostVO = forumPostSvc.updateAdminPost(forumPostNo,forumPostType,forumPostState);
-
+		forumPostSvc = new ForumPostService();
+		forumPostVO = forumPostSvc.updateAdminPost(forumPostNo, forumPostType, forumPostState);
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 

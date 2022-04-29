@@ -83,13 +83,14 @@ h3 {
 								</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
 									var="condition">
 									<c:out value="1精選" escapeXml="false"></c:out>
+								</c:if> <c:if test="${forumPostVO.forumPostFeatured == 2}"
+									var="condition">
+									<c:out value="2置頂" escapeXml="false"></c:out>
 								</c:if></td>
 						</tr>
 						<tr>
 							<td>文章分類</td>
 							<td><select size="1" name="forumPostType">
-									<option value="0"
-										<c:if test="${forumPostVO.forumPostType == 0}"><c:out value="selected"></c:out></c:if>>0管理員文章</option>
 									<option value="1"
 										<c:if test="${forumPostVO.forumPostType == 1}"><c:out value="selected"></c:out></c:if>>1版主文章</option>
 									<option value="2"

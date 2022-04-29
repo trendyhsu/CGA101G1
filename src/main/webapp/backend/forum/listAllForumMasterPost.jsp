@@ -72,7 +72,7 @@ h3 {
 				<th>討論區名稱&emsp;</th>
 				<th>文章狀態&emsp;</th>
 				<th>管理員編號&emsp;</th>
-				<!-- <th>管理員姓名&emsp;</th> -->
+				<th>管理員名稱&emsp;</th>
 				<th>文章標題&emsp;</th>
 				<th>發表時間&emsp;</th>
 				<th></th>
@@ -85,7 +85,7 @@ h3 {
 					<td>${forumPostVO.forumNo}</td>
 					<td>
 						<div
-							style="width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+							style="width: 110px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							${forumPostVO.forumVO.forumName}&emsp;</div>
 					</td>
 					<td><c:if test="${forumPostVO.forumPostState == 0}"
@@ -94,10 +94,13 @@ h3 {
 						</c:if> <c:if test="${forumPostVO.forumPostState == 1}" var="condition">
 							<c:out value="1顯示" escapeXml="false"></c:out>
 						</c:if></td>
-					<td>${forumPostVO.memNo}</td>
+					<td>${forumPostVO.managerNo}</td>
+					<td><div
+							style="width: 125px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+							${forumPostVO.managerVO.managerName}&emsp;</div></td>
 					<td>
 						<div
-							style="width: 350px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+							style="width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							${forumPostVO.forumPostTitle}&emsp;</div>
 					</td>
 					<td><fmt:formatDate value="${forumPostVO.forumPostTime}"

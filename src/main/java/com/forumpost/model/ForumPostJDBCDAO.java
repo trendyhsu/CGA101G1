@@ -14,12 +14,14 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 	private static final String UPDATE_FORUMPOSTSTATE = "UPDATE forumpost SET ForumPostState=? WHERE ForumPostNo = ?";
 	private static final String UPDATE_MASTER = "UPDATE forumpost SET ForumPostFeatured=? WHERE ForumPostNo = ?";
 	private static final String UPDATE_ADMIN = "UPDATE forumpost SET ForumPostType=?, ForumPostState=? WHERE ForumPostNo = ?";
-	private static final String GET_ONE_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
-	private static final String GET_ALL_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost ORDER BY ForumPostNo DESC";
+	private static final String UPDATE_ADMIN_POST = "UPDATE forumpost SET ForumPostState=?, ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
+	private static final String GET_ONE_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
+	private static final String GET_ALL_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ORDER BY ForumPostNo DESC";
 	private static final String GET_ONE_FORUM_STMT = "SELECT ForumPostFeatured,ForumPostType,ForumPostTitle,MemNo,ForumPostTime FROM forumpost WHERE ForumNo = ?";
 	private static final String GET_ONE_MEM_STMT = "SELECT ForumNo,ForumPostTitle,ForumPostTime FROM forumpost WHERE MemNo = ?";
 	private static final String GET_FIND_POSTTYPE_POSTNAME = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo=? AND ForumPostType=? AND ForumPostTitle LIKE ?";
-	private static final String GET_ALL_MASTER_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostState,MemNo,ForumPostTitle,ForumPostContent,ForumPostTime FROM forumpost WHERE ForumPostType = 0 ORDER BY ForumPostNo DESC";
+	private static final String GET_ALL_MEM_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostType > 0 ORDER BY ForumPostNo DESC";
+	private static final String GET_ALL_MASTER_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostState,ManagerNo,ForumPostTitle,ForumPostContent,ForumPostTime FROM forumpost WHERE ForumPostType = 0 ORDER BY ForumPostNo DESC";
 
 	@Override
 	public void insert(ForumPostVO forumPostVO) {
@@ -214,6 +216,49 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 
 			pstmt.executeUpdate();
 
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void updateAdminPost(ForumPostVO forumPostVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_ADMIN_POST);
+
+			pstmt.setInt(1, forumPostVO.getForumPostState());
+			pstmt.setString(2, forumPostVO.getForumPostTitle());
+			pstmt.setString(3, forumPostVO.getForumPostContent());
+			pstmt.setInt(4, forumPostVO.getForumPostNo());
+
+			pstmt.executeUpdate();
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -566,6 +611,71 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 	}
 
 	@Override
+	public List<ForumPostVO> getAllMemPost() {
+		List<ForumPostVO> list = new ArrayList<ForumPostVO>();
+		ForumPostVO forumPostVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_MEM_POST_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				forumPostVO = new ForumPostVO();
+				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
+				forumPostVO.setForumNo(rs.getInt("forumNo"));
+				forumPostVO.setForumPostType(rs.getInt("forumPostType"));
+				forumPostVO.setMemNo(rs.getInt("memNo"));
+				forumPostVO.setForumPostState(rs.getInt("forumPostState"));
+				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
+				forumPostVO.setForumPostContent(rs.getString("forumPostContent"));
+				forumPostVO.setForumPostTime(rs.getTimestamp("forumPostTime"));
+				forumPostVO.setForumPostFeatured(rs.getInt("forumPostFeatured"));
+				list.add(forumPostVO);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
 	public List<ForumPostVO> getAllMasterPost() {
 		List<ForumPostVO> list = new ArrayList<ForumPostVO>();
 		ForumPostVO forumPostVO = null;
@@ -587,7 +697,7 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
 				forumPostVO.setForumNo(rs.getInt("forumNo"));
 				forumPostVO.setForumPostState(rs.getInt("forumPostState"));
-				forumPostVO.setMemNo(rs.getInt("memNo"));
+				forumPostVO.setManagerNo(rs.getInt("managerNo"));
 				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
 				forumPostVO.setForumPostContent(rs.getString("forumPostContent"));
 				forumPostVO.setForumPostTime(rs.getTimestamp("forumPostTime"));

@@ -69,7 +69,7 @@ h3 {
 					</tr>
 					<tr>
 						<td>討論區名稱</td>
-						<td>${forumPostVO.forumPostNo}-${forumPostVO.forumVO.forumName}</td>
+						<td>${forumPostVO.forumNo}-${forumPostVO.forumVO.forumName}</td>
 					</tr>
 					<tr>
 						<td>文章精選</td>
@@ -79,14 +79,15 @@ h3 {
 							</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
 								var="condition">
 								<c:out value="1精選" escapeXml="false"></c:out>
+							</c:if> <c:if test="${forumPostVO.forumPostFeatured == 2}"
+								var="condition">
+								<c:out value="2置頂" escapeXml="false"></c:out>
 							</c:if></td>
 					</tr>
 					<tr>
 						<td>文章分類</td>
-						<td><c:if test="${forumPostVO.forumPostType == 0}"
+						<td><c:if test="${forumPostVO.forumPostType == 1}"
 								var="condition">
-								<c:out value="0管理員文章" escapeXml="false"></c:out>
-							</c:if> <c:if test="${forumPostVO.forumPostType == 1}" var="condition">
 								<c:out value="1版主文章" escapeXml="false"></c:out>
 							</c:if> <c:if test="${forumPostVO.forumPostType == 2}" var="condition">
 								<c:out value="2攻略文章" escapeXml="false"></c:out>

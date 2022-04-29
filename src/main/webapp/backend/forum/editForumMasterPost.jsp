@@ -85,19 +85,19 @@ h3 {
 							</select></td>
 						</tr>
 						<tr>
-							<td>管理員編號</td>
-							<td>${forumPostVO.memNo}</td>
+							<td>管理員名稱</td>
+							<td>${forumPostVO.managerNo}-${forumPostVO.managerVO.managerName}</td>
 						</tr>
 
 						<tr>
 							<td>文章標題</td>
 							<td><input type="text" name="forumPostTitle" size="112"
-								value="${forumPostVO.forumPostTitle}" /></td>
+								value="${forumPostVO.forumPostTitle}" /></td><td>${errorMsgs.forumPostTitle}</td>
 						</tr>
 						<tr>
 							<td>文章內容</td>
 							<td><textArea name="forumPostContent" id="forumPostContent"
-									rows="25" cols="115" style="resize: none;">${forumPostVO.forumPostContent}</textArea></td>
+									rows="25" cols="115" style="resize: none;">${forumPostVO.forumPostContent}</textArea></td><td>${errorMsgs.forumPostContent}</td>
 						</tr>
 						<tr>
 							<td>發表時間</td>

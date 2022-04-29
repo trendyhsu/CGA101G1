@@ -105,6 +105,25 @@ public class ForumPostService {
 		dao.updateAdmin(forumPostVO);
 	}
 
+	public ForumPostVO updateAdminPostEdit(Integer forumPostNo,Integer forumPostState,String forumPostTitle,String forumPostContent) {
+
+		ForumPostVO forumPostVO = new ForumPostVO();
+
+		forumPostVO.setForumPostNo(forumPostNo);
+		forumPostVO.setForumPostState(forumPostState);
+		forumPostVO.setForumPostTitle(forumPostTitle);
+		forumPostVO.setForumPostContent(forumPostContent);
+
+		dao.updateAdminPost(forumPostVO);
+
+		return dao.findByPrimaryKey(forumPostNo);
+	}
+
+	// 預留給 Struts 2 用的
+	public void updateAdminPostEdit(ForumPostVO forumPostVO) {
+		dao.updateAdminPost(forumPostVO);
+	}
+
 	public ForumPostVO getOneForumPost(Integer forumPostNo) {
 		return dao.findByPrimaryKey(forumPostNo);
 	}
@@ -124,6 +143,11 @@ public class ForumPostService {
 
 	public List<ForumPostVO> findPostTypeName(Integer forumtNo, Integer forumPostType, String postCharacter) {
 		return dao.findByPostTypeName(forumtNo, forumPostType, postCharacter);
+	}
+	
+	
+	public List<ForumPostVO> getAllMemPost() {
+		return dao.getAllMemPost();
 	}
 
 	public List<ForumPostVO> getAllMasterPost() {

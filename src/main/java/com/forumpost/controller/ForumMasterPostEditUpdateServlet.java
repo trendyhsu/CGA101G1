@@ -32,30 +32,49 @@ public class ForumMasterPostEditUpdateServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		/*************************** 1.接收請求參數 **********************/
+		ForumPostService forumPostSvc = new ForumPostService();
+		ForumPostVO forumPostVO = new ForumPostVO();
+
 		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
 		Integer forumPostState = Integer.valueOf(request.getParameter("forumPostState").trim());
 
+		String forumPostTitle = request.getParameter("forumPostTitle").trim();
+
+		if (forumPostTitle == null || forumPostTitle.trim().length() == 0) {
+			errorMsgs.put("forumPostTitle", "文章標題: 請勿空白");
+		} else if (forumPostTitle.trim().length() > 100) {
+			errorMsgs.put("forumPostTitle", "文章標題:長度必需在1到100之間");
+		}
+
+		String forumPostContent = request.getParameter("forumPostContent").trim();
+		if (forumPostContent == null || forumPostContent.trim().length() == 0) {
+			errorMsgs.put("fforumPostContent", "文章內容: 請勿空白");
+		}
+
 		// 回傳錯誤訊息
 		if (!errorMsgs.isEmpty()) {
-			
-			ForumPostService forumPostSvc = new ForumPostService();
-			ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
-			
+
+			forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+
+			forumPostVO.setForumPostState(Integer.valueOf(request.getParameter("forumPostState")));
+			forumPostVO.setForumPostTitle(request.getParameter("forumPostTitle"));
+			forumPostVO.setForumPostContent(request.getParameter("forumPostContent"));
+
 			request.setAttribute("forumPostVO", forumPostVO);
-			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumPost.jsp");
+
+			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/editForumMasterPost.jsp");
 			failureView.forward(request, response);
 			return; // 程式中斷
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
-		ForumPostService forumPostSvc = new ForumPostService();
-		ForumPostVO forumPostVO = forumPostSvc.updateAdminPost(forumPostNo,forumPostType,forumPostState);
 
+		forumPostVO = forumPostSvc.updateAdminPostEdit(forumPostNo, forumPostState, forumPostTitle, forumPostContent);
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 
 		request.setAttribute("forumPostVO", forumPostVO); // 資料庫update成功後,正確的的forumPostVO物件,存入request
-		String url = "/backend/forum/listOneForumPost.jsp";
+		String url = "/backend/forum/listOneForumMasterPost.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneForumPost.jsp
 		successView.forward(request, response);
 

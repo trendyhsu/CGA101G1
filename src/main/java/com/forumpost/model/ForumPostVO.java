@@ -9,6 +9,7 @@ public class ForumPostVO implements java.io.Serializable {
 	private Integer forumPostNo;
 	private Integer forumNo;
 	private Integer forumPostType;
+	private Integer managerNo;
 	private Integer memNo;
 	private Integer forumPostState;
 	private String forumPostTitle;
@@ -38,6 +39,14 @@ public class ForumPostVO implements java.io.Serializable {
 
 	public void setForumPostType(Integer forumPostType) {
 		this.forumPostType = forumPostType;
+	}
+
+	public Integer getManagerNo() {
+		return managerNo;
+	}
+
+	public void setManagerNo(Integer managerNo) {
+		this.managerNo = managerNo;
 	}
 
 	public Integer getMemNo() {
@@ -94,4 +103,11 @@ public class ForumPostVO implements java.io.Serializable {
 		com.forum.model.ForumVO forumVO = forumSvc.getOneForum(forumNo);
 		return forumVO;
 	}
+	
+	// for join managerName from managerNo
+		public com.manager.model.ManagerVO getManagerVO() {
+			com.manager.model.ManagerService managerSvc = new com.manager.model.ManagerService();
+			com.manager.model.ManagerVO managerVO = managerSvc.getOneManager(managerNo);
+			return managerVO;
+		}
 }

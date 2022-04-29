@@ -9,7 +9,7 @@
 
 <%
 ForumPostService forumPostSvc = new ForumPostService();
-List<ForumPostVO> list = forumPostSvc.getAll();
+List<ForumPostVO> list = forumPostSvc.getAllMemPost();
 pageContext.setAttribute("list", list);
 %>
 
@@ -59,7 +59,7 @@ h3 {
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message.key} : ${message.value}</li>
+					<li style="color: red">${message.key}:${message.value}</li>
 				</c:forEach>
 			</ul>
 		</c:if>
@@ -123,6 +123,9 @@ h3 {
 						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
 							var="condition">
 							<c:out value="1精選" escapeXml="false"></c:out>
+						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 2}"
+							var="condition">
+							<c:out value="2置頂" escapeXml="false"></c:out>
 						</c:if></td>
 
 					<td>

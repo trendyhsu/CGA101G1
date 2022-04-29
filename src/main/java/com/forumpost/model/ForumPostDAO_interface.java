@@ -17,6 +17,10 @@ public interface ForumPostDAO_interface {
 
 //	管理員修改文章
 	public void updateAdmin(ForumPostVO forumPostVO);
+	
+//	修改管理員文章
+	
+	public void updateAdminPost(ForumPostVO forumPostVO);
 
 //	public void delete(Integer forumPostNo);沒有刪除
 
@@ -32,6 +36,9 @@ public interface ForumPostDAO_interface {
 	
 //	用文章標題&分類收尋
 	public List<ForumPostVO> findByPostTypeName(Integer forumtNo,Integer forumPostType,String postCharacter);
+	
+//	一般全文章
+	public List<ForumPostVO> getAllMemPost();
 	
 //  管理員全文章
 	public List<ForumPostVO> getAllMasterPost();
