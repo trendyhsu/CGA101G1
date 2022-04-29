@@ -24,7 +24,7 @@ import com.gamenews.model.GameNewsVO;
 @MultipartConfig(fileSizeThreshold=1024*1024, maxFileSize=5*1024*1024, maxRequestSize=5*5*1024*1024)
 public class GameNewsServlet extends HttpServlet {
 
-	/**
+	/*
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -144,8 +144,11 @@ public class GameNewsServlet extends HttpServlet {
 			byte[] gameNewsPic = null;
 			Part part = req.getPart("gameNewsPic");
 			gameNewsPic = part.getInputStream().readAllBytes();
+			if(gameNewsPic.length == 0) {
+				gameNewsPic = null;
+			}
 			
-			String location = req.getParameter("requestURL");
+			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("backend/news/GameNews-update.jsp");
