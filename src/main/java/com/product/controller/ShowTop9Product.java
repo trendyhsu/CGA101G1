@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gametype.model.GameTypeVO;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.orderdetail.model.OrderDetailDAO;
 import com.orderdetail.model.OrderDetailDAO_interface;
 import com.orderdetail.model.OrderDetailService;
@@ -63,12 +64,13 @@ public class ShowTop9Product extends HttpServlet {
 			map.put("commentStar", orderDetailVO.getCommentStar());
 			map.put("productSales", orderDetailVO.getProductSales());
 			map.put("productNo", productNo);
+			map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
 			list.add(map);
 		}
 //			
 //		}
 
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 		String json = gson.toJson(list);
 		out.write(json);
 	}

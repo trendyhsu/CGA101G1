@@ -38,7 +38,7 @@ public class ProductPicService {
 	
 	// 取得所有封面
 	public List<ProductPicVO> getAllCovers(HttpServletRequest request) {
-		System.out.println("執行：dao.getAllCovers");
+		
 		return dao.getAllCovers(request);
 	}
 	
@@ -47,6 +47,13 @@ public class ProductPicService {
 	public ProductPicVO onePicInByte(Integer productPicNo) {
 		return dao.findByPrimaryKeyInByte(productPicNo);
 	}
+	
+	
+	//取得一張封面圖片用byte輸出
+	public ProductPicVO onePicCoverInByte(Integer productPicNo) {
+		return dao.GetOneCoverByProductNo(productPicNo);
+	}
+	
 	
 	
 	//取得一個商品全部的照片byBase64

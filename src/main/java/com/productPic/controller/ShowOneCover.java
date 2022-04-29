@@ -1,8 +1,6 @@
 package com.productPic.controller;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -12,16 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.productPic.model.ProductPicService;
 
-/**
- * Servlet implementation class GetOnePicbyProductNo
- */
-@WebServlet("/product/OutPicByServerlet")
-public class OutPicByServerlet extends HttpServlet {
+
+@WebServlet("/product/showOneCover")
+public class ShowOneCover extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public OutPicByServerlet() {
+    public ShowOneCover() {
         super();
+
     }
 
 
@@ -33,9 +30,7 @@ public class OutPicByServerlet extends HttpServlet {
 
 		
 		ServletOutputStream out = response.getOutputStream();
-		out.write(productPicService.onePicInByte(Integer.valueOf(request.getParameter("ProductPicNO"))).getProductPicContentByte());
-		
-		
+		out.write(productPicService.onePicCoverInByte(Integer.valueOf(request.getParameter("ProductNO"))).getProductPicContentByte());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

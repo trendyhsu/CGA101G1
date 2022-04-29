@@ -38,8 +38,9 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 				"select ProductNo,ProductPicNO,ProductPicContent FROM productpic where ProductPicNO in(select min(ProductPicNO) FROM productpic group by ProductNo);";
 			         //OK    1          2               3  
 		
-		
-		
+		private static final String GET_OneCover =
+		"select ProductPicContent FROM productpic where ProductPicNO in(select min(ProductPicNO) FROM productpic group by ProductNo) and ProductNo = ?;";
+	
 		
 		private static final String GET_ONE = 
 			"select ProductNo,ProductPicNO,ProductPicContent from productpic where ProductNo = ?";
@@ -351,5 +352,34 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	
+	
+	
+	@Override
+	public ProductPicVO GetOneCoverByProductNo(Integer productNO) {
+	
+		ProductPicVO productPicVO = new ProductPicVO();
+		Connection con = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			PreparedStatement ps = con.prepareStatement(GET_OneCover);
+			ps.setInt(1, productNO);
+			rs = ps.executeQuery();
+			while (rs.next()) {			
+				productPicVO.setProductPicContentByte(rs.getBytes("ProductPicContent"));
+				return productPicVO;
+			}
+			
+
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
