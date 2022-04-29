@@ -72,13 +72,18 @@ pageContext.setAttribute("list", list);
 								</FORM>
 							</td>
 							<td>
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo${orderVO.orderNo}" aria-expanded="false" aria-controls="collapseTwo${orderVO.orderNo}" >
-									展開</button>
+								<button class="accordion-button collapsed" type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#collapseTwo${orderVO.orderNo}"
+									aria-expanded="false"
+									aria-controls="collapseTwo${orderVO.orderNo}">展開</button>
 							</td>
 						</tr>
 					</table>
 
-					<div style="width: 63%;" id="collapseTwo${orderVO.orderNo}" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+					<div style="width: 63%;" id="collapseTwo${orderVO.orderNo}"
+						class="accordion-collapse collapse" aria-labelledby="headingTwo"
+						data-bs-parent="#accordionExample">
 						<table class="table table-bordered table-hover mb-0">
 							<thead class="text-700 bg-gray-200">
 								<tr>
@@ -119,9 +124,6 @@ pageContext.setAttribute("list", list);
 <!--main content end-->
 
 </section>
-
-
-  
 </body>
 
 </html>

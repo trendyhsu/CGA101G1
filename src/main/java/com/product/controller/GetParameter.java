@@ -56,7 +56,7 @@ public class GetParameter extends HttpServlet {
 		
 		
 		request.setAttribute("errorMsgs", errorMsgs);
-		ProductVO checkedProductVO = new ProductVO();
+		ProductVO productVO = new ProductVO();
 		PrintWriter out = response.getWriter();
 
 		/*--------------前端輸入資訊獲取--------------------*/
@@ -68,7 +68,7 @@ public class GetParameter extends HttpServlet {
 		} else if (!productName.trim().matches(nameRule)) {
 			errorMsgs.add("商品名稱: 只能包含中文、英文大小寫、數字和底線及冒號 , 且長度須在1到30之間");
 		}
-		checkedProductVO.setProductName(productName);
+		productVO.setProductName(productName);
 		out.print("<h1>" + productName + "</h1>");
 
 	
@@ -88,7 +88,7 @@ public class GetParameter extends HttpServlet {
 
 			errorMsgs.add("商品價錢: 不能為空白");
 		}
-		checkedProductVO.setProductPrice(productPrice);
+		productVO.setProductPrice(productPrice);
 		
 		
 		
@@ -97,7 +97,7 @@ public class GetParameter extends HttpServlet {
 		System.out.println(gameTypeNo_String);
 		Integer gameTypeNo = Integer.valueOf(gameTypeNo_String);
 		out.print("<h1>" + gameTypeNo + "</h1>");
-		checkedProductVO.setGameTypeNo(gameTypeNo);
+		productVO.setGameTypeNo(gameTypeNo);
 		
 		
 
@@ -107,7 +107,7 @@ public class GetParameter extends HttpServlet {
 		} else {
 			out.print("<h1>" + gamePlatformNo + "</h1>");
 		}
-		checkedProductVO.setGamePlatformNo(gamePlatformNo);
+		productVO.setGamePlatformNo(gamePlatformNo);
 
 		
 		
@@ -117,7 +117,7 @@ public class GetParameter extends HttpServlet {
 		} else {
 			out.print("<h1>" + gameCompanyNo + "</h1>");
 		}
-		checkedProductVO.setGameCompanyNo(gameCompanyNo);
+		productVO.setGameCompanyNo(gameCompanyNo);
 
 		
 		Integer productState = Integer.valueOf(request.getParameter("ProductState"));
@@ -126,7 +126,7 @@ public class GetParameter extends HttpServlet {
 		} else {
 			out.print("<h1>" + productState + "</h1>");
 		}
-		checkedProductVO.setProductState(productState);
+		productVO.setProductState(productState);
 		
 
 		String itemProdDescription = request.getParameter("ItemProdDescription");
@@ -135,7 +135,7 @@ public class GetParameter extends HttpServlet {
 		}  else {
 			out.print("<h1>" + itemProdDescription + "</h1>");
 		}
-		checkedProductVO.setItemProdDescription(itemProdDescription);
+		productVO.setItemProdDescription(itemProdDescription);
 
 		String upcNum = request.getParameter("UpcNum");
 		String upcNumRule = "^[(0-9)]{1,30}$";
@@ -144,7 +144,7 @@ public class GetParameter extends HttpServlet {
 		} else if (!upcNum.trim().matches(upcNumRule)) {
 			errorMsgs.add("upc號碼: 只能包含數字, 且長度須在1到30之間");
 		}
-		checkedProductVO.setUpcNum(upcNum);
+		productVO.setUpcNum(upcNum);
 
 		/*--------------前端輸入資訊結束--------------------*/
 
@@ -169,12 +169,13 @@ public class GetParameter extends HttpServlet {
 					for(String r:errorMsgs) {
 						System.out.println(r);
 					}
-
+					response.sendRedirect("/CGA101G1/backend/product/productMod.jsp");
+					return;
 				} else {
 					System.out.println("錯誤訊息forward到新增頁面開始");
 					/***** 帶著錯誤訊息導到新增頁面 *******/
-					HttpSession session = request.getSession();
-					session.setAttribute("checkedProductVO", checkedProductVO);
+					
+					request.setAttribute("productVO", productVO);
 					RequestDispatcher failureView = request.getRequestDispatcher("/backend/product/productAdd.jsp");
 					failureView.forward(request, response);
 					return; // 程式中斷
@@ -372,7 +373,7 @@ public class GetParameter extends HttpServlet {
 					out.print("<h1>圖3塞成功</h1>");
 					
 					HttpSession session  = request.getSession();
-					session.removeAttribute("checkedProductVO");
+					session.removeAttribute("productVO");
 //					 重導 
 					 response.sendRedirect("/CGA101G1/backend/product/productAdd.jsp");
 //					response.setHeader("Refresh",
@@ -421,7 +422,7 @@ public class GetParameter extends HttpServlet {
 					
 					
 					HttpSession session  = request.getSession();
-					session.removeAttribute("checkedProductVO");
+					session.removeAttribute("productVO");
 
 					// 重導 
 					response.sendRedirect("/CGA101G1/backend/product/productAdd.jsp");
