@@ -191,7 +191,7 @@
 		let gameNewsNo = urlParams.get("gameNewsNo");
 		let news = null;
 		$.ajax({
-			url:"/CGA101/gamenews/GameNewsGetOne?gameNewsNo=${gameNewsNo}",
+			url:`/CGA101/gamenews/GameNewsGetOne?gameNewsNo=${gameNewsNo}`,
 			type : "Get",
 			success: function(data){
 				
