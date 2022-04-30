@@ -62,7 +62,7 @@ h3 {
 				<%-- 成功表列 --%>
 				<p style="color: red;">${successMsg}</p>
 				<div class="content-panel">
-					<table class="table table-striped table-advance table-hover">
+					<table class="table table-striped">
 						<h4>
 							<i class="fa fa-angle-right"></i> 管理員列表
 							<div style="float:right;">
@@ -81,35 +81,40 @@ h3 {
 								<th><i class="fa fa-camera"></i>照片</th>
 								<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
 								<th><i class="fa fa-bookmark"></i> 姓名</th>
+								<th><i class=" fa fa-edit"></i>手機</th>
 								<th><i class=" fa fa-edit"></i>狀態</th>
+								<th><i class=" fa fa-edit"></i></th>
 								<th></th>
 							</tr>
 						</thead>
 						<%@ include file="page1.file"%>
 						<c:forEach var="managerVO" items="${list}" begin="<%=pageIndex%>"
 							end="<%=pageIndex+rowsPerPage-1%>">
-							<tbody>
+							
 								<tr>
-									<td>${managerVO.myManagerPic}</td>
-									<td class="hidden-phone">${managerVO.managerNo}</td>
-									<td>${managerVO.managerName}</td>
-									<td><span class="label label-info label-mini">
+									<td><img src="<%=request.getContextPath()%>/manager/managerPic?managerNo=${managerVO.managerNo}"
+									style="height:100px; width:80px;"></td>
+									<td class="hidden-phone" style="line-height:100px;">${managerVO.managerNo}</td>
+									<td style="line-height:100px;">${managerVO.managerName}</td>
+									<td style="line-height:100px;">${managerVO.managerPhone}</td>
+									<td style="line-height:100px;"><span class="label label-info label-mini">
 									<c:if test="${managerVO.managerState == 0}">在職</c:if>
 									<c:if test="${managerVO.managerState == 1}">離職</c:if>
 									</span>
 									
 									</td>
-									<td sytle="">
+								
 									<td>
 										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/backend/gametype/editGameType.jsp"
-											style="margin-bottom: 0px;">
-											<input type="submit" value="修改"> <input type="hidden"
-												name="gameTypeNo" value="${gameTypeVO.gameTypeNo}">
+											ACTION="<%=request.getContextPath()%>/manager/managerEdit"
+											style="margin-top: 40px;">
+											<input class="btn btn-primary btn-sm" type="submit" value="修改"> 
+											<input type="hidden"
+												name="managerNo" value="${managerVO.managerNo}">
 										</FORM>
 									</td>
 								</tr>
-							</tbody>
+							
 
 						</c:forEach>
 
