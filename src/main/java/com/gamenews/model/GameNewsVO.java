@@ -1,5 +1,10 @@
 package com.gamenews.model;
 
+import com.gameplatformtype.model.GamePlatformTypeService;
+import com.gameplatformtype.model.GamePlatformTypeVO;
+import com.manager.model.ManagerService;
+import com.manager.model.ManagerVO;
+
 public class GameNewsVO {
 	private Integer gameNewsNo;
 	private Integer gamePlatformNo;
@@ -64,6 +69,16 @@ public class GameNewsVO {
 	}
 	public void setGameNewsPic(byte[] gameNewsPic) {
 		this.gameNewsPic = gameNewsPic;
+	}
+	public ManagerVO getManagerVO(){
+		ManagerService mngSvc = new ManagerService();
+		ManagerVO managerVO = mngSvc.getOneManager(managerNo);
+		return managerVO;
+	}
+	public GamePlatformTypeVO getGamePlatformTypeVO(){
+		GamePlatformTypeService gpftSvc = new GamePlatformTypeService();
+		GamePlatformTypeVO gamePlatformTypeVO = gpftSvc.getOneGamePlatformType(gamePlatformNo);
+		return gamePlatformTypeVO;
 	}
 
 }

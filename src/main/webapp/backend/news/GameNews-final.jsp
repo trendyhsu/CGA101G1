@@ -91,7 +91,7 @@
 							<li><label>新聞標題</label></li>
 							<li><input type="text" name="gameNewsTitle" required></li>
 							<li><label>新聞封面照片</label></li>
-							<li><input type="file" name="gameNewsPic" required></li>
+							<li><input type="file" accept="image/jpeg" name="gameNewsPic" required></li>
 							<li><label>新聞內容</label></li>
 							<li><textarea name="gameNewsContent" id="" cols="30"
 									rows="10"></textarea></li>

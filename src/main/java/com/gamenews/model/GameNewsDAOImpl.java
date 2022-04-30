@@ -183,11 +183,12 @@ public class GameNewsDAOImpl implements GameNewsDAO{
 	}
 
 	@Override
-	public List<GameNewsVO> getTopSix() {
-		String sql = "SELECT GameNewsNo, GamePlatformNo, ManagerNo, GameNewsTitle, GameNewsContent from gamenews limit 6;";
+	public List<GameNewsVO> getTopTwelve(Integer gamePlatformNo) {
+		String sql = "SELECT GameNewsNo, GamePlatformNo, ManagerNo, GameNewsTitle, GameNewsContent from gamenews where GamePlatformNo = ? limit 12 ;";
 		List<GameNewsVO> list = new ArrayList<GameNewsVO>();
 		try(Connection conn = ds.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql)){
+			ps.setInt(1, gamePlatformNo);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				GameNewsVO gameNewsVO = new GameNewsVO();
