@@ -12,5 +12,5 @@ public interface ManagerDAO_interface {
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
     // 管理員狀態
  	public void updateManagerState(ManagerVO managerVO);
-    
+ 	public void insertManagerPic(ManagerVO managerVO);
 }

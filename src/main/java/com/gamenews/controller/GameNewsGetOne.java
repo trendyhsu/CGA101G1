@@ -2,6 +2,10 @@ package com.gamenews.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,9 +42,18 @@ public class GameNewsGetOne extends HttpServlet{
 		GameNewsService gnSvc = new GameNewsService();
 		GameNewsVO gameNewsVO = gnSvc.getOne(gameNewsNo);
 		
+		Map<String, Object> map = new HashMap<>();
+		map.put("gameNewsNo", gameNewsVO.getGameNewsNo());
+		map.put("gamePlatformNo", gameNewsVO.getGamePlatformNo());
+		map.put("managerNo", gameNewsVO.getManagerNo());
+		map.put("gameNewsTitle", gameNewsVO.getGameNewsTitle());
+		map.put("gameNewsContent", gameNewsVO.getGameNewsContent());
+		map.put("ImgUrl", req.getContextPath()+"/gameNews/gameNewsPic?gameNewsNo="+gameNewsVO.getGameNewsNo());
 		
+		List<Object> list = new ArrayList<Object>();
+		list.add(map);
 		Gson g = new GsonBuilder().disableHtmlEscaping().create();
-		String data = g.toJson(gameNewsVO);
+		String data = g.toJson(list);
 		out.print(data);
 	}
 	

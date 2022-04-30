@@ -179,9 +179,10 @@ public class MemService {
 		return memVO;
 	}
 	// 修改會員禁言狀態
-	public void isMuteChange(Integer memNo) {
-		dao.ChangeisMute(memNo);
+	public void isMuteChange(Integer isMute, Integer memNo) {
+		dao.changeIsMute(isMute, memNo);
 	}
+	// 用memName取得單一會員資料
 	public MemVO getByMemName(String memName) {
 		MemVO memVO= dao.selectMemEname(memName);
 		return memVO;

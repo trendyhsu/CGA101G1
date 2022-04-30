@@ -154,14 +154,27 @@ h3.funcTitle02 i {
 }
 
 /*----------------------回傳結果------------------*/
+.content-panel div{
+	display:flex;
+	justify-content: space-between;
+	margin:1rem;
+}
+.content-panel hr{
+	margin:0;
+}
 h4.funcTitle02 {
     font-size: 1.8rem;
     font-weight: bold;
-    /* border: 2px solid red; */
+    width:fit-content;
+    margin:0;
+    margin-right:2rem;
+    margin-left:1rem;
 }
 
 #myTable {
     font-size: 1.6rem;
+    margin:0;
+
 }
 
 #myTable th {

@@ -56,7 +56,7 @@
                             <img class="showPic" src="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNewsVO.gameNewsNo}" >
                             </li>
                             <li></li>
-                            <li><input type="file" name="gameNewsPic" onclick="previewImage()" id="upfile"></li>
+                            <li><input type="file" accept="image/jpeg" name="gameNewsPic" onclick="previewImage()" id="upfile"></li>
 							<li><label>新聞內容</label></li>
 							<li><textarea name="gameNewsContent" id="" cols="30"
 									rows="10">${gameNewsVO.gameNewsContent}</textarea></li>

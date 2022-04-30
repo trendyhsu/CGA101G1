@@ -33,9 +33,11 @@
 %>
 
 <%if (pageNumber>0){%>
-  <b><font color=darkcyan>第 <%=whichPage%> / <%=pageNumber%> 頁</font></b>
+
+  <div style="float: right;"><b><font color=darkcyan>第 <%=whichPage%> / <%=pageNumber%> 頁</font></b>
 <%}%>
 
-<b> 目前共有 <font color=darkcyan><%=rowNumber%></font> 筆資料</b>
+<b> 目前共有 <font color=darkcyan><%=rowNumber%></font> 筆資料</b></div>
+
 <br>
 <br>

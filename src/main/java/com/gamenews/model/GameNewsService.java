@@ -57,7 +57,7 @@ public class GameNewsService {
 		return dao.findByPrimaryKey(gameNewsNo);
 	}
 	
-	public List<GameNewsVO> getTopSix(){
-		return dao.getTopSix();
+	public List<GameNewsVO> getTopTwelve(Integer gamePlatformNo){
+		return dao.getTopTwelve(gamePlatformNo);
 	}
 }

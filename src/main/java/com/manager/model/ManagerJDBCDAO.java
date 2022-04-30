@@ -12,10 +12,7 @@ import com.utils.DButil;
 
 
 public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
-//	String driver = "com.mysql.cj.jdbc.Driver";
-//	String url = "jdbc:mysql://localhost:3306/popgame_text?serverTimezone=Asia/Taipei";
-//	String userid = "root";
-//	
+
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO manager (ManagerAccount,ManagerPassword,ManagerName,ManagerPhone,MyManagerPic,ManagerState) "
@@ -370,6 +367,11 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 			System.out.println(aMana.getManagerState());
 			System.out.println();
 		}
+	}
+	@Override
+	public void insertManagerPic(ManagerVO managerVO) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

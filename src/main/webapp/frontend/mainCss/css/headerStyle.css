@@ -52,7 +52,15 @@ header .navbar a:hover{
     color:#fff;
     background:var(--blue);
 }
+/* header .forlogindiv { */
 
+/* display: flex; */
+
+/* } */
+header .forlogin .navbar a{
+	background:var(--blue);
+	margin-left: 1px;
+}
 header .icons i,
 header .icons a{
     cursor: pointer;

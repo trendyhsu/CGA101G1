@@ -16,32 +16,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 import com.manager.model.ManagerService;
 import com.manager.model.ManagerVO;
 
-/**
- * Servlet implementation class GameTypeInsert
- */
-@WebServlet("/manager/managerInsert")
+@WebServlet("/manager/managerEditUpdate")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-public class ManagerInsert extends HttpServlet {
+public class ManagerEditUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// 處理來自managerEdit.jsp 送出修改請求
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+
 		List<String> errorMsgs = new LinkedList<String>();
-		// Store this set in the request scope, in case we need to
-		// send the ErrorPage view.
+		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
-
-		try {
-			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+		try {		
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/	
 			ManagerVO managerVO = new ManagerVO();
-
+			ManagerService managerService = new ManagerService();
+			// 判斷編號
+			Integer managerNo = null;
+			try {
+				managerNo = Integer.valueOf(request.getParameter("managerNo").trim());
+			} catch (NumberFormatException e) {
+				errorMsgs.add("競標商品編號需為數字");
+			}
 			// 判斷帳號
 			String managerAccount = request.getParameter("managerAccount");
 			String managerAccountReg = "^[(a-zA-Z0-9)(\\-\\)]{6,30}$";
@@ -84,74 +92,62 @@ public class ManagerInsert extends HttpServlet {
 			byte[] myManagerPic = null;
 			// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
 			for (Part part : list) {
-				mis = new BufferedInputStream(part.getInputStream());
+				is = part.getInputStream();
+				mis = new BufferedInputStream(is);
 				if (mis.available() > 1024) {
 					myManagerPic = new byte[mis.available()];
 					mis.read(myManagerPic);
 					picList.add(myManagerPic);
 				}
 			}
-			// 設定State為0，在職
-			Integer managerState = new Integer(0);
-
-			// 將取得資料裝入 bidProductVO 物件
+			// 判斷管理員狀態
+			Integer managerState = null;
+			try {
+				managerState = Integer.valueOf(request.getParameter("managerState").trim());
+			} catch (NumberFormatException e) {
+				managerState = 0;
+				errorMsgs.add("狀態應為數字(0:在職 1:離職");
+			}
+			if (managerState < 0 || managerState > 2) {
+				managerState = 0;
+				errorMsgs.add("狀態輸入錯誤(0:在職 1:離職");
+			}
+			managerVO.setManagerNo(managerNo);
 			managerVO.setManagerAccount(managerAccount);
 			managerVO.setManagerPassword(managerPassword);
 			managerVO.setManagerName(managerName);
 			managerVO.setManagerPhone(managerPhone);
 			managerVO.setMyManagerPic(myManagerPic);
 			managerVO.setManagerState(managerState);
-
-			// 將取得圖片資料裝入 List<byte[]> 物件 日後有機會優化用
-//			Collection<Part> list = request.getParts();
-//			List<byte[]> picList = new ArrayList<byte[]>();
-//			InputStream is = null;
-//			BufferedInputStream bis = null;
-//			byte[] bidProdPicContent = null;
-//
-//			// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
-//			for (Part part : list) {
-//				bis = new BufferedInputStream(part.getInputStream());
-//				if (bis.available() > 1024) {
-//					bidProdPicContent = new byte[bis.available()];
-//					bis.read(bidProdPicContent);
-//					picList.add(bidProdPicContent);
-//				}
-//			}
-
-			// 錯誤處理回傳bidProductVO
+			// 回傳錯誤訊息
 			if (!errorMsgs.isEmpty()) {
-				request.setAttribute("managerVO", managerVO); // 含有輸入格式錯誤的bidProductVO物件,也存入req
-				RequestDispatcher failureView = request.getRequestDispatcher("/backend/manager/addManager.jsp");
+				request.setAttribute("managerVO", managerVO);
+				RequestDispatcher failureView = request.getRequestDispatcher("/backend/manager/editManager.jsp");
 				failureView.forward(request, response);
-				return;
+				return; // 程式中斷
 			}
 
-			/*************************** 2.開始新增資料 ***************************************/
-			// 新增資料 並回傳新編號
-			ManagerService managerService = new ManagerService();
-			managerService.addManager(managerAccount,managerPassword,managerName,managerPhone,myManagerPic,managerState);
+			/*************************** 2.開始修改資料 *****************************************/
+			managerService.updateManager(managerNo,managerAccount,managerPassword,managerName,managerPhone,
+					myManagerPic,managerState);
 
-			// 新增圖片資料 日後可優化用
-//			BidPicService bidPicSvc = new BidPicService();
-//			for (int i = 0; i < picList.size(); i++) {
-//				BidPicVO bidPicVO = new BidPicVO();
-//				bidPicVO.setBidProductNo(nextBidProductNo);
-//				bidPicVO.setBidProdPicContent(picList.get(i));
-//				bidPicSvc.addBidPic(bidPicVO);
-//			}
-
-			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			/*************************** 3.修改完成,準備轉交(Send the Success vi	ew) *************/
+			for (int i = 0; i < picList.size(); i++) {
+				managerService.addManagerPic(managerNo, picList.get(i));
+			}
+			managerVO = managerService.getOneManager(managerNo);
+			request.setAttribute("managerVO", managerVO); // 資料庫update成功後,正確的的bidProductVO物件,存入request
 			String url = "/backend/manager/getAllManager.jsp";
-			RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交listAll.jsp
+			RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneBid.jsp
 			successView.forward(request, response);
 
-			/*************************** 其他可能的錯誤處理 **********************************/
+			/*************************** 其他可能的錯誤處理 *************************************/
 		} catch (Exception e) {
 			e.printStackTrace();
-			errorMsgs.add(e.getMessage());
-			RequestDispatcher failureView = request.getRequestDispatcher("/backend/manager/addManager.jsp");
+			errorMsgs.add("修改資料失敗:" + e.getMessage());
+			RequestDispatcher failureView = request.getRequestDispatcher("/backend/manager/editManager.jsp");
 			failureView.forward(request, response);
 		}
 	}
+
 }

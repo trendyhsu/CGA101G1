@@ -203,28 +203,47 @@ function scroll() {
 
 
 /*------------------------------News------------------------------ */
-
-$.ajax({
-    url: "/CGA101G1/gamenews/HomePageGetNews",
+function findNews(e){
+	$.ajax({
+    url: `/CGA101G1/gamenews/HomePageGetNews?gamePlatformNo=${e.target.value}`,
     type: "Post",
     success: function (data) {
-        showNews(data);
-        
+        showNews(data);  
     }
 });
-let newsSection = document.querySelector('#newsSlide');
+}
+
+
+
+
 function showNews(data){
 	let news = JSON.parse(data);
-	let str = "";
-	for(let aNews of news){
-		str += ` <a href="/CGA101/frontend/HomePage/News.html?gameNewsNo=${aNews.gameNewsNo}">
+	let newsPageOne = "";
+	let newsPageTwo = "";
+	for(let i = 0 ; i< (news.length/2) ; i++){
+		newsPageOne += ` <a href="/CGA101G1/frontend/HomePage/News.html?gameNewsNo=${news[i].gameNewsNo}">
                         <div class="img-container">
-                            <img src="${aNews.ImgUrl}">
+                            <img src="${news[i].ImgUrl}">
                         </div>
                         <div class="text-container">
-                           ${aNews.gameNewsTitle}
+                           ${news[i].gameNewsTitle}
                         </div>
                     </a>`
 	}
-	newsSection.innerHTML = str;
+	for(let i = (news.length/2) ; i < (news.length) ; i++){
+		console.log(news[i]);
+		newsPageTwo += ` <a href="/CGA101G1/frontend/HomePage/News.html?gameNewsNo=${news[i].gameNewsNo}">
+                        <div class="img-container">
+                            <img src="${news[i].ImgUrl}">
+                        </div>
+                        <div class="text-container">
+                           ${news[i].gameNewsTitle}
+                        </div>
+                    </a>`
+	}
+	let newsSlideOne = document.querySelector('#newsSlideOne');
+	let newsSlideTwo = document.querySelector('#newsSlideTwo');
+	newsSlideOne.innerHTML = newsPageOne;
+	newsSlideTwo.innerHTML = newsPageTwo;
+	newsSlideTwo.textContent = "hahaha";
 }

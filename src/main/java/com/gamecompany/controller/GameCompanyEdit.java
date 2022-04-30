@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gamecompany.model.GameCompanyService;
 import com.gamecompany.model.GameCompanyVO;
-import com.gametype.model.GameTypeService;
-import com.gametype.model.GameTypeVO;
 import com.google.gson.Gson;
 
 /**
