@@ -26,27 +26,22 @@
     <header>
 
         <div class="logo-div">
-            <img src=".\\images\\logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
+            <img src=".\\images\\logo.png" alt=""> <a href="#" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
-            <a href="#items">商品區</a>
+            <a class="active" href="#home">首頁</a> <a href="#items">商品區</a>
             <!-- <a href="#news">遊戲新聞</a> -->
-            <a href="#sale">競標區</a>
-            <a href="#review">討論區</a>
+            <a href="#sale">競標區</a> <a href="#review">討論區</a>
         </nav>
 
         <div class="icons">
             <!--右上方小icon區-->
-            <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <i class="fas fa-shopping-cart" id="cart"></i>
+            <i class="fas fa-bars" id="menu-bars"></i> <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i> <i
+                class="fas fa-search" id="search-icon"></i> <a href="#" class="fas fa-heart"></a> <i
+                class="fas fa-shopping-cart" id="cart"></i>
         </div>
 
     </header>
@@ -61,7 +56,9 @@
     </div>
 
     <div id="service">
-        <div class="title"><span>帕Game智能客服</span></div>
+        <div class="title">
+            <span>帕Game智能客服</span>
+        </div>
         <div class="content"></div>
         <form class="mailForm">
             <!-- <div>
@@ -83,45 +80,34 @@
                 <!-- <label for="content">信件內容</label> -->
                 <textarea name="" id="content" cols="30" rows="10" placeholder="請將問題告訴我們!"></textarea>
             </div>
-            <button><i class="fas fa-regular fa-rocket" id="mailFormBtn"></i>送出</button>
+            <button>
+                <i class="fas fa-regular fa-rocket" id="mailFormBtn"></i>送出
+            </button>
 
         </form>
 
         <div class="OneMessage">
-            <i class="fa-solid fa-user-astronaut"></i>
-            <span>Hello, Are you here?</span>
+            <i class="fa-solid fa-user-astronaut"></i> <span>Hello, Are
+                you here?</span>
         </div>
         <div class="OneService">
-            <span>Don't worry! I'm here!</span>
-            <img src=".\\images\\robot_hover.png">
+            <span>Don't worry! I'm here!</span> <img src=".\\images\\robot_hover.png">
         </div>
 
 
 
         <ul class="service-form">
-            <li id='orderQ'>
-                訂單問題<br>
-                <i class="fa-solid fa-file-invoice-dollar"></i>
+            <li id='orderQ'>訂單問題<br> <i class="fa-solid fa-file-invoice-dollar"></i>
             </li>
-            <li id='productQ'>
-                商品問題<br>
-                <i class="fas fa-solid fa-gamepad"></i>
+            <li id='productQ'>商品問題<br> <i class="fas fa-solid fa-gamepad"></i>
             </li>
-            <li id='accountQ'>
-                帳號問題<br>
-                <i class="fas fa-solid fa-user-astronaut"></i>
+            <li id='accountQ'>帳號問題<br> <i class="fas fa-solid fa-user-astronaut"></i>
             </li>
-            <li id='forumQ'>
-                討論區問題<br>
-                <i class="fas fa-solid fa-chalkboard-user"></i>
+            <li id='forumQ'>討論區問題<br> <i class="fas fa-solid fa-chalkboard-user"></i>
             </li>
-            <li id='chatroomQ'>
-                聊天室問題<br>
-                <i class="fas fa-solid fa-comment-dots"></i>
+            <li id='chatroomQ'>聊天室問題<br> <i class="fas fa-solid fa-comment-dots"></i>
             </li>
-            <li id='emailQ'>
-                表單回報<br>
-                <i class="fas fa-solid fa-scroll"></i>
+            <li id='emailQ'>表單回報<br> <i class="fas fa-solid fa-scroll"></i>
             </li>
 
 
@@ -130,10 +116,8 @@
 
         <div class="chat">
             <!-- <i class="fas fa-solid fa-xmark"></i> -->
-            <i class="fas fa-bars" id="service-menu"></i>
-            <input type="text">
-            <i class="fas fa-solid fa-image"></i>
-            <i class="fas fa-solid fa-paper-plane" id="send"></i>
+            <i class="fas fa-bars" id="service-menu"></i> <input type="text">
+            <i class="fas fa-solid fa-image"></i> <i class="fas fa-solid fa-paper-plane" id="send"></i>
         </div>
 
 
@@ -150,23 +134,24 @@
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="login()">Log
+                    in</button>
                 <button type="button" class="toggle-btn" onclick="register()">Register</button>
             </div>
 
             <form id="login" class="input-group">
                 <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
+                    <i class="fas fa-solid fa-user-astronaut"></i> <input type="text" class="input-field"
+                        placeholder="Username" required>
                 </div>
                 <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
+                    <i class="fas fa-solid fa-lock"></i> <input type="password" class="input-field"
+                        placeholder="Password" required>
                 </div>
 
                 <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>Remeber Password</span>
+                    <input type="checkbox" class="check-box"> <span>Remeber
+                        Password</span>
                 </div>
 
                 <button type="submit" class="submit-btn">Log in</button>
@@ -174,21 +159,21 @@
 
             <form id="register" class="input-group">
                 <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
+                    <i class="fas fa-solid fa-user-astronaut"></i> <input type="text" class="input-field"
+                        placeholder="Username" required>
                 </div>
                 <div class="input-div">
-                    <i class="fas fa-solid fa-envelope"></i>
-                    <input type="email" class="input-field" placeholder="E-mail" required>
+                    <i class="fas fa-solid fa-envelope"></i> <input type="email" class="input-field"
+                        placeholder="E-mail" required>
                 </div>
                 <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
+                    <i class="fas fa-solid fa-lock"></i> <input type="password" class="input-field"
+                        placeholder="Password" required>
                 </div>
 
                 <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>I agree to the terms & conditions</span>
+                    <input type="checkbox" class="check-box"> <span>I
+                        agree to the terms & conditions</span>
                 </div>
 
                 <button type="submit" class="submit-btn">Register</button>
@@ -205,8 +190,8 @@
     <form action="" id="search-form">
         <div class="search-group">
 
-            <input type="search" placeholder="search here..." name="" id="search-box">
-            <label for="search-box" class="fas fa-search"></label>
+            <input type="search" placeholder="search here..." name="" id="search-box"> <label for="search-box"
+                class="fas fa-search"></label>
 
         </div>
 
@@ -222,24 +207,22 @@
 
     <div id="shopping-cart">
         <div class="box">
-            <i class="fas fa-trash"></i>
-            <img src=".\\images\\Monopoly.png" alt="">
+            <i class="fas fa-trash"></i> <img src=".\\images\\Monopoly.png" alt="">
             <div class="content">
                 <h3>ItemName</h3>
-                <span class="price">$0.00/-</span>
-                <span class="quantity">qty : 1</span>
+                <span class="price">$0.00/-</span> <span class="quantity">qty
+                    : 1</span>
             </div>
         </div>
         <div class="box">
-            <i class="fas fa-trash"></i>
-            <img src=".\\images\\Mario.png" alt="">
+            <i class="fas fa-trash"></i> <img src=".\\images\\Mario.png" alt="">
             <div class="content">
                 <h3>ItemName</h3>
-                <span class="price">$0.00/-</span>
-                <span class="quantity">qty : 1</span>
+                <span class="price">$0.00/-</span> <span class="quantity">qty
+                    : 1</span>
             </div>
         </div>
-        <div class="total"> total : $0.00/-</div>
+        <div class="total">total : $0.00/-</div>
         <a href="#" class="btn">check out</a>
 
     </div>
@@ -255,51 +238,7 @@
 
             <div class="swiper-wrapper wrapper">
 
-                <div class="swiper-slide slide one">
-                    <div class="content">
-                        <i class="fas fa-solid fa-crown"></i>
-                        <span>1</span>
-                        <h3>瑪利歐賽車8 豪華版</h3>
-                        <p>銷售量：3708萬</p>
-                        <div class="buttons">
-                            <a href="#" class="btn btn-3">Order Now</a>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src=".\\images\\Mario.png">
-                    </div>
-
-                </div>
-
-                <div class="swiper-slide slide two">
-                    <div class="content">
-                        <i class="fas fa-solid fa-crown"></i>
-                        <span>2</span>
-                        <h3>集合啦！動物森友會</h3>
-                        <p>銷售量：3389萬</p>
-                        <div class="buttons">
-                            <a href="#" class="btn btn-3">Order Now</a>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src=".\\images\\AnimalCrossing.jpg">
-                    </div>
-                </div>
-
-                <div class="swiper-slide slide three">
-                    <div class="content">
-                        <i class="fas fa-solid fa-crown"></i>
-                        <span>3</span>
-                        <h3>任天堂明星大亂鬥</h3>
-                        <p>銷售量：2477萬</p>
-                        <div class="buttons">
-                            <a href="#" class="btn btn-3">Order Now</a>
-                        </div>
-                    </div>
-                    <div class="image">
-                        <img src="">
-                    </div>
-                </div>
+                
 
             </div>
 
@@ -309,132 +248,7 @@
         <div class="items" id="items">
 
             <div class="box-container">
-                <!-- 熱銷4 -->
-                <div class="box">
-                    <div class="flag">4</div>
-                    <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
-                        <img src=".\\images\\Monopoly.png" alt="">
-                    </div>
-                    <h3>Monopoly</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>$15.99</span>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="flag">5</div>
-                    <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
-                        <img src=".\\images\\Mario.png" alt="">
-                    </div>
-                    <h3>MarioKart</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>$15.99</span>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="flag">6</div>
-                    <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
-                        <img src=".\\images\\Monopoly.png" alt="">
-                    </div>
-                    <h3>Monopoly</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>$15.99</span>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="flag">7</div>
-                    <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
-                        <img src=".\\images\\Monopoly.png" alt="">
-                    </div>
-                    <h3>Monopoly</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>$15.99</span>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="flag">8</div>
-                    <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
-                        <img src=".\\images\\Monopoly.png" alt="">
-                    </div>
-                    <h3>Monopoly</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>$15.99</span>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="flag">9</div>
-                    <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
-                        <img src=".\\images\\Monopoly.png" alt="">
-                    </div>
-                    <h3>Monopoly</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span>$15.99</span>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
-                    </div>
-                </div>
+            
 
             </div>
 
@@ -453,7 +267,7 @@
 
     <section class="news" id="news">
 
-        <h1 class="heading_News"> 遊戲新聞 </h1>
+        <h1 class="heading_News">遊戲新聞</h1>
 
         <div class="swiper news-slider">
             <nav class="news-type">
@@ -462,31 +276,14 @@
                     <li value="64002">PS5</li>
                     <li value="64003">Xbox</li>
                     <li value="64001">Switch</li>
-                    <div></div>
+                    <li></li>
                 </ul>
             </nav>
-            <div class="swiper-wrapper wrapper">
-
-                <div class="swiper-slide slide" id="newsSlideOne">
-
-
-                </div>
-
-                <div class="swiper-slide slide" id="newsSlideTwo">
-
-					<a href="">
-                        <div class="img-container">
-                            <img src="">
-                        </div>
-                        <div class="text-container">
-                           hahaha
-                        </div>
-                    </a>
-                </div>
-            </div>
+            <div class="swiper-wrapper wrapper" id="slide-container"></div>
 
             <div class="swiper-pagination"></div>
         </div>
+
 
     </section>
     <!-- News section ends -->
@@ -500,33 +297,27 @@
 
             <div class="box">
                 <h3>quick links</h3>
-                <a href="#">home</a>
-                <a href="#">dishes</a>
-                <a href="#">about</a>
-                <a href="#">menu</a>
-                <a href="#">review</a>
-                <a href="#">order</a>
+                <a href="#">home</a> <a href="#">dishes</a> <a href="#">about</a> <a href="#">menu</a> <a
+                    href="#">review</a> <a href="#">order</a>
             </div>
 
             <div class="box">
                 <h3>contact info</h3>
-                <a href="#">+123-456-7890</a>
-                <a href="#">+111-222-3333</a>
-                <a href="#">shailhanas@gmail.com</a>
-                <a href="#">anasbhai@gmail.com</a>
+                <a href="#">+123-456-7890</a> <a href="#">+111-222-3333</a> <a href="#">shailhanas@gmail.com</a> <a
+                    href="#">anasbhai@gmail.com</a>
                 <a href="#">mumbai, india - 400104</a>
             </div>
 
             <div class="box">
                 <h3>follow us</h3>
-                <a href="#">facebook</a>
-                <a href="#">twitter</a>
-                <a href="#">insuagram</a>
+                <a href="#">facebook</a> <a href="#">twitter</a> <a href="#">insuagram</a>
                 <a href="#">linkedin</a>
             </div>
         </div>
 
-        <div class="credit">copyright@2021 by <span>Group 1</span></div>
+        <div class="credit">
+            copyright@2021 by <span>Group 1</span>
+        </div>
 
     </section>
 
@@ -536,9 +327,7 @@
     <!-- loader part -->
     <div class="loader-container">
         <div class="loading-hint">
-            <span>已載入</span>
-            <span id="num">0</span>
-            <span>%</span>
+            <span>已載入</span> <span id="num">0</span> <span>%</span>
         </div>
 
         <img src=".\\images\\alienn.png" alt="">

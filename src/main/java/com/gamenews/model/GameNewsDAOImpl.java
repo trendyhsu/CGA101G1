@@ -206,4 +206,6 @@ public class GameNewsDAOImpl implements GameNewsDAO{
 		return list;
 	}
 
+	
+
 }
