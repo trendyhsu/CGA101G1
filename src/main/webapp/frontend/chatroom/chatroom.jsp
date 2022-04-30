@@ -1,9 +1,21 @@
+<%@page import="com.member.model.MemVO"%>
+<%@page import="com.forum.model.ForumVO"%>
+<%@page import="com.forum.model.ForumService"%>
 <%@page import="com.bidproduct.model.BidProductVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<%
+Integer forumNo = Integer.valueOf(request.getParameter("forumNo"));
+ForumService forumSvc = new ForumService();
+ForumVO forumVO = forumSvc.getOneForum(forumNo);
+pageContext.setAttribute("forumVO", forumVO);
+MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+Integer memNo = memVO.getMemNo();
+%>
 <html lang="zxx">
 
     <head>
@@ -40,7 +52,7 @@
     </head>
     
 
-<body onload="connect();" onunload="disconnect();">
+<body>
 
     <!-- header section starts-->
 
@@ -314,15 +326,14 @@
 
 
 <div id = "xiaowu">
-	<h1>CGA101G1聊天室</h1>
+	<div id= forumNumber>${forumVO.forumName}</div>
 
 	<textarea id="messagesArea" class="panel message-area" readonly style="border: 2px solid gray ;width: 100% ;height: 200px"></textarea>
 	<div class="panel input-area">
-		<input id="userName" class="form-control" type="text" placeholder="User name" /> 
 		<input id="message" class="form-control" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" /> 
 		<input type="submit" id="sendMessage" class="btn btn-success" value="送出" onclick="sendMessage();" /> 
-		<input type="button" id="connect" class="btn btn-success" value="連線" onclick="connect();" /> 
-		<input type="button" id="disconnect" class="btn btn-success" value="離線" onclick="disconnect();" />
+		<input id="banName" class="form-control" type="text" placeholder="User name" /> 
+		<input type="button" id="ban" class="btn btn-success" value="封鎖!" onclick="ban();" /> 
 	</div>
 </div>
 
@@ -338,77 +349,98 @@
 
 
 
-</body>
 
+<script src ="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	var MyPoint = "/chatroom/james";
-	var host = window.location.host;
-	var path = window.location.pathname;
-	var webCtx = path.substring(0, path.indexOf('/', 1));
-	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	// 先從網址列獲得forumNo 來建立 WebSocket 連線
+	let queryString = window.location.search;
+	let urlParams = new URLSearchParams(queryString);
+	let forumNo = urlParams.get("forumNo");
+	
+	let MyPoint = "/chatroom/" + forumNo;
+	let host = window.location.host;
+	let path = window.location.pathname;
+	let webCtx = path.substring(0, path.indexOf('/', 1));
+	let endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 
-	var statusOutput = document.getElementById("statusOutput");
-	var webSocket;
+	let statusOutput = document.getElementById("statusOutput");
+	let webSocket;
 
-	function connect() {
-		// create a websocket
-		webSocket = new WebSocket(endPointURL);
+	webSocket = new WebSocket(endPointURL);
 
-		webSocket.onopen = function(event) {
-			
-			document.getElementById('sendMessage').disabled = false;
-			document.getElementById('connect').disabled = true;
-			document.getElementById('disconnect').disabled = false;
-		};
+    let memNo = <%=memNo%>;
 
-		webSocket.onmessage = function(event) {
-			var messagesArea = document.getElementById("messagesArea");
-			var jsonObj = JSON.parse(event.data);
-			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
-			messagesArea.value = messagesArea.value + message;
-			messagesArea.scrollTop = messagesArea.scrollHeight;
-		};
+// 連線建立時
+	webSocket.onopen = function(event) {
+		document.getElementById('sendMessage').disabled = false;
+	};
+	
+// 收到訊息時
+	webSocket.onmessage = function(event) {
+        let chatAll = JSON.parse(event.data);
+        let sendMemNo = chatAll.sendMemNo;
+        console.log(sendMemNo);
+		let message = chatAll.message;
+        let chatRoomBanListVOs = chatAll.chatRoomBanListVOs;
+        let send = true;
+        for(let chatRoomBanListVO of chatRoomBanListVOs){
+            console.log(memNo);
+            if(chatRoomBanListVO.memNo == memNo && chatRoomBanListVO.memNo_Baned == sendMemNo){
+                send = false;
+                return;
+            }
+        }
+        if(send!=false){
+                var messagesArea = document.getElementById("messagesArea");
+                messagesArea.value = messagesArea.value + message + "\r\n";
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+	};
+// 連線關閉時
+	webSocket.onclose = function(event) {
+		
+	};
 
-		webSocket.onclose = function(event) {
-			
-		};
-	}
-
-	var inputUserName = document.getElementById("userName");
+	let inputUserName = document.getElementById("userName");
 	inputUserName.focus();
-
+	
+	// 送出訊息時
 	function sendMessage() {
-		var userName = inputUserName.value.trim();
-		if (userName === "") {
-			alert("Input a user name");
-			inputUserName.focus();
-			return;
-		}
+// 		var userName = inputUserName.value.trim();
+// 		if (userName === "") {
+// 			alert("Input a user name");
+// 			inputUserName.focus();
+// 			return;
+// 		}
 
-		var inputMessage = document.getElementById("message");
-		var message = inputMessage.value.trim();
+		let inputMessage = document.getElementById("message");
+		let message = inputMessage.value.trim();
 
 		if (message === "") {
-			alert("Input a message");
+			alert("請輸入訊息!");
 			inputMessage.focus();
 		} else {
-			var jsonObj = {
-				"userName" : userName,
-				"message" : message
-			};
-			webSocket.send(JSON.stringify(jsonObj));
+			webSocket.send(message);
 			inputMessage.value = "";
 			inputMessage.focus();
 		}
 	}
-
-	function disconnect() {
-		webSocket.close();
-		document.getElementById('sendMessage').disabled = true;
-		document.getElementById('connect').disabled = false;
-		document.getElementById('disconnect').disabled = true;
-	}
+    // 封鎖功能
+    function ban(){
+        let banName = document.getElementById("banName").value;
+        $.ajax({
+            url: "/CGA101G1/chat/chatRoomBanListBanOne",
+            type: "POST",
+            data:{
+                "banName":banName,
+            },
+            success: function(data){
+                console.log("hello");
+            }
+        })
+    }
 	
 </script>
+</body>
 </html>
 <%@include file="/frontend/frontfoot.jsp" %>
