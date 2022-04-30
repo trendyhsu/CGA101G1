@@ -37,100 +37,36 @@
     <header>
 
         <div class="logo-div">
-            <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
+            <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt=""> <a href="#" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
-            <a href="#pd_review" class="nav-link">遊戲新聞</a>
-            <a href="#pd_description" class="nav-link">遊戲商城</a>
+            <a class="active" href="#home">首頁</a> <a href="#pd_review" class="nav-link">遊戲新聞</a> <a
+                href="#pd_description" class="nav-link">遊戲商城</a>
             <a href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
             <a href="#pd_review" class="nav-link">遊戲討論區</a>
         </nav>
 
         <div class="icons">
             <!--右上方小icon區-->
-            <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+            <i class="fas fa-bars" id="menu-bars"></i> <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i> <i
+                class="fas fa-search" id="search-icon"></i> <a href="#" class="fas fa-heart"></a> <a href="#"
+                class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
     </header>
 
     <!-- header section ends-->
-
-    <!--Login starts-->
-
-    <div action="" id="login-form">
-        <i class="fas fa-times" id="login-close"></i>
-
-
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
-            </div>
-
-            <form id="login" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>Remeber Password</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
-
-            <form id="register" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-envelope"></i>
-                    <input type="email" class="input-field" placeholder="E-mail" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>I agree to the terms & conditions</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
-
-        </div>
-
-    </div>
-
-    <!-- Login ends -->
-
     <!-- search form starts-->
 
     <form action="" id="search-form">
         <div class="search-group">
 
             <div>
-                <input type="search" placeholder="search here..." name="" id="search-box">
-                <input type="button" id="advanced" value="&#x21FE;Advanced search">
+                <input type="search" placeholder="search here..." name="" id="search-box"> <input type="button"
+                    id="advanced" value="&#x21FE;Advanced search">
                 <!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
             </div>
             <label for="search-box" class="fas fa-search"></label>
@@ -153,12 +89,8 @@
             <div class="search-type">
                 <span class="list-title">Condition</span>
                 <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="PS5">
-                        <span>New </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                    <label> <input type="checkbox" id="check" class="check" value="PS5"> <span>New </span>
+                    </label> <label> <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
                         <span>Used </span>
                     </label>
                 </div>
@@ -167,24 +99,12 @@
             <div class="search-type">
                 <span class="list-title">Platforms</span>
                 <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="PS5">
-                        <span>PS5 </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                    <label> <input type="checkbox" id="check" class="check" value="PS5"> <span>PS5 </span>
+                    </label> <label> <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
                         <span>Nintendo Switch </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                    </label> <label> <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
                         <span>Xbox </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check4" class="check" value="PS5">
-                        <span>PS4 </span>
+                    </label> <label> <input type="checkbox" id="check4" class="check" value="PS5"> <span>PS4 </span>
                     </label>
 
                 </div>
@@ -193,16 +113,10 @@
             <div class="search-type">
                 <span class="list-title">Items Type</span>
                 <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="PS5">
-                        <span>Game Software </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
+                    <label> <input type="checkbox" id="check" class="check" value="PS5"> <span>Game Software </span>
+                    </label> <label> <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
                         <span>Hardware </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
+                    </label> <label> <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
                         <span>Figures </span>
                     </label>
 
@@ -212,36 +126,18 @@
             <div class="search-type">
                 <span class="list-title">Game Type</span>
                 <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="RPG">
-                        <span>RPG </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Strategy">
+                    <label> <input type="checkbox" id="check" class="check" value="RPG"> <span>RPG </span>
+                    </label> <label> <input type="checkbox" id="check2" class="check" value="Strategy">
                         <span>Strategy</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check3" class="check" value="Gal-Game">
-                        <span>Gal-Game </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check4" class="check" value="FPS">
-                        <span>FPS </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check9" class="check" value="Simulation">
+                    </label> <label> <input type="checkbox" id="check3" class="check" value="Gal-Game"> <span>Gal-Game
+                        </span>
+                    </label> <label> <input type="checkbox" id="check4" class="check" value="FPS"> <span>FPS </span>
+                    </label> <label> <input type="checkbox" id="check9" class="check" value="Simulation">
                         <span>Simulation </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check6" class="check" value="Action">
-                        <span>Action </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check7" class="check" value="Adventure">
-                        <span>Adventure </span>
+                    </label> <label> <input type="checkbox" id="check6" class="check" value="Action"> <span>Action
+                        </span>
+                    </label> <label> <input type="checkbox" id="check7" class="check" value="Adventure"> <span>Adventure
+                        </span>
                     </label>
 
                 </div>
@@ -255,7 +151,9 @@
             </div>
             <div>
                 <!-- <i class="fas fa-solid fa-rocket"></i> -->
-                <button type="submit"><i class="fas fa-solid fa-rocket"></i>Submit</button>
+                <button type="submit">
+                    <i class="fas fa-solid fa-rocket"></i>Submit
+                </button>
                 <!-- <input type="button" class="advanced-submit" value="&#x21C0;Submit"> -->
             </div>
 
@@ -304,38 +202,36 @@
                     <div class="col-lg-5 col-xxl-4">
                         <div class="card">
                             <div class="card-header bg-transparent py-3">
-                                <h3 class="h4 mb-0" style="text-align: center;">登入會員 </h3>
+                                <h3 class="h4 mb-0" style="text-align: center;">登入會員</h3>
                             </div>
                             <div class="card-body">
 
                                 <div class="form-group mb-3">
-                                    <label for="email_1" class="form-label">帳號:<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" id="email_1" class="form-control" placeholder="輸入帳號">
+                                    <label for="memAccount" class="form-label">帳號:<span
+                                            class="text-danger">*</span></label> <input style="text-transform: none;"
+                                        type="text" id="memAccount" class="form-control" placeholder="輸入帳號">
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="row align-items-center">
-                                        <label class="form-label col" for="exampleInputPassword01">密碼:<span
+                                        <label class="form-label col" for="memPassword">密碼:<span
                                                 class="text-danger">*</span></label>
-                                        <span class="col ms-auto small text-end"><a href="#!">
-                                                忘記密碼?</a></span>
                                     </div>
-                                    <input type="password" class="form-control" id="exampleInputPassword01"
-                                        placeholder="輸入密碼">
+                                    <input type="password" class="form-control" id="memPassword" placeholder="輸入密碼"
+                                        style="text-transform: none;"> <span class="col ms-auto small text-end"><a
+                                            href="#!">
+                                            忘記密碼?</a></span>
                                 </div>
 
 
 
                                 <!-- Checkbox -->
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="form2Example3"
-                                        checked />
+                                    <input class="form-check-input" type="checkbox" value="" id="remember" />
                                     <label class="form-check-label" for="form2Example3"> 記住帳號 </label>
                                 </div>
                                 <div class="form-group text-center">
                                     <button type="button" class="btn btn-primary w-100" id="btn1">
-                                        登入
-                                    </button>
+                                        登入</button>
                                 </div>
                                 <div id="errMsg" class="error" style="color: red; font-size: 15;"></div>
                                 <!-- <div class="text-center pt-4 pb-5">
@@ -353,8 +249,7 @@
                                     </div>
                                 </div> -->
                                 <div class="pt-4 text-center">
-                                    <span class="text-muted">還沒有加入會員嗎? <a href="sign-up.html">點選這裡前往註冊!!
-                                        </a></span>
+                                    <span class="text-muted">還沒有加入會員嗎? <a href="sign-up.html">點選這裡前往註冊!! </a></span>
                                 </div>
                             </div>
                         </div>
@@ -374,38 +269,31 @@
                         <div class="box-container">
                             <div class="box">
                                 <h3>會員專區</h3>
-                                <a href="#">會員登入</a>
-                                <a href="#">會員註冊</a>
-                                <a href="#">訂單管理</a>
-                                <a href="#">二手遊戲申請上架單管理</a>
+                                <a href="#">會員登入</a> <a href="#">會員註冊</a> <a href="#">訂單管理</a> <a
+                                    href="#">二手遊戲申請上架單管理</a>
                             </div>
 
                             <div class="box">
                                 <h3>快速連結</h3>
-                                <a href="#">首頁</a>
-                                <a href="#">遊戲商城</a>
-                                <a href="#">二手競標商城</a>
-                                <a href="#">遊戲討論區</a>
+                                <a href="#">首頁</a> <a href="#">遊戲商城</a> <a href="#">二手競標商城</a> <a href="#">遊戲討論區</a>
                             </div>
 
                             <div class="box">
                                 <h3>聯絡我們</h3>
-                                <a href="#">02-3456-7890</a>
-                                <a href="#">03-1111-2222</a>
-                                <a href="#">CGA101G1@gmail.com</a>
-                                <a href="#">anasbhai@gmail.com</a>
+                                <a href="#">02-3456-7890</a> <a href="#">03-1111-2222</a> <a
+                                    href="#">CGA101G1@gmail.com</a> <a href="#">anasbhai@gmail.com</a>
                             </div>
 
                             <div class="box">
                                 <h3>關於我們</h3>
-                                <a href="#">管理團隊</a>
-                                <a href="#">創始理念</a>
-                                <a href="#">insuagram</a>
+                                <a href="#">管理團隊</a> <a href="#">創始理念</a> <a href="#">insuagram</a>
                                 <a href="#">linkedin</a>
                             </div>
                         </div>
 
-                        <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
+                        <div class="credit">
+                            copyright@2022 by <span>CGA101G1</span>
+                        </div>
 
                     </section>
                 </div>
@@ -437,25 +325,51 @@
     <!-- 外來區over -->
     <!-- custom js file link-->
     <!-- <script src="/CGA101G1/frontend/mainCss/js/script.js"></script> -->
-
     <script>
+        $(document).ready(() => {
+            if (localStorage.getItem("memAccount") !== undefined) {
+                $("#memAccount").val(localStorage.getItem("memAccount"));
+            }
+        })
+
+        $("#remember").change(function () {
+            alert("checkbox事件");
+            if ($("#remember").prop('checked')) {
+                $("#remember").attr("checked", "checked");
+            } else
+                $("#remember").removeAttr("checked");
+        })
+
         $("#btn1").click(() => {
+            if (document.getElementById("remember").chceked) {
+                localStorage.setItem("memAccount", $("#memAccount").val());
+            } else {
+                localStorage.removeItem("memAccount");
+            }
+
+            if ($("#remember").prop('checked')) {
+                localStorage.setItem("memAccount", $("#memAccount").val());
+            } else {
+                localStorage.removeItem("memAccount");
+            }
+
             $.ajax({
                 type: 'POST',
                 url: "/CGA101G1/mem/LoginServlet",
                 contentType: "application/json",
                 data: JSON.stringify({
-                    memAccount: email_1.value,
-                    memPassword: exampleInputPassword01.value
+                    memAccount: memAccount.value,
+                    memPassword: memPassword.value
                 }),
                 success: data => {
                     const { successful, message, initlocation } = data;
                     if (successful) {
-                        let { memNo, memName, memStatus, memVrfed } = data;
+                        let { memNo, memName, memStatus, memVrfed, memAccount } = data;
                         sessionStorage.setItem("memNo", memNo);
                         sessionStorage.setItem("memName", memName);
                         sessionStorage.setItem("memStatus", memStatus);
                         sessionStorage.setItem("memVrfed", memVrfed);
+
                         alert("歡迎光臨買鳳(ﾉ>ω<)ﾉ");
 
                         if (initlocation !== undefined) {

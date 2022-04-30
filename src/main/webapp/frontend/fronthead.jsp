@@ -58,6 +58,7 @@
             <a href="#pd_review" class="nav-link">遊戲討論區</a>
         </nav>
 
+
         <div class="icons">
             <!--右上方小icon區-->
             <i class="fas fa-bars" id="menu-bars"></i>
@@ -67,68 +68,12 @@
             <a href="#" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
+ 
     </header>
 
     <!-- header section ends-->
 
-    <!--Login starts-->
-
-    <div action="" id="login-form">
-        <i class="fas fa-times" id="login-close"></i>
-
-
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
-            </div>
-
-            <form id="login" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>Remeber Password</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
-
-            <form id="register" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-envelope"></i>
-                    <input type="email" class="input-field" placeholder="E-mail" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>I agree to the terms & conditions</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
-
-        </div>
-
-    </div>
-
-    <!-- Login ends -->
+    
 
     <!-- search form starts-->
 
@@ -324,6 +269,17 @@
                             <div class="bg-gray-200 p-3 border-bottom border-top">
                                 <h6 class="m-0">會員中心</h6>
                             </div>
+<!--                             <div class="bg-gray-200 p-3 border-bottom"> -->
+<!--                                 <h6 class="m-0">帳戶設定</h6> -->
+<!--                             </div> -->
+                            <ul class="list-unstyled mb-0 theme-link">
+                                <li class="border-bottom mb-0">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="account-profile.html">
+                                        <i class="bi bi-person-circle me-2"></i>個人資訊
+                                    </a>
+                                </li>
+                                
+                            </ul>
                             <ul class="list-unstyled mb-0 theme-link">
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center active p-3" style="color:black"
@@ -387,26 +343,17 @@
                                 </li>
 
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="account-tickets.html">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="<%=request.getContextPath()%>/frontend/memCoupon/lookUpOneMemCoupon.jsp">
                                         <i class="bi bi-bookmark me-2"></i>我的優惠卷
                                     </a>
                                 </li>
-                            </ul>
-                            <div class="bg-gray-200 p-3 border-bottom">
-                                <h6 class="m-0">帳戶設定</h6>
-                            </div>
-                            <ul class="list-unstyled mb-0 theme-link">
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="account-profile.html">
-                                        <i class="bi bi-person-circle me-2"></i>個人資訊
-                                    </a>
-                                </li>
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="javascript:void(0);">
+                                    <a id="logout" class="nav-link-style d-flex align-items-center p-3" style="color:black" href="javascript:void(0);">
                                         <i class="bi bi-box-arrow-left me-2"></i>登出
                                     </a>
                                 </li>
                             </ul>
+                            
                         </div>
                     </div>
                     <!-- End Profile Menu -->
