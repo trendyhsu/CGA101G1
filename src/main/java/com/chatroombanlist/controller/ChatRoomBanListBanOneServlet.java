@@ -1,6 +1,8 @@
 package com.chatroombanlist.controller;
 
 import java.io.IOException;
+import java.io.Writer;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,18 +22,29 @@ public class ChatRoomBanListBanOneServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		Writer out = response.getWriter();
+		
 		// 取得連線進來的會員編號
-		MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
 		Integer memNo = memVO.getMemNo();
 
 		// 取得要ban的會員編號
 		String banName = request.getParameter("banName");
-		
+
 		MemService memSvc = new MemService();
-		
+		MemVO memVOBan = memSvc.getByMemName(banName);
+
 		// 調用方法
-//		ChatRoomBanListService chatRoomBanListSvc = new ChatRoomBanListService();
-//		chatRoomBanListSvc.addBanList(memNo, null);
+		if (memVOBan != null) {
+			ChatRoomBanListService chatRoomBanListSvc = new ChatRoomBanListService();
+			chatRoomBanListSvc.addBanList(memNo, memVOBan.getMemNo());
+			out.write("封鎖成功");
+		}
+		else {
+			out.write("封鎖失敗，請確認輸入姓名是否正確");
+		}
 	}
 
 }

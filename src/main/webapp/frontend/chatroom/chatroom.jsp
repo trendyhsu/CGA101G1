@@ -435,7 +435,7 @@ Integer memNo = memVO.getMemNo();
                 "banName":banName,
             },
             success: function(data){
-                console.log("hello");
+                window.alert(data);
             }
         })
     }
