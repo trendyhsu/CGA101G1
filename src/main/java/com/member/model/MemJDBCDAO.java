@@ -41,6 +41,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
 			+ " mem WHERE memMobile = ?";;
 
+	private static final String SELECT_MEM_MEMNAME="SELECT * FROM mem WHERE memName=?";
+			
 	private static final String UPDATE_MEM_VERITY = "UPDATE mem SET memvrfed=? WHERE memAccount=?";
 
 	private static final String SELECT_MEM_VERITY = "SELECT memvrfed FROM mem WHERE memAccount=?";
@@ -587,6 +589,50 @@ public class MemJDBCDAO implements MemDAO_interface {
 				while (rs.next()) {
 					memVO = new MemVO();
 //					memVO.setMemAccount(rs.getString("memAccount"));
+					return memVO;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public MemVO selectMemEname(String memEname) {
+		MemVO memVO = null;
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement ps = con.prepareStatement(SELECT_MEM_MEMNAME)) {
+			ps.setString(1, memEname);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					memVO = new MemVO();
+					memVO.setMemNo(rs.getInt("memNo"));
+					memVO.setMemAccount(rs.getString("memAccount"));
+					memVO.setMemPassword(rs.getString("memPassword"));
+					memVO.setMemStatus(rs.getInt("memStatus"));
+					memVO.setMemVrfed(rs.getInt("memVrfed"));
+					memVO.setMemNoVrftime(rs.getDate("memNoVrftime"));
+					memVO.setMemName(rs.getString("memName"));
+					memVO.setMemMobile(rs.getString("memMobile"));
+					memVO.setMemCity(rs.getString("memCity"));
+					memVO.setMemDist(rs.getString("memDist"));
+					memVO.setMemAdd(rs.getString("memAdd"));
+					memVO.setMemEmail(rs.getString("memEmail"));
+					memVO.setMemBirth(rs.getDate("memBirth"));
+					memVO.setMemJoinTime(rs.getDate("memJoinTime"));
+					memVO.setCreditcardNo(rs.getString("creditcardNo"));
+					memVO.setCreditcardDate(rs.getString("creditcardDate"));
+					memVO.setCreditcardSecurityNo(rs.getString("creditcardSecurityNo"));
+					memVO.setBankAccount(rs.getString("bankAccount"));
+					memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
+					memVO.setUserStatus(rs.getInt("userStatus"));
+					memVO.setMyPic(rs.getBytes("myPic"));
+					memVO.setIsMute(rs.getInt("isMute"));
 					return memVO;
 				}
 			}
