@@ -60,4 +60,5 @@ public class GameNewsService {
 	public List<GameNewsVO> getTopTwelve(Integer gamePlatformNo){
 		return dao.getTopTwelve(gamePlatformNo);
 	}
+
 }

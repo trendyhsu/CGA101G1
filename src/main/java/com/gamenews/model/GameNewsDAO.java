@@ -18,4 +18,5 @@ public interface GameNewsDAO{
      public List<GameNewsVO> getAll(Map<String, String[]> map);
      //取最新六則
      public List<GameNewsVO> getTopTwelve(Integer gamePlatformNo);
+   
 }
