@@ -7,7 +7,7 @@ section {
     align-items: center;
 }
 
-.title {
+.news-title {
     /* border: 2px solid blue; */
     width: 80%;
     font-size: 44px;
@@ -26,7 +26,7 @@ section {
     width: 100%;
 }
 
-.content {
+.news-content {
     /* border: 2px solid yellowgreen; */
     width: 80%;
     font-size: 18px;

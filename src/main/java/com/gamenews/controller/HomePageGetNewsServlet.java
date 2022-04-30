@@ -37,9 +37,9 @@ public class HomePageGetNewsServlet extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = resp.getWriter();
-
+		Integer gamePlatformNo = Integer.valueOf(req.getParameter("gamePlatformNo"));
 		GameNewsService gnSvc = new GameNewsService();
-		List<GameNewsVO> list = gnSvc.getTopSix();
+		List<GameNewsVO> list = gnSvc.getTopTwelve(gamePlatformNo);
 		List<Object> finalList = new ArrayList<Object>();
 		for(GameNewsVO gameNewsVO : list) {
 			Map<String, Object> map = new HashMap<>();
@@ -48,7 +48,7 @@ public class HomePageGetNewsServlet extends HttpServlet{
 			map.put("managerNo", gameNewsVO.getManagerNo());
 			map.put("gameNewsTitle", gameNewsVO.getGameNewsTitle());
 			map.put("gameNewsContent", gameNewsVO.getGameNewsContent());
-			map.put("ImgUrl", req.getContextPath()+"/gameNews/gameNewsPic?gameNewsNo"+"="+gameNewsVO.getGameNewsNo());
+			map.put("ImgUrl", req.getContextPath()+"/gameNews/gameNewsPic?gameNewsNo="+gameNewsVO.getGameNewsNo());
 			finalList.add(map);
 		}
 		Gson g = new GsonBuilder().disableHtmlEscaping().create();

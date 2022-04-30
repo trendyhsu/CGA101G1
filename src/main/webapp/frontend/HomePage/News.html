@@ -159,20 +159,13 @@
     <!-- News section -->
     <section>
 
-        <div class="title"></div>
+        <div class="news-title"></div>
         <div class="img-container">
             <img>
         </div>
 
-        <div class="content">
-            任天堂 今（25）日公開《Nintendo Switch 運動》最新宣傳廣告「健身也是運動篇」，繼續邀請「國民老婆」新垣結衣拍攝！
-            <br>
-            <br>
-            任天堂為新垣結衣量身打造的清爽居家風格，這次是放下了健身環，改拿起 Joy-Con 在《Nintendo Switch 運動》裡面來場爽快的球場對決。
-            <br>
-            <br>
-            Switch《Nintendo Switch 運動》即將在 4 月 29 日推出，買遊戲不會自帶新垣結衣，敬請注意。
-
+        <div class="news-content">
+           
         </div>
     </section>
 
@@ -189,21 +182,28 @@
 		let queryString = window.location.search;
 		let urlParams = new URLSearchParams(queryString);
 		let gameNewsNo = urlParams.get("gameNewsNo");
-		let news = null;
+		
 		$.ajax({
-			url:`/CGA101/gamenews/GameNewsGetOne?gameNewsNo=${gameNewsNo}`,
+			url:`/CGA101G1/gamenews/GameNewsGetOne?gameNewsNo=${gameNewsNo}`,
 			type : "Get",
 			success: function(data){
 				
-				news = JSON.parse(data);
-				console.log(news);
+				showNews(data);
+				
 			}
 		});
+		function showNews(data){
+			let news = JSON.parse(data);
+			
+			let titleDiv = document.querySelector(".news-title");
+			titleDiv.append(news[0].gameNewsTitle);
+			let img = document.querySelector(".img-container img");
+			img.setAttribute("src", news[0].ImgUrl);
+			let contentDiv = document.querySelector(".news-content");
+			contentDiv.append(news[0].gameNewsContent);
+		}
 		
-// 		let titleDiv = document.querySelector(".title");
-// 		titleDiv.append(news.gameNewsTitle);
-// 		let img = document.querySelector(".img-container img");
-// 		img.setAttribute("src", );
+		
 	</script>
 
 
