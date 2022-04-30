@@ -64,7 +64,10 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("memVO", memVO);
 		}
 		String initlocation = (String) session.getAttribute("initlocation");
-		memVO.setInitlocation(initlocation);
+		if(initlocation !=null) {
+			session.removeAttribute("initlocation");
+			memVO.setInitlocation(initlocation);
+		}
 		writePojo2Json(response, memVO);
 	}
 	

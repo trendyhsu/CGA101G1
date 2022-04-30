@@ -65,6 +65,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	private static final String UPDATE_MEM_ISMUTE_STATUS ="UPDATE mem SET isMute=1 WHERE memNo=?";
 	
+	private static final String UPDATE_MEM_NOTISMUTE_STATUS="UPDATE mem SET isMute=0 WHERE memNo=?";
+	
 	private static final String GET_ONE_BY_MEMACCOUNT = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
 			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
 			+ " mem WHERE memAccount = ?";
@@ -537,7 +539,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 	}
 	
-	public void ChangeisMute(Integer memNo) {
+	public void changeIsMute(Integer memNo) {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e1) {
@@ -545,6 +547,21 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement ps = con.prepareStatement(UPDATE_MEM_ISMUTE_STATUS)) {
+			ps.setInt(1, memNo);
+			ps.executeUpdate();
+		}catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
+	public void notChangeisMute(Integer memNo) {
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement ps = con.prepareStatement(UPDATE_MEM_NOTISMUTE_STATUS)) {
 			ps.setInt(1, memNo);
 			ps.executeUpdate();
 		}catch (Exception e) {

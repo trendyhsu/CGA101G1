@@ -85,7 +85,20 @@
     <!-- jquery -->
     <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
     <!-- 外來區over -->
-    
+    <script>
+        const memNo = sessionStorage.getItem('memNo');
+        const logout = document.querySelector('#logout');
+        if (!memNo) {
+            logout.style.visibility = 'hidden';
+        }
+        logout.addEventListener('click', () => {
+            sessionStorage.removeItem('memNo');
+            fetch('/CGA101G1/mem/logoutServlet');
+            location = `index.html`;
+            alert("88888888888888888888(◜◔。◔◝)");
+        });
+
+    </script>
 </body>
 <!-- end body -->
 
