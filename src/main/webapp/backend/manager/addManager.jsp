@@ -65,58 +65,63 @@ h3 {
 				</c:if>
 
 				<!-- 		主要修改資訊區 -->
+				<div>
+					<form method="post"
+						action="<%=request.getContextPath()%>/manager/managerInsert"
+						name="form1" enctype="multipart/form-data">
+						<table>
+							<tr>
+								<td>管理員帳號</td>
+								<td><input type="text" name="managerAccount" size="20"
+									value="${managerVO.managerAccount}" /></td>
+							</tr>
+							<tr>
+								<td>管理員密碼</td>
+								<td><input type="text" name="managerPassword" size="20"
+									value="${managerVO.managerPassword}" /></td>
+							</tr>
+							<tr>
+								<td>管理員名字</td>
+								<td><input type="text" name="managerName" size="20"
+									value="${managerVO.managerName}" /></td>
+							</tr>
+							<tr>
+								<td>管理員電話</td>
+								<td><input type="text" name="managerPhone" size="20"
+									value="${managerVO.managerPhone}" /></td>
+							</tr>
+							<tr>
+								<td><label for="managerState" class="form-label">管理員狀態</label>
+									<input type="radio" name="managerState" value="0" checked="true">
+									<label>在職</label></td>
+							</tr>
 
-				<form method="post"
-					action="<%=request.getContextPath()%>/manager/managerInsert"
-					name="form1" enctype="multipart/form-data">
-					<table>
-						<tr>
-							<td>管理員帳號</td>
-							<td><input type="text" name="managerAccount" size="20"
-								value="${managerVO.managerAccount}" /></td>
-						</tr>
-						<tr>
-							<td>管理員密碼</td>
-							<td><input type="text" name="managerPassword" size="20"
-								value="${managerVO.managerPassword}" /></td>
-						</tr>
-						<tr>
-							<td>管理員名字</td>
-							<td><input type="text" name="managerName" size="20"
-								value="${managerVO.managerName}" /></td>
-						</tr>
-						<tr>
-							<td>管理員電話</td>
-							<td><input type="text" name="managerPhone" size="20"
-								value="${managerVO.managerPhone}" /></td>
-						</tr>
-						<tr>
-							<td><label for="managerState" class="form-label">管理員狀態</label>
-								<input type="radio" name="managerState" value="0"> <label
-								class="form-control">在職</label></td>
-						</tr>
-						<tr>
-							<td>管理員照片</td>
-							<td><input type="file" name="myManagerPic" size="20"
+							<tr>
+								<td>管理員照片</td>
+								<td id="upload">
+								<input type="file" name="upfile1" size="20"
+								onclick="previewImage()" multiple id="upfile"
+								
 								value="${managerVO.myManagerPic}" /></td>
-						</tr>
+						
+							</tr>
 
-						<tr>
-							<td><input type="submit" value="新增"> <input
-								type="reset" value="重設"></td>
-						</tr>
-						<!-- 	上傳圖片區 
+							<tr>
+								<td><input type="submit" value="新增"> <input
+									type="reset" value="重設"></td>
+							</tr>
+							<!-- 	上傳圖片區 
 				<tr>
 					<td>
 	        		<input type="file" name="upfile1" onclick="previewImage()" multiple id="upfile"
 	        		style="position: relative; left:480px ;bottom: 530px;">
 					</td>
 				</tr> -->
-					</table>
-				</form>
-				<div id="picPreview"
-					style="display: flex; width: 400px; flex-wrap: wrap; position: relative; left: 480px; bottom: 530px"></div>
-
+						</table>
+					</form>
+					<div id="picPreview"
+						style="display: flex; width: 400px; flex-wrap: wrap; position: relative; left: 480px; bottom: 530px"></div>
+				</div>
 			</div>
 
 		</section>

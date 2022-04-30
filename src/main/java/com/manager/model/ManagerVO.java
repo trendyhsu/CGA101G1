@@ -2,6 +2,9 @@ package com.manager.model;
 
 import java.io.Serializable;
 
+import com.managerauth.model.ManagerAuthService;
+import com.managerauth.model.ManagerAuthVO;
+
 public class ManagerVO implements Serializable{
 	/**
 	 * 
@@ -56,5 +59,10 @@ public class ManagerVO implements Serializable{
 	}
 	public void setManagerState(Integer managerState) {
 		this.managerState = managerState;
+	}
+	public com.managerauth.model.ManagerAuthVO getOneMangerAuthVO(){
+		com.managerauth.model.ManagerAuthService managerAuthSvc = new ManagerAuthService();
+		ManagerAuthVO managerAuthVO = managerAuthSvc.getOneManagerAuth(managerNo);
+		return managerAuthVO;
 	}
 }

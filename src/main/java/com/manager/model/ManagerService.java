@@ -3,7 +3,6 @@ package com.manager.model;
 import java.util.List;
 
 
-
 public class ManagerService {
 private ManagerDAO_interface dao;
 	
@@ -27,7 +26,7 @@ private ManagerDAO_interface dao;
 	}
 
 	public ManagerVO updateManager(Integer managerNo, String managerAccount, String managerPassword, String managerName,
-			String managerPhone, byte[] myManagerPic, Integer managerState) {
+			String managerPhone,byte[] myManagerPic,Integer managerState) {
 
 		ManagerVO managerVO = new ManagerVO();
 		managerVO.setManagerNo(managerNo);
@@ -61,4 +60,15 @@ private ManagerDAO_interface dao;
 
 	} 
 	
+	public ManagerVO addManagerPic(Integer managerNo, byte[] myManagerPic) {
+
+		ManagerVO managerVO = new ManagerVO();
+
+		managerVO.setManagerNo(managerNo);
+		managerVO.setMyManagerPic(myManagerPic);
+
+		dao.insertManagerPic(managerVO);
+
+		return managerVO;
+	}
 }
