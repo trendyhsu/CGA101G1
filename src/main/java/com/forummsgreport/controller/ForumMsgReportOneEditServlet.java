@@ -19,7 +19,7 @@ import com.forummsgreport.model.ForumMsgReportVO;
 
 
 
-@WebServlet("/forum/forumMsgReportOneEditServlet")
+@WebServlet("/forum/forumMsgReportOneEdit")
 public class ForumMsgReportOneEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

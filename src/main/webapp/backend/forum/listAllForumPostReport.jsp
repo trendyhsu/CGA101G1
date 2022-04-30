@@ -109,7 +109,7 @@ h3 {
 
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/forum/forumPostReportOneEditServlet"
+							ACTION="<%=request.getContextPath()%>/forum/forumPostReportOneEdit"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改狀態"> <input type="hidden"
 								name="forumPostReportNo"

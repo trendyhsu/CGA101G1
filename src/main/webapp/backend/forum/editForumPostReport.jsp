@@ -82,7 +82,7 @@ h3 {
 
 						<tr>
 							<td>文章內容</td>
-							<td>${forumPostReportVO.forumPostVO.forumPostContent}</td>
+							<td><p style="white-space: pre-line">${forumPostReportVO.forumPostVO.forumPostContent}</p></td>
 						</tr>
 
 						<tr>

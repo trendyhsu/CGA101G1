@@ -17,7 +17,7 @@ import com.forumpostreport.model.ForumPostReportService;
 import com.forumpostreport.model.ForumPostReportVO;
 
 
-@WebServlet("/forum/forumPostReportOneEditServlet")
+@WebServlet("/forum/forumPostReportOneEdit")
 public class ForumPostReportOneEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

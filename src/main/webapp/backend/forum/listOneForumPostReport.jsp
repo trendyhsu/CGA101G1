@@ -16,7 +16,7 @@ ForumPostReportVO forumPostReportVO = (ForumPostReportVO) request.getAttribute("
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改文章檢舉</title>
+<title>文章檢舉存取</title>
 
 <style>
 table {
@@ -57,7 +57,7 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改文章檢舉資料</h3>
+							<h3>文章檢舉-存取成功!</h3>
 						</td>
 					</tr>
 				</table>
@@ -74,13 +74,13 @@ h3 {
 					<tr>
 						<td>文章標題</td>
 						<td><a
-							href="<%= request.getContextPath()%>/forum/forumPostOneEditServlet?forumPostNo=${forumPostReportVO.forumPostNo}">${forumPostReportVO.forumPostVO.forumPostTitle}</a></td>
+							href="<%= request.getContextPath()%>/forum/forumPostOneEdit?forumPostNo=${forumPostReportVO.forumPostNo}">${forumPostReportVO.forumPostVO.forumPostTitle}</a></td>
 
 					</tr>
 
 					<tr>
 						<td>文章內容</td>
-						<td>${forumPostReportVO.forumPostVO.forumPostContent}</td>
+						<td><p style="white-space: pre-line">${forumPostReportVO.forumPostVO.forumPostContent}</p></td>
 					</tr>
 					<tr>
 						<td>檢舉會員編號</td>
@@ -116,7 +116,7 @@ h3 {
 				</table>
 
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/forum/forumPostReportOneEditServlet"
+					ACTION="<%=request.getContextPath()%>/forum/forumPostReportOneEdit"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改狀態"> <input type="hidden"
 						name="forumPostReportNo"

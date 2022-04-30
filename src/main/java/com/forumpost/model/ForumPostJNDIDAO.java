@@ -22,6 +22,7 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO forumpost (ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostFeatured) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_ADMIN_STMT = "INSERT INTO forumpost (ForumNo,ForumPostType,ManagerNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostFeatured) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE = "UPDATE forumpost SET ForumPostType=?,ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
 	private static final String UPDATE_FORUMPOSTSTATE = "UPDATE forumpost SET ForumPostState=? WHERE ForumPostNo = ?";
 	private static final String UPDATE_MASTER = "UPDATE forumpost SET ForumPostFeatured=? WHERE ForumPostNo = ?";
@@ -36,15 +37,15 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 	private static final String GET_ALL_MASTER_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostState,ManagerNo,ForumPostTitle,ForumPostContent,ForumPostTime FROM forumpost WHERE ForumPostType = 0 ORDER BY ForumPostNo DESC";
 
 	@Override
-	public void insert(ForumPostVO forumPostVO) {
+	public Integer insert(ForumPostVO forumPostVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
-
+			String columns[] = { "forumPostNo" };
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT,columns);
 
 			pstmt.setInt(1, forumPostVO.getForumNo());
 			pstmt.setInt(2, forumPostVO.getForumPostType());
@@ -56,6 +57,72 @@ public class ForumPostJNDIDAO implements ForumPostDAO_interface {
 
 			pstmt.executeUpdate();
 
+			Integer nextForumPostNo = null;
+			// 印出現在新增的文章編號 用於新增該圖片
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				nextForumPostNo = rs.getInt(1);
+				System.out.println("自動增加欄位號碼為: " + nextForumPostNo);
+			}
+			rs.close();
+			return nextForumPostNo;
+
+			// Handle any SQL errors
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public Integer insertAdmin(ForumPostVO forumPostVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			String columns[] = { "forumPostNo" };
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_ADMIN_STMT,columns);
+
+			pstmt.setInt(1, forumPostVO.getForumNo());
+			pstmt.setInt(2, forumPostVO.getForumPostType());
+			pstmt.setInt(3, forumPostVO.getManagerNo());
+			pstmt.setInt(4, forumPostVO.getForumPostState());
+			pstmt.setString(5, forumPostVO.getForumPostTitle());
+			pstmt.setString(6, forumPostVO.getForumPostContent());
+			pstmt.setInt(7, forumPostVO.getForumPostFeatured());
+
+			pstmt.executeUpdate();
+
+			Integer nextForumPostNo = null;
+			// 印出現在新增的文章編號 用於新增該圖片
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				nextForumPostNo = rs.getInt(1);
+				System.out.println("自動增加欄位號碼為: " + nextForumPostNo);
+			}
+			rs.close();
+			return nextForumPostNo;
+
+			// Handle any SQL errors
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

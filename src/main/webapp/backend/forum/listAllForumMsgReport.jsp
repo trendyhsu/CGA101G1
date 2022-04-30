@@ -107,7 +107,7 @@ h3 {
 							pattern="yyyy-MM-dd HH:mm:ss" />&emsp;</td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/forum/forumMsgReportOneEditServlet"
+							ACTION="<%=request.getContextPath()%>/forum/forumMsgReportOneEdit"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改狀態"> <input type="hidden"
 								name="forumMsgReportNo"

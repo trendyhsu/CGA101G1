@@ -123,7 +123,7 @@ h3 {
 						</tr>
 						<tr>
 							<td>文章內容</td>
-							<td>${forumPostVO.forumPostContent}</td>
+							<td><p style="white-space: pre-line">${forumPostVO.forumPostContent}</p></td>
 						</tr>
 						<tr>
 							<td>發表時間</td>

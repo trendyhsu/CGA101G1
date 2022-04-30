@@ -66,6 +66,7 @@ h3 {
 				<form method="post"
 					action="<%=request.getContextPath()%>/forum/forumMasterPostEditUpdate"
 					name="form1">
+					<!--enctype="multipart/form-data"-->
 					<table>
 						<tr>
 							<td>文章編號</td>
@@ -92,12 +93,14 @@ h3 {
 						<tr>
 							<td>文章標題</td>
 							<td><input type="text" name="forumPostTitle" size="112"
-								value="${forumPostVO.forumPostTitle}" /></td><td>${errorMsgs.forumPostTitle}</td>
+								value="${forumPostVO.forumPostTitle}" /></td>
+							<td>${errorMsgs.forumPostTitle}</td>
 						</tr>
 						<tr>
 							<td>文章內容</td>
 							<td><textArea name="forumPostContent" id="forumPostContent"
-									rows="25" cols="115" style="resize: none;">${forumPostVO.forumPostContent}</textArea></td><td>${errorMsgs.forumPostContent}</td>
+									rows="25" cols="115" style="resize: none;">${forumPostVO.forumPostContent}</textArea></td>
+							<td>${errorMsgs.forumPostContent}</td>
 						</tr>
 						<tr>
 							<td>發表時間</td>

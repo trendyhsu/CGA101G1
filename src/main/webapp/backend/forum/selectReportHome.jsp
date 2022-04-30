@@ -53,6 +53,8 @@ h3 {
 				<button>留言列表</button>
 			</a><a href="listAllForumMsgReport.jsp">
 				<button>留言檢舉列表</button>
+			</a> <a href="listAllBadMemNo.jsp">
+				<button>禁言會員列表</button>
 			</a>
 		</div>
 	</div>

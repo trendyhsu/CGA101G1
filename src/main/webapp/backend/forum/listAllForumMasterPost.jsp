@@ -107,7 +107,7 @@ h3 {
 							pattern="yyyy-MM-dd HH:mm:ss" />&emsp;</td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/forum/forumMasterPostOneEditServlet"
+							ACTION="<%=request.getContextPath()%>/forum/forumMasterPostOneEdit"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改"> <input type="hidden"
 								name="forumPostNo" value="${forumPostVO.forumPostNo}">

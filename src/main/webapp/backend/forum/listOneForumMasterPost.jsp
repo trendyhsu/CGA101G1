@@ -16,7 +16,7 @@ ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改管理員文章</title>
+<title>管理員文章存取成功</title>
 
 <style>
 table {
@@ -57,7 +57,7 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改管理員文章</h3>
+							<h3>管理員文章-存取成功!</h3>
 						</td>
 					</tr>
 				</table>
@@ -101,7 +101,7 @@ h3 {
 				</table>
 
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/forum/forumMasterPostOneEditServlet"
+					ACTION="<%=request.getContextPath()%>/forum/forumMasterPostOneEdit"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改內容"> <input type="hidden"
 						name="forumPostNo" value="${forumPostVO.forumPostNo}">

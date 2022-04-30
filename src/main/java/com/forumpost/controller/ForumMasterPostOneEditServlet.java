@@ -18,7 +18,7 @@ import com.forumpost.model.ForumPostVO;
 
 
 
-@WebServlet("/forum/forumMasterPostOneEditServlet")
+@WebServlet("/forum/forumMasterPostOneEdit")
 public class ForumMasterPostOneEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -10,7 +10,7 @@ public class ForumPostService {
 		dao = new ForumPostDAO();
 	}
 
-	public ForumPostVO addForumPost(Integer forumNo, Integer forumPostType, Integer memNo, Integer forumPostState,
+	public Integer addForumPost(Integer forumNo, Integer forumPostType, Integer memNo, Integer forumPostState,
 			String forumPostTitle, String forumPostContent, Integer forumPostFeatured) {
 
 		ForumPostVO forumPostVO = new ForumPostVO();
@@ -23,14 +23,37 @@ public class ForumPostService {
 		forumPostVO.setForumPostContent(forumPostContent);
 		forumPostVO.setForumPostFeatured(forumPostFeatured);
 
-		dao.insert(forumPostVO);
+		Integer nextForumPostNo = dao.insert(forumPostVO);
 
-		return forumPostVO;
+		return nextForumPostNo;
 	}
 
 	// 預留給 Struts 2 用的
-	public void addForumPost(ForumPostVO forumPostVO) {
-		dao.insert(forumPostVO);
+	public Integer addForumPost(ForumPostVO forumPostVO) {
+		return dao.insert(forumPostVO);
+	}
+
+	public Integer addForumMasterPost(Integer forumNo, Integer forumPostType, Integer managerNo, Integer forumPostState,
+			String forumPostTitle, String forumPostContent, Integer forumPostFeatured) {
+
+		ForumPostVO forumPostVO = new ForumPostVO();
+
+		forumPostVO.setForumNo(forumNo);
+		forumPostVO.setForumPostType(forumPostType);
+		forumPostVO.setManagerNo(managerNo);
+		forumPostVO.setForumPostState(forumPostState);
+		forumPostVO.setForumPostTitle(forumPostTitle);
+		forumPostVO.setForumPostContent(forumPostContent);
+		forumPostVO.setForumPostFeatured(forumPostFeatured);
+
+		Integer nextForumPostNo = dao.insertAdmin(forumPostVO);
+
+		return nextForumPostNo;
+	}
+
+	// 預留給 Struts 2 用的
+	public Integer addForumMasterPost(ForumPostVO forumPostVO) {
+		return dao.insertAdmin(forumPostVO);
 	}
 
 	public ForumPostVO updateForumPost(Integer forumPostNo, Integer forumPostType, String forumPostTitle,
@@ -105,7 +128,8 @@ public class ForumPostService {
 		dao.updateAdmin(forumPostVO);
 	}
 
-	public ForumPostVO updateAdminPostEdit(Integer forumPostNo,Integer forumPostState,String forumPostTitle,String forumPostContent) {
+	public ForumPostVO updateAdminPostEdit(Integer forumPostNo, Integer forumPostState, String forumPostTitle,
+			String forumPostContent) {
 
 		ForumPostVO forumPostVO = new ForumPostVO();
 
@@ -144,8 +168,7 @@ public class ForumPostService {
 	public List<ForumPostVO> findPostTypeName(Integer forumtNo, Integer forumPostType, String postCharacter) {
 		return dao.findByPostTypeName(forumtNo, forumPostType, postCharacter);
 	}
-	
-	
+
 	public List<ForumPostVO> getAllMemPost() {
 		return dao.getAllMemPost();
 	}

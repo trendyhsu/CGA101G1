@@ -17,7 +17,7 @@ ForumMsgReportVO forumMsgReportVO = (ForumMsgReportVO) request.getAttribute("for
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改留言檢舉</title>
+<title>留言檢舉存取</title>
 
 <style>
 table {
@@ -58,7 +58,7 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改留言檢舉資料</h3>
+							<h3>留言檢舉-存取成功!</h3>
 						</td>
 					</tr>
 				</table>
@@ -75,7 +75,7 @@ h3 {
 					<tr>
 						<td>留言內容</td>
 						<td><a
-							href="<%= request.getContextPath()%>/forum/forumMsgOneEditServlet?forumMsgNo=${forumMsgReportVO.forumMsgNo}">${forumMsgReportVO.forumMsgVO.forumMsg}</a></td>
+							href="<%= request.getContextPath()%>/forum/forumMsgOneEdit?forumMsgNo=${forumMsgReportVO.forumMsgNo}">${forumMsgReportVO.forumMsgVO.forumMsg}</a></td>
 					</tr>
 					
 					<tr>
@@ -111,7 +111,7 @@ h3 {
 				</table>
 
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/forum/forumMsgReportOneEditServlet"
+					ACTION="<%=request.getContextPath()%>/forum/forumMsgReportOneEdit"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改狀態"> <input type="hidden"
 						name="forumMsgReportNo"

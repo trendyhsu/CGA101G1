@@ -16,7 +16,7 @@ ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改文章</title>
+<title>文章存取</title>
 
 <style>
 table {
@@ -57,7 +57,7 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改文章資料</h3>
+							<h3>文章-存取成功!</h3>
 						</td>
 					</tr>
 				</table>
@@ -118,7 +118,7 @@ h3 {
 					</tr>
 					<tr>
 						<td>文章內容</td>
-						<td>${forumPostVO.forumPostContent}</td>
+						<td><p style="white-space: pre-line">${forumPostVO.forumPostContent}</p></td>
 					</tr>
 					<tr>
 						<td>發表時間</td>
@@ -129,7 +129,7 @@ h3 {
 				</table>
 
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/forum/forumPostOneEditServlet"
+					ACTION="<%=request.getContextPath()%>/forum/forumPostOneEdit"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改狀態"> <input type="hidden"
 						name="forumPostNo" value="${forumPostVO.forumPostNo}">

@@ -16,7 +16,7 @@ ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改討論區</title>
+<title>討論區存取</title>
 
 <style>
 table {
@@ -57,7 +57,7 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改討論區資料</h3>
+							<h3>討論區-存取成功!</h3>
 						</td>
 					</tr>
 				</table>
@@ -87,7 +87,7 @@ h3 {
 				</table>
 
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/forum/forumOneEditServlet"
+					ACTION="<%=request.getContextPath()%>/forum/forumOneEdit"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改"> <input type="hidden"
 						name="forumNo" value="${forumVO.forumNo}">

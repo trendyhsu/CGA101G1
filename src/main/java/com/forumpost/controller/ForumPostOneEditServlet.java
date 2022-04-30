@@ -2,8 +2,7 @@ package com.forumpost.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +17,7 @@ import com.forumpost.model.ForumPostVO;
 
 
 
-@WebServlet("/forum/forumPostOneEditServlet")
+@WebServlet("/forum/forumPostOneEdit")
 public class ForumPostOneEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

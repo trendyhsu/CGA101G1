@@ -4,7 +4,10 @@ import java.util.*;
 
 public interface ForumPostDAO_interface {
 
-	public void insert(ForumPostVO forumPostVO);
+	public Integer insert(ForumPostVO forumPostVO);
+	
+//	管理員新增文章
+	public Integer insertAdmin(ForumPostVO forumPostVO);
 
 //	一般會員修改文章
 	public void update(ForumPostVO forumPostVO);
@@ -26,7 +29,9 @@ public interface ForumPostDAO_interface {
 
 	public ForumPostVO findByPrimaryKey(Integer forumPostNo);
 
+	
 	public List<ForumPostVO> getAll();
+	
 
 //	單一討論區所有文章
 	public List<ForumPostVO> findByForumNo(Integer forumNo);
@@ -36,6 +41,9 @@ public interface ForumPostDAO_interface {
 	
 //	用文章標題&分類收尋
 	public List<ForumPostVO> findByPostTypeName(Integer forumtNo,Integer forumPostType,String postCharacter);
+	
+//	收尋討論區
+	
 	
 //	一般全文章
 	public List<ForumPostVO> getAllMemPost();

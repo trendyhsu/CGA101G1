@@ -16,7 +16,7 @@ ForumMsgVO forumMsgVO = (ForumMsgVO) request.getAttribute("forumMsgVO");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改留言</title>
+<title>修改留言存取</title>
 
 <style>
 table {
@@ -57,7 +57,7 @@ h3 {
 				<table id="table-1">
 					<tr>
 						<td>
-							<h3>修改留言資料</h3>
+							<h3>修改留言-存取成功!</h3>
 						</td>
 					</tr>
 				</table>
@@ -102,7 +102,7 @@ h3 {
 				</table>
 
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/forum/forumMsgOneEditServlet"
+					ACTION="<%=request.getContextPath()%>/forum/forumMsgOneEdit"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="修改狀態"> <input type="hidden"
 						name="forumMsgNo" value="${forumMsgVO.forumMsgNo}">
