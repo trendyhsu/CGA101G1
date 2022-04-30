@@ -178,13 +178,9 @@ public class MemService {
 		MemVO memVO=dao.getOneByMemNo(memNo);
 		return memVO;
 	}
-	// 修改會員禁言狀態為禁言
-	public void isMuteChange(Integer memNo) {
-		dao.changeIsMute(memNo);
-	}
-	//修改會員禁言狀態解除
-	public void unIsMuted(Integer memNo) {
-		dao.notChangeisMute(memNo);
+	// 修改會員禁言狀態
+	public void isMuteChange(Integer isMute, Integer memNo) {
+		dao.changeIsMute(isMute, memNo);
 	}
 	// 用memName取得單一會員資料
 	public MemVO getByMemName(String memName) {
