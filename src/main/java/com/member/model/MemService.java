@@ -182,4 +182,8 @@ public class MemService {
 	public void isMuteChange(Integer memNo) {
 		dao.ChangeisMute(memNo);
 	}
+	public MemVO getByMemName(String memName) {
+		MemVO memVO= dao.selectMemEname(memName);
+		return memVO;
+	}
 }
