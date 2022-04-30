@@ -166,7 +166,17 @@
                     <!-- End Profile Menu -->
                     <!-- Content -->
                     <div class="col-lg-8 col-xxl-9" id="app">
-                        <div v-for="(item, index) in  datastore" :key="index" class="table-responsive fs-md mb-4">
+                        <section class="row" id="content" name="content" v-bind:dataDetails="datastore">
+                            <card-template :read-data="renderData" :now-page="nowPage"></card-template>
+                        </section>
+
+                        <nav class="d-flex justify-content-center">
+                            <pagination-list :pages="renderData" :now-page="nowPage" :total-page="totalPage"
+                                @skip-page="skipPage" @previous-page="previousPage" @next-page="nextPage">
+                            </pagination-list>
+                        </nav>
+
+                        <!-- <div v-for="(item, index) in  datastore" :key="index" class="table-responsive fs-md mb-4">
                             <table class="table table-bordered table-hover mb-0">
                                 <thead class="text-700 bg-gray-200">
                                     <tr>
@@ -189,7 +199,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <!-- 開關施工 -->
+                            
                             <div v-show="item.openOrderDetail" style="width: 63%;">
                                 <table class="table table-bordered table-hover mb-0">
                                     <thead class="text-700 bg-gray-200">
@@ -209,7 +219,7 @@
                                             <td class="p-3"><span
                                                     class="badge bg-info m-0">{{orderDetail.productTotalPrice}}</span>
                                             </td>
-                                            <!-- vshow -->
+                                            
                                             <td class="p-3"
                                                 v-show="(item.orderState == 2 && orderDetail.CommentStar == 0 ? true:false)">
                                                 <a
@@ -219,7 +229,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="d-flex align-items-center mt-3">
                             <div class="d-none d-lg-block">Showing: 1 - 12 of 17</div>
                             <div class="ms-lg-auto">
@@ -325,39 +335,7 @@
                     picData: [],
                     gametype: [],
                     gameplatform: [],
-                    orderStateName: [
-                        {
-                            orderState: 0,
-                            orderStateStr: "未出貨"
-                        },
-                        {
-                            orderState: 1,
-                            orderStateStr: "已出貨"
-                        },
-                        {
-                            orderState: 2,
-                            orderStateStr: "完成訂單"
-                        },
-                        {
-                            orderState: 3,
-                            orderStateStr: "退貨"
-                        },
-                        {
-                            orderState: 4,
-                            orderStateStr: "作廢"
-                        },
-
-                    ],
                     ProductName: [],
-
-
-
-
-                    temp: {},
-                    isNew: false,
-                    url: null,
-                    url2: null,
-                    url3: null,
                     //驗證表單用
 
 
@@ -380,7 +358,7 @@
                     }
                 },
                 getOrderData() {
-                    const apiUrl = '/CGA101G1/order/showOneMemsOrder';
+                    const apiUrl = '/CGA101G1/product/showAllOrderAndDetailsByMemNo';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
@@ -388,7 +366,13 @@
                             this.datastore = response.data;//塞進去
                             console.log("datastore讀取資料ok");
                             this.getProductName();
-                            this.insertOrderStatusName(this.orderStateName);
+                            console.log("開始加遊戲名稱");
+
+
+
+
+                            this.renderingPage();
+
 
 
                         });
@@ -401,47 +385,19 @@
                             console.log("取ProductName的狀態：" + response.status); //狀態碼
                             this.ProductName = response.data;//塞進去
                             console.log("ProductName讀取資料ok");
-                        });
-                },
-                insertOrderStatusName(orderStateName) {
-                    console.log("insertgameplatform開始");
-                    for (j = 0; j < this.datastore.length; j++) {
-                        this.datastore[j].orderStateStr = "";
-                        this.datastore[j].openOrderDetail = false;
-                        for (i = 0; i < orderStateName.length; i++) {
-                            if (orderStateName[i].orderState == this.datastore[j].orderState) {
-                                this.datastore[j].orderStateStr = orderStateName[i].orderStateStr;
-                            }
-                        }
-                    }
-                },
-                getOrderDetailData(orderNo) {
-                    const apiUrl = '/CGA101G1/product/getOrderDetailByOrderNo?OrderNo=' + `${orderNo}`;
-                    axios.get(apiUrl)
-                        // 一定要用箭頭函示!!!!
-                        .then((response) => {
-                            console.log("取ProductData的狀態：" + response.status); //狀態碼
-                            console.log(response.data);
-                            for (i = 0; i < this.datastore.length; i++) {
-                                if (this.datastore[i].orderNo == orderNo) {
-                                    console.log("開始塞明細");
-                                    this.datastore[i].orderDetail = [];
-                                    this.datastore[i].orderDetail = response.data//塞進去
-                                }
-                            }
-                            console.log("塞明細ok");
 
-                            console.log("開始加遊戲名稱");
+
                             for (i = 0; i < this.datastore.length; i++) {
                                 // console.log("遊戲名稱:" + this.datastore[i].orderDetail[0].productNo);
                                 for (j = 0; j < this.datastore[i].orderDetail.length; j++) {
-                                    console.log("遊戲名稱:" + this.datastore[i].orderDetail[j].productNo);
+                                    // console.log("這是明細的遊戲編號:" + this.datastore[i].orderDetail[j].productNo);
                                     this.datastore[i].orderDetail[j].productName = '';
                                     // console.log(this.datastore[i].orderDetail[j].productName);
                                     //名字放不進去
                                     for (k = 0; k < this.ProductName.length; k++) {
-                                        console.log(this.ProductName[k].productNo);
+                                        // console.log("這是遊戲名稱的遊戲編號" + this.ProductName[k].productNo);
                                         if (this.datastore[i].orderDetail[j].productNo == this.ProductName[k].productNo) {
+                                            // console.log("開始換遊戲名稱")
                                             this.datastore[i].orderDetail[j].productName = this.ProductName[k].productName;
                                         }
                                     }
@@ -449,24 +405,11 @@
                                 }
                             }
 
+
+
                         });
                 },
 
-
-
-
-                onFileChange(e) {
-                    const file = e.target.files[0];
-                    this.url = URL.createObjectURL(file);
-                },
-                onFileChange2(e) {
-                    const file2 = e.target.files[0];
-                    this.url2 = URL.createObjectURL(file2);
-                },
-                onFileChange3(e) {
-                    const file3 = e.target.files[0];
-                    this.url3 = URL.createObjectURL(file3);
-                },
 
 
 
@@ -488,18 +431,7 @@
 
 
                 //table的方法
-                openOrderDetails(e) {
-                    //取編號
-                    console.log(e.target.value);
-                    for (detail of this.datastore) {
-                        if (e.target.value == detail.orderNo) {
-                            console.log("有找到" + detail.orderNo + "所以打開orderDetail");
-                            detail.openOrderDetail = !detail.openOrderDetail;
-                        }
-                    };
-                    this.getOrderDetailData(e.target.value);
 
-                }
 
             },
             computed: {
@@ -513,97 +445,114 @@
             }
         })
 
-        //         app.component('card-template', {
-        //             data() {
-        //                 return {
+        app.component('card-template', {
+            data() {
+                return {
 
-        //                 }
-        //             },
-        //             props: ['readData', 'nowPage'],
-        //             methods: {
-        //                 webcamSendRequestButton(para) {
-        //                     console.log(para);
-        //                     console.log({ ...para });
-        //                     this.$emit('emitedit', para);
-        //                 },
-        //             },
-        //             template: `  <table class="table table-striped">
-        //                         <thead>
-        //                             <tr>
-        //                                 <th>產品編號</th>
-        //                                 <th>產品名稱</th>
-        //                                 <th>價格</th>
-        //                                 <th>封面</th>
-        //                                 <th>遊戲種類</th>
-        //                                 <th>遊戲平台種類</th>
-        //                                 <th>遊戲公司</th>
-        //                                 <th>銷售狀態</th>
-        //                                 <th>產品描述</th>
-        //                                 <th>UpcNum</th>
-        //                                 <th>產品圖片2</th>
-        //                                 <th>產品圖片3</th>
-        //                                 <th>編輯</th>
-        //                             </tr>
-        //                         </thead>
-        //                         <tbody>
-        //                             <tr v-for="item in readData[nowPage]" :key="item.productNo"
-        //                                 v-bind:class="{'table-success':item.onStock}">
-        //                                 <td>{{item.productNo}}</td>
-        //                                 <td>{{item.productName}}</td>
-        //                                 <td>{{item.productPrice}}</td>
-        //                                 <td>
-        //                                     <img :src="item.picList[0].imageUrl" alt="" height="100">
-        //                                 </td>
-        //                                 <td>{{item.gameTypeName}}</td>
-        //                                 <!-- 要改成中文 -->
-        //                                 <td>{{item.gamePlatformName}}</td>
-        //                                 <td>{{item.gameCompanyNo}}</td>
-        //                                 <td>{{item.StatusName}}</td>
-        //                                 <td class="descriptionArea">{{item.itemProdDescription}}</td>
-        //                                 <td>{{item.upcNum}}</td>
-        //                                 <td>
-        //                                     <img :src="item.picList[1].imageUrl" alt="" height="100">
-        //                                 </td>
-        //                                 <td>
-        //                                     <img :src="item.picList[2].imageUrl" alt="" height="100">
-        //                                 </td>
-        //                                 <td><button type="button" class="btn btn-outline-primary"
-        //                                         @click="webcamSendRequestButton(item)">編輯</button></td>
-        //                             </tr>
-        //                         </tbody>
-        //                  </table>
-        // `,
-        //         })
+                }
+            },
+            props: ['readData', 'nowPage', 'dataDetails'],
+            methods: {
+                openOrderDetails(e) {
 
-        //         app.component('pagination-list', {
-        //             props: ['pages', 'nowPage', 'totalPage'],
-        //             methods: {
-        //                 previousPage() {  // 下一頁
-        //                     this.$emit('previousPage');
-        //                 },
-        //                 nextPage() {  // 上一頁
-        //                     this.$emit('nextPage');
-        //                 },
-        //                 skipPage(pageNum) { // 跳頁
-        //                     this.$emit('skipPage', pageNum);
-        //                 },
-        //             },
-        //             template: `
-        // <ul class="pagination" id="pageid">
 
-        // <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
 
-        // <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
+                    //取編號
+                    // console.log(e.target.value);
+                    // console.log(this.readData[0][0].openOrderDetail);
 
-        // <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
+                    for (i = 0; i < this.readData[0].length; i++) {
+                        if (e.target.value == this.readData[0][i].orderNo) {
+                            this.readData[0][i].openOrderDetail = !this.readData[0][i].openOrderDetail;
+                        }
+                    }
+                },
+            },
+            template: ` <div v-for="(item, index) in  readData[nowPage]" :key="index" class="table-responsive fs-md mb-4">
+                            <table class="table table-bordered table-hover mb-0">
+                                <thead class="text-700 bg-gray-200">
+                                    <tr>
+                                        <th class="fw-600">訂單編號</th>
+                                        <th class="fw-600">下單日期</th>
+                                        <th class="fw-600">訂單狀態</th>
+                                        <th class="fw-600">金額</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-3"><button class="link-dark" data-bs-toggle="modal"
+                                                @click="openOrderDetails($event)"
+                                                :value="item.orderNo">{{item.orderNo}}</button>
+                                        </td>
+                                        <td class="p-3">{{item.tranTime}}</td>
+                                        <td class="p-3"><span class="badge bg-info m-0">{{item.orderStateStr}}</span>
+                                        </td>
+                                        <td class="p-3">NT:{{item.orderTotalPrice}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div v-show="item.openOrderDetail" style="width: 63%;">
+                                <table class="table table-bordered table-hover mb-0">
+                                    <thead class="text-700 bg-gray-200">
+                                        <tr>
+                                            <th class="fw-600">遊戲編號</th>
+                                            <th class="fw-600">遊戲名稱</th>
+                                            <th class="fw-600">數量</th>
+                                            <th class="fw-600">總價</th>
+                                            <th class="fw-600">發表評論</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-for="(orderDetails, index) in item.orderDetail" :key="index">
+                                        <tr>
+                                            <td class="p-3">{{orderDetails.productNo}}</td>
+                                            <td class="p-3">{{orderDetails.productName}}</td>
+                                            <td class="p-3">{{orderDetails.productSales}}</td>
+                                            <td class="p-3"><span
+                                                    class="badge bg-info m-0">{{orderDetails.productTotalPrice}}</span>
+                                            </td>
+                                            
+                                            <td class="p-3">
+                                                <a v-show="(item.orderState == 2 && orderDetails.CommentStar == 0 ? true:false)" :href="`+ "`" + `/CGA101G1/frontend/Product/postComment.html?ProductNo=` + "`" + "+" + "orderDetails.productNo" + "+" + "`" + `&OrderNo=` + "`" + "+" + "orderDetails.orderNo" + `">我要發表遊戲評論</a>
+    
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        `,
+        })
 
-        // <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
+        app.component('pagination-list', {
+            props: ['pages', 'nowPage', 'totalPage'],
+            methods: {
+                previousPage() {  // 下一頁
+                    this.$emit('previousPage');
+                },
+                nextPage() {  // 上一頁
+                    this.$emit('nextPage');
+                },
+                skipPage(pageNum) { // 跳頁
+                    this.$emit('skipPage', pageNum);
+                },
+            },
+            template: `
+        <ul class="pagination" id="pageid">
 
-        // <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+        <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
 
-        // </ul>
-        // `,
-        // })
+        <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
+
+        <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
+
+        <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
+
+        <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+
+        </ul>
+        `,
+        })
         app.mount('#app');
 
 

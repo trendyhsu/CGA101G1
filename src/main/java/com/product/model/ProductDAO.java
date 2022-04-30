@@ -45,7 +45,7 @@ public class ProductDAO implements ProductDAO_interface{
 		
 
 		private static final String GETAllInSell = 
-				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product where ProductState = 1 order by productNo ";
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product where ProductState = 1 order by productNo desc";
 			         //    1          2               3             4            5           6                7             8         9
 
 		
