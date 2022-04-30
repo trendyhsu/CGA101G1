@@ -6,7 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.member.model.MemVO;
 import com.myfavoritelist.model.MyfavoritelistService;
 import com.myfavoritelist.model.MyfavoritelistVo;
 
@@ -23,14 +25,10 @@ public class AddProduct2Fav extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		final HttpSession session = request.getSession(); 
-//		if(session.getAttribute("member").getName()!=null) {
-//			
-//		}else {
-//			response.sendRedirect("登入頁面");
-//		}
-//		String MemNo = (session.getAttribute("member").getName());
-		Integer memNo = 11003;
+		HttpSession session = request.getSession();
+		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+		Integer memNo = memVO.getMemNo();
+//		Integer memNo = 11003;
 		//注意要會員編號改成活的
 
 		System.out.println(request.getParameter("ProductNo"));

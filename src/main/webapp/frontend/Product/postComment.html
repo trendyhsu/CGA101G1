@@ -345,7 +345,7 @@
                                     name="commentCotent" @change="postCheck($event)"></textarea>
                             </div>
                             <div style="color: red;" :style="{visibility: postInput ? 'visible' : 'hidden'}">
-                                文章中，不應包含特殊符號+-/^~{}#:@$!%*?&或是只填空格!!</div>
+                                文章中，不應包含特殊符號+-/^{}#:@$%*&或是只填空格!!</div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="CommentStar">我要給星星</label>
                                 <!-- <input class="form-control" type="number" id="CommentStar" required=""
@@ -557,7 +557,7 @@
 
             postCheck(e) {
                 this.nameInput = false;
-                const rules = new RegExp('[+-/^~{}#:@$!%*?&]')
+                const rules = new RegExp('[+-/^{}#:@$%*&]')
                 console.log(e.target.value);
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.postInput = true;

@@ -63,6 +63,7 @@ public class ShowTop9Product extends HttpServlet {
 			map.put("productPrice", productPrice);
 			map.put("commentStar", orderDetailVO.getCommentStar());
 			map.put("productSales", orderDetailVO.getProductSales());
+			map.put("countComment",orderDetailVO.getProductTotalPrice());
 			map.put("productNo", productNo);
 			map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
 			list.add(map);

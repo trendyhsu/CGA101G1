@@ -23,8 +23,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 
 	
 	//查前九熱銷項產品
-	private static final String FindTop9Product = "select sum(ProductSales),ProductNo,sum(CommentStar) from cga101g1.orderdetail group by ProductNo order by sum(ProductSales) desc limit 9;";
-	                                            //             1                  2           3
+	private static final String FindTop9Product = "select sum(ProductSales),ProductNo,sum(CommentStar),count(CommentStar),round(sum(CommentStar)/count(CommentStar)) from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0 order by sum(ProductSales) desc limit 9;";
+	                                            //             1                  2           3               4                                 5
 	
 	
 	//查某張訂單的項目
@@ -505,6 +505,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
 				orderDetailVO.setProductSales(rs.getInt("sum(ProductSales)"));
 				orderDetailVO.setCommentStar(rs.getInt("sum(CommentStar)"));
+				//有問題，暫時先把幾個評論數量放在ProductTotalPrice屬性裡
+				orderDetailVO.setProductTotalPrice(rs.getInt("count(CommentStar)"));;
 				list.add(orderDetailVO);			
 			}
 
