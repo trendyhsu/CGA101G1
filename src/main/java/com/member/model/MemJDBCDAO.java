@@ -28,7 +28,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 			+ "WHERE memAccount= ? ";
 
 	private static final String GETALL = "SELECT memNo, memAccount, memPassword, memStatus, memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd,"
-			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, myPic FROM"
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, myPic, isMute FROM"
 			+ " mem ORDER BY memNo";
 
 	private static final String SELECT_FOR_LOGIN = "SELECT * FROM mem WHERE memAccount= ? and memPassword= ? ";
@@ -461,6 +461,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 				memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
 				memVO.setUserStatus(rs.getInt("userStatus"));
 				memVO.setMyPic(rs.getBytes("myPic"));
+				memVO.setIsMute(rs.getInt("isMute"));
 				list.add(memVO);
 			}
 
