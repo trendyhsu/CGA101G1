@@ -38,7 +38,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String SELECT_MEM_EMAIL = "SELECT memEmail FROM mem WHERE memEmail=?";
 
 	private static final String SELECT_MEM_MOBILE = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
-			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, isMute FROM"
 			+ " mem WHERE memMobile = ?";;
 
 	private static final String SELECT_MEM_MEMNAME="SELECT * FROM mem WHERE memName=?";
@@ -66,15 +66,15 @@ public class MemJDBCDAO implements MemDAO_interface {
 	private static final String UPDATE_MEM_ISMUTE_STATUS ="UPDATE mem SET isMute=? WHERE memNo=?";
 	
 	private static final String GET_ONE_BY_MEMACCOUNT = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
-			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, isMute FROM"
 			+ " mem WHERE memAccount = ?";
 
 	private static final String GET_ONE = "SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
-			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, isMute  FROM"
 			+ " mem WHERE memNo = ?";
 	
 	private static final String GET_ONE_BY_EMAIL="SELECT memNo, memAccount, memPassword, memStatus,memVrfed, memNoVrftime, memName, memMobile, memCity, memDist, memAdd, "
-			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus FROM"
+			+ " memEmail, memBirth, memJoinTime, creditcardNo, creditcardDate, creditcardSecurityNo, bankAccount, bankAccountOwner, userStatus, isMute FROM"
 			+ " mem WHERE memEmail = ?";
 	
 	private static final String GET_ONE_BY_MEMNO = "SELECT * FROM mem WHERE memNo = ?";
@@ -209,6 +209,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 				memVO.setBankAccount(rs.getString("bankAccount"));
 				memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
 				memVO.setUserStatus(rs.getInt("userStatus"));
+				memVO.setIsMute(rs.getInt("isMute"));
 			}
 
 		} catch (ClassNotFoundException e) {
