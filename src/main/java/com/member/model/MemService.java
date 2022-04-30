@@ -182,6 +182,7 @@ public class MemService {
 	public void isMuteChange(Integer memNo) {
 		dao.ChangeisMute(memNo);
 	}
+	// 用memName取得單一會員資料
 	public MemVO getByMemName(String memName) {
 		MemVO memVO= dao.selectMemEname(memName);
 		return memVO;
