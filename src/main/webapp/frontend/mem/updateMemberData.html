@@ -384,7 +384,7 @@
 
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="/CGA101G1/frontend/mem/lookUpOneMemCoupon.jsp">
+                                        href="/CGA101G1/frontend/memCoupon/lookUpOneMemCoupon.jsp">
                                         <i class="bi bi-bookmark me-2"></i>我的優惠卷
                                     </a>
                                 </li>
@@ -415,13 +415,14 @@
                         <div class="table-responsive fs-md mb-4">
 
                             <!-- login page -->
-                            <div class="section">
+                            <div class="section" style="padding: 0 0 0 0;">
                                 <div class="container">
                                     <div class="justify-content-center">
                                         <!-- <div class="col-lg-5 col-xxl-4"> -->
-                                        <div class="card">
+                                        <div class="card" style="border: 1px solid #aeb4be;">
                                             <div class="card-header bg-transparent py-3">
-                                                <h3 class="h4 mb-0" style="text-align: center;">會員資料及更新 </h3>
+                                                <h3 class="h4 mb-0" style="text-align: center;  color: cadetblue;">會員資料
+                                                </h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -529,33 +530,48 @@
                                                         <div id="cred" class="form-control">
                                                             <input type="text" name="creditcardNo1" size=4 value=""
                                                                 maxlength=4 id="creditcardNo1"
-                                                                style="text-transform: none; width: 22%;">
+                                                                style="text-transform: none; width: 22%; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; padding: 0 0 0 0.65rem ">
                                                             -
                                                             <input type="text" name="creditcardNo2" size=4 value=""
                                                                 maxlength=4 id="creditcardNo2"
-                                                                style="text-transform: none; width: 22%;">
+                                                                style="text-transform: none; width: 22%; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; padding: 0 0 0 0.65rem ;  ">
                                                             -
                                                             <input type="text" name="creditcardNo3" size=4 value=""
                                                                 maxlength=4 id="creditcardNo3"
-                                                                style="text-transform: none; width: 22%;">
+                                                                style="text-transform: none; width: 22%; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; padding: 0 0 0 0.65rem ;  ">
                                                             -
                                                             <input type="text" name="creditcardNo4" size=4 value=""
                                                                 maxlength=4 id="creditcardNo4"
-                                                                style="text-transform: none; width: 22%;">
+                                                                style="text-transform: none; width: 22%; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; padding: 0 0 0 0.65rem ;  ">
                                                         </div>
 
                                                         <label id="lup2" style="color: red; font-size: 15;"></label>
-
-                                                        <label for="creditcardDate1" class="form-label">信用卡到期年月:
-                                                        </label>
+                                                        <div>
+                                                            <label for="creditcardDate1"
+                                                                class="form-label">信用卡到期年月:</label>
+                                                        </div>
                                                         <div class="form-control">
                                                             <input type=text name="creditcardDate1" size=2 value=""
-                                                                maxlength=2 id="creditcardDate1" placeholder="    月"
-                                                                style="text-transform: none; width: 47%;">
+                                                                maxlength=2 id="creditcardDate1"
+                                                                placeholder="                 月"
+                                                                style="text-transform: none; width: 47%; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2;  padding: 0 0 0 0.65rem ; ">
                                                             /
                                                             <input type=text name="creditcardDate2" size=2 value=""
-                                                                maxlength=2 id="creditcardDate2" placeholder="西元年"
-                                                                style="text-transform: none; width: 47%;">
+                                                                maxlength=2 id="creditcardDate2"
+                                                                placeholder="                 西元年"
+                                                                style="text-transform: none; width: 47%; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2;  padding: 0 0 0 0.65rem ; ">
                                                         </div>
                                                         <label id="lup3" style="color: red; font-size: 15;"></label>
                                                         <div>
@@ -563,7 +579,9 @@
                                                             </label>
                                                             <input type=text name="creditcardSecurityNo" size=3 value=""
                                                                 maxlength=3 id="creditcardSecurityNo"
-                                                                class="form-control" style="text-transform: none;">
+                                                                class="form-control" style="text-transform: none; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; ">
                                                             <label id="lup4" style="color: red; font-size: 15;"></label>
                                                         </div>
 
@@ -574,15 +592,18 @@
                                                                 maxlength=3 id="bankAccount1" placeholder="銀行代碼">
                                                             <input type=text name="bankAccount2" size=25 value=""
                                                                 id="bankAccount2" placeholder="銀行帳戶"
-                                                                class="form-control" style="text-transform: none;">
+                                                                class="form-control" style="text-transform: none; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; ">
                                                             <label id="lup5" style="color: red; font-size: 15;"></label>
                                                         </div>
                                                         <div>
                                                             <label for="bankAccountOwner" class="form-label">戶名:
                                                             </label>
                                                             <input type="text" name="bankAccountOwner"
-                                                                id="bankAccountOwner" class="form-control"
-                                                                style="text-transform: none;">
+                                                                id="bankAccountOwner" class="form-control" style="text-transform: none; background-color: #d1d1d1;border: 1px solid #aeb4be;
+                                                                appearance: none;
+                                                                border-radius: 4px; line-height: 3.2; ">
                                                             <label id="lup6" style="color: red; font-size: 15;"></label>
                                                         </div>
 
@@ -918,7 +939,7 @@
                                             const { successful, message } = data;
                                             if (successful) {
                                                 alert(message);
-                                                // location = "index.html";
+                                                location = "/CGA101G1/frontend/mem/updateMemberData.html";
                                             } else {
                                                 $("#l8").html(message);
                                             }
