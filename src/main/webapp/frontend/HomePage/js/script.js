@@ -14,7 +14,7 @@ var swiper = new Swiper(".home-slider", { /*變數名*/
 	loop: true,
 });
 
-/*_---------------------------新聞幻燈片----------------------------*/
+/*_---------------------------新聞幻燈片News----------------------------*/
 
 var newsSwiper = new Swiper(".news-slider", { /*變數名*/
 	on: {
@@ -35,29 +35,100 @@ var newsSwiper = new Swiper(".news-slider", { /*變數名*/
 });
 
 
-let newsPlatform = document.querySelector('.news .news-slider .news-type ul');
-let newsMovingbar = newsPlatform.lastElementChild;
-newsPlatform.firstElementChild.classList.add('is-now');
-newsPlatform.addEventListener('click', (e) => {
-	
-	let targetStyle = getComputedStyle(e.target);
-	e.target.classList.add('is-now');
-	
-//	newsMovingbar.style.width = targetStyle.width;
-	if(e.target === newsPlatform.firstElementChild){
-		newsMovingbar.style.marginLeft = ".5rem";
-		newsMovingbar.style.width = "6rem";
-	}else{
-		newsMovingbar.style.marginLeft = targetStyle.width;
-		newsMovingbar.style.width = targetStyle.width;
-	}
-	
+
+
+
+let newsPlatform = $('.news .news-slider .news-type ul');
+let newsMovingbar = newsPlatform.children().last();
+//網頁生成時，moving-bar預設屬性
+$(document).ready(function(){
+	$('.moving-bar').css('margin-left', $('.news .news-slider .news-type ul li').first().position().left);
+	$('.moving-bar').css('width', $('.news .news-slider .news-type ul li').first().outerWidth(true)- (newsPlatform.children().first().position().left *2));
+	newsPlatform.children().first().addClass('is-now');
 })
 
-newsPlatform.addEventListener('mouseover', (e) => {
-	e.target.classList.remove('is-now');
-	//	console.log(newsPlatform)
+$('.news .news-slider .news-type ul li').not('.moving-bar').mouseenter(function(){
+	$(this).siblings().removeClass('is-now');
+	$(this).addClass('is-now');
+
+	newsMovingbar.stop().animate({
+               marginLeft: $(this).position().left,
+               width: $(this).outerWidth(true)- (newsPlatform.children().first().position().left *2),
+               opacity: 1
+            }, 200);
+	
+    findNews($(this).attr('value'));
+
 })
+
+newsPlatform.click(function(event){
+	findNews($(event.target).attr('value'));
+	$(event.target).addClass('is-now');
+	$(event.target).siblings().removeClass('is-now');
+})
+
+
+function swiperDefaultNews(nowType) {
+	$.ajax({
+		url: `/CGA101G1/gamenews/HomePageGetNews?gamePlatformNo=${nowType}`,
+		type: "Post",
+		success: function (data) {
+			showNews(data);
+		}
+	});
+}
+//此e為value="平台編號"
+function findNews(e) {
+	//每次點擊另一個遊戲平台時，先清空wrapper容器
+	document.querySelector('#slide-container').innerHTML = "";
+	$.ajax({
+		url: `/CGA101G1/gamenews/HomePageGetNews?gamePlatformNo=${e}`,
+		type: "Post",
+		success: function (data) {
+			showNews(data);
+		}
+	});
+}
+
+function showNews(data) {
+	let news = JSON.parse(data);
+	let newsPageOne = "";
+	let newsPageTwo = "";
+	let count = 0;
+	for (let aNews of news) {
+		if (count < 6) {
+			newsPageOne += ` <a href="/CGA101G1/frontend/HomePage/News.html?gameNewsNo=${aNews.gameNewsNo}">
+                        <div class="img-container">
+                            <img src="${aNews.ImgUrl}">
+                        </div>
+                        <div class="text-container">
+                           ${aNews.gameNewsTitle}
+                        </div>
+                    </a>`;
+		} else {
+			newsPageTwo += ` <a href="/CGA101G1/frontend/HomePage/News.html?gameNewsNo=${aNews.gameNewsNo}">
+                        <div class="img-container">
+                            <img src="${aNews.ImgUrl}">
+                        </div>
+                        <div class="text-container">
+                           ${aNews.gameNewsTitle}
+                        </div>
+                    </a>`;
+		}
+		count++;
+	}
+	//第一頁slide放入資料
+	newsSwiper.addSlide(1, `<div class="swiper-slide slide">
+					${newsPageOne}			
+       				</div>`);
+	//超過六筆放入第二頁
+	if (count > 6) {
+		newsSwiper.addSlide(2, `<div class="swiper-slide slide">
+       				${newsPageTwo}	
+       				</div>`);
+	}
+
+}
 /*-----------------------------載入動畫----------------------------*/
 function loader() {
 	document.querySelector('.loader-container').classList.add('fade-out');
@@ -228,70 +299,6 @@ function scroll() {
 //     console.log("-----------------------")
 // }, 1000)
 
-
-/*------------------------------News------------------------------ */
-
-function swiperDefaultNews(nowType) {
-	$.ajax({
-		url: `/CGA101G1/gamenews/HomePageGetNews?gamePlatformNo=${nowType}`,
-		type: "Post",
-		success: function (data) {
-			showNews(data);
-		}
-	});
-}
-
-function findNews(e) {
-	//每次點擊另一個遊戲平台時，先清空wrapper容器
-	document.querySelector('#slide-container').innerHTML = "";
-	$.ajax({
-		url: `/CGA101G1/gamenews/HomePageGetNews?gamePlatformNo=${e.target.value}`,
-		type: "Post",
-		success: function (data) {
-			showNews(data);
-		}
-	});
-}
-
-function showNews(data) {
-	let news = JSON.parse(data);
-	let newsPageOne = "";
-	let newsPageTwo = "";
-	let count = 0;
-	for (let aNews of news) {
-		if (count < 6) {
-			newsPageOne += ` <a href="/CGA101G1/frontend/HomePage/News.html?gameNewsNo=${aNews.gameNewsNo}">
-                        <div class="img-container">
-                            <img src="${aNews.ImgUrl}">
-                        </div>
-                        <div class="text-container">
-                           ${aNews.gameNewsTitle}
-                        </div>
-                    </a>`;
-		} else {
-			newsPageTwo += ` <a href="/CGA101G1/frontend/HomePage/News.html?gameNewsNo=${aNews.gameNewsNo}">
-                        <div class="img-container">
-                            <img src="${aNews.ImgUrl}">
-                        </div>
-                        <div class="text-container">
-                           ${aNews.gameNewsTitle}
-                        </div>
-                    </a>`;
-		}
-		count++;
-	}
-	//第一頁slide放入資料
-	newsSwiper.addSlide(1, `<div class="swiper-slide slide">
-					${newsPageOne}			
-       				</div>`);
-	//超過六筆放入第二頁
-	if (count > 6) {
-		newsSwiper.addSlide(2, `<div class="swiper-slide slide">
-       				${newsPageTwo}	
-       				</div>`);
-	}
-
-}
 
 /*-------------------------Top9Items------------------------*/
 $.ajax({
