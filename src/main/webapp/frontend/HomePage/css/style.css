@@ -428,6 +428,7 @@ section:nth-child(even) {
 
 /*----------------------------首頁熱銷幻燈片---------------------------------*/
 .home .home-slider .slide {
+/* 	border: 2px solid yellow; */
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
@@ -435,25 +436,23 @@ section:nth-child(even) {
     padding-left: 2rem;
     user-select: none;
     width: 100%;
-    /* border: 2px solid yellow; */
+    justify-content:space-between;
 }
 
 .home .home-slider .slide .content {
-    align-self: flex-start;
+/*     border:2px solid blue; */
     padding: 1rem 0;
+    width:50%;
+    height: 90%;
 }
 
 .home .home-slider .slide .image {
-    /* border: 2px solid red; */
-    /* flex: 1 1 45rem; */
-    /*圖片框大小*/
-    height: 38rem;
-    width: 35rem;
-    align-self: flex-end;
-    /* margin-left: 1rem; */
-    margin-bottom: 6rem;
+/*     border: 2px solid red; */
+    height: 90%;
+    width: 40%;
     object-fit: contain;
     text-align: center;
+    margin-right: 5rem;    
 }
 
 .home .home-slider .slide .image img {
@@ -485,6 +484,12 @@ section:nth-child(even) {
 .home .home-slider .three .content span {
     color: rgb(186, 110, 64);
 }
+.home .home-slider .slide .content .stars{
+	padding: 1rem 0;
+}
+.home .home-slider .slide .content .stars > i{
+	font-size: 2.5rem;
+}
 
 .home .home-slider .slide .content span {
     font-size: 4rem;
@@ -502,10 +507,12 @@ section:nth-child(even) {
     color: var(--light-color);
     font-size: 2.2rem;
     padding: .5rem 0;
-    /*敘述內容的上下空白*/
+    margin-left:.5rem;
     line-height: 1.5;
 }
-
+.home .home-slider .slide .content .buttons{
+	margin-left:.5rem;
+}
 
 .swiper-pagination-bullet-active {
     /*幻燈片底下小圓圓*/

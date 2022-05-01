@@ -25,13 +25,13 @@
 
         <div class="logo-div">
             <img src=".\\images\\logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
+            <a href=".\\HomePage.html" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
+            <a class="active" href=".\\HomePage.html">首頁</a>
             <a href="#items">商品區</a>
             <!-- <a href="#news">遊戲新聞</a> -->
             <a href="#sale">競標區</a>
@@ -200,7 +200,8 @@
 			let img = document.querySelector(".img-container img");
 			img.setAttribute("src", news[0].ImgUrl);
 			let contentDiv = document.querySelector(".news-content");
-			contentDiv.append(news[0].gameNewsContent);
+			console.log(news[0].gameNewsContent);
+			contentDiv.innerHTML = `${news[0].gameNewsContent}`;
 		}
 		
 		
