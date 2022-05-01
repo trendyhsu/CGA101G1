@@ -2,6 +2,9 @@ package com.orderdetail.model;
 
 import java.sql.Date;
 
+import com.order.model.OrderDAO;
+import com.order.model.OrderDAO_interface;
+import com.order.model.OrderVO;
 import com.product.model.ProductDAO;
 import com.product.model.ProductDAO_interface;
 import com.product.model.ProductService;
@@ -64,5 +67,10 @@ public class OrderDetailVO implements java.io.Serializable{
 		com.product.model.ProductService productService = new ProductService();
 		System.out.println(productService.GetOne(productNo).getProductName());
 		return productService.GetOne(productNo);
+	}
+	
+	public OrderVO findMemNoByOrderNo(Integer orderNo) {
+		OrderDAO_interface dao = new OrderDAO();
+		return dao.findMemNoByOrderNo(orderNo);
 	}
 }

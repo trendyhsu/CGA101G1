@@ -49,6 +49,10 @@ public class OrderDAO implements OrderDAO_interface{
 				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderNo = ? order by TranTime desc";
 //		                  1       2           3       4             5           6          7            8            9            10               11         12                         13
 
+		private static final String FindMemNoByOrderNo =
+		"SELECT OrderNo,MemNo FROM cga101g1.order where OrderNo = ?;";
+		
+		
 		private static final String FindByTrashOrderNo = 
 				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 4 order by TranTime desc";
 //	                  1       2       3           4             5           6          7            8            9            10               11                                     
@@ -806,6 +810,63 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setMemNo(rs.getInt("MemNo"));
 				orderVO.setOrderNo(rs.getInt("max(orderNo)"));
 			
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return orderVO;
+	}
+
+	@Override
+	public OrderVO findMemNoByOrderNo(Integer orderNo) {
+		OrderVO orderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FindMemNoByOrderNo);
+			pstmt.setInt(1, orderNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// productVO 也稱為 Domain objects
+				orderVO = new OrderVO();
+				orderVO.setOrderNo(rs.getInt("OrderNo"));
+				orderVO.setMemNo(rs.getInt("MemNo"));				
 			}
 
 			// Handle any driver errors

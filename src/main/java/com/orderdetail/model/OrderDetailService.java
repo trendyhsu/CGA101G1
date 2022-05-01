@@ -23,6 +23,10 @@ public class OrderDetailService {
 		return dao.clearByOrder(orderDetailVO);
 	}
 	
+	public OrderDetailVO showCommentAfterCaled(Integer productNo) {
+		return dao.showCaledCommentByProductNo(productNo);
+	}
+	
 	public void AddComment(OrderDetailVO orderDetailVO) {
 		dao.newCommentCotent(orderDetailVO);
 	}

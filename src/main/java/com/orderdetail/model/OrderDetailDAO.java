@@ -26,6 +26,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static final String FindTop9Product = "select sum(ProductSales),ProductNo,sum(CommentStar),count(CommentStar),round(sum(CommentStar)/count(CommentStar)) from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0 order by sum(ProductSales) desc limit 9;";
 	                                            //             1                  2           3               4                                 5
 	
+	//查產品統計過後的評論資訊
+	private static final String FindProductCommentAfterCaled = "select ProductNo,sum(CommentStar),count(CommentStar) from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0 and ProductNo = ?;";
+	                                                               //     1                2          3            
 	
 	//查某張訂單的項目
 	private static final String FindAllProductByOrderNo = "SELECT OrderNo,ProductNo,ProductSales,ProductTotalPrice,CommentStar,CommentCotent FROM cga101g1.orderdetail where OrderNo=? ;";
@@ -52,8 +55,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	
 	
 	//查某商品的所有評論
-	private static final String FindCommentbyProductNo = "select ProductNo,ProductSales, ProductTotalPrice,CommentCotent,CommentTime, CommentStar FROM cga101g1.orderdetail WHERE ProductNo = ? and CommentStar >= 0;";
-	                                                        //    1           2                 3                4                 5         6                                                (1) 
+	private static final String FindCommentbyProductNo = "select ProductNo,ProductSales, ProductTotalPrice,CommentCotent,CommentTime, CommentStar,OrderNo FROM cga101g1.orderdetail WHERE ProductNo = ? and CommentStar >= 0 order by CommentTime desc;";
+	                                                        //    1           2                 3                4                 5         6       7                                         (1) 
 	
 	
 	@Override
@@ -279,6 +282,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setCommentCotent(rs.getString("CommentCotent"));
 				orderDetailVO.setCommentTime(rs.getDate("CommentTime"));
 				orderDetailVO.setCommentStar(rs.getInt("CommentStar"));
+				orderDetailVO.setOrderNo(rs.getInt("OrderNo"));
 				list.add(orderDetailVO);			
 			}
 
@@ -543,5 +547,65 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public OrderDetailVO showCaledCommentByProductNo(Integer productNo) {
+		OrderDetailVO orderDetailVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FindProductCommentAfterCaled);
+			pstmt.setInt(1, productNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// orderDetailVO 也稱為 Domain objects
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setProductNo(rs.getInt("ProductNo"));
+				//把留言數存在ProductSales
+				orderDetailVO.setProductSales(rs.getInt("count(CommentStar)"));
+				//把總星星數存在CommentStar
+				orderDetailVO.setCommentStar(rs.getInt("sum(CommentStar)"));
+			}
+			return orderDetailVO;
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 }
