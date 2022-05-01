@@ -75,7 +75,7 @@ h3 {
 				<th>發表時間&emsp;</th>
 				<th></th>
 			</tr>
-			<%@ include file="page1.file"%>
+			<%@ include file="page3.file"%>
 			<c:forEach var="forumMsgVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 

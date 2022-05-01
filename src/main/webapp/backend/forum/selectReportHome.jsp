@@ -44,16 +44,35 @@ h3 {
 
 			</tr>
 		</table>
+
+		<div style="height: 10px"></div>
+
 		<div>
 			<a href="listAllForumPost.jsp">
 				<button>文章列表</button>
-			</a> <a href="listAllForumPostReport.jsp">
+			</a>
+		</div>
+		<div style="height: 10px"></div>
+		<div>
+			<a href="listAllForumPostReport.jsp">
 				<button>文章檢舉列表</button>
-			</a> <a href="listAllForumMsg.jsp">
+			</a>
+		</div>
+		<div style="height: 10px"></div>
+		<div>
+			<a href="listAllForumMsg.jsp">
 				<button>留言列表</button>
-			</a><a href="listAllForumMsgReport.jsp">
+			</a>
+		</div>
+		<div style="height: 10px"></div>
+		<div>
+			<a href="listAllForumMsgReport.jsp">
 				<button>留言檢舉列表</button>
-			</a> <a href="listAllBadMemNo.jsp">
+			</a>
+		</div>
+		<div style="height: 10px"></div>
+		<div>
+			<a href="listAllBadMemNo.jsp">
 				<button>禁言會員列表</button>
 			</a>
 		</div>

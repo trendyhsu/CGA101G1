@@ -71,7 +71,7 @@ h3 {
 				<th>禁言狀態&emsp;</th>
 				<th></th>
 			</tr>
-			<%@ include file="page1.file"%>
+			<%@ include file="page3.file"%>
 			<c:forEach var="memVO" items="${list}"
 				begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -87,7 +87,7 @@ h3 {
 						</c:if></td>
 					<td>
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/forum/forumGetBadMem"
+							ACTION="<%=request.getContextPath()%>/forum/forumGetOneBadMem"
 							style="margin-bottom: 0px;">
 							<input type="submit" value="修改狀態"> <input type="hidden"
 								name="memNo"

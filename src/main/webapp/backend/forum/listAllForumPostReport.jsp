@@ -78,7 +78,7 @@ h3 {
 				<th>檢舉時間&emsp;</th>
 				<th></th>
 			</tr>
-			<%@ include file="page1.file"%>
+			<%@ include file="page3.file"%>
 			<c:forEach var="forumPostReportVO" items="${list}"
 				begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>

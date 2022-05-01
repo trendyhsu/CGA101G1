@@ -103,11 +103,19 @@ public class ForumPostVO implements java.io.Serializable {
 		com.forum.model.ForumVO forumVO = forumSvc.getOneForum(forumNo);
 		return forumVO;
 	}
-	
+
 	// for join managerName from managerNo
-		public com.manager.model.ManagerVO getManagerVO() {
-			com.manager.model.ManagerService managerSvc = new com.manager.model.ManagerService();
-			com.manager.model.ManagerVO managerVO = managerSvc.getOneManager(managerNo);
-			return managerVO;
-		}
+	public com.manager.model.ManagerVO getManagerVO() {
+		com.manager.model.ManagerService managerSvc = new com.manager.model.ManagerService();
+		com.manager.model.ManagerVO managerVO = managerSvc.getOneManager(managerNo);
+		return managerVO;
+	}
+
+	// for join memName from memNo
+	public com.member.model.MemVO getMemVO() {
+		com.member.model.MemJDBCDAO memDAO = new com.member.model.MemJDBCDAO();
+		com.member.model.MemVO memVO = memDAO.getOne(memNo);
+		return memVO;
+	}
+
 }

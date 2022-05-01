@@ -31,7 +31,7 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
 	private static final String GET_ALL_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ORDER BY ForumPostNo DESC";
 	private static final String GET_ONE_FORUM_STMT = "SELECT ForumPostFeatured,ForumPostType,ForumPostTitle,MemNo,ForumPostTime FROM forumpost WHERE ForumNo = ?";
-	private static final String GET_ONE_MEM_STMT = "SELECT ForumNo,ForumPostTitle,ForumPostTime FROM forumpost WHERE MemNo = ?";
+	private static final String GET_ONE_MEM_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE MemNo = ?";
 	private static final String GET_FIND_POSTTYPE_POSTNAME = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo=? AND ForumPostType=? AND ForumPostTitle LIKE ?";
 	private static final String GET_ALL_MEM_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostType > 0 ORDER BY ForumPostNo DESC";
 	private static final String GET_ALL_MASTER_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostState,ManagerNo,ForumPostTitle,ForumPostContent,ForumPostTime FROM forumpost WHERE ForumPostType = 0 ORDER BY ForumPostNo DESC";
@@ -45,7 +45,7 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 		try {
 			String columns[] = { "forumPostNo" };
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT,columns);
+			pstmt = con.prepareStatement(INSERT_STMT, columns);
 
 			pstmt.setInt(1, forumPostVO.getForumNo());
 			pstmt.setInt(2, forumPostVO.getForumPostType());
@@ -99,7 +99,7 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 		try {
 			String columns[] = { "forumPostNo" };
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_ADMIN_STMT,columns);
+			pstmt = con.prepareStatement(INSERT_ADMIN_STMT, columns);
 
 			pstmt.setInt(1, forumPostVO.getForumNo());
 			pstmt.setInt(2, forumPostVO.getForumPostType());
@@ -110,7 +110,7 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 			pstmt.setInt(7, forumPostVO.getForumPostFeatured());
 
 			pstmt.executeUpdate();
-			
+
 			Integer nextForumPostNo = null;
 			// 印出現在新增的文章編號 用於新增該圖片
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -548,14 +548,20 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
+				
 				forumPostVO = new ForumPostVO();
+				
+				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
 				forumPostVO.setForumNo(rs.getInt("forumNo"));
+				forumPostVO.setForumPostType(rs.getInt("forumPostType"));
+				forumPostVO.setMemNo(rs.getInt("memNo"));
+				forumPostVO.setForumPostState(rs.getInt("forumPostState"));
 				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
+				forumPostVO.setForumPostContent(rs.getString("forumPostContent"));
 				forumPostVO.setForumPostTime(rs.getTimestamp("forumPostTime"));
+				forumPostVO.setForumPostFeatured(rs.getInt("forumPostFeatured"));
 				list.add(forumPostVO);
 			}
-
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

@@ -78,7 +78,7 @@ h3 {
 				<th>文章精選&emsp;</th>
 				<th></th>
 			</tr>
-			<%@ include file="page1.file"%>
+			<%@ include file="page3.file"%>
 			<c:forEach var="forumPostVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>

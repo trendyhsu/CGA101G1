@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interface {
-	
+
 	private static DataSource ds = null;
 	static {
 		try {
@@ -21,12 +21,9 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 		}
 	}
 
-	private static final String INSERT_STMT = 
-		"INSERT INTO forumpostcollection (MemNo,ForumPostNo) VALUES (?, ?)";
-	private static final String DELETE = 
-		"DELETE FROM forumpostcollection WHERE MemNo=? and ForumPostNo = ?";
-	private static final String GET_ALL_STMT = 
-		"SELECT ForumPostNo FROM forumpostcollection WHERE MemNo=? ORDER BY ForumPostNo";
+	private static final String INSERT_STMT = "INSERT INTO forumpostcollection (MemNo,ForumPostNo) VALUES (?, ?)";
+	private static final String DELETE = "DELETE FROM forumpostcollection WHERE MemNo=? and ForumPostNo = ?";
+	private static final String GET_ALL_STMT = "SELECT MemNo,ForumPostNo,ForumPostCollectionTime FROM forumpostcollection WHERE MemNo=? ORDER BY ForumPostCollectionTime DESC";
 
 	@Override
 	public void insert(ForumPostCollectionVO forumPostCollectionVO) {
@@ -46,8 +43,7 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -69,7 +65,7 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 	}
 
 	@Override
-	public void delete(Integer memNo,Integer forumPostNo) {
+	public void delete(Integer memNo, Integer forumPostNo) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -86,8 +82,7 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -121,23 +116,24 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
-			
+
 			pstmt.setInt(1, memNo);
-			
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-			
+
 				forumPostCollectionVO = new ForumPostCollectionVO();
+				forumPostCollectionVO.setMemNo(rs.getInt("memNo"));
 				forumPostCollectionVO.setForumPostNo(rs.getInt("forumPostNo"));
-				
+				forumPostCollectionVO.setForumPostCollectionTime(rs.getTimestamp("forumPostCollectionTime"));
+
 				list.add(forumPostCollectionVO); // Store the row in the list
 			}
 
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -176,9 +172,8 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 //		
 //		dao.insert(newForumPostCollection);
 
-	
 //OK!	//刪除
-		
+
 //		dao.delete(11005,41004);
 //
 //OK!	//查詢

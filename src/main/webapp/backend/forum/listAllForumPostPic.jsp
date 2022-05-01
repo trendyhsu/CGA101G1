@@ -64,7 +64,7 @@ h3 {
 				<th>文章編號&emsp;</th>
 				<th>文章照片&emsp;</th>
 			</tr>
-			<%@ include file="page1.file"%>
+			<%@ include file="page3.file"%>
 			<c:forEach var="forumPostPicVO" items="${list}"
 				begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<tr>
