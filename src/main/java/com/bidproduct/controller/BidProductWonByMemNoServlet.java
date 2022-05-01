@@ -25,9 +25,9 @@ public class BidProductWonByMemNoServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 取得會員編號
 		MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
+		Integer memNo = memVO.getMemNo();
 		
-		Integer memNo = 11002;
+//		Integer memNo = 11002;
 		
 		BidProductService bidProductSvc = new BidProductService();
 		List<BidProductVO> bidProductVOs = bidProductSvc.getAllByBuyNo(memNo);

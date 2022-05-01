@@ -36,8 +36,14 @@ th, td {
 	text-align: left;
 }
 .uploadedImg{
-padding: 10px
+padding: 10px;
+border-radius: 10px;
 }
+.imgCss{
+margin: 10px;
+border-radius: 10px;
+}
+
 h3{
 font-weight: bold;
 color: #547492;
@@ -124,10 +130,10 @@ color: #547492;
 					<td>一般商品名稱</td>
 					<td>
 				       <select size="1" name="productNo">
+	         					<option value="0" ${(productVO.upcNum != bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} >無對應遊戲
 	         				<c:forEach var="productVO" items="${productSvc.GetAllProducts()}" > 
 	          					<option value="${productVO.productNo}" ${(productVO.upcNum == bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} > ${productVO.productName}
 	         				</c:forEach>
-	         					<option value="0" ${(productVO.upcNum != bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} >無對應遊戲
 	       				</select>
 					</td>
 				</tr>
@@ -270,7 +276,7 @@ color: #547492;
 	</div>
 
 <!-- 	上傳圖片區 -->
-	<div style="position: relative; left: 500px ;bottom: 700px">
+	<div style="position: relative; left: 490px ;bottom: 700px">
 		<form id="upload" action="<%=request.getContextPath()%>/bid/bidPicInsertMulti" method="POST" enctype="multipart/form-data" name="form2" onsubmit="return ">
 		<a href="javascript:;" class="file">選擇圖片
 	        <input type="file" name="upfile1" multiple id="upfile">
@@ -294,7 +300,7 @@ color: #547492;
 					<input type="hidden" name="receiverPhone"value="${bidProductVO.receiverPhone}">
 					<input class="btn btn-primary" type="submit" value="上傳圖片" class="button" style="margin: 0 0 27px 10px">
 		</form>
-		<div id="picPreview" style="position: absolute ;top: 80px ; display: flex; flex-wrap: wrap; width: 400px "></div>
+		<div id="picPreview" style="position: absolute ;top: 80px ; display: flex; flex-wrap: wrap; width: 450px "></div>
 	</div>
 </div>
 
@@ -406,6 +412,7 @@ color: #547492;
 					let image = new Image();
 					image.src = event.target.result;
 					image.width = 128;
+					image.classList.add("imgCss");
 					picPreview.appendChild(image);
 				};
 				reader.readAsDataURL(file);

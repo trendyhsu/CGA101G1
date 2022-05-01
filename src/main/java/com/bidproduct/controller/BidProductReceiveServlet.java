@@ -29,7 +29,7 @@ public class BidProductReceiveServlet extends HttpServlet {
 		
 		// 取得商品編號
 		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo").trim());
-
+		
 		/*************************** 2.開始新增資料 ***************************************/
 		// 開始修改競標訂單狀態 5 已領收
 		Integer orderState = new Integer(5);

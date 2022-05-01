@@ -6,7 +6,6 @@
 <%@ page import="java.util.*"%>
 
 <%@include file="/backend/share.jsp"%>
-<%-- <%@include file="/backend/bid/assets/headerCDN.txt" %> --%>
 
 <%
 BidProductService bidsBidProductSvc = new BidProductService();
@@ -21,16 +20,20 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>所有競標商品</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 <style type="text/css">
 th{
 	border-bottom-style:solid;
-	background-color: #b2cdcc;
+	background-color: rgb(179,205,204);
 	vertical-align: middle;
 	text-align: center;
 }
 
 td{
 	border-bottom-style:solid;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 
 h3{
@@ -40,6 +43,7 @@ color: #547492;
 
 #pageNumber, #dataNumber, #pageChange{
 float: right;
+font-weight: bold;
 }
 </style>
 

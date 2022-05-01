@@ -19,6 +19,10 @@
 <head>
 <meta charset="UTF-8">
 <title>單一競標商品出價紀錄</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 <style type="text/css">
 table.showPanel {
 	font-family: verdana,arial,sans-serif;
@@ -33,7 +37,7 @@ table.showPanel th {
 	padding: 8px;
 	border-bottom-style:solid;
 	border-color: #666666;
-	background-color: #b2cdcc;
+	background-color: rgb(179,205,204);
 	vertical-align: middle;
 	text-align: center;
 }
@@ -43,10 +47,14 @@ table.showPanel td {
 	border-bottom-style:solid;
 	border-color: #666666;
 	background-color: #ffffff;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 h3{
 font-weight: bold;
 color: #547492;
+}
+#pageNumber, #dataNumber{
+float: right;
 }
 </style>
 </head>
@@ -104,7 +112,7 @@ color: #547492;
 </table>
 <%@ include file="page2.file" %>
 <div style="text-align: center;">
-	<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp" style="font-size: 1.5rem">回競標商品列表</a>
+	<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp" style="font-size: 1.5rem ;font-weight: bold;">回競標商品列表</a>
 </div>
 </div>
 	</section>

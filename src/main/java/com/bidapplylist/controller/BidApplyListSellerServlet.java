@@ -26,9 +26,9 @@ public class BidApplyListSellerServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 取得會員編號
 		MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
+		Integer memNo = memVO.getMemNo();
 		
-		Integer memNo = 11001;
+//		Integer memNo = 11001;
 		
 		BidApplyListService bidApplyListSvc = new BidApplyListService();
 		List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByMemNo(memNo);
