@@ -52,12 +52,17 @@ th, td {
 	text-align: left;
 }
 .uploadedImg{
-padding: 10px
+padding: 10px;
+border-radius: 10px;
 }
 
 h3{
 font-weight: bold;
 color: #547492;
+}
+.imgCss{
+margin: 10px;
+border-radius: 10px;
 }
 
 .file {
@@ -190,7 +195,7 @@ color: #547492;
 				</tr>
 			</table>
 		</form>
-		<div id="picPreview" style="display: flex; width: 400px ;flex-wrap:wrap;
+		<div id="picPreview" style="display: flex; width: 450px ;flex-wrap:wrap;
 		position: relative; left:360px ;bottom: 530px"></div>
 
 	</div>
@@ -307,6 +312,7 @@ color: #547492;
 					let image = new Image();
 					image.src = event.target.result;
 					image.width = 128;
+					image.classList.add("imgCss");
 					picPreview.appendChild(image);
 				};
 				reader.readAsDataURL(file);

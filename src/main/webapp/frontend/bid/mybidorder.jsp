@@ -114,22 +114,23 @@ float: right;
 						</c:if>
 					</td>
 					<td>
+						<c:if test="${bidProductVO.orderState == 0}">
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/frontend/bid/bidcheckout.jsp"
-							>
-							<c:if test="${bidProductVO.orderState == 0}">
-							<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="結帳"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
-							</c:if>
+							ACTION="<%=request.getContextPath()%>/frontend/bid/bidcheckout.jsp">
+							<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="結帳">
+							<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
+						</c:if>
 					</td>
 					<td>
+						<c:if test="${bidProductVO.orderState == 2}">
 						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/bid/bidProductReceive"
-							>
-							<c:if test="${bidProductVO.orderState == 2}">
-							<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="領收"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
-							</c:if>
+							ACTION="<%=request.getContextPath()%>/bid/bidProductReceive" 
+							id="receiveForm">
+							<input class="btn btn-success btn-sm" style="margin: 0" type="button" value="領收" id="receiveBtn">
+							<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
@@ -147,7 +148,32 @@ float: right;
         <!--Table -->
     </main>
     <!-- End Main -->
+	<script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
+	<script>
+	// 收貨
+	let receiveBtn = document.querySelector("#receiveBtn");
+	if(receiveBtn){
+		receiveBtn.addEventListener("click",function(){
+			swal({
+					title: "確認收貨？",
+					text: "",
+					icon: "info",
+				})
+				.then(() => {
+					swal("收貨成功！感謝您", {
+					icon: "success",
+					})
+				})
+				.then(() => {
+					setTimeout(receiveGame, 1200);
+					function receiveGame(){
+						document.querySelector("#receiveForm").submit();
+					}
+			 })
+	})
+}
+	</script>
 </body>
 </html>
 <%@include file="/frontend/frontfoot.jsp" %>

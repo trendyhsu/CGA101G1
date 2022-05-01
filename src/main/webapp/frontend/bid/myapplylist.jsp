@@ -63,8 +63,8 @@ float: right;
 
 		<table class="showPanel" style="table-layout: fixed; color: black;">
 			<tr align='center' valign="middle">
-				<th>申請單編號</th>
-				<th>商品名稱</th>
+				<th style="width: 10%">申請單編號</th>
+				<th style="width: 15%">商品名稱</th>
 				<th>商品敘述</th>
 				<th>遊戲公司</th>
 				<th>遊戲種類</th>

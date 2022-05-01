@@ -22,22 +22,27 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>所有競標商品申請單</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 <style type="text/css">
 th{
 	border-bottom-style:solid;
-	background-color: #b2cdcc;
+	background-color: rgb(179,205,204);
 	vertical-align: middle;
 	text-align: center;
 }
 td{
 	border-bottom-style:solid;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 h3{
 font-weight: bold;
 color: #547492;
 }
-#pageNumber, #dataNumber{
+#pageNumber, #dataNumber, #pageChange{
 float: right;
+font-weight: bold;
 }
 </style>
 
@@ -68,7 +73,7 @@ float: right;
 		<%-- 成功表列 --%>
 			<p style="color: red;">${successMsg}</p>
 
-		<table class="showPanel" style="table-layout: fixed; color: black;">
+		<table class="showPanel" style="table-layout: fixed; color: black">
 			<tr align='center' valign="middle">
 				<th style="width: 4%">申請單編號</th>
 				<th>賣家</th>
@@ -130,8 +135,8 @@ float: right;
 						<c:if test="${bidApplyListVO.applyState == 0}" var="condition">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidApplyListReturn"
-							style="margin-bottom: 0px;">
-							<input class="btn btn-primary btn-sm" type="submit" value="退貨">
+							style="margin-bottom: 0px;" id="returnForm">
+							<input class="btn btn-primary btn-sm" type="button" value="退貨" id="returnBtn">
 							<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
 						</c:if>
@@ -146,6 +151,30 @@ float: right;
 	<!--main content end-->
 
 </section>
-
+<script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+	// 退貨
+let returnBtn = document.querySelector("#returnBtn");
+if(returnBtn){
+	returnBtn.addEventListener("click",function(){
+		swal({
+				title: "確認退貨？",
+				text: "", 
+				icon: "info",
+			})
+			.then(() => {
+				swal("退貨成功！", {
+				  icon: "success",
+				})
+			})
+			.then(() => {
+				setTimeout(returnGame, 1200);
+				function returnGame(){
+					document.querySelector("#returnForm").submit();
+				}
+			 })
+	})
+}
+</script>
 </body>
 </html>

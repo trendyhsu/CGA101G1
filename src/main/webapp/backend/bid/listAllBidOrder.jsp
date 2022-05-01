@@ -20,15 +20,19 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>競標訂單管理</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 <style type="text/css">
 th{
 	border-bottom-style:solid;
-	background-color: #b2cdcc;
+	background-color: rgb(179,205,204);
 	vertical-align: middle;
 	text-align: center;
 }
 td{
 	border-bottom-style:solid;
+	font-family: 'Noto Sans TC', sans-serif;
 }
 h3{
 font-weight: bold;
@@ -36,6 +40,7 @@ color: #547492;
 }
 #pageNumber, #dataNumber, #pageChange{
 float: right;
+font-weight: bold;
 }
 </style>
 
@@ -138,8 +143,9 @@ float: right;
 							<c:if test="${bidProductVO.orderState == 1}">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductShipping"
-									style="margin-bottom: 0px;">
-									<input class="btn btn-primary btn-sm" type="submit" value="出貨"> <input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+									style="margin-bottom: 0px;" id="shippingForm">
+									<input class="btn btn-primary btn-sm" type="button" value="出貨" id="shippingBtn">
+									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 								</FORM>
 							</c:if>
 						</td>
@@ -147,9 +153,9 @@ float: right;
 							<c:if test="${bidProductVO.orderState == 5}">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductPay"
-									style="margin-bottom: 0px;">
-									<input class="btn btn-primary btn-sm" type="submit" value="撥付"> <input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
-									<input type="hidden" name="action" value="pay">
+									style="margin-bottom: 0px;" id="payForm">
+									<input class="btn btn-primary btn-sm" type="button" value="撥付" id="pay">
+									<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 								</FORM>
 							</c:if>
 						</td>
@@ -165,5 +171,54 @@ float: right;
 	<!--main content end-->
 
 </section>
+<script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+	// 代收金撥付
+let pay = document.querySelector("#pay");
+if(pay){
+	pay.addEventListener("click",function(){
+		swal({
+				title: "是否確認撥付？",
+				text: "", 
+				icon: "info",
+			})
+			.then(() => {
+				swal("撥付成功！", {
+				  icon: "success",
+				})
+			})
+			.then(() => {
+				setTimeout(pay, 1200);
+				function pay(){
+					document.querySelector("#payForm").submit();
+				}
+			 })
+		})
+}
+
+	// 出貨
+let shippingBtn = document.querySelector("#shippingBtn");
+if(shippingBtn){
+	shippingBtn.addEventListener("click",function(){
+		swal({
+				title: "確認出貨？",
+				text: "", 
+				icon: "info",
+			})
+			.then(() => {
+				swal("出貨成功！", {
+				  icon: "success",
+				})
+			})
+			.then(() => {
+				setTimeout(shipping, 1200);
+				function shipping(){
+					document.querySelector("#shippingForm").submit();
+				}
+			 })
+	})
+}
+</script>
 </body>
 </html>
