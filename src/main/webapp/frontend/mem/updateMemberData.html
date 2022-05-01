@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/css/style01.css">
     <link rel="stylesheet" type="text/css" href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
-	<link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/MemStyle.css">
+    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/MemStyle.css">
 </head>
 
 <body>
@@ -308,12 +308,13 @@
                     <div class="col-lg-3 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5" style="font-weight: bold; font-size: 16px">
                         <div class="bg-white border border-bottom-0 shadow-lg">
                             <div class="d-flex p-3 align-items-center">
-                                <div class="avatar avatar-lg rounded-circle">
-                                    <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memVO.memNo}" title="" alt="">
+                                <div class="avatar avatar-lg rounded-circle" id="Pinf">
+                                    <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memVO.memNo}" title="" alt=""
+                                        id="imgPinf">
                                 </div>
                                 <div class="col ps-3">
-                                    <h6 class="m-0">${memVO.memName}</h6>
-                                    <small><a href="javascript:void(0);">${memVO.memEmail}</a></small>
+                                    <h6 class="m-0" id="Ninf"></h6>
+                                    <small><a href="javascript:void(0);" id="Einf"></a></small>
                                 </div>
                             </div>
                             <div class="bg-gray-200 p-3 border-bottom border-top">
@@ -382,7 +383,8 @@
                                 </li>
 
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="/CGA101G1/frontend/mem/lookUpOneMemCoupon.jsp">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
+                                        href="/CGA101G1/frontend/mem/lookUpOneMemCoupon.jsp">
                                         <i class="bi bi-bookmark me-2"></i>我的優惠卷
                                     </a>
                                 </li>
@@ -392,12 +394,14 @@
                             </div>
                             <ul class="list-unstyled mb-0 theme-link">
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="/CGA101G1/frontend/mem/updateMemberData.html">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
+                                        href="/CGA101G1/frontend/mem/updateMemberData.html">
                                         <i class="bi bi-person-circle me-2"></i>個人資訊
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="/CGA101G1/mem/logoutServlet">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
+                                        href="/CGA101G1/mem/logoutServlet">
                                         <i class="bi bi-box-arrow-left me-2"></i>登出
                                     </a>
                                 </li>
@@ -408,470 +412,551 @@
                     <!-- Content 主要內容區 要修改的部分都塞在這個裡面 -->
                     <!-- 內容直接寫在<div class="table-responsive fs-md mb-4">裡面 -->
                     <div class="col-lg-9 col-xxl-9">
-	   <div class="table-responsive fs-md mb-4">
+                        <div class="table-responsive fs-md mb-4">
 
-  <!-- login page -->
-        <div class="section">
-            <div class="container">
-                <div class="justify-content-center row">
-                    <div class="col-lg-5 col-xxl-4">
-                        <div class="card">
-                            <div class="card-header bg-transparent py-3">
-                                <h3 class="h4 mb-0" style="text-align: center;">會員資料及更新 </h3>
+                            <!-- login page -->
+                            <div class="section">
+                                <div class="container">
+                                    <div class="justify-content-center row">
+                                        <div class="col-lg-5 col-xxl-4">
+                                            <div class="card">
+                                                <div class="card-header bg-transparent py-3">
+                                                    <h3 class="h4 mb-0" style="text-align: center;">會員資料及更新 </h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div style="display: flex;">
+                                                        <div>
+
+
+
+                                                            <!-- 圖片 -->
+                                                            <div class="forimg">
+                                                                <div id="divImg">
+                                                                    <label for="myPic" class="form-label">會員大頭貼:
+                                                                    </label> class="form-label" class="form-control"
+                                                                    <img src="" id="img1" width="200px"
+                                                                        height="400px" />
+                                                                    <input type="file" name="myPic" accept="image/*"
+                                                                        id="myPic" class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="lup7"></label>
+                                                                </div>
+                                                                <div id="catch">
+                                                                    <input type="hidden" id="reader">
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- 更新區1 -->
+                                                            <div class="up1" style="float:left;">
+                                                                <div class="form-group mb-3">
+                                                                    <label for="memAccount" class="form-label">帳號:
+                                                                    </label>
+                                                                    <span class="text-danger">*</span>
+                                                                    <label id="l1"
+                                                                        style="color: darkkhaki; font-size: 20; border: none; text-transform: none;"
+                                                                        class="form-control"></label>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="memPassword">密碼: </label>
+                                                                    <a href="passwordChange.jsp" id="a1"
+                                                                        style="color: blue; font-size: 20; border: none;"
+                                                                        class="form-control">更改密碼</a>
+                                                                    <label id="l2"></label>
+                                                                </div>
+
+                                                                <div>
+                                                                    <label for="memName" class="form-label">*帳戶名稱:
+                                                                    </label>
+                                                                    <input type="text" name="memName" id="memName"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="l4"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="memMobile" class="form-label">*行動電話:
+                                                                    </label>
+                                                                    <input type="text" name="memMobile" id="memMobile"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="l5"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+
+                                                                <div role="city-selector-set" class="city-selector-set"
+                                                                    id="forAddress">
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="memCity"
+                                                                            class="form-label">居住縣市:<span
+                                                                                class="text-danger">*</span></label>
+                                                                        <select class="county" id="memCity"
+                                                                            class="form-control"></select>
+                                                                    </div>
+
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="memDist"
+                                                                            class="form-label">鄉/鎮/市/區:<span
+                                                                                class="text-danger">*</span></label>
+                                                                        <select class="district" id="memDist"
+                                                                            class="form-control"></select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div>
+                                                                    <label for="memAdd" class="form-label">地址: </label>
+                                                                    <input type="text" name="memAdd" id="memAdd"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="l6"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <!-- 更新區2 -->
+                                                            <div class="up2" style="float:right;">
+
+                                                                <div>
+                                                                    <label for="memEmail" class="form-label">*E-mail:
+                                                                    </label>
+                                                                    <input type="text" name="memEmail" id="memEmail"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="l7"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="memBirth" class="form-label">出生年月日:
+                                                                    </label>
+                                                                    <input type="text" name="memBirth" id="memBirth"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="d1"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+                                                                <div>
+
+                                                                </div>
+                                                                <div id="cred">
+                                                                    <label for="creditcardNo1" class="form-label">信用卡卡號:
+                                                                    </label>
+                                                                    <input type=text name="creditcardNo1" size=4
+                                                                        value="" maxlength=4 id="creditcardNo1"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;"> -
+                                                                    <input type=text name="creditcardNo2" size=4
+                                                                        value="" maxlength=4 id="creditcardNo2"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;"> -
+                                                                    <input type=text name="creditcardNo3" size=4
+                                                                        value="" maxlength=4 id="creditcardNo3"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;"> -
+                                                                    <input type=text name="creditcardNo4" size=4
+                                                                        value="" maxlength=4 id="creditcardNo4"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="lup2"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="creditcardDate1"
+                                                                        class="form-label">信用卡到期年月:
+                                                                    </label>
+                                                                    <input type=text name="creditcardDate1" size=2
+                                                                        value="" maxlength=2 id="creditcardDate1"
+                                                                        placeholder="    月" class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    /
+                                                                    <input type=text name="creditcardDate2" size=2
+                                                                        value="" maxlength=2 id="creditcardDate2"
+                                                                        placeholder="西元年" class="form-control">
+                                                                    <label id="lup3"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="creditcardSecurityNo"
+                                                                        class="form-label">信用卡安全碼: </label>
+                                                                    <input type=text name="creditcardSecurityNo" size=3
+                                                                        value="" maxlength=3 id="creditcardSecurityNo"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="lup4"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+
+                                                                <div>
+                                                                    <label for="bankAccount1" class="form-label">銀行帳號:
+                                                                    </label>
+                                                                    <input type=text name="bankAccount1" size=5 value=""
+                                                                        maxlength=3 id="bankAccount1"
+                                                                        placeholder="銀行代碼">
+                                                                    <input type=text name="bankAccount2" size=25
+                                                                        value="" id="bankAccount2" placeholder="銀行帳戶"
+                                                                        class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="lup5"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+                                                                <div>
+                                                                    <label for="bankAccountOwner" class="form-label">戶名:
+                                                                    </label>
+                                                                    <input type="text" name="bankAccountOwner"
+                                                                        id="bankAccountOwner" class="form-control"
+                                                                        style="text-transform: none;">
+                                                                    <label id="lup6"
+                                                                        style="color: red; font-size: 15;"></label>
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+
+                                                            <div class="form-group text-center">
+                                                                <button type="button" class="btn btn-primary w-100"
+                                                                    id="btn1">
+                                                                    確認修改
+                                                                </button>
+                                                            </div>
+
+                                                            <label id="l8" style="color: red; font-size: 15;"></label>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end login -->
+                                <!-- Footer -->
+                                <footer class="bg-white footer">
+                                    <div class="footer-top py-6">
+                                        <div class="container">
+                                            <div class="row">
+                                                <section class="footer">
+                                                    <div class="box-container">
+                                                        <div class="box">
+                                                            <h3>會員專區</h3>
+                                                            <a href="#">會員登入</a>
+                                                            <a href="#">會員註冊</a>
+                                                            <a href="#">訂單管理</a>
+                                                            <a href="#">二手遊戲申請上架單管理</a>
+                                                        </div>
+
+                                                        <div class="box">
+                                                            <h3>快速連結</h3>
+                                                            <a href="#">首頁</a>
+                                                            <a href="#">遊戲商城</a>
+                                                            <a href="#">二手競標商城</a>
+                                                            <a href="#">遊戲討論區</a>
+                                                        </div>
+
+                                                        <div class="box">
+                                                            <h3>聯絡我們</h3>
+                                                            <a href="#">02-3456-7890</a>
+                                                            <a href="#">03-1111-2222</a>
+                                                            <a href="#">CGA101G1@gmail.com</a>
+                                                            <a href="#">anasbhai@gmail.com</a>
+                                                        </div>
+
+                                                        <div class="box">
+                                                            <h3>關於我們</h3>
+                                                            <a href="#">管理團隊</a>
+                                                            <a href="#">創始理念</a>
+                                                            <a href="#">insuagram</a>
+                                                            <a href="#">linkedin</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
+
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
-                            <div class="card-body">
-                                <div style="display: flex;">
-                                    <div>
-
-
-    <div class="up1" style="float:left;">
-        <div class="form-group mb-3">
-            <label for="memAccount" class="form-label">帳號: </label>
-			<span class="text-danger">*</span>
-           <label id="l1" style="color: darkkhaki; font-size: 20; border: none; text-transform: none;" class="form-control" ></label>
-        </div>
-        <div>
-            <label for="memPassword">密碼: </label>
-            <a href="passwordChange.jsp" id="a1" style="color: blue; font-size: 20; border: none;" class="form-control" >更改密碼</a>
-            <label id="l2"></label>
-        </div>
-
-        <div>
-            <label for="memName" class="form-label">*帳戶名稱: </label>
-            <input type="text" name="memName" id="memName" class="form-control" style="text-transform: none;">
-            <label id="l4" style="color: red; font-size: 15;"></label>
-        </div>
-        <div>
-            <label for="memMobile" class="form-label">*行動電話: </label>
-            <input type="text" name="memMobile" id="memMobile" class="form-control" style="text-transform: none;">
-            <label id="l5" style="color: red; font-size: 15;"></label>
-        </div>
-
-        <div role="city-selector-set" class="city-selector-set" id="forAddress">
-            <div class="form-group mb-3">
-                <label for="memCity" class="form-label">居住縣市:<span class="text-danger">*</span></label>
-                <select class="county" id="memCity" class="form-control"></select>
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="memDist" class="form-label">鄉/鎮/市/區:<span class="text-danger">*</span></label>
-                <select class="district" id="memDist" class="form-control"></select>
-            </div>
-        </div>
-
-        <div>
-            <label for="memAdd" class="form-label">地址: </label>
-            <input type="text" name="memAdd" id="memAdd" class="form-control" style="text-transform: none;">
-            <label id="l6" style="color: red; font-size: 15;"></label>
-        </div>
-        
-        
-        </div>
-        
-        <div class="up2" style="float:right;">
-        
-        <div>
-            <label for="memEmail" class="form-label">*E-mail: </label>
-            <input type="text" name="memEmail" id="memEmail" class="form-control" style="text-transform: none;">
-            <label id="l7" style="color: red; font-size: 15;"></label>
-        </div>
-        <div>
-            <label for="memBirth" class="form-label">出生年月日: </label>
-            <input type="text" name="memBirth" id="memBirth" class="form-control" style="text-transform: none;">
-            <label id="d1" style="color: red; font-size: 15;"></label>
-        </div>
-        <div>
-
-        </div>
-        <div id="cred">
-            <label for="creditcardNo1" class="form-label">信用卡卡號: </label>
-            <input type=text name="creditcardNo1" size=4 value="" maxlength=4 id="creditcardNo1" class="form-control" style="text-transform: none;"> -
-            <input type=text name="creditcardNo2" size=4 value="" maxlength=4 id="creditcardNo2" class="form-control" style="text-transform: none;"> -
-            <input type=text name="creditcardNo3" size=4 value="" maxlength=4 id="creditcardNo3" class="form-control" style="text-transform: none;"> -
-            <input type=text name="creditcardNo4" size=4 value="" maxlength=4 id="creditcardNo4" class="form-control" style="text-transform: none;">
-            <label id="lup2" style="color: red; font-size: 15;"></label>
-        </div>
-        <div>
-            <label for="creditcardDate1" class="form-label">信用卡到期年月: </label>
-            <input type=text name="creditcardDate1" size=2 value="" maxlength=2 id="creditcardDate1"
-                placeholder="    月" class="form-control" style="text-transform: none;">
-            /
-            <input type=text name="creditcardDate2" size=2 value="" maxlength=2 id="creditcardDate2" placeholder="西元年" class="form-control">
-            <label id="lup3" style="color: red; font-size: 15;" ></label>
-        </div>
-        <div>
-            <label for="creditcardSecurityNo" class="form-label">信用卡安全碼: </label>
-            <input type=text name="creditcardSecurityNo" size=3 value="" maxlength=3 id="creditcardSecurityNo" class="form-control" style="text-transform: none;">
-            <label id="lup4" style="color: red; font-size: 15;"></label>
-        </div>
-
-        <div>
-            <label for="bankAccount1" class="form-label">銀行帳號: </label>
-            <input type=text name="bankAccount1" size=5 value="" maxlength=3 id="bankAccount1" placeholder="銀行代碼">
-            <input type=text name="bankAccount2" size=25 value="" id="bankAccount2" placeholder="銀行帳戶" class="form-control" style="text-transform: none;">
-            <label id="lup5" style="color: red; font-size: 15;"></label>
-        </div>
-        <div>
-            <label for="bankAccountOwner" class="form-label">戶名: </label>
-            <input type="text" name="bankAccountOwner" id="bankAccountOwner" class="form-control" style="text-transform: none;">
-            <label id="lup6" style="color: red; font-size: 15;"></label>
-        </div>
-        
-        </div>
-
-
-	<div class="forimg">
-        <div id="divImg" >
-            <label for="myPic" class="form-label">會員大頭貼: </label>   class="form-label" class="form-control"
-            <img src="" id="img1" width="200px" height="400px"/>
-            <input type="file" name="myPic" accept="image/*" id="myPic" class="form-control" style="text-transform: none;">
-            <label id="lup7"></label>
-        </div>
-        <div id="catch">
-            <input type="hidden" id="reader">
-        </div>
-     </div>
-        
-        
-        
-        <div class="form-group text-center">
-             <button type="button" class="btn btn-primary w-100" id="btn1">
-                  確認修改
-            </button>
-        </div>
-          
-          <label id="l8" style="color: red; font-size: 15;"></label>
-    </div>
-    
-                       </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end login -->
-     <!-- Footer -->
-    <footer class="bg-white footer">
-        <div class="footer-top py-6">
-            <div class="container">
-                <div class="row">
-                    <section class="footer">
-                        <div class="box-container">
-                            <div class="box">
-                                <h3>會員專區</h3>
-                                <a href="#">會員登入</a>
-                                <a href="#">會員註冊</a>
-                                <a href="#">訂單管理</a>
-                                <a href="#">二手遊戲申請上架單管理</a>
-                            </div>
-                
-                            <div class="box">
-                                <h3>快速連結</h3>
-                                <a href="#">首頁</a>
-                                <a href="#">遊戲商城</a>
-                                <a href="#">二手競標商城</a>
-                                <a href="#">遊戲討論區</a>
-                            </div>
-                
-                            <div class="box">
-                                <h3>聯絡我們</h3>
-                                <a href="#">02-3456-7890</a>
-                                <a href="#">03-1111-2222</a>
-                                <a href="#">CGA101G1@gmail.com</a>
-                                <a href="#">anasbhai@gmail.com</a>
-                            </div>
-                
-                            <div class="box">
-                                <h3>關於我們</h3>
-                                <a href="#">管理團隊</a>
-                                <a href="#">創始理念</a>
-                                <a href="#">insuagram</a>
-                                <a href="#">linkedin</a>
-                            </div>
-                        </div>
-                
-                        <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
-                
-                    </section>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>
-    </footer>
-    <!-- End Footer -->
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+                        </footer>
+                        <!-- End Footer -->
+                        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
-    <!-- appear -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script>
-    <!--bootstrap-->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- owl-carousel -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.min.js"></script>
-    <!-- magnific -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
-    <!-- isotope -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
-    <!-- count-down -->
-    <script src="/CGA101G1/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
-    <!-- Theme Js -->
-    <script src="/CGA101G1/frontend/mainCss/assets/js/custom.js"></script>
+                        <!-- appear -->
+                        <script src="/CGA101G1/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script>
+                        <!--bootstrap-->
+                        <script
+                            src="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                        <!-- owl-carousel -->
+                        <script src="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.min.js"></script>
+                        <!-- magnific -->
+                        <script
+                            src="/CGA101G1/frontend/mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+                        <!-- isotope -->
+                        <script src="/CGA101G1/frontend/mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+                        <!-- count-down -->
+                        <script
+                            src="/CGA101G1/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
+                        <!-- Theme Js -->
+                        <script src="/CGA101G1/frontend/mainCss/assets/js/custom.js"></script>
 
-    <!-- custom js file link-->
-    <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
-    
-    <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
-    
-   	<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- 外來區 -->
-    <!-- jquery -->
-    <script src="/CGA101G1/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
-    <!-- 外來區over -->
-    
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
-    <script src="/CGA101G1/datetimepicker/jquery.js"></script>
-    <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
-    <script>
+                        <!-- custom js file link-->
+                        <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
 
-        $(document).ready(function init() {
+                        <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
 
-            //信用卡卡號
-            $('#creditcardNo1').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardNo1').val())) {
-                    $('#lup2').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup2').text(``);
-                }
-            })
-            $('#creditcardNo2').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardNo2').val())) {
-                    $('#lup2').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup2').text(``);
-                }
-            })
-            $('#creditcardNo3').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardNo3').val())) {
-                    $('#lup2').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup2').text(``);
-                }
-            })
-            $('#creditcardNo4').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardNo4').val())) {
-                    $('#lup2').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup2').text(``);
-                }
-            })
-            //信用卡日期
-            $('#creditcardDate1').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardDate1').val())) {
-                    $('#lup3').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup3').text(``);
-                }
-            })
-            $('#creditcardDate2').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardDate2').val())) {
-                    $('#lup3').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup3').text(``);
-                }
-            })
-            //信用卡安全碼
-            $('#creditcardSecurityNo').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#creditcardSecurityNo').val())) {
-                    $('#lup4').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup4').text(``);
-                }
-            })
-            //銀行
-            $('#bankAccount1').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#bankAccount1').val())) {
-                    $('#lup5').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup5').text(``);
-                }
-            })
-            $('#bankAccount2').blur(() => {
-                const r1 = /^\d+$/;
-                if (!r1.test($('#bankAccount2').val())) {
-                    $('#lup5').text(`請輸入阿拉伯數字`)
-                } else {
-                    $('#lup5').text(``);
-                }
-            })
+                        <script
+                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+                        <!-- 外來區 -->
+                        <!-- jquery -->
+                        <script src="/CGA101G1/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
+                        <!-- 外來區over -->
 
 
-            //秀出所有資料
-            $.ajax({
-                type: 'POST',
-                url: "/CGA101G1/mem/MemSelfInfo",
-                contentType: "application/json",
-                success: data => {
-                    let { memNo, memAccount, memName, memMobile, memEmail,
-                        memCity, memDist, memAdd, memBirth, creditcardNo,
-                        creditcardDate, creditcardSecurityNo, bankAccount,
-                        bankAccountOwner
-                    } = data;
-                    //日期
-                    $.datetimepicker.setLocale('zh'); // kr ko ja en
-                    $('#memBirth').datetimepicker({
-                        theme: '',          //theme: 'dark',
-                        timepicker: false,   //timepicker: false,
-                        step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
-                        format: 'Y-m-d ',
-                        value: memBirth,
-                        //disabledDates:    ['2022/06/08','2022/06/09','2022/06/10'], // 去除特定不含
-                        //startDate:	        '2022/07/10',  // 起始日
-                        //minDate:           '-1970-01-01', // 去除今日(不含)之前
-                        //maxDate:           '+1970-01-01'  // 去除今日(不含)之後
-                    });
-                    var somedate2 = new Date();
-                    $('#memBirth').datetimepicker({
-                        beforeShowDay: function (date) {
-                            if (date.getYear() > somedate2.getYear() ||
-                                (date.getYear() == somedate2.getYear() && date.getMonth() > somedate2.getMonth()) ||
-                                (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-                            ) {
-                                return [false, ""]
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                        <script
+                            src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
+                        <link rel="stylesheet" type="text/css"
+                            href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
+                        <script src="/CGA101G1/datetimepicker/jquery.js"></script>
+                        <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
+                        <script>
+
+                            $(document).ready(function init() {
+
+                                //信用卡卡號
+                                $('#creditcardNo1').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardNo1').val())) {
+                                        $('#lup2').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup2').text(``);
+                                    }
+                                })
+                                $('#creditcardNo2').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardNo2').val())) {
+                                        $('#lup2').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup2').text(``);
+                                    }
+                                })
+                                $('#creditcardNo3').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardNo3').val())) {
+                                        $('#lup2').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup2').text(``);
+                                    }
+                                })
+                                $('#creditcardNo4').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardNo4').val())) {
+                                        $('#lup2').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup2').text(``);
+                                    }
+                                })
+                                //信用卡日期
+                                $('#creditcardDate1').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardDate1').val())) {
+                                        $('#lup3').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup3').text(``);
+                                    }
+                                })
+                                $('#creditcardDate2').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardDate2').val())) {
+                                        $('#lup3').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup3').text(``);
+                                    }
+                                })
+                                //信用卡安全碼
+                                $('#creditcardSecurityNo').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#creditcardSecurityNo').val())) {
+                                        $('#lup4').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup4').text(``);
+                                    }
+                                })
+                                //銀行
+                                $('#bankAccount1').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#bankAccount1').val())) {
+                                        $('#lup5').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup5').text(``);
+                                    }
+                                })
+                                $('#bankAccount2').blur(() => {
+                                    const r1 = /^\d+$/;
+                                    if (!r1.test($('#bankAccount2').val())) {
+                                        $('#lup5').text(`請輸入阿拉伯數字`)
+                                    } else {
+                                        $('#lup5').text(``);
+                                    }
+                                })
+
+
+                                //秀出所有資料
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "/CGA101G1/mem/MemSelfInfo",
+                                    contentType: "application/json",
+                                    success: data => {
+                                        let { memNo, memAccount, memName, memMobile, memEmail,
+                                            memCity, memDist, memAdd, memBirth, creditcardNo,
+                                            creditcardDate, creditcardSecurityNo, bankAccount,
+                                            bankAccountOwner
+                                        } = data;
+                                        //日期
+                                        $.datetimepicker.setLocale('zh'); // kr ko ja en
+                                        $('#memBirth').datetimepicker({
+                                            theme: '',          //theme: 'dark',
+                                            timepicker: false,   //timepicker: false,
+                                            step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
+                                            format: 'Y-m-d ',
+                                            value: memBirth,
+                                            //disabledDates:    ['2022/06/08','2022/06/09','2022/06/10'], // 去除特定不含
+                                            //startDate:	        '2022/07/10',  // 起始日
+                                            //minDate:           '-1970-01-01', // 去除今日(不含)之前
+                                            //maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+                                        });
+                                        var somedate2 = new Date();
+                                        $('#memBirth').datetimepicker({
+                                            beforeShowDay: function (date) {
+                                                if (date.getYear() > somedate2.getYear() ||
+                                                    (date.getYear() == somedate2.getYear() && date.getMonth() > somedate2.getMonth()) ||
+                                                    (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+                                                ) {
+                                                    return [false, ""]
+                                                }
+                                                return [true, ""];
+                                            }
+                                        });
+                                        //給資料
+                                        $("#l1").html(memAccount);
+                                        $("#memName").val(memName);
+                                        $("#memMobile").val(memMobile);
+                                        $("#memEmail").val(memEmail);
+
+                                        //居住地
+                                        new TwCitySelector({
+                                            el: '.city-selector-set',
+                                            elCounty: '.county',
+                                            countyValue: memCity,
+                                            elDistrict: '.district',
+                                            districtValue: memDist
+                                        });
+
+                                        $("#memAdd").val(memAdd);
+                                        $("#memBirth").attr("value", memBirth);
+                                        //左上角
+                                        $("#Ninf").text(memName);
+                                        $("#Pinf").html(`<img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" title="" alt=""
+                                            id="imgPinf">`)
+                                        $("#Einf").text(memEmail);
+                                        //圖片顯示
+                                        $("#divImg").html(
+                                            `<label for="myPic" class="form-label" >會員大頭貼: </label>
+                                            <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" id="img1" width="200px" height="200px" class="form-control" style="padding: 0; border: 0" />
+                                            <input type="file" name="myPic" id="myPic" onchange="pic()">
+                                                <label id="lup7"></label>`);
+                                    }
+
+                                });
+
+                            }); // ready
+
+
+                            //上傳新圖片
+                            function pic() {
+                                let imgs = document.querySelector('#img1');
+                                let inputs = document.querySelector('#myPic');
+                                inputs = inputs.files[0];
+
+                                const url = URL.createObjectURL(inputs);
+                                imgs.src = url;
+
+                                let reader = new FileReader();
+                                reader.readAsDataURL(inputs)
+
+                                reader.onloadend = function () {
+                                    var arr;
+                                    arr = reader.result;
+                                    $("#reader").val(arr);
+
+                                }
                             }
-                            return [true, ""];
-                        }
-                    });
-                    //給資料
-                    $("#l1").html(memAccount);
-                    $("#memName").val(memName);
-                    $("#memMobile").val(memMobile);
-                    $("#memEmail").val(memEmail);
-                    // $("#memCity").val(memCity);
-                    // $("#memCity").attr("data-value", memCity);
-                    // $("#memDist").attr("data-value", memDist);
-                    // $("#memDist").val(memDist);
-                    //居住地
-                    new TwCitySelector({
-                        el: '.city-selector-set',
-                        elCounty: '.county',
-                        countyValue: memCity,
-                        elDistrict: '.district',
-                        districtValue: memDist
-                    });
-//                     new TwCitySelector({
-//                         el: '.city-selector',
-//                         countyValue: memCity, // 注意此項為關聯參數
-//                         districtValue: memDist
-//                     });
-                    $("#memAdd").val(memAdd);
-                    $("#memBirth").attr("value", memBirth);
 
-                    $("#divImg").html(
-                        `<label for="myPic" class="form-label" >會員大頭貼: </label>
-                        <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" id="img1" width="200px" height="200px"  class="form-control" style="padding: 0; border: 0" />
-                        <input type="file" name="myPic" id="myPic" onchange="pic()">
-                        <label id="lup7"></label>`);
-                    //                     /CGA101G1/bid/bidPicGetOneByProdPicNo
-                }
-
-            });
-
-        }); // ready
-
-
-        //上傳新圖片
-        function pic() {
-            let imgs = document.querySelector('#img1');
-            let inputs = document.querySelector('#myPic');
-            inputs = inputs.files[0];
-
-            const url = URL.createObjectURL(inputs);
-            imgs.src = url;
-
-            let reader = new FileReader();
-            reader.readAsDataURL(inputs)
-
-            reader.onloadend = function () {
-                var arr;
-                arr = reader.result;
-                $("#reader").val(arr);
-
-            }
-        }
-
-        $("#btn1").click(() => {
-            if ($('#reader').val().length !== 0) {
-                //對base64做切割處理
-                let imageBase64 = $('#reader').val();
-                let index = imageBase64.indexOf(',');
-                index = index + 1
-                let str1 = imageBase64.substr(0, index);
-                imageBase64 = imageBase64.replace(str1, "");
-                //送資料到後端
-                $.ajax({
-                    type: 'POST',
-                    url: "/CGA101G1/mem/MemPicEditServlet",
-                    contentType: "application/json",
-                    data: imageBase64
-                })
-            }
-            if ($('#memName').val().length === 0 ||
-                $('#memMobile').val().length === 0 ||
-                $('#memEmail').val().length === 0
-            ) {
-                $('#l8').text(`*為必填欄位,尚有欄位未輸入`);
-            } else {
-                $.ajax({
-                    type: 'POST',
-                    url: "/CGA101G1/mem/MemEditServlet",
-                    contentType: "application/json",
-                    data:
-                        JSON.stringify({
-                            memAccount: l1.innerText,
-                            memName: memName.value,
-                            memMobile: memMobile.value,
-                            memAdd: memAdd.value,
-                            memEmail: memEmail.value,
-                            memBirth: memBirth.value,
-                            memCity: memCity.value,
-                            memDist: memDist.value,
-                            memBirth: memBirth.value,
-                            creditcardNo: creditcardNo1.value + creditcardNo2.value + creditcardNo3.value + creditcardNo4.value,
-                            creditcardDate: creditcardDate1.value + creditcardDate2.value,
-                            creditcardSecurityNo: creditcardSecurityNo.value,
-                            bankAccount: bankAccount1.value + '-' + bankAccount2.value,
-                            bankAccountOwner: bankAccountOwner.value,
-                        }),
-                    success: data => {
-                        const { successful, message } = data;
-                        if (successful) {
-                            alert(message);
-                            // location = "index.html";
-                        } else {
-                            $("#l8").html(message);
-                        }
-                    }
+                            $("#btn1").click(() => {
+                                if ($('#reader').val().length !== 0) {
+                                    //對base64做切割處理
+                                    let imageBase64 = $('#reader').val();
+                                    let index = imageBase64.indexOf(',');
+                                    index = index + 1
+                                    let str1 = imageBase64.substr(0, index);
+                                    imageBase64 = imageBase64.replace(str1, "");
+                                    //送資料到後端
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "/CGA101G1/mem/MemPicEditServlet",
+                                        contentType: "application/json",
+                                        data: imageBase64
+                                    })
+                                }
+                                if ($('#memName').val().length === 0 ||
+                                    $('#memMobile').val().length === 0 ||
+                                    $('#memEmail').val().length === 0
+                                ) {
+                                    $('#l8').text(`*為必填欄位,尚有欄位未輸入`);
+                                } else {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "/CGA101G1/mem/MemEditServlet",
+                                        contentType: "application/json",
+                                        data:
+                                            JSON.stringify({
+                                                memAccount: l1.innerText,
+                                                memName: memName.value,
+                                                memMobile: memMobile.value,
+                                                memAdd: memAdd.value,
+                                                memEmail: memEmail.value,
+                                                memBirth: memBirth.value,
+                                                memCity: memCity.value,
+                                                memDist: memDist.value,
+                                                memBirth: memBirth.value,
+                                                creditcardNo: creditcardNo1.value + creditcardNo2.value + creditcardNo3.value + creditcardNo4.value,
+                                                creditcardDate: creditcardDate1.value + creditcardDate2.value,
+                                                creditcardSecurityNo: creditcardSecurityNo.value,
+                                                bankAccount: bankAccount1.value + '-' + bankAccount2.value,
+                                                bankAccountOwner: bankAccountOwner.value,
+                                            }),
+                                        success: data => {
+                                            const { successful, message } = data;
+                                            if (successful) {
+                                                alert(message);
+                                                // location = "index.html";
+                                            } else {
+                                                $("#l8").html(message);
+                                            }
+                                        }
 
 
-                });
+                                    });
 
 
 
-            }
-        })
+                                }
+                            })
 
-    </script>
+                        </script>
 
 </body>
 
