@@ -47,7 +47,7 @@ public class GameNewsGetOne extends HttpServlet{
 		map.put("gamePlatformNo", gameNewsVO.getGamePlatformNo());
 		map.put("managerNo", gameNewsVO.getManagerNo());
 		map.put("gameNewsTitle", gameNewsVO.getGameNewsTitle());
-		map.put("gameNewsContent", gameNewsVO.getGameNewsContent());
+		map.put("gameNewsContent", gameNewsVO.getGameNewsContent().replace("\r\n", "<br>"));
 		map.put("ImgUrl", req.getContextPath()+"/gameNews/gameNewsPic?gameNewsNo="+gameNewsVO.getGameNewsNo());
 		
 		List<Object> list = new ArrayList<Object>();

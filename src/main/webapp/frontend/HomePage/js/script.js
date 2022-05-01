@@ -130,33 +130,33 @@ function showNews(data) {
 
 }
 /*-----------------------------載入動畫----------------------------*/
-function loader() {
-	document.querySelector('.loader-container').classList.add('fade-out');
-}
-
-function fadeOut() {
-	setInterval(loader, 2400);
-	let loaderImg = document.querySelector('.loader-container img');
-	loaderImg.setAttribute('src', '.\\images\\aliennn.gif');
-	runNum();
-
-}
-function runNum() {
-	let num = document.querySelector('#num');
-	let i = 0;
-	function myLoop() {
-		setTimeout(() => {
-			num.textContent = i;
-			i++;
-			if (i < 101) {
-				myLoop();
-			}
-		}, 12);
-	}
-	myLoop();
-}
-
-window.onload = fadeOut;
+//function loader() {
+//	document.querySelector('.loader-container').classList.add('fade-out');
+//}
+//
+//function fadeOut() {
+//	setInterval(loader, 2400);
+//	let loaderImg = document.querySelector('.loader-container img');
+//	loaderImg.setAttribute('src', '.\\images\\aliennn.gif');
+//	runNum();
+//
+//}
+//function runNum() {
+//	let num = document.querySelector('#num');
+//	let i = 0;
+//	function myLoop() {
+//		setTimeout(() => {
+//			num.textContent = i;
+//			i++;
+//			if (i < 101) {
+//				myLoop();
+//			}
+//		}, 12);
+//	}
+//	myLoop();
+//}
+//
+//window.onload = fadeOut;
 
 /*-----------------------------Service客服圖文選單----------------------------*/
 let robot = document.querySelector('#robot');
@@ -325,6 +325,9 @@ function showTop9Items(data){
                     <div class="content">
                         <i class="fas fa-solid fa-crown"></i> <span>${count}</span>
                         <h3>${item.productName}</h3>
+                        <div class="stars">
+                        ${showStar(item.commentStar,item.countComment)}
+                    	</div>
                         <p>銷售量：${item.productSales}萬</p>
                         <div class="buttons">
                             <a href="#" class="btn btn-3">Order Now</a>
@@ -336,7 +339,7 @@ function showTop9Items(data){
 
                 </div>`)
 		}else{
-			str += `   <div class="box">
+			str += `<div class="box">
                     <div class="flag">${count}</div>
                     <div class="trangle"></div>
                     <a href="#" class="fas fa-heart"></a>
@@ -345,8 +348,8 @@ function showTop9Items(data){
                     </div>
                     <h3>${item.productName}</h3>
                     <div class="stars">
-                        <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-                            class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i>
+                    	${showStar(item.commentStar,item.countComment)}
+     
                     </div>
                     <span>$${item.productPrice}</span>
                     <div class="buttons">
@@ -358,4 +361,24 @@ function showTop9Items(data){
 		count++;
 	}
 	boxContainer.innerHTML = str;
+}
+
+function showStar(stars, count){
+	let starAvg = (stars/count).toFixed(1);
+	let starAvgInt = Math.floor(stars/count);
+	let str = "";
+	//整數星星
+	for(let i = 0 ; i < starAvgInt ; i++){
+		str += '<i class="fas fa-star"></i>';
+	}
+	//半顆星星 (尾數>=0.5，加半顆星)
+	if(starAvg - starAvgInt >= 0.5){
+		str+= '<i class="fa-solid fa-star-half-stroke"></i>';
+	}
+	//補滿至五顆星星
+	for(let i = 0; i < 5-Math.round(stars/count); i++){
+		str += '<i class="fa-regular fa-star"></i>';
+	}
+	
+	return str;
 }
