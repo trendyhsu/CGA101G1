@@ -526,7 +526,7 @@
                     }
                 },
                 getProductData() {
-                    const apiUrl = 'http://localhost:8081/CGA101G1/product/OneProductToJson';
+                    const apiUrl = '/CGA101G1/product/OneProductToJson';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
@@ -539,7 +539,7 @@
                         });
                 },
                 getPicData() {
-                    const apiUrl = 'http://localhost:8081/CGA101G1/product/ProductPics';
+                    const apiUrl = '/CGA101G1/product/ProductPics';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {

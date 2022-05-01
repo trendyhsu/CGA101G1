@@ -17,6 +17,8 @@ public interface OrderDetailDAO_interface {
     //查某張訂單的全部項目
     public List<OrderDetailVO> findAllDetailByOrderNo(Integer OrderNo);
     
+    public OrderDetailVO showCaledCommentByProductNo(Integer productNo);
+    
     //新增訂單項目
     public void newByOrder(OrderDetailVO OrderDetailVO);
     

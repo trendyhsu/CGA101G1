@@ -62,11 +62,11 @@ public class GetParameter extends HttpServlet {
 		/*--------------前端輸入資訊獲取--------------------*/
 
 		String productName = request.getParameter("ProductName");
-		String nameRule = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_:-)(\\-\\)]{1,30}$";
+		String nameRule = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_:)(\\-\\)]{1,30}$";
 		if (productName.trim().length() == 0 || productName == null) {
 			errorMsgs.add("商品名稱: 不能空白");
 		} else if (!productName.trim().matches(nameRule)) {
-			errorMsgs.add("商品名稱: 只能包含中文、英文大小寫、數字和底線及冒號 , 且長度須在1到30之間");
+			errorMsgs.add("商品名稱: 只能包含中文、英文大小寫、數字、底線及冒號 , 且長度須在1到30之間");
 		}
 		productVO.setProductName(productName);
 		out.print("<h1>" + productName + "</h1>");

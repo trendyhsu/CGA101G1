@@ -60,4 +60,8 @@ public class OrderService {
 		dao.update(orderVO);
 	}
 	
+	public OrderVO findMemNoByOrderNo(Integer orderNo) {
+		return dao.findMemNoByOrderNo(orderNo);
+	}
+	
 }

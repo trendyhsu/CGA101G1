@@ -15,6 +15,10 @@ public interface OrderDAO_interface {
     public void update(OrderVO orderVO);
     //查詢某個的訂單
     public OrderVO findByOrderNo(Integer orderNo); 
+    
+    //查詢某個的訂單
+    public OrderVO findMemNoByOrderNo(Integer orderNo); 
+    
     //查詢某個會員最新的訂單
     public OrderVO findNewetOrderByMem(Integer memNo);     
     //查詢作廢的訂單

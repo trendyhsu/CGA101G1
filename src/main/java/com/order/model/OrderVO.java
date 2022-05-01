@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.member.model.MemDAO_interface;
+import com.member.model.MemJDBCDAO;
+import com.member.model.MemVO;
 import com.orderdetail.model.OrderDetailDAO;
 import com.orderdetail.model.OrderDetailDAO_interface;
 import com.orderdetail.model.OrderDetailVO;
@@ -104,6 +107,11 @@ public class OrderVO implements java.io.Serializable{
 	public List<OrderDetailVO> getAllDetailByOrderNo(Integer orderNo){
 		OrderDetailDAO_interface dao = new OrderDetailDAO();	
 		return dao.findAllDetailByOrderNo(orderNo);
+	}
+	public MemVO getMemVObyMemNo(Integer memNo) {
+		MemJDBCDAO dao = new MemJDBCDAO();
+		MemVO memVO=dao.getOneByMemNo(memNo);
+		return memVO;
 	}
 	
 }

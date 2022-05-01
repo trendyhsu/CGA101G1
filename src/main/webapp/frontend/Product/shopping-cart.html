@@ -29,7 +29,7 @@
 
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
+    <link rel="shortcut icon" href="/CGA101G1/frontend/mainCss/images/logo.png">
     <!-- Fonts CSS -->
     <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
     <!-- Bootstrap-icons CSS -->
@@ -322,11 +322,11 @@
                     <table class="table table-bordered align-middle">
                         <thead>
                             <tr class="text-uppercase">
-                                <th class="text-dark text-center fw-500 text-nowrap">Product Name</th>
-                                <th class="text-dark text-center fw-500 text-nowrap">Until Price</th>
-                                <th class="text-dark text-center fw-500 text-nowrap">Qty</th>
-                                <th class="text-dark text-center fw-500 text-nowrap">Subtotal</th>
-                                <th class="text-dark fw-500 text-end text-nowrap">action</th>
+                                <th class="text-dark text-center fw-500 text-nowrap">遊戲名稱</th>
+                                <th class="text-dark text-center fw-500 text-nowrap">單價</th>
+                                <th class="text-dark text-center fw-500 text-nowrap">數量</th>
+                                <th class="text-dark text-center fw-500 text-nowrap">總數</th>
+                                <th class="text-dark fw-500 text-center text-nowrap">移除購買項目</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -347,15 +347,14 @@
                                     </div>
                                 </td>
                                 <td class="text-center product-subtotal">{{item.productTotalPrice}}</td>
-                                <td class="product-remove text-end text-nowrap">
+                                <td class="text-center text-nowrap">
                                     <!-- <a href="javascript:void(0);"
                                         class="btn btn-sm btn-outline-secondary text-nowrap px-3"><i
                                             class="bi bi-pencil-square lh-1"></i> <span
                                             class="d-none d-md-inline-block">Edit</span></a> -->
                                     <a :href="`/CGA101G1/product/shoppingCartRemoveAll?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`"
                                         class="btn btn-sm btn-outline-danger text-nowrap px-3"><i
-                                            class="bi bi-x lh-1"></i> <span
-                                            class="d-none d-md-inline-block">Remove</span></a>
+                                            class="bi bi-x lh-1"></i> <span class="d-md-inline-block">刪除</span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -364,17 +363,9 @@
                 <!-- Cart Table -->
                 <div class="d-flex">
                     <div>
-                        <a class="btn btn-outline-dark" href="shop-fw-without-filtres.html">
+                        <a class="btn btn-outline-dark" href="/CGA101G1/frontend/Product/HomePageinshop.html">
                             <i class="ci-arrow-left mt-sm-0 me-1"></i>
-                            <span class="d-none d-sm-inline">Continue Shopping</span>
-                            <span class="d-inline d-sm-none">Back</span>
-                        </a>
-                    </div>
-                    <div class="ms-auto">
-                        <a class="btn btn-outline-primary" href="account-address.html">
-                            <span class="d-none d-sm-inline">Update shopping cart</span>
-                            <span class="d-inline d-sm-none">Next</span>
-                            <i class="ci-arrow-right mt-sm-0 ms-1"></i>
+                            <span class="d-none d-sm-inline">繼續購物</span>
                         </a>
                     </div>
                 </div>
@@ -395,9 +386,11 @@
                                     請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
-                                <label class="form-label" for="ReceiverPhone">電話</label>
+                                <label class="form-label" for="ReceiverPhone">聯絡手機</label>
                                 <input class="form-control" type="number" id="ReceiverPhone" required
-                                    name="ReceiverPhone">
+                                    name="ReceiverPhone" @change="phoneCheck($event)" max="10">
+                                <div style="color: red;" :style="{visibility: phoneInput ? 'visible' : 'hidden'}">
+                                    請輸入正確的手機格式!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="Rod">地址</label>
@@ -410,7 +403,7 @@
                                 <input class="form-control" type="text" id="Rod" required name="Rod"
                                     @change="RodInputCheck($event)">
                                 <div style="color: red;" :style="{visibility: RodInput ? 'visible' : 'hidden'}">
-                                    請輸入正確格式的地址，不應包含特殊符號或是只填空格!!</div>
+                                    請輸入正確格式的地址，不應包含特殊符號及英文或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="PickupMethod">取貨方式</label>
@@ -486,7 +479,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <input type="submit" value="送出訂單" class="btn btn-primary" readonly>
+                                <input type="submit" value="送出訂單" class="btn btn-primary" v-show="ckeckoutOK">
                             </div>
                         </div>
                     </div>
@@ -585,9 +578,15 @@
                 a: ",",
                 //表單驗證用
                 nameInput: false,
+                nameCheckN: 0,
                 RodInput: false,
+                RodCheckN: 0,
+                phoneInput: false,
+                phoneCheckN: 0,
                 shippingFeeCal: 0,
                 shipFeeConfirm: 100,
+                ckeckoutOK: false,
+                ckeckoutNumber: 0,
 
             }
         },
@@ -635,19 +634,46 @@
                 }
             },
             nameCheck(e) {
+                this.ckeckoutOK = false;
+                this.nameCheckN = 0;
                 this.nameInput = false;
                 const rules = new RegExp('[+-/^~{}:@$!%*?&0-9]')
-                console.log(e.target.value);
+
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.nameInput = true;
+                } else {
+                    this.nameCheckN = 1;
+                    if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
+                        this.ckeckoutOK = true;
+                    }
+                }
+            },
+            phoneCheck(e) {
+                this.ckeckoutOK = false;
+                this.phoneCheckN = 0;
+                this.phoneInput = false;
+                const rules = /^09\d{8}$/;
+                if (!rules.test(e.target.value) || (e.target.value).trim().length == 0) {
+                    this.phoneInput = true;
+                } else {
+                    this.phoneCheckN = 1;
+                    if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
+                        this.ckeckoutOK = true;
+                    }
                 }
             },
             RodInputCheck(e) {
+                this.ckeckoutOK = false;
+                this.RodCheckN = 0;
                 this.RodInput = false;
-                const rules = new RegExp('[+-/^~{}:@$!%*?&]')
-                console.log(e.target.value);
+                const rules = new RegExp('[+-/^~{}:@$!%*?&a-zA-Z]')
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.RodInput = true;
+                } else {
+                    this.RodCheckN = 1;
+                    if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
+                        this.ckeckoutOK = true;
+                    }
                 }
             },
             feeCheck(e) {
