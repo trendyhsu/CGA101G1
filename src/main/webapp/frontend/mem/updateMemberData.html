@@ -417,218 +417,194 @@
                             <!-- login page -->
                             <div class="section">
                                 <div class="container">
-                                    <div class="justify-content-center row">
-                                        <div class="col-lg-5 col-xxl-4">
-                                            <div class="card">
-                                                <div class="card-header bg-transparent py-3">
-                                                    <h3 class="h4 mb-0" style="text-align: center;">會員資料及更新 </h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div style="display: flex;">
-                                                        <div>
-
-
-
-                                                            <!-- 圖片 -->
-                                                            <div class="forimg">
-                                                                <div id="divImg">
-                                                                    <label for="myPic" class="form-label">會員大頭貼:
-                                                                    </label> class="form-label" class="form-control"
-                                                                    <img src="" id="img1" width="200px"
-                                                                        height="400px" />
-                                                                    <input type="file" name="myPic" accept="image/*"
-                                                                        id="myPic" class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="lup7"></label>
-                                                                </div>
-                                                                <div id="catch">
-                                                                    <input type="hidden" id="reader">
-                                                                </div>
+                                    <div class="justify-content-center">
+                                        <!-- <div class="col-lg-5 col-xxl-4"> -->
+                                        <div class="card">
+                                            <div class="card-header bg-transparent py-3">
+                                                <h3 class="h4 mb-0" style="text-align: center;">會員資料及更新 </h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-5"></div>
+                                                    <div class="col-md-3">
+                                                        <!-- 圖片 -->
+                                                        <div class="forimg">
+                                                            <div id="divImg" style="width: 50%;">
+                                                                <label for="myPic" class="form-label">會員大頭貼:</label>
+                                                                <img src="" id="img1" />
+                                                                <input type="file" name="myPic" accept="image/*"
+                                                                    id="myPic" class="form-control"
+                                                                    style="text-transform: none;">
+                                                                <label id="lup7"></label>
                                                             </div>
-
-
-                                                            <!-- 更新區1 -->
-                                                            <div class="up1" style="float:left;">
-                                                                <div class="form-group mb-3">
-                                                                    <label for="memAccount" class="form-label">帳號:
-                                                                    </label>
-                                                                    <span class="text-danger">*</span>
-                                                                    <label id="l1"
-                                                                        style="color: darkkhaki; font-size: 20; border: none; text-transform: none;"
-                                                                        class="form-control"></label>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="memPassword">密碼: </label>
-                                                                    <a href="passwordChange.jsp" id="a1"
-                                                                        style="color: blue; font-size: 20; border: none;"
-                                                                        class="form-control">更改密碼</a>
-                                                                    <label id="l2"></label>
-                                                                </div>
-
-                                                                <div>
-                                                                    <label for="memName" class="form-label">*帳戶名稱:
-                                                                    </label>
-                                                                    <input type="text" name="memName" id="memName"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="l4"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="memMobile" class="form-label">*行動電話:
-                                                                    </label>
-                                                                    <input type="text" name="memMobile" id="memMobile"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="l5"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-
-                                                                <div role="city-selector-set" class="city-selector-set"
-                                                                    id="forAddress">
-                                                                    <div class="form-group mb-3">
-                                                                        <label for="memCity"
-                                                                            class="form-label">居住縣市:<span
-                                                                                class="text-danger">*</span></label>
-                                                                        <select class="county" id="memCity"
-                                                                            class="form-control"></select>
-                                                                    </div>
-
-                                                                    <div class="form-group mb-3">
-                                                                        <label for="memDist"
-                                                                            class="form-label">鄉/鎮/市/區:<span
-                                                                                class="text-danger">*</span></label>
-                                                                        <select class="district" id="memDist"
-                                                                            class="form-control"></select>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div>
-                                                                    <label for="memAdd" class="form-label">地址: </label>
-                                                                    <input type="text" name="memAdd" id="memAdd"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="l6"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-
-
+                                                            <div id="catch">
+                                                                <input type="hidden" id="reader">
                                                             </div>
-                                                            <!-- 更新區2 -->
-                                                            <div class="up2" style="float:right;">
-
-                                                                <div>
-                                                                    <label for="memEmail" class="form-label">*E-mail:
-                                                                    </label>
-                                                                    <input type="text" name="memEmail" id="memEmail"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="l7"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="memBirth" class="form-label">出生年月日:
-                                                                    </label>
-                                                                    <input type="text" name="memBirth" id="memBirth"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="d1"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-                                                                <div>
-
-                                                                </div>
-                                                                <div id="cred">
-                                                                    <label for="creditcardNo1" class="form-label">信用卡卡號:
-                                                                    </label>
-                                                                    <input type=text name="creditcardNo1" size=4
-                                                                        value="" maxlength=4 id="creditcardNo1"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;"> -
-                                                                    <input type=text name="creditcardNo2" size=4
-                                                                        value="" maxlength=4 id="creditcardNo2"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;"> -
-                                                                    <input type=text name="creditcardNo3" size=4
-                                                                        value="" maxlength=4 id="creditcardNo3"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;"> -
-                                                                    <input type=text name="creditcardNo4" size=4
-                                                                        value="" maxlength=4 id="creditcardNo4"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="lup2"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="creditcardDate1"
-                                                                        class="form-label">信用卡到期年月:
-                                                                    </label>
-                                                                    <input type=text name="creditcardDate1" size=2
-                                                                        value="" maxlength=2 id="creditcardDate1"
-                                                                        placeholder="    月" class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    /
-                                                                    <input type=text name="creditcardDate2" size=2
-                                                                        value="" maxlength=2 id="creditcardDate2"
-                                                                        placeholder="西元年" class="form-control">
-                                                                    <label id="lup3"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="creditcardSecurityNo"
-                                                                        class="form-label">信用卡安全碼: </label>
-                                                                    <input type=text name="creditcardSecurityNo" size=3
-                                                                        value="" maxlength=3 id="creditcardSecurityNo"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="lup4"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-
-                                                                <div>
-                                                                    <label for="bankAccount1" class="form-label">銀行帳號:
-                                                                    </label>
-                                                                    <input type=text name="bankAccount1" size=5 value=""
-                                                                        maxlength=3 id="bankAccount1"
-                                                                        placeholder="銀行代碼">
-                                                                    <input type=text name="bankAccount2" size=25
-                                                                        value="" id="bankAccount2" placeholder="銀行帳戶"
-                                                                        class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="lup5"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="bankAccountOwner" class="form-label">戶名:
-                                                                    </label>
-                                                                    <input type="text" name="bankAccountOwner"
-                                                                        id="bankAccountOwner" class="form-control"
-                                                                        style="text-transform: none;">
-                                                                    <label id="lup6"
-                                                                        style="color: red; font-size: 15;"></label>
-                                                                </div>
-
-                                                            </div>
-
-
-
-
-
-                                                            <div class="form-group text-center">
-                                                                <button type="button" class="btn btn-primary w-100"
-                                                                    id="btn1">
-                                                                    確認修改
-                                                                </button>
-                                                            </div>
-
-                                                            <label id="l8" style="color: red; font-size: 15;"></label>
-
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-4"></div>
+
+                                                    <!-- <div class="col-md-6"> -->
+                                                    <!-- 更新區1 -->
+                                                    <div class="up1 col-md-6">
+                                                        <div class="form-group mb-3">
+                                                            <label for="memAccount" class="form-label">帳號:
+                                                            </label>
+                                                            <span class="text-danger">*</span>
+                                                            <label id="l1"
+                                                                style="color: darkkhaki; font-size: 20;  text-transform: none;"
+                                                                class="form-control"></label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="memPassword" class="form-label">密碼: </label>
+                                                            <a href="passwordChange.jsp" id="a1"
+                                                                style="color: blue; font-size: 20; "
+                                                                class="form-control">更改密碼</a>
+                                                            <label id="l2"></label>
+                                                        </div>
+
+                                                        <div>
+                                                            <label for="memName" class="form-label">*帳戶名稱:
+                                                            </label>
+                                                            <input type="text" name="memName" id="memName"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="l4" style="color: red; font-size: 15;"></label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="memMobile" class="form-label">*行動電話:
+                                                            </label>
+                                                            <input type="text" name="memMobile" id="memMobile"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="l5" style="color: red; font-size: 15;"></label>
+                                                        </div>
+
+                                                        <div role="city-selector-set" class="city-selector-set"
+                                                            id="forAddress">
+                                                            <div class="form-group mb-3">
+                                                                <label for="memCity" class="form-label">居住縣市:<span
+                                                                        class="text-danger">*</span></label>
+                                                                <select class="county" id="memCity"
+                                                                    class="form-control"></select>
+                                                            </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label for="memDist" class="form-label">鄉/鎮/市/區:<span
+                                                                        class="text-danger">*</span></label>
+                                                                <select class="district" id="memDist"
+                                                                    class="form-control"></select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <label for="memAdd" class="form-label">地址: </label>
+                                                            <input type="text" name="memAdd" id="memAdd"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="l6" style="color: red; font-size: 15;"></label>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!-- 更新區2 -->
+                                                    <div class="up2 col-md-6">
+
+                                                        <div>
+                                                            <label for="memEmail" class="form-label">*E-mail:
+                                                            </label>
+                                                            <input type="text" name="memEmail" id="memEmail"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="l7" style="color: red; font-size: 15;"></label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="memBirth" class="form-label">出生年月日:
+                                                            </label>
+                                                            <input type="text" name="memBirth" id="memBirth"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="d1" style="color: red; font-size: 15;"></label>
+                                                        </div>
+                                                        <div>
+                                                            <!-- class="form-group col-md-12" -->
+                                                        </div>
+                                                        <label for="creditcardNo1" class="form-label">信用卡卡號:
+                                                        </label>
+                                                        <div id="cred" class="form-control">
+                                                            <input type="text" name="creditcardNo1" size=4 value=""
+                                                                maxlength=4 id="creditcardNo1"
+                                                                style="text-transform: none; width: 22%;">
+                                                            -
+                                                            <input type="text" name="creditcardNo2" size=4 value=""
+                                                                maxlength=4 id="creditcardNo2"
+                                                                style="text-transform: none; width: 22%;">
+                                                            -
+                                                            <input type="text" name="creditcardNo3" size=4 value=""
+                                                                maxlength=4 id="creditcardNo3"
+                                                                style="text-transform: none; width: 22%;">
+                                                            -
+                                                            <input type="text" name="creditcardNo4" size=4 value=""
+                                                                maxlength=4 id="creditcardNo4"
+                                                                style="text-transform: none; width: 22%;">
+                                                        </div>
+
+                                                        <label id="lup2" style="color: red; font-size: 15;"></label>
+
+                                                        <label for="creditcardDate1" class="form-label">信用卡到期年月:
+                                                        </label>
+                                                        <div class="form-control">
+                                                            <input type=text name="creditcardDate1" size=2 value=""
+                                                                maxlength=2 id="creditcardDate1" placeholder="    月"
+                                                                style="text-transform: none; width: 47%;">
+                                                            /
+                                                            <input type=text name="creditcardDate2" size=2 value=""
+                                                                maxlength=2 id="creditcardDate2" placeholder="西元年"
+                                                                style="text-transform: none; width: 47%;">
+                                                        </div>
+                                                        <label id="lup3" style="color: red; font-size: 15;"></label>
+                                                        <div>
+                                                            <label for="creditcardSecurityNo" class="form-label">信用卡安全碼:
+                                                            </label>
+                                                            <input type=text name="creditcardSecurityNo" size=3 value=""
+                                                                maxlength=3 id="creditcardSecurityNo"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="lup4" style="color: red; font-size: 15;"></label>
+                                                        </div>
+
+                                                        <div>
+                                                            <label for="bankAccount1" class="form-label">銀行帳號:
+                                                            </label>
+                                                            <input type=text name="bankAccount1" size=5 value=""
+                                                                maxlength=3 id="bankAccount1" placeholder="銀行代碼">
+                                                            <input type=text name="bankAccount2" size=25 value=""
+                                                                id="bankAccount2" placeholder="銀行帳戶"
+                                                                class="form-control" style="text-transform: none;">
+                                                            <label id="lup5" style="color: red; font-size: 15;"></label>
+                                                        </div>
+                                                        <div>
+                                                            <label for="bankAccountOwner" class="form-label">戶名:
+                                                            </label>
+                                                            <input type="text" name="bankAccountOwner"
+                                                                id="bankAccountOwner" class="form-control"
+                                                                style="text-transform: none;">
+                                                            <label id="lup6" style="color: red; font-size: 15;"></label>
+                                                        </div>
+
+                                                    </div>
+
+
+
+
+
+                                                    <div class="form-group text-center">
+                                                        <button type="button" class="btn btn-primary w-100" id="btn1">
+                                                            確認修改
+                                                        </button>
+                                                    </div>
+
+                                                    <label id="l8" style="color: red; font-size: 15;"></label>
+
                                                 </div>
+                                                <!-- </div> -->
                                             </div>
                                         </div>
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                                 <!-- end login -->
@@ -865,7 +841,7 @@
                                         //圖片顯示
                                         $("#divImg").html(
                                             `<label for="myPic" class="form-label" >會員大頭貼: </label>
-                                            <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" id="img1" width="200px" height="200px" class="form-control" style="padding: 0; border: 0" />
+                                            <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" id="img1" width="50%" height="50%" class="form-control" style="padding: 0; border: 0" />
                                             <input type="file" name="myPic" id="myPic" onchange="pic()">
                                                 <label id="lup7"></label>`);
                                     }

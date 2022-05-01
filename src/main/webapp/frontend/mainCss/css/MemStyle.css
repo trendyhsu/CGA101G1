@@ -1,10 +1,10 @@
 .card {
-    width: 500px;
+    /* width: 500px; */
 }
 
 .card-body {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
 }
 
 .register1 {
@@ -45,7 +45,4 @@
     background-clip: padding-box;
     line-height: 3.2;
     padding: 0.65rem 1.25rem;
-}
-.forimg{
-	display: block;
 }
