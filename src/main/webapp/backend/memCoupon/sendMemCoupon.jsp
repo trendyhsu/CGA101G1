@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.memCoupon.model.*"  %>    
+<%@include file="/backend/share.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,47 +12,53 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<style>
-  table#table-1 {
-    width: 450px;
-	background-color: #CCCCFF;
-    border: 2px solid black;
+<style type="text/css">
+th{
+	border-bottom-style:solid;
+	background-color: #b2cdcc;
+	vertical-align: middle;
+	text-align: center;
+}
+
+td{
+	border-bottom-style:solid;
+	  padding: 5px;
     text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+}
 
-<style>
-  table {
+h3{
+font-weight: bold;
+color: #547492;
+}
+
+#pageNumber, #dataNumber, #pageChange{
+float: right;
+}
+
+.showPanel{
+	width: 100%;
 	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
-</head>
-<body bgcolor='white'>
 
+</style>
+
+</head>
+
+<body bgcolor='white'>
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+		<div id="bid-content">
+		
 <table id="table-1">
 	<tr><td>
 		 <h3>優惠券發放</h3></td><td>
 	</td></tr>
 </table>
-<h3>優惠券發放:</h3>
 
+<div style=" justify-content: center;">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/memCoupon/SendMemCouponServlet" name="form1">
 <table>
 	<tr>
@@ -74,5 +81,11 @@
 
 <br>
 <input type="submit" value="發放"></FORM>
+</div>
+
+	</div>
+	</section>
+</section>
+	<!--main content end-->
 </body>
 </html>

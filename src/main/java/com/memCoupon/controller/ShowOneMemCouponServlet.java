@@ -49,7 +49,7 @@ public class ShowOneMemCouponServlet extends HttpServlet {
 		List<MemCouponVO> list = memCouponService.listOneMemCoupon(memNo);
 		
 		if (list.size() == 0) {
-			errorMsgs.put("memNo", "該會員無優惠券");
+			errorMsgs.put("memNo", "該會員無可使用的優惠券");
 		}
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
@@ -59,6 +59,7 @@ public class ShowOneMemCouponServlet extends HttpServlet {
 		}
 		/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 		request.setAttribute("list", list); 
+		errorMsgs.clear();
 		String url = "/backend/memCoupon/listOneMemCoupon.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); 
 		successView.forward(request, response);

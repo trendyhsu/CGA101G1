@@ -91,6 +91,7 @@ public class GetOneMemServlet extends HttpServlet {
 			}
 			/***************************3.完成,準備轉交(Send the Success view)*************/
 			request.setAttribute("memVO", memVO);
+			errorMsgs.clear();
 			String url = "/backend/mem/listOneMem.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 成功後,轉交
 			successView.forward(request, response);

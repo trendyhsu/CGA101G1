@@ -58,6 +58,7 @@
 
 </head>
 <body bgcolor='white'>
+
 				<!-- 內容直接寫在<div class="table-responsive fs-md mb-4">裡面 -->
                     <div class="col-lg-9 col-xxl-9">
                         <div class="table-responsive fs-md mb-4">
@@ -114,7 +115,7 @@
 <%-- 				<c:out value="已使用" escapeXml="false"></c:out> --%>
 <%-- 			</c:if></td> --%>
 	</table>
-
+<%-- <%@ include file="page1.file"%> --%>
 <%-- <%@ include file="page2.file" %> --%>
 
 </div>

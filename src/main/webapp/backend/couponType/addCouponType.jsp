@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.couponType.model.*"  %>
-
 <%@include file="/backend/share.jsp"%>
 
 <!DOCTYPE html>
@@ -10,48 +9,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-  table#table-1 {
-    width: 450px;
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+<style type="text/css">
+th{
+	border-bottom-style:solid;
+	background-color: #b2cdcc;
+	vertical-align: middle;
+	text-align: center;
+}
 
-<style>
-  table {
+td{
+	border-bottom-style:solid;
+	  padding: 5px;
+    text-align: center;
+}
+
+h3{
+font-weight: bold;
+color: #547492;
+}
+
+#pageNumber, #dataNumber, #pageChange{
+float: right;
+}
+
+.showPanel{
+	width: 100%;
 	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+
 </style>
 
 </head>
 <body bgcolor='white'>
-
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+		<div id="bid-content">
+		
 <table id="table-1">
 	<tr><td>
 		 <h3>優惠券新增</h3>
 	</td></tr>
 </table>
-
-<h3>新增優惠券:</h3>
 
 <%-- 錯誤表列 --%>
 <%-- <c:if test="${not empty errorMsgs}"> --%>
@@ -63,11 +64,6 @@
 <!-- 	</ul> -->
 <%-- </c:if> --%>
 
-				<section id="main-content">
-					<section class="wrapper">
-
-						<div class="row">
-
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/AddCouponTypeServlet" name="form1">
 
     <table>
@@ -75,33 +71,33 @@
 	<tr>
 		<td>優惠券名稱:</td>
 		<td><input type="TEXT" name="couponName" size="45"
-			 value="${param.couponName}"/></td><td>${errorMsgs.couponName}</td>
+			 value="${param.couponName}"/></td><td ">${errorMsgs.couponName}</td>
 	</tr>
 	<tr>
 		<td>優惠券折價價格:</td>
 		<td><input type="TEXT" name="discountPrice" size="45"
-			 value="${param.discountPrice}"/></td><td>${errorMsgs.discountPrice}</td>
+			 value="${param.discountPrice}"/></td><td ">${errorMsgs.discountPrice}</td>
 	</tr>
 	<tr>
 		<td>優惠券時效:</td>
-		<td><input name="couponDeadline" id="couponDeadline" type="text"/></td><td>${errorMsgs.couponDeadline}</td>	 
+		<td><input name="couponDeadline" id="couponDeadline" type="text"/></td "><td>${errorMsgs.couponDeadline}</td>	 
 	</tr>
 	<tr>
 		<td>優惠券數量:</td>
 		<td><input type="TEXT" name="couponQuantity" size="45"
-			 value="${param.couponQuantity}"/></td><td>${errorMsgs.couponQuantity}</td>
+			 value="${param.couponQuantity}"/></td><td >${errorMsgs.couponQuantity}</td>
 	</tr>
 		<tr>
 		<td>優惠券描述:</td>
 		<td><textarea  name="couponDescription" style="min-height:100px;min-width:300px;max-height:50px;max-width:70px;">>
-			 </textarea></td><td>${errorMsgs.comm}</td>
+			 </textarea></td><td ">${errorMsgs.comm}</td>
 	</tr>
 
 </table>
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="couponName" value="${param.couponName}">
-<input type="submit" value="送出新增"></FORM><td>${errorMsgs.Dup}</td>
+<input type="submit" value="送出新增"></FORM><td ">${errorMsgs.Dup}</td>
 
 
 						</div>
@@ -145,18 +141,19 @@
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
-//         2.以下為某一天之後的日期無法選擇
-             var somedate2 = new Date();
-             $('#f_date1').datetimepicker({
+//           1.以下為某一天之前的日期無法選擇
+             var somedate1 = new Date();
+             $('#couponDeadline').datetimepicker({
                  beforeShowDay: function(date) {
-               	  if (  date.getYear() >  somedate2.getYear() || 
-        		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+               	  if (  date.getYear() <  somedate1.getYear() || 
+        		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+        		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
                      ) {
                           return [false, ""]
                      }
                      return [true, ""];
              }});
+
 
         </script>
 </html>
