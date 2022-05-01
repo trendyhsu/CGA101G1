@@ -32,7 +32,7 @@ public class GameNewsPicServlet extends HttpServlet {
 		
 		ServletOutputStream out = resp.getOutputStream();
 		Integer gameNewsNo = Integer.valueOf(req.getParameter("gameNewsNo"));
-		System.out.print(gameNewsNo);
+//		System.out.print(gameNewsNo);
 		GameNewsService gnSvc = new GameNewsService();
 		GameNewsVO gameNewsVO = gnSvc.getOne(gameNewsNo);
 		if(gameNewsVO.getGameNewsPic() != null) {

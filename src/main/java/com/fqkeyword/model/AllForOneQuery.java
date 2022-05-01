@@ -24,6 +24,8 @@ public class AllForOneQuery {
 		int count = 0;
 		for(String key : keys) {
 			String value = map.get(key)[0];
+			System.out.println("value1= "+value);
+			System.out.println("value2= "+map.get("fQKeyWordContent")[1]);
 			if(value != null && value.trim().length() != 0 && !"action".equals(key)) {
 				count++;
 				String condition = makeCondition(key,value.trim());
@@ -43,7 +45,7 @@ public class AllForOneQuery {
 		// 配合 req.getParameterMap()方法 回傳 java.util.Map<java.lang.String,java.lang.String[]> 之測試
 		Map<String, String[]> map = new TreeMap<String, String[]>();
 		map.put("fQKeyWordNo", new String[] { "1" });
-		map.put("fQKeyWordContent", new String[] { "HELLO" });
+		map.put("fQKeyWordContent", new String[] { "HELLO" ,"HHH"});
 		map.put("answerContent", new String[] { "World" });
 		map.put("action", new String[] { "getXXX" }); // 注意Map裡面會含有action的key
 

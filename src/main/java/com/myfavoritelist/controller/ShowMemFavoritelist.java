@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.member.model.MemVO;
 import com.myfavoritelist.model.MyfavoritelistService;
 import com.myfavoritelist.model.MyfavoritelistVo;
 import com.product.model.ProductService;
@@ -36,14 +38,15 @@ public class ShowMemFavoritelist extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		
-//		HttpSession session = request.getSession();		
-//		String memNo = session.getAttribute("Member").getName();
-		String memNo = "11003";
-		Integer IntMemNo = Integer.valueOf(memNo);
+		HttpSession session = request.getSession();
+		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+		Integer memNo = memVO.getMemNo();
+//		String memNo = "11003";
+
 		
 		/*-----------先查項目---------------*/
 		MyfavoritelistService myfavoritelist = new MyfavoritelistService();
-		List<MyfavoritelistVo> myfavoritelistVoList= myfavoritelist.getAllByOneMem(IntMemNo);
+		List<MyfavoritelistVo> myfavoritelistVoList= myfavoritelist.getAllByOneMem(memNo);
 		List<ProductVO> productVOs = new ArrayList<ProductVO>();
 		ProductService productService = new ProductService();
 		

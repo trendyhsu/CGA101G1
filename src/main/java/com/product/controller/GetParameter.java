@@ -62,7 +62,7 @@ public class GetParameter extends HttpServlet {
 		/*--------------前端輸入資訊獲取--------------------*/
 
 		String productName = request.getParameter("ProductName");
-		String nameRule = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_:)(\\-\\)]{1,30}$";
+		String nameRule = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_:-)(\\-\\)]{1,30}$";
 		if (productName.trim().length() == 0 || productName == null) {
 			errorMsgs.add("商品名稱: 不能空白");
 		} else if (!productName.trim().matches(nameRule)) {

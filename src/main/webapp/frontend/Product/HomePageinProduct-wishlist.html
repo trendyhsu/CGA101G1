@@ -7,6 +7,8 @@
     <title>收藏商品列表</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -29,6 +31,7 @@
     <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
+
 </head>
 
 <body>
@@ -38,26 +41,24 @@
     <header>
 
         <div class="logo-div">
-            <img src=".\\images\\logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
+            <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
+            <a href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
-            <a href="#" class="nav-link">遊戲新聞</a>
+            <a class="active" href="/CGA101G1/frontend/HomePage.html">首頁</a>
             <a href="/CGA101G1/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
-            <a href="#" class="nav-link">二手競標商城</a>
-            <a href="#" class="nav-link">遊戲討論區</a>
-            <a href="#items">熱門商品</a>
+            <a href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
+            <a href="/CGA101G1/frontend/forum/ForumAllHome.html" class="nav-link">遊戲討論區</a>
         </nav>
 
         <div class="icons">
             <!--右上方小icon區-->
             <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
-            <i class="fas fa-search" id="search-icon"></i>
+            <a href="/CGA101G1/frontend/memLogin/login.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
+            <a href="#" class="fas fa-search" id="search-icon"></a>
             <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
             <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
@@ -340,10 +341,12 @@
                                     <a :href="`/CGA101G1/product/deleteMemFavor?ProductNo=`+item.productNo"
                                         class="btn btn-sm btn-outline-dark text-nowrap px-3"><i
                                             class="bi bi-x lh-1"></i></a>
-                                    <a href="shopping-cart.html"
-                                        class="btn btn-sm btn-outline-primary text-nowrap px-3"><i
-                                            class="bi bi-cart lh-1 me-md-1"></i> <span
-                                            class="d-none d-md-inline-block">ADD TO CART</span></a>
+                                    <button @click="webcamSendRequestButton($event)" class="btn"
+                                        :value="item.productNo+a+item.productPrice+a+item.productName"
+                                        id="liveToastBtn">
+                                        <i class="bi bi-cart"></i>
+                                        Add to cart
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -352,6 +355,19 @@
             </div>
         </div>
         <!-- Cart Table -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="..." class="rounded me-2" alt="...">
+                    <strong class="me-auto">Bootstrap</strong>
+                    <small>11 mins ago</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+        </div>
     </main>
     <!-- End Main -->
 
@@ -553,53 +569,53 @@
 
     <!-- footer section starts -->
 
-    <section class="footer">
+    <footer class="bg-white footer">
+        <div class="footer-top py-6">
+            <div class="container">
+                <div class="row">
+                    <section class="footer">
+                        <div class="box-container">
+                            <div class="box">
+                                <h3>會員專區</h3>
+                                <a href="#">會員登入</a>
+                                <a href="#">會員註冊</a>
+                                <a href="#">訂單管理</a>
+                                <a href="#">二手遊戲申請上架單管理</a>
+                            </div>
 
-        <div class="box-container">
+                            <div class="box">
+                                <h3>快速連結</h3>
+                                <a href="#">首頁</a>
+                                <a href="#">遊戲商城</a>
+                                <a href="#">二手競標商城</a>
+                                <a href="#">遊戲討論區</a>
+                            </div>
 
-            <div class="box">
-                <h3>會員專區</h3>
-                <a href="#">會員登入</a>
-                <a href="#">會員註冊</a>
-                <a href="#">訂單管理</a>
-                <a href="#">二手遊戲申請上架單管理</a>
-            </div>
+                            <div class="box">
+                                <h3>聯絡我們</h3>
+                                <a href="#">02-3456-7890</a>
+                                <a href="#">03-1111-2222</a>
+                                <a href="#">CGA101G1@gmail.com</a>
+                                <a href="#">anasbhai@gmail.com</a>
+                            </div>
 
-            <div class="box">
-                <h3>快速連結</h3>
-                <a href="#">首頁</a>
-                <a href="#">遊戲商城</a>
-                <a href="#">二手競標商城</a>
-                <a href="#">遊戲討論區</a>
-            </div>
+                            <div class="box">
+                                <h3>關於我們</h3>
+                                <a href="#">管理團隊</a>
+                                <a href="#">創始理念</a>
+                                <a href="#">insuagram</a>
+                                <a href="#">linkedin</a>
+                            </div>
+                        </div>
 
-            <div class="box">
-                <h3>聯絡我們</h3>
-                <a href="#">+123-456-7890</a>
-                <a href="#">+111-222-3333</a>
-                <a href="#">shailhanas@gmail.com</a>
-                <a href="#">anasbhai@gmail.com</a>
-            </div>
+                        <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
 
-            <div class="box">
-                <h3>關於我們</h3>
-                <a href="#">管理團隊</a>
-                <a href="#">創始理念</a>
-                <a href="#">insuagram</a>
-                <a href="#">linkedin</a>
+                    </section>
+                </div>
             </div>
         </div>
 
-        <div class="credit">copyright@2021 by <span>mr .web designer</span></div>
-
-    </section>
-
-
-
-
-
-
-
+    </footer>
     <!-- footer section ends -->
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
@@ -631,6 +647,7 @@
                     // jsonUrl: 'https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c',
                     jsonData: [], // 初始資料
                     picData: [],
+                    a: ";",
                     // renderData: [], // 建立每頁顯示資料
                     // pageBaseNum: 6,  // 每頁顯示資料數量
                     // nowPage: 0, // 初始、現在頁數
@@ -686,6 +703,24 @@
                     this.picData = [];
                     console.log("insert完畢");
                 },
+                webcamSendRequestButton(e) {
+                    // 取編號跟錢，分離商品編號跟價錢再傳出去
+                    console.log(e.target.value);
+                    console.log(e.target.value.split(';'));
+                    console.log("ProNo:" + e.target.value.split(';')[0]);
+                    proNo = e.target.value.split(';')[0];
+                    console.log("ProPrice:" + e.target.value.split(';')[1]);
+                    proPrice = e.target.value.split(';')[1];
+                    console.log("ProName:" + e.target.value.split(';')[2]);
+                    proName = e.target.value.split(';')[2];
+
+                    axios({
+                        method: 'post',
+                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
+                    })
+                        .then((response) => console.log(response));
+                    alert("成功添加至購物車");
+                }
 
                 // previousPage() {
                 //     if (this.nowPage != 0) { // 頁數初始值為 0 
@@ -799,6 +834,7 @@
  */
         Vue.createApp(App).mount('#app');
     </script>
+
 </body>
 
 </html>
