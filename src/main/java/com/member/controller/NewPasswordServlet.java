@@ -53,7 +53,7 @@ public class NewPasswordServlet extends HttpServlet {
 		
 		
 		 /*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-
+		 	errorMsgs.clear();
 			String url = "/frontend/memLogin/login.html";
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);

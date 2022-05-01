@@ -82,6 +82,7 @@ public class MemPasswordEditServlet extends HttpServlet {
 			MEM_SERVICE.updatePassword(conNewPassword, memNo);
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
 			request.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的memVO物件,存入req
+			errorMsgs.clear();
 			String url = "/frontend/mem/index.html";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交index.html
 			successView.forward(request, response);

@@ -40,7 +40,7 @@ public class AddCouponTypeServlet extends HttpServlet {
 			errorMsgs.put("Dup", "優惠券名稱不得重複");
 		}
 		if (couponName == null || couponName.trim().length() == 0) {
-			errorMsgs.put("couponName", "請勿空白");
+			errorMsgs.put("couponName", "名稱請勿空白");
 		}
 		Integer discountPrice = null;
 		try {
