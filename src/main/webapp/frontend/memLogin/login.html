@@ -326,6 +326,7 @@
     <!-- custom js file link-->
     <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(() => {
             if (localStorage.getItem("memAccount") !== undefined) {
@@ -370,8 +371,8 @@
                         sessionStorage.setItem("memName", memName);
                         sessionStorage.setItem("memStatus", memStatus);
                         sessionStorage.setItem("memVrfed", memVrfed);
-
-                        alert("歡迎光臨買鳳(ﾉ>ω<)ﾉ");
+                        swal("Good job!", "You clicked the button!", "success");
+                        // console.log("歡迎光臨買鳳(ﾉ>ω<)ﾉ");
 
                         if (initlocation !== undefined) {
                             location = initlocation;
