@@ -1,27 +1,22 @@
 .card {
     width: 500px;
-
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
-
 }
 
-.card-body>div {
+.register1 {
     margin: 1rem 2rem;
-
     /*水平置中*/
     justify-content: center;
     /* 垂直置中 */
     align-items: center;
 }
 
-.card-body>div>div {
+.register1>div {
     margin: 1rem 2rem;
-
-
 }
 
 #memCity {
@@ -50,4 +45,7 @@
     background-clip: padding-box;
     line-height: 3.2;
     padding: 0.65rem 1.25rem;
+}
+.forimg{
+	display: block;
 }
