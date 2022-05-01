@@ -11,7 +11,8 @@
 // 取得來自 ForumPostReportOneEditServlet 的 ForumPostReportVO
 ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 %>
-
+<!--MemVO memVO = (MemVO) request.getSession().getAttribute("memVO"); -->
+<!--	Integer memNo = memVO.getMemNo(); -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,9 +65,9 @@ h3 {
 				<!-- main content -->
 
 				<form method="post"
-					action="<%=request.getContextPath()%>/forum/forumMasterPostInsert" 
+					action="<%=request.getContextPath()%>/forum/forumMasterPostInsert"
 					name="form1">
-					
+
 					<table>
 						<tr>
 
@@ -94,7 +95,8 @@ h3 {
 												${(forumVO.forumNo==forumPostVO.forumNo) ? "selected" : ""}>
 												${forumVO.forumName}
 										</c:forEach>
-							</select></td><td>${errorMsgs.forumNo}</td>
+							</select></td>
+							<td>${errorMsgs.forumNo}</td>
 						</tr>
 						<tr>
 							<td>文章狀態</td>

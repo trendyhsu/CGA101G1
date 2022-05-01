@@ -20,6 +20,7 @@ public class ForumJDBCDAO implements ForumDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum WHERE ForumNo = ?";
 	private static final String GET_ONE_ONLY_NAME_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum WHERE ForumName = ?";
 	private static final String GET_ALL_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum ORDER BY ForumNo";
+	private static final String GET_ALL_FRONT_STMT = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum WHERE ForumType = 1 ORDER BY ForumNo";
 	private static final String GET_FIND_FORUMNAME = "SELECT ForumNo,ForumName,ForumType,MemNo,ForumImg FROM forum WHERE ForumName LIKE ?";
 
 	@Override
@@ -364,7 +365,6 @@ public class ForumJDBCDAO implements ForumDAO_interface {
 		return forumVO;
 	}
 
-
 	@Override
 	public List<ForumVO> getAll() {
 		List<ForumVO> list = new ArrayList<ForumVO>();
@@ -395,6 +395,66 @@ public class ForumJDBCDAO implements ForumDAO_interface {
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ForumVO> getAllFrontend() {
+		List<ForumVO> list = new ArrayList<ForumVO>();
+		ForumVO forumVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_FRONT_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				forumVO = new ForumVO();
+				forumVO.setForumNo(rs.getInt("forumNo"));
+				forumVO.setForumName(rs.getString("forumName"));
+				forumVO.setForumType(rs.getInt("forumType"));
+				forumVO.setMemNo(rs.getInt("memNo"));
+				forumVO.setForumImg(rs.getBytes("forumImg"));
+				list.add(forumVO); // Store the row in the list
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

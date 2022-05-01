@@ -9,7 +9,6 @@
 <%
 List<ForumPostCollectionVO> list = (List<ForumPostCollectionVO>) request.getAttribute("forumPostCollectionVOs");
 pageContext.setAttribute("list", list);
-
 %>
 
 <!DOCTYPE html>
@@ -67,11 +66,11 @@ input:hover {
 
 				<table class="showPanel" style="table-layout: fixed; color: black;">
 					<tr align='center' valign="middle">
-						<th>討論區名稱&emsp;</th>
-						<th>文章標題&emsp;</th>
-						<th>發文者&emsp;</th>
-						<th>收藏時間&emsp;</th>
-						<th></th>
+						<th style="width: 150px">討論區名稱&emsp;</th>
+						<th style="width: 425px">文章標題&emsp;</th>
+						<th style="width: 100px">發文者&emsp;</th>
+						<th style="width: 100px">收藏時間&emsp;</th>
+						<th style="width: 50px"></th>
 					</tr>
 					<%@ include file="page3.file"%>
 					<c:forEach var="forumPostCollectionVO" items="${list}"

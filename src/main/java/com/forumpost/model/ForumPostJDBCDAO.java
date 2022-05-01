@@ -18,8 +18,8 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 	private static final String UPDATE_ADMIN_POST = "UPDATE forumpost SET ForumPostState=?, ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
 	private static final String GET_ONE_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
 	private static final String GET_ALL_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ORDER BY ForumPostNo DESC";
-	private static final String GET_ONE_FORUM_STMT = "SELECT ForumPostFeatured,ForumPostType,ForumPostTitle,MemNo,ForumPostTime FROM forumpost WHERE ForumNo = ?";
-	private static final String GET_ONE_MEM_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE MemNo = ?";
+	private static final String GET_ONE_FORUM_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo = ? AND ForumPostState = 1 ORDER BY ForumPostFeatured DESC,ForumPostTime DESC";
+	private static final String GET_ONE_MEM_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE MemNo = ? AND ForumPostState = 1";
 	private static final String GET_FIND_POSTTYPE_POSTNAME = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo=? AND ForumPostType=? AND ForumPostTitle LIKE ?";
 	private static final String GET_ALL_MEM_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostType > 0 ORDER BY ForumPostNo DESC";
 	private static final String GET_ALL_MASTER_POST_STMT = "SELECT ForumPostNo,ForumNo,ForumPostState,ManagerNo,ForumPostTitle,ForumPostContent,ForumPostTime FROM forumpost WHERE ForumPostType = 0 ORDER BY ForumPostNo DESC";
@@ -509,11 +509,18 @@ public class ForumPostJDBCDAO implements ForumPostDAO_interface {
 			while (rs.next()) {
 
 				forumPostVO = new ForumPostVO();
-				forumPostVO.setForumPostFeatured(rs.getInt("forumPostFeatured"));
+
+				forumPostVO.setForumPostNo(rs.getInt("forumPostNo"));
+				forumPostVO.setForumNo(rs.getInt("forumNo"));
 				forumPostVO.setForumPostType(rs.getInt("forumPostType"));
-				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
+				forumPostVO.setManagerNo(rs.getInt("managerNo"));
 				forumPostVO.setMemNo(rs.getInt("memNo"));
+				forumPostVO.setForumPostState(rs.getInt("forumPostState"));
+				forumPostVO.setForumPostTitle(rs.getString("forumPostTitle"));
+				forumPostVO.setForumPostContent(rs.getString("ForumPostContent"));
 				forumPostVO.setForumPostTime(rs.getTimestamp("forumPostTime"));
+				forumPostVO.setForumPostFeatured(rs.getInt("forumPostFeatured"));
+
 				list.add(forumPostVO);
 			}
 

@@ -9,11 +9,27 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <!-- custom css file link -->
     <link rel="stylesheet" href=".\\css\\allStyle.css">
     <link rel="stylesheet" href=".\\css\\style.css">
     <link rel="stylesheet" href=".\\css\\headerStyle.css">
     <link rel="stylesheet" href=".\\css\\footerStyle.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/logo/favicon.ico">
+    <!-- Fonts CSS -->
+    <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+    <!-- Bootstrap-icons CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/icons/bootstrap-icons.css">
+    <!--Magnific-Popup CSS -->
+    <link rel="stylesheet" href="assets/vendor/magnific/magnific-popup.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="assets/vendor/slick/slick.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="assets/css/style01.css">
+    <style>
+    </style>
 
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -220,55 +236,67 @@
 
     <!-- home section starts-->
 
-    <section class="home" id="home">
 
-        <div class="items" id="items">
+    <section style="padding-left:50px" class="home" id="home">
 
-            <div class="box-container">
-                <!-- 討論區 -->
-                <div class="box">
-                    <div class="item-img-container">
-                        <img src=".\\images\\Pokemon.jpg" alt="" width="300px">
-                    </div>
-                    <h3 style="color: var(--darkBlue);">Pokemon 寶可夢</h3>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">Enter</a>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="item-img-container">
-                        <img src=".\\images\\NBA1.jpg" alt="" width="300px">
-                    </div>
-                    <h3 style="color: var(--darkBlue);">NBA 2K</h3>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">Enter</a>
-                    </div>
-                </div>
+        <!-- <h1 class="title"> 討論區top圖 </h1> -->
+        <div style="border: 5px ;">
 
-                <div class="box">
-                    <div class="item-img-container">
-                        <img src=".\\images\\Demon_Slayer.png" alt="" width="300px">
-                    </div>
-                    <h3 style="color: var(--darkBlue);">鬼滅之刃</h3>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">Enter</a>
-                    </div>
+            <div>
+                <div class="item-img-container">
+                    <h3 style="font-size: 5rem ; color: var(--darkBlue);">Pokemon 寶可夢</h3>
                 </div>
-                <div class="box">
-                    <div class="item-img-container">
-                        <img src=".\\images\\F1.jpg" alt="" width="300px">
-                    </div>
-                    <h3 style="color: var(--darkBlue);">F1 2K</h3>
-                    <div class="buttons">
-                        <a href="#" class="btn btn-3">Enter</a>
-                    </div>
+                <div class="image">
+                    <img src=".\\images\\Pokemon.jpg">
                 </div>
 
             </div>
 
-
         </div>
+
+        <!-- <div class="swiper-pagination"></div> -->
     </section>
+
+    <!-- 文章區 -->
+    <section style="padding-left:50px" class="home" id="home">
+
+        <div style="display: inline-block;">
+            <h1 style="font-size:30px; color:darkBlue">文章</h1>
+        </div>
+        <div style="display: inline-block;  padding-left:30px; ">
+            <button class="btn btn-primary">發表文章</button>
+        </div>
+        <div class="d-flex review-box border-top mt-3 pt-3">
+            <div class="col ps-3">
+                <div style="font-size:15px; font-weight:bold;"><span style="color:orange;">精選</span>
+                    <span>攻略</span>
+                </div>
+                <a href="#" style="font-size: 19px; font-weight:bold;">寶可夢 晶燦鑽石／明亮珍珠 一周目過關 通關隊伍推薦</a>
+                <div>13 April 2012</div>
+                <div>早餐店小帥哥</div>
+                <p class="m-0 pt-2 small"></p>
+            </div>
+        </div>
+
+        <div class="d-flex review-box border-top mt-3 pt-3">
+            <div>
+            </div>
+            <div class="col ps-3">
+                <div style="font-size:15px; font-weight:bold;">
+                    <span style="color:orange;">精選</span>
+                    <span>攻略</span>
+                </div>
+                <a href="#" style="font-size: 19px; font-weight:bold;">寶可夢 晶燦鑽石／明亮珍珠 一周目過關 通關隊伍推薦</a>
+                <div>13 April 2012</div>
+                <div>早餐店小帥哥</div>
+                <p class="m-0 pt-2 small"></p>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- End 文章區 -->
+
     <!-- home section ends-->
 
     <!-- footer section starts -->

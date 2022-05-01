@@ -21,6 +21,8 @@ public interface ForumDAO_interface {
 	public ForumVO findByOnlyName(String forumCharacter);
 
 	public List<ForumVO> getAll();
+	
+	public List<ForumVO> getAllFrontend();
 
 //	用文章標題收尋
 	public List<ForumVO> findByForumName(String forumCharacter);

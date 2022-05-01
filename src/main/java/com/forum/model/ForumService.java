@@ -114,6 +114,10 @@ public class ForumService {
 		return dao.getAll();
 	}
 
+	public List<ForumVO> getAllFrontend() {
+		return dao.getAllFrontend();
+	}
+
 	public List<ForumVO> getFindForumName(String forumCharacter) {
 		return dao.findByForumName(forumCharacter);
 	}

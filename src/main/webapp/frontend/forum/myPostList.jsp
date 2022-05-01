@@ -66,14 +66,14 @@ input:hover {
 
 				<table class="showPanel" style="table-layout: fixed; color: black;">
 					<tr align='center' valign="middle">
-						<th>討論區名稱&emsp;</th>
-						<th>文章精選&emsp;</th>
-						<th>文章標題&emsp;</th>
-						<th>文章分類&emsp;</th>
-						<th>發表時間&emsp;</th>
-						<th></th>
-						<th></th>
-						<th></th>
+						<th style="width: 150px">討論區名稱</th>
+						<th style="width: 60px">文章精選</th>
+						<th style="width: 400px">文章標題</th>
+						<th style="width: 60px">文章分類</th>
+						<th style="width: 100px">發表時間</th>
+						<th style="width: 25px"></th>
+						<th>&ensp;</th>
+						<th style="width: 25px"></th>
 					</tr>
 					<%@ include file="page3.file"%>
 					<c:forEach var="forumPostVO" items="${list}" begin="<%=pageIndex%>"
@@ -112,7 +112,7 @@ input:hover {
 									<c:out value="閒聊" escapeXml="false"></c:out>
 								</c:if> <c:if test="${forumPostVO.forumPostType == 5}" var="condition">
 									<c:out value="其他" escapeXml="false"></c:out>
-								</c:if>&emsp;</td>
+								</c:if></td>
 							<td><fmt:formatDate value="${forumPostVO.forumPostTime}"
 									pattern="yyyy-MM-dd" />&emsp;</td>
 
@@ -126,7 +126,7 @@ input:hover {
 										value="${forumPostVO.forumPostNo}">
 								</FORM>
 							</td>
-							<td>&ensp;</td>
+							<td></td>
 							<td>
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/forum/XXXservlet"
