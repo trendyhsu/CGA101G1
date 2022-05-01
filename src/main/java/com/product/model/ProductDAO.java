@@ -45,7 +45,7 @@ public class ProductDAO implements ProductDAO_interface{
 		
 
 		private static final String GETAllInSell = 
-				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product where ProductState = 1 order by productNo desc";
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,itemProdDescription FROM product where ProductState = 1 order by productNo desc";
 			         //    1          2               3             4            5           6                7             8         9
 
 		
@@ -500,9 +500,9 @@ public class ProductDAO implements ProductDAO_interface{
 				productVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
 				productVO.setProductName(rs.getString("ProductName"));
 				productVO.setProductPrice(rs.getInt("ProductPrice"));
-				productVO.setProductState(rs.getInt("ProductState"));
+//				productVO.setProductState(rs.getInt("ProductState"));
 				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
-				productVO.setUpcNum(rs.getString("UpcNum"));
+//				productVO.setUpcNum(rs.getString("UpcNum"));
 				list.add(productVO);
 			}
 			// Handle any driver errors

@@ -57,6 +57,7 @@ public class SendMemCouponServlet extends HttpServlet {
 		MemCouponService memCouponService = new MemCouponService();
 		memCouponService.sendRandomCouponToMem(couponQuantity, couponTypeNo);
 		/***************************3.發放完成,準備轉交(Send the Success view)***********/
+		errorMsgs.clear();
 		String url = "/backend/memCoupon/showMemCoupon.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交
 		successView.forward(request, response);

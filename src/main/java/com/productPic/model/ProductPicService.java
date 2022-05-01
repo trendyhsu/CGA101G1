@@ -49,7 +49,7 @@ public class ProductPicService {
 	}
 	
 	
-	//取得一張封面圖片用byte輸出
+	//取得一張封面圖片
 	public ProductPicVO onePicCoverInByte(Integer productPicNo) {
 		return dao.GetOneCoverByProductNo(productPicNo);
 	}

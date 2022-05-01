@@ -18,7 +18,7 @@
 
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
+    <link rel="shortcut icon" href="/CGA101G1/frontend/mainCss/images/logo.png">
     <!-- Fonts CSS -->
     <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
     <!-- Bootstrap-icons CSS -->
@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
+
 
 
 </head>
@@ -280,7 +281,7 @@
     <!-- home section starts-->
 
     <!-- Main -->
-    <main>
+    <main id="app">
         <!-- Breadcrumb -->
         <div class="py-3 bg-gray-100">
             <div class="container">
@@ -312,107 +313,28 @@
                             aria-expanded="false" aria-label="Toggle navigation">
                         </button>
                         <!-- End Mobile Toggle -->
+                        <div class="shop-sidebar-block">
+                            <input class="form-control" type="text" name="keysearch" id="" @change="keysearch($event)"
+                                placeholder="搜尋遊戲名稱">
+                        </div>
                         <!-- 遊戲平台 -->
                         <div class="shop-sidebar-block">
                             <div class="shop-sidebar-title">
-                                <a class="h5" data-bs-toggle="collapse" href="#shop_categories" role="button"
-                                    aria-expanded="true" aria-controls="shop_categories">遊戲平台 <i
+                                <a class="h5" data-bs-toggle="collapse" href="#gamePlatform" role="button"
+                                    aria-expanded="true" aria-controls="gamePlatform">遊戲平台<i
                                         class="bi bi-chevron-up"></i></a>
                             </div>
-                            <div class="shop-category-list collapse show" id="shop_categories">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link active">所有平台</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link ">PS5 <span>(25)</span></a>
-                                        <a data-bs-toggle="collapse" href="#shop_cat_1" role="button"
-                                            aria-expanded="false" aria-controls="shop_cat_1" class="s-icon"></a>
-                                        <div class="collapse" id="shop_cat_1">
-                                            <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Topwear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Bottomwear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Footwear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Sports &amp; Active
-                                                        Wear</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link ">SWITCH <span>(40)</span></a>
-                                        <a data-bs-toggle="collapse" href="#shop_cat_2" role="button"
-                                            aria-expanded="false" aria-controls="shop_cat_2" class="s-icon"></a>
-                                        <div class="collapse" id="shop_cat_2">
-                                            <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Indian &amp; Fusion
-                                                        Wear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Western Wear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Footwear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Beauty &amp;
-                                                        Personal Care</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link ">XBOX <span>(35)</span></a>
-                                        <a data-bs-toggle="collapse" href="#shop_cat_3" role="button"
-                                            aria-expanded="false" aria-controls="shop_cat_3" class="s-icon"></a>
-                                        <div class="collapse" id="shop_cat_3">
-                                            <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Boys Clothing</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Girls Clothing</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Boys Footwear</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Girls Footwear</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link ">PC
-                                            <span>(80)</span></a>
-                                        <a data-bs-toggle="collapse" href="#shop_cat_4" role="button"
-                                            aria-expanded="false" aria-controls="shop_cat_4" class="s-icon"></a>
-                                        <div class="collapse" id="shop_cat_4">
-                                            <ul class="nav nav-pills flex-column nav-hierarchy">
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Bed Linen &amp;
-                                                        Furnishing</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Bath</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Home Decor</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link ">Kitchen &amp;
-                                                        Table</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                            <div class="shop-sidebar-list collapse show" id="gamePlatform">
+                                <ul>
+                                    <li class="custom-radio" v-for="(item, index) in gamePlatformTypeData" :key="index"
+                                        style="height: 40px;">
+                                        <input class="custom-control-input" :id="item.gamePlatformNo" type="radio"
+                                            name="gamePlatformNo" :value="item.gamePlatformNo" style="width: 100%;"
+                                            @change="gamePlatformInput($event)">
+                                        <label class="custom-control-label" :for="item.gamePlatformNo"
+                                            style="width: 100%;height:100%">
+                                            {{item.gamePlatformName}}
+                                        </label>
                                     </li>
                                 </ul>
                             </div>
@@ -427,37 +349,22 @@
                             </div>
                             <div class="shop-sidebar-list collapse show" id="shop_Gender">
                                 <ul>
-                                    <li class="custom-radio">
-                                        <input class="custom-control-input" id="gen1" type="radio" name="Gender"
-                                            checked>
-                                        <label class="custom-control-label" for="gen1">
-                                            動作
-                                        </label>
-                                    </li>
-                                    <li class="custom-radio">
-                                        <input class="custom-control-input" id="gen2" type="radio" name="Gender">
-                                        <label class="custom-control-label" for="gen2">
-                                            動作冒險
-                                        </label>
-                                    </li>
-                                    <li class="custom-radio">
-                                        <input class="custom-control-input" id="gen3" type="radio" name="Gender">
-                                        <label class="custom-control-label" for="gen3">
-                                            冒險
-                                        </label>
-                                    </li>
-                                    <li class="custom-radio">
-                                        <input class="custom-control-input" id="gen4" type="radio" name="Gender">
-                                        <label class="custom-control-label" for="gen4">
-                                            大型多人在線
+                                    <li class="custom-radio" v-for="(item, index) in gameTypeData" :key="index"
+                                        style="height: 40px;">
+                                        <input class="custom-control-input" :id="item.gameTypeNo" type="radio"
+                                            name="gameTypeNo" :value="item.gameTypeNo" style="width: 100%;"
+                                            @change="gameTypeInput($event)">
+                                        <label class="custom-control-label" :for="item.gameTypeNo"
+                                            style="width: 100% ;height:100%">
+                                            {{item.gameTypeName}}
                                         </label>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <!-- End 遊戲種類 -->
-                        <!-- 遊戲公司  未來可能要動態產生 -->
-                        <div class="shop-sidebar-block">
+                        <!-- End 遊戲公司 -->
+
+                        <!-- <div class="shop-sidebar-block">
                             <div class="shop-sidebar-title">
                                 <a class="h5" data-bs-toggle="collapse" href="#shop_brand" role="button"
                                     aria-expanded="true" aria-controls="shop_brand">遊戲公司 <i
@@ -497,7 +404,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End 遊戲公司 -->
                         <!-- 價格篩選 -->
                         <div class="shop-sidebar-block">
@@ -509,25 +416,29 @@
                             <div class="shop-sidebar-list collapse show" id="shop_price">
                                 <ul>
                                     <li class="custom-checkbox">
-                                        <input class="custom-control-input" id="price1" type="checkbox">
+                                        <input class="custom-control-input" id="price1" type="radio" value="0;999"
+                                            @change="priceRange1($event)" name="priceRange">
                                         <label class="custom-control-label" for="price1">
                                             NT0 - NT999
                                         </label>
                                     </li>
                                     <li class="custom-checkbox">
-                                        <input class="custom-control-input" id="price2" type="checkbox">
+                                        <input class="custom-control-input" id="price2" type="radio" value="1000;1499"
+                                            @change="priceRange1($event)" name="priceRange">
                                         <label class="custom-control-label" for="price2">
                                             NT1000 - NT1499
                                         </label>
                                     </li>
                                     <li class="custom-checkbox">
-                                        <input class="custom-control-input" id="price3" type="checkbox">
+                                        <input class="custom-control-input" id="price3" type="radio" value="1500;1999"
+                                            @change="priceRange1($event)" name="priceRange">
                                         <label class="custom-control-label" for="price3">
                                             NT1500 - NT1999
                                         </label>
                                     </li>
                                     <li class="custom-checkbox">
-                                        <input class="custom-control-input" id="price4" type="checkbox">
+                                        <input class="custom-control-input" id="price4" type="radio" value="2000;9999"
+                                            @change="priceRange1($event)" name="priceRange">
                                         <label class="custom-control-label" for="price4">
                                             NT2000 以上
                                         </label>
@@ -536,12 +447,12 @@
                                 <div class="d-flex align-items-center pt-3">
                                     <!-- Input -->
                                     <input type="number" class="form-control form-control-sm" placeholder="NT0"
-                                        min="10">
+                                        @change="manulPriceLow($event)">
                                     <!-- Divider -->
                                     <div class="text-gray-350 mx-2">‒</div>
                                     <!-- Input -->
                                     <input type="number" class="form-control form-control-sm" placeholder="NT2000"
-                                        max="350">
+                                        @change="manulPriceHigh($event)">
                                 </div>
                             </div>
                         </div>
@@ -564,7 +475,7 @@
                             </div>
                             <div class="shop-mob-button">
                             </div>
-                            <div class="shortby-dropdown ms-auto">
+                            <!-- <div class="shortby-dropdown ms-auto">
                                 <div class="dropdown">
                                     <a class="btn btn-white btn-sm border dropdown-toggle" href="javascript:void(0);"
                                         role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
@@ -589,11 +500,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- 要改成有過濾器 -->
                         <!-- Product Box -->
-                        <div class="row g-3" id="app">
+                        <div class="row g-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status" v-show="loading">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                             <section class="row" id="content" name="content">
                                 <card-template :read-data="renderData" :now-page="nowPage"></card-template>
                             </section>
@@ -604,62 +520,6 @@
                                 </pagination-list>
                             </nav>
                             <!-- End Product Box -->
-                            <!-- 原來的Product Box -->
-
-                            <!-- <div class="col-sm-6 col-lg-4" v-for="(item, index) in datastore" :key="index">
-                                <div class="product-card-1">
-                                    <div class="product-card-image">
-                                        <div class="badge-ribbon">
-                                            <span class="badge bg-danger">Sale</span>
-                                        </div>
-                                        <div class="product-action">
-                                            <a href="wishlist.html" class="btn btn-outline-primary">
-                                                <i class="bi bi-heart"></i>
-                                            </a>
-                                            <a href="shop-compare.html" class="btn btn-outline-primary">
-                                                <i class="bi bi-arrow-left-right"></i>
-                                            </a>
-                                            <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                href="javascript:void(0)" class="btn btn-outline-primary">
-                                                <i class="bi bi-eye-fill"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-media">
-                                            <a href="product-details.html">
-                                                <img class="img-fluid"
-                                                    :src="`data:image/png;base64,${item.ProductPicContent}`" title=""
-                                                    alt="" style="height: 80%;">
-                                            </a>
-                                            <div class="product-cart-btn">
-                                                <a href="shopping-cart.html" class="btn btn-primary btn-sm w-100">
-                                                    <i class="bi bi-cart"></i>
-                                                    Add to cart
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <div class="rating-star text">
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star"></i>
-                                        </div>
-                                        <h6 class="product-title">
-                                            <a href="shop-fw-without-filtres.html">{{item.ProductName}}</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            <span class="text-primary">{{item.ProductPrice}}</span>
-                                            </del>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- 原來的End Product Box -->
-
-
                         </div>
 
                     </div>
@@ -673,13 +533,13 @@
     <!-- End Main -->
 
     <!-- items section starts -->
-    <section class="items" id="items">
+    <!-- <section class="items" id="items">
 
         <h3 class="sub-heading"> 大家都說好 </h3>
         <h1 class="heading"> 熱門商品 </h1>
 
         <div class="box-container">
-            <!-- 商品1 -->
+
             <div class="box">
                 <a href="#" class="fas fa-heart"></a>
                 <a href="#" class="fas fa-eye"></a>
@@ -779,7 +639,7 @@
         </div>
 
 
-    </section>
+    </section> -->
 
     <!-- items section ends -->
 
@@ -877,66 +737,134 @@
         const app = Vue.createApp({
             data() {
                 return {
-
+                    loading: true,
                     jsonData: [], // 初始資料
-                    picData: [],
+                    temp: [],
+                    gamePlatformTypeData: [],
+                    gameTypeData: [],
                     renderData: [], // 建立每頁顯示資料
-                    pageBaseNum: 6,  // 每頁顯示資料數量
+                    pageBaseNum: 9,  // 每頁顯示資料數量
                     nowPage: 0, // 初始、現在頁數
+                    manaulPriceL: 0,
+                    manaulPriceH: 99999,
                 }
             },
             methods: {
                 renderingPage() {
+                    this.renderData = [];
                     for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
                         this.renderData.push(
-                            (this.jsonData.slice
+                            (this.temp.slice
                                 (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
                             )
                         );
                     }
                 },
                 getProductData() {
-                    // const apiUrl = 'https://api.kcg.gov.tw/api/service/Get/9c8e1450-e833-499c-8320-29b36b7ace5c';
+
                     const apiUrl = '/CGA101G1/product/ShowToShop';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
                             console.log("取ProductData的狀態：" + response.status); //狀態碼
-                            // console.log(response.data);
-                            // console.log(response.data.data.XML_Head.Infos.Info);
+
                             this.jsonData = response.data;//塞進去
                             console.log("datastore讀取資料ok");
-                            console.log("開始取圖");
-                            this.getPicData();
+                            for (product of this.jsonData) {
+                                this.temp.push(product);
+                            }
+                            this.loading = false;
                             this.renderingPage();
+
                         });
                 },
-                getPicData() {
-                    const apiUrl = '/CGA101G1/product/GetAllCovers';
+                getAllGamePlatformType() {
+                    const apiUrl = '/CGA101G1/gameplatformtype/getAllGamePlatformType';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
-                            console.log("取pic的狀態：" + response.status); //狀態碼
-
-                            this.picData = response.data;//塞進去
-                            this.insertPic(this.picData);
-
+                            console.log("取gamePlatformTypeData的狀態：" + response.status); //狀態碼
+                            this.gamePlatformTypeData = response.data;//塞進去
+                            console.log("gamePlatformTypeData讀取資料ok");
                         });
                 },
-                insertPic(picData) {
-                    console.log("insertPic開始");
-                    for (j = 0; j < this.jsonData.length; j++) {
-                        this.jsonData[j].picList = [];
-                        for (i = 0; i < picData.length; i++) {
-                            if (picData[i].productNo == this.jsonData[j].productNo) {
-                                this.jsonData[j].picList.push(picData[i]);
-                            }
-                        }
-                    }
-                    this.picData = [];
-                    console.log("insert完畢");
+                getAllGameType() {
+                    const apiUrl = '/CGA101G1/gametype/getAllGameType';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取gameTypeData的狀態：" + response.status); //狀態碼
+                            this.gameTypeData = response.data;//塞進去
+                            console.log("gameTypeData讀取資料ok");
+                        });
                 },
+                gamePlatformInput(e) {
+                    console.log(e.target.value);
+                    this.temp = [];
+                    for (i = 0; i < this.jsonData.length; i++) {
+                        if (this.jsonData[i].gamePlatformNo == parseInt(e.target.value)) {
 
+                            this.temp.push(this.jsonData[i]);
+                        }
+                    };
+
+                    this.renderingPage();
+
+                },
+                gameTypeInput(e) {
+                    this.temp = [];
+                    for (i = 0; i < this.jsonData.length; i++) {
+                        if (this.jsonData[i].gameTypeNo == parseInt(e.target.value)) {
+                            this.temp.push(this.jsonData[i]);
+                        }
+                    };
+                    this.renderingPage();
+                },
+                priceRange1(e) {
+                    lowPrice = e.target.value.split(';')[0];
+                    highPrice = e.target.value.split(';')[1];
+                    this.temp = [];
+                    for (i = 0; i < this.jsonData.length; i++) {
+                        if (this.jsonData[i].productPrice >= parseInt(lowPrice) && this.jsonData[i].productPrice <= parseInt(highPrice)) {
+                            this.temp.push(this.jsonData[i]);
+                        }
+                    };
+                    this.renderingPage();
+                },
+                manulPriceLow(e) {
+                    this.manaulPriceL = 0;
+                    this.manaulPriceL = e.target.valueAsNumber;
+                    this.temp = [];
+                    for (i = 0; i < this.jsonData.length; i++) {
+                        if (this.jsonData[i].productPrice >= this.manaulPriceL && this.jsonData[i].productPrice <= this.manaulPriceH) {
+                            this.temp.push(this.jsonData[i]);
+                        }
+                    };
+                    this.renderingPage();
+
+                },
+                manulPriceHigh(e) {
+                    this.manaulPriceH = 99999;
+                    this.manaulPriceH = e.target.valueAsNumber;
+                    this.temp = [];
+                    for (i = 0; i < this.jsonData.length; i++) {
+                        if (this.jsonData[i].productPrice >= this.manaulPriceL && this.jsonData[i].productPrice <= this.manaulPriceH) {
+                            this.temp.push(this.jsonData[i]);
+                        }
+                    };
+                    this.renderingPage();
+                },
+                keysearch(e) {
+                    console.log(e.target.value);
+                    this.temp = [];
+                    this.jsonData.filter(item => {
+                        if (item.productName.indexOf(e.target.value) !== -1) {
+                            this.temp.push(item);
+                        }
+                    });
+                    this.renderingPage();
+
+                },
 
                 previousPage() {
                     if (this.nowPage != 0) { // 頁數初始值為 0 
@@ -954,11 +882,13 @@
             },
             computed: {
                 totalPage() {
-                    return Math.ceil(this.jsonData.length / this.pageBaseNum); // 依每頁數量計算總頁數
+                    return Math.ceil(this.temp.length / this.pageBaseNum); // 依每頁數量計算總頁數
                 }
             },
             created() {
+                this.getAllGamePlatformType();
                 this.getProductData();
+                this.getAllGameType();
             }
         })
 
@@ -970,7 +900,7 @@
             },
             props: ['readData', 'nowPage'],
             methods: {
-                webcamSendRequestButton: function (e) {
+                webcamSendRequestButton2: function (e) {
 
                     // 取編號跟錢，分離商品編號跟價錢再傳出去
                     console.log(e.target.value);
@@ -995,46 +925,40 @@
         <div class="product-card-1" style="height:90%">
             <div class="product-card-image">
                                         <div class="badge-ribbon">
-                                            <span class="badge bg-danger">Sale</span>
+                                            <span class="badge bg-danger">{{item.gamePlatformTypeName}}</span>
                                         </div>
                                         <div class="product-action">
                                             <a :href="`+ "`" + `/CGA101G1/product/AddProduct2Fav?ProductNo=` + "`" + "+" + "item.productNo" + `" class="btn btn-outline-primary">
                                                 <i class="bi bi-heart"></i>
                                             </a>
-                                            <a href="shop-compare.html" class="btn btn-outline-primary">
-                                                <i class="bi bi-arrow-left-right"></i>
-                                            </a>
-                                            <a data-bs-toggle="modal" data-bs-target="#px-quick-view"
-                                                href="javascript:void(0)" class="btn btn-outline-primary">
-                                                <i class="bi bi-eye-fill"></i>
-                                            </a>
                                         </div>
                                         <div class="product-media"> 
                                             <a :href="`+ "`" + `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=` + "`" + "+" + "item.productNo" + `">
                                                 <img class="img-fluid"
-                                                :src=item.picList[0].imageUrl  style="height: 80%;">
+                                                :src=item.imgURL  style="height: 80%;">
                                             </a>
                                             <div class="product-cart-btn">
-                                                <button  @click="webcamSendRequestButton($event)" class="btn btn-primary btn-sm w-100" :value="item.productNo+a+item.productPrice+a+item.productName">
+                                                <button  @click="webcamSendRequestButton2($event)" class="btn btn-primary btn-sm w-100" :value="item.productNo+a+item.productPrice+a+item.productName">
                                                     <i class="bi bi-cart"></i>
-                                                    Add to cart
+                                                    加入購物車
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-card-info">
                                         <div class="rating-star text">
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star-fill active"></i>
-                                            <i class="bi bi-star"></i>
+                                            <i class="bi small bi-star-fill active"
+                                            v-for="(item, index) in item.avgCommentStar" :key="index"></i>
+
+                                            <i class="bi small bi-star"
+                                            v-for="(item, index) in (5-item.avgCommentStar)" :key="index"></i>
                                         </div>
                                         <h6 class="product-title">
                                             <a href="shop-fw-without-filtres.html">{{item.productName}}</a>
                                         </h6>
                                         <div class="product-price">
-                                            <span class="text-primary">{{item.productPrice}}</span>
+                                            
+                                            <span class="text-primary">$ {{item.productPrice}}</span>
                                             
                                         </div>
 

@@ -22,7 +22,7 @@
 
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../mainCss/assets/img/logo/favicon.ico">
+    <link rel="shortcut icon" href="/CGA101G1/frontend/mainCss/images/logo.png">
     <!-- Fonts CSS -->
     <link rel="stylesheet" href="../mainCss/assets/vendor/fonts/fonts.css">
     <!-- Bootstrap-icons CSS -->
@@ -340,13 +340,14 @@
                             <div class="products-title mb-2">
                                 <h4 class="h4">{{jsonData.productName}}</h4>
                             </div>
-                            <div class="rating-star text small pb-4">
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star-fill active"></i>
-                                <i class="bi bi-star"></i>
-                                <small>(4 Reviews )</small>
+                            <div class="col-sm-6">
+                                <div class="rating-star small">
+                                    <i class="bi small bi-star-fill active"
+                                        v-for="(item, index) in CaledCommentsData.avgCommentStar" :key="index"></i>
+
+                                    <i class="bi small bi-star"
+                                        v-for="(item, index) in (5-CaledCommentsData.avgCommentStar)" :key="index"></i>
+                                </div>
                             </div>
                             <div class="product-description">
                                 <p>{{jsonData.itemProdDescription}}
@@ -455,13 +456,13 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <h1 class="heading"> Game Platform </h1>
-            <div class="idpostion"></div>
-            <div class="pd-collapse-row">
-                <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            <!-- <h1 class="heading"> Game Platform </h1> -->
+            <!-- <div class="idpostion"></div> -->
+            <!-- <div class="pd-collapse-row"> -->
+            <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
                             aria-controls="pd_information">遊戲規格
                             <i class="bi bi-chevron-up"></i></a> -->
-                <div class="collapse show">
+            <!-- <div class="collapse show">
                     <div class="pd-collapse-box">
                         <table class="table text-sm small m-0 table-borderless">
                             <tbody>
@@ -473,67 +474,49 @@
                                     <th class="fw-500 text-dark px-0">Size:</th>
                                     <td class="text-muted "> 15.8GB</td>
                                 </tr>
-                                <!-- <tr>
-                                    <th class="fw-500 text-dark px-0">Weight</th>
-                                    <td class="text-muted ">Ut enim ad minim venialo quis nostrud
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="fw-500 text-dark px-0">Material</th>
-                                    <td class="text-muted ">100% Cotton.</td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
         </section>
         <!-- 評論區 -->
-        <section name="pd_information" id="pd_review">
+        <section name="pd_information" id="pd_review" v-show="reviewShow">
             <div class="idpostion"></div>
             <div class="pd-collapse-row">
-                <h3 class="sub-heading"> 評論區 </h3>
-                <h1 class="heading"> Review </h1>
+                <h1 class="sub-heading"> 會員評鑑 </h1>
 
                 <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
                             aria-controls="pd_review">評論區 <i class="bi bi-chevron-up"></i></a> -->
                 <div class="collapse show">
                     <div class="pd-collapse-box">
-                        <!-- <div class="row align-items-end">
+                        <div class="row align-items-end">
                             <div class="col-sm-6">
                                 <div class="rating-star small">
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star-fill active"></i>
-                                    <i class="bi small bi-star"></i>
-                                    <span>4.85/5 (400 Reviews)</span>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div v-for="(item, index) in CommentsData" :key="index">
-                            <div class="d-flex review-box border-top mt-3 pt-3">
-                                <div>
-                                    <div class="review-image sm">
-                                        <img class="img-fluid" src="assets/img/product-1.jpg" title="" alt="">
-                                    </div>
-                                </div>
-                                <div class="col ps-3">
-                                    <h6 class="m-0">已購買者</h6>
-                                    <div class="rating-star small">
-                                        <i class="bi small bi-star-fill active"
-                                            v-for="(item, index) in item.CommentStar" :key="index"></i>
-                                        <span>{{item.commentTime}}</span>
-                                    </div>
-                                    <p class="m-0 pt-2 small">{{item.commentCotent}}</p>
+                                    <i class="bi small bi-star-fill active"
+                                        v-for="(item, index) in CaledCommentsData.avgCommentStar" :key="index"></i>
+
+                                    <i class="bi small bi-star"
+                                        v-for="(item, index) in (5-CaledCommentsData.avgCommentStar)" :key="index"></i>
+                                    <span>{{(CaledCommentsData.sumCommentStar/CaledCommentsData.countComment).toFixed(2)}}/5
+                                        ({{CaledCommentsData.countComment}} Comments)</span>
                                 </div>
                             </div>
                         </div>
+                        <section class="row" id="content" name="content">
+                            <card-template :read-data="renderData" :now-page="nowPage"></card-template>
+                        </section>
+
+                        <nav class="d-flex justify-content-center">
+                            <pagination-list :pages="renderData" :now-page="nowPage" :total-page="totalPage"
+                                @skip-page="skipPage" @previous-page="previousPage" @next-page="nextPage">
+                            </pagination-list>
+                        </nav>
                     </div>
                 </div>
             </div>
         </section>
-        </div>
+
 
 
         <!-- 商品詳情over -->
@@ -848,6 +831,13 @@
                     images: [],
                     ProductName: "",
                     CommentsData: [],
+                    CaledCommentsData: [],
+                    reviewShow: false,
+
+                    //分頁用
+                    renderData: [], // 建立每頁顯示資料
+                    pageBaseNum: 5,  // 每頁顯示資料數量
+                    nowPage: 0, // 初始、現在頁數
 
                 }
             },
@@ -856,12 +846,12 @@
                     let getUrlString = location.href;
                     let url = new URL(getUrlString);
                     let myURL = url.searchParams.get('ProductNo');
-                    console.log(myURL);
+                    // console.log(myURL);
 
 
                     const apiUrl = '/CGA101G1/product/OneProductDetail?ProductNo=' + myURL;
 
-                    console.log("這是產品詳情：" + apiUrl);
+                    // console.log("這是產品詳情：" + apiUrl);
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
@@ -899,7 +889,7 @@
                     let getUrlString = location.href;
                     let url = new URL(getUrlString);
                     let myURL = url.searchParams.get('ProductNo');
-                    console.log(myURL);
+                    // console.log(myURL);
                     const apiUrl = '/CGA101G1/product/showOneProductAllComments?ProductNo=' + myURL;
                     console.log("這是評論的：" + apiUrl);
                     axios.get(apiUrl)
@@ -907,7 +897,28 @@
                         .then((response) => {
                             console.log("取評論的狀態：" + response.status); //狀態碼
                             this.CommentsData = response.data;//塞進去
+                            arrayCommentsData = [...this.CommentsData];
+                            if (arrayCommentsData.length != 0) {
+                                this.reviewShow = true;
+                            };
                             console.log("取評論的狀態讀取資料ok");
+                            this.renderingPage();
+                        });
+                },
+                getCaledCommentsData() {
+                    let getUrlString = location.href;
+                    let url = new URL(getUrlString);
+                    let myURL = url.searchParams.get('ProductNo');
+                    // console.log(myURL);
+                    const apiUrl = '/CGA101G1/product/showProductCaledComment?ProductNo=' + myURL;
+                    console.log("這是評論的：" + apiUrl);
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取計算過評論的狀態：" + response.status); //狀態碼
+                            this.CaledCommentsData = response.data;//塞進去
+                            console.log("取計算過評論的狀態讀取資料ok");
+                            console.log(this.CaledCommentsData);
                         });
                 },
                 getComponentInfo() {
@@ -931,25 +942,47 @@
                     productNo = (this.jsonData.productNo);
                     productName = (this.jsonData.productName);
                     alert("成功加入購物車");
-
-
-                    console.log(productSales + "," + totalPrice + "," + productNo + "," + productName);
-
                     axios({
                         method: 'post',
                         url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${productNo}` + '&ProductSales=' + `${productSales}` + '&ProductTotalPrice=' + `${totalPrice}` + '&ProductName=' + `${productName}`,
                         // 請更新
                     })
                         .then((response) => console.log(response))
+                },
 
-
+                //分頁
+                renderingPage() {
+                    for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
+                        this.renderData.push(
+                            (this.CommentsData.slice
+                                (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
+                            )
+                        );
+                    }
+                },
+                previousPage() {
+                    if (this.nowPage != 0) { // 頁數初始值為 0 
+                        this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
+                    }
+                },
+                nextPage() {
+                    if (this.nowPage < this.totalPage - 1) {
+                        this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
+                    }
+                },
+                skipPage(pageNum) {
+                    this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
+                },
+            },
+            computed: {
+                totalPage() {
+                    return Math.ceil(this.CommentsData.length / this.pageBaseNum); // 依每頁數量計算總頁數
                 }
-
-
             },
             created() {
-                this.getCommentsData();
                 this.getProductData();
+                this.getCommentsData();
+                this.getCaledCommentsData();
             }
         })
 
@@ -967,7 +1000,90 @@
       </div>
     `,
             props: ['item']
-        }).mount('#app');
+        })
+        app.component('card-template', {
+            data() {
+                return {
+                    a: ";",
+                }
+            },
+            props: ['readData', 'nowPage'],
+            methods: {
+                webcamSendRequestButton: function (e) {
+
+                    // 取編號跟錢，分離商品編號跟價錢再傳出去
+                    console.log(e.target.value);
+                    console.log(e.target.value.split(';'));
+                    console.log("ProNo:" + e.target.value.split(';')[0]);
+                    proNo = e.target.value.split(';')[0];
+                    console.log("ProPrice:" + e.target.value.split(';')[1]);
+                    proPrice = e.target.value.split(';')[1];
+                    console.log("ProName:" + e.target.value.split(';')[2]);
+                    proName = e.target.value.split(';')[2];
+
+                    axios({
+                        method: 'post',
+                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
+                    })
+                        .then((response) => console.log(response));
+                    alert("成功加入購物車");
+                }
+            },
+            template: `
+            <div v-for="(item, index) in readData[nowPage]" :key="index">
+                            <div class="d-flex review-box border-top mt-3 pt-3">
+                                <div>
+                                    <div class="review-image sm">
+                                        <img class="img-fluid" src="../mainCss/images/logo.png" title="" alt="">
+                                    </div>
+                                </div>
+                                <div class="col ps-3">
+                                    <h5 class="m-0">{{item.memAccount}}</h5>
+                                    <div class="rating-star small">
+                                        <i class="bi small bi-star-fill active"
+                                            v-for="(item, index) in item.commentStar" :key="index"></i>
+                                        <i class="bi small bi-star" v-for="(item, index) in (5-item.commentStar)"
+                                            :key="index"></i>
+                                    </div>
+                                    <span>購買時間：{{item.commentTime}}</span>
+                                    <p class="m-0 pt-2 small">評論：{{item.commentCotent}}</p>
+                                </div>
+                            </div>
+                        </div>
+  `,
+        })
+
+        app.component('pagination-list', {
+            props: ['pages', 'nowPage', 'totalPage'],
+            methods: {
+                previousPage() {  // 下一頁
+                    this.$emit('previousPage');
+                },
+                nextPage() {  // 上一頁
+                    this.$emit('nextPage');
+                },
+                skipPage(pageNum) { // 跳頁
+                    this.$emit('skipPage', pageNum);
+                },
+            },
+            template: `
+      <ul class="pagination" id="pageid">
+      
+        <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
+        
+        <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
+        
+        <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
+        
+        <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
+
+        <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+        
+      </ul>
+  `,
+        })
+
+        app.mount('#app');
 
 
 

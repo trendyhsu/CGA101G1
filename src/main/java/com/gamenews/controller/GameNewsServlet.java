@@ -64,12 +64,13 @@ public class GameNewsServlet extends HttpServlet {
 				Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
 				String gameNewsTitle = req.getParameter("gameNewsTitle");
 				String gameNewsContent = req.getParameter("gameNewsContent");
+				
 				// 將取得圖片資料
 				byte[] gameNewsPic = null;
 				Part part = req.getPart("gameNewsPic");
 				gameNewsPic = part.getInputStream().readAllBytes();
 				if(gameNewsPic.length==0) gameNewsPic = null;
-			
+				
 				GameNewsVO gameNewsVO = new GameNewsVO();
 				gameNewsVO.setGamePlatformNo(gamePlatformNo);
 				gameNewsVO.setManagerNo(managerNo);

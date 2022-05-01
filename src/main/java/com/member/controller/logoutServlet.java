@@ -1,6 +1,8 @@
 package com.member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,9 @@ public class logoutServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().invalidate();
+		String url = "/frontend/memLogin/login.html";
+		RequestDispatcher successView = request.getRequestDispatcher(url);
+		successView.forward(request, response);
 	}
 
 }

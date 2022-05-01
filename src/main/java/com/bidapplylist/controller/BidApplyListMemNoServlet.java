@@ -33,9 +33,9 @@ public class BidApplyListMemNoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// session 取得會員編號
 		MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
+		Integer memNo = memVO.getMemNo();
 		
-		Integer memNo = 11002;
+//		Integer memNo = 11002;
 		
 		BidRecordService bidRecordSvc = new BidRecordService();
 		List<BidRecordVO> bidRecordVOs = bidRecordSvc.getByMemNo(memNo);

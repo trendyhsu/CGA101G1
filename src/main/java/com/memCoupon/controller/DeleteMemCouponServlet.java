@@ -46,7 +46,7 @@ public class DeleteMemCouponServlet extends HttpServlet {
 		 memCouponService.deleteOneCoupon(couponTypeNo);
 	
 		/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-
+		 errorMsgs.clear();
 		 String url = "/backend/memCoupon/showMemCoupon.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); 
 			successView.forward(request, response);

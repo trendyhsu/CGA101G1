@@ -6,6 +6,7 @@
 <%@ page import="com.memCoupon.model.*"  %>
 <%@ page import="com.member.model.*"  %>
 <%@ page import="java.util.*"  %>
+<%@include file="/frontend/fronthead.jsp" %>
 
 <%
 	MemVO memVO=(MemVO)session.getAttribute("memVO");
@@ -21,9 +22,12 @@
 <title>Insert title here</title>
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
+	background-color: #f6f9fc;
+    border: 1px solid #aeb4be;
     text-align: center;
+  }
+  h3{
+  color: cadetblue;
   }
   table#table-1 h4 {
     color: red;
@@ -44,7 +48,7 @@
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
+    border: 1px solid #aeb4be;
   }
   th, td {
     padding: 5px;
@@ -55,6 +59,10 @@
 </head>
 <body bgcolor='white'>
 
+				<!-- 內容直接寫在<div class="table-responsive fs-md mb-4">裡面 -->
+                    <div class="col-lg-9 col-xxl-9">
+                        <div class="table-responsive fs-md mb-4">
+                        
 <!-- <h4>此頁練習採用 EL 的寫法取值:</h4> -->
 <table id="table-1">
 	<tr><td>
@@ -64,9 +72,11 @@
 
 <table>
 	<tr>
-		<th>會員編號(買家)</th>
+<!-- 		<th>會員編號(買家)</th> -->
 <!-- 		<th>會員優惠券種類編號</th> -->
-		<th>優惠券種類編號</th>
+<!-- 		<th>優惠券種類編號</th> -->
+		<th>優惠券名稱</th>
+		<th>可折抵金額</th>
 		<th>使用狀態</th>
 		<th>優惠券時效</th>
 	</tr>
@@ -76,9 +86,10 @@
 		
 		<c:if  test="${memCouponVO.couponState == 0 }" var="true">
 		<tr>
-			<td>${memCouponVO.memNo}</td>
+<%-- 			<td>${memCouponVO.memNo}</td> --%>
 <%-- 			<td>${memCouponVO.memCouponNo}</td> --%>
-			<td>${memCouponVO.couponTypeNo}</td>
+			<td>${memCouponVO.couponTypeVO.couponName}</td>
+			<td>${memCouponVO.couponTypeVO.discountPrice}</td>
 			<td>
 			<c:if test="${memCouponVO.couponState == 0 }" var="true">
 			未使用
@@ -104,9 +115,13 @@
 <%-- 				<c:out value="已使用" escapeXml="false"></c:out> --%>
 <%-- 			</c:if></td> --%>
 	</table>
-
+<%-- <%@ include file="page1.file"%> --%>
 <%-- <%@ include file="page2.file" %> --%>
 
+</div>
+					</div>
+                    <!-- End Content -->
 </body>
 
 </html>
+<%@include file="/frontend/frontfoot.jsp" %>
