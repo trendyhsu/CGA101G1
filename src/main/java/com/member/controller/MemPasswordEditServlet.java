@@ -1,8 +1,10 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,13 +27,16 @@ public class MemPasswordEditServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		List<String> errorMsgs = new LinkedList<String>();
-		// Store this set in the request scope, in case we need to
-		// send the ErrorPage view.
+//		List<String> errorMsgs = new LinkedList<String>();
+//		// Store this set in the request scope, in case we need to
+//		// send the ErrorPage view.
+//		request.setAttribute("errorMsgs", errorMsgs);
+		
+		Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 		try {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String OmemPassoword = request.getParameter("oldPassword");
+			String oldPassword = request.getParameter("oldPassword");
 			String Reg = "^[(a-zA-z0-9)]{6,12}$";
 			// 比對舊密碼
 			MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
@@ -39,33 +44,39 @@ public class MemPasswordEditServlet extends HttpServlet {
 			memVO = MEM_SERVICE.checkOldPassword(memNo);
 			String memPassoword = memVO.getMemPassword();
 
-			if (OmemPassoword == null || OmemPassoword.trim().length() == 0) {
-				errorMsgs.add("舊密碼未輸入");
-			} else if (!OmemPassoword.equals(memPassoword)) {
-				errorMsgs.add("舊密碼錯誤");
+			if (oldPassword == null || oldPassword.trim().length() == 0) {
+				errorMsgs.put("oldPassword","舊密碼未輸入");
+			} else if (!oldPassword.equals(memPassoword)) {
+				errorMsgs.put("oldPassword","舊密碼錯誤");
 			}
 
 			String newPassword = request.getParameter("newPassword");
 			if (newPassword == null || newPassword.trim().length() == 0) {
-				errorMsgs.add("新密碼未輸入");
+				errorMsgs.put("newPassword","新密碼未輸入");
 			} else if (!newPassword.trim().matches(Reg)) {
-				errorMsgs.add("請輸入英文及數字，且密碼長度需大於5小於13字數");
+				errorMsgs.put("newPassword","請輸入英文及數字，且密碼長度需大於5小於13字數");
 			}else if (newPassword.equals(memPassoword)) {
-				errorMsgs.add("新密碼不得與舊密碼相同");
+				errorMsgs.put("newPassword","新密碼不得與舊密碼相同");
 			}
 
 			String conNewPassword = request.getParameter("conNewPassword");
 			if (!conNewPassword.equals(newPassword)) {
-				errorMsgs.add("新密碼和確認密碼不相同，請重新輸入");
+				errorMsgs.put("conNewPassword","新密碼和確認密碼不相同，請重新輸入");
 			}else if (conNewPassword == null || conNewPassword.trim().length() == 0) {
-				errorMsgs.add("確認密碼未輸入");
+				errorMsgs.put("conNewPassword","確認密碼未輸入");
 			}
-			// Send the use back to the form, if there were errors
+//			// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				request.setAttribute("memVO", memVO); // 含有輸入格式錯誤的memVO物件,也存入req
+//				RequestDispatcher failureView = request.getRequestDispatcher("/frontend/mem/passwordChange.jsp");
+//				failureView.forward(request, response);
+//				return; // 程式中斷
+//			}
 			if (!errorMsgs.isEmpty()) {
-				request.setAttribute("memVO", memVO); // 含有輸入格式錯誤的memVO物件,也存入req
-				RequestDispatcher failureView = request.getRequestDispatcher("/frontend/mem/passwordChange.jsp");
+				RequestDispatcher failureView = request
+						.getRequestDispatcher("/frontend/mem/passwordChange.jsp");
 				failureView.forward(request, response);
-				return; // 程式中斷
+				return;
 			}
 			/***************************2.開始修改資料*****************************************/
 			MEM_SERVICE.updatePassword(conNewPassword, memNo);
@@ -77,9 +88,9 @@ public class MemPasswordEditServlet extends HttpServlet {
 
 			/***************************其他可能的錯誤處理*************************************/
 		} catch (Exception e) {
-			errorMsgs.add("修改資料失敗:" + e.getMessage());
-			RequestDispatcher failureView = request.getRequestDispatcher("/frontend/mem/passwordChange.jsp");
-			failureView.forward(request, response);
+//			errorMsgs.put("memVO","修改資料失敗:" + e.getMessage());
+//			RequestDispatcher failureView = request.getRequestDispatcher("/frontend/mem/passwordChange.jsp");
+//			failureView.forward(request, response);
 		}
 
 	}
