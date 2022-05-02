@@ -4,7 +4,14 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.w3c.dom.ls.LSException;
+
+import com.orderdetail.model.OrderDetailService;
+import com.orderdetail.model.OrderDetailVO;
 
 public class ProductDAO implements ProductDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -45,8 +52,8 @@ public class ProductDAO implements ProductDAO_interface{
 		
 
 		private static final String GETAllInSell = 
-				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,itemProdDescription FROM product where ProductState = 1 order by productNo desc";
-			         //    1          2               3             4            5           6                7             8         9
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 order by productNo desc";
+			         //    1          2               3             4            5           6       
 
 		
 		
@@ -501,7 +508,7 @@ public class ProductDAO implements ProductDAO_interface{
 				productVO.setProductName(rs.getString("ProductName"));
 				productVO.setProductPrice(rs.getInt("ProductPrice"));
 //				productVO.setProductState(rs.getInt("ProductState"));
-				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
+//				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
 //				productVO.setUpcNum(rs.getString("UpcNum"));
 				list.add(productVO);
 			}
@@ -783,6 +790,88 @@ public class ProductDAO implements ProductDAO_interface{
 			}
 		}
 		return productVO;
+	}
+
+	
+	
+	@Override
+	public List<Object> getAllInSellByMap() {
+		
+		
+		List<Object>list = new ArrayList<Object>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GETAllInSell);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				Integer productNo = rs.getInt("ProductNo");
+				map.put("productNo", productNo);				
+				map.put("gameTypeNo", rs.getInt("GameTypeNo"));
+				map.put("gamePlatformNo", rs.getInt("GamePlatformNo"));
+				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getInt("ProductPrice"));
+				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+				OrderDetailService orderDetailService = new OrderDetailService();
+				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+				
+				
+				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
+				if (orderDetailVO == null) {
+					map.put("avgCommentStar", 0);
+					list.add(map);
+				} else {
+					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+
+					map.put("avgCommentStar", avgC);
+					list.add(map);
+				}
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		return list;
 	}
 	
 	

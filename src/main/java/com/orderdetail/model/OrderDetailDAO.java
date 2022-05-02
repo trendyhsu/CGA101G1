@@ -7,7 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.product.model.ProductVO;
 
 public class OrderDetailDAO implements OrderDetailDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -607,5 +611,75 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				}
 			}
 		}
+	}
+
+	@Override
+	
+	
+	public List<Object> findTop9AllProductByMap() {
+		List<Object> list = new ArrayList<>();
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FindTop9Product);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				Integer productNo=rs.getInt("ProductNo");
+				map.put("poductNo", productNo);
+				map.put("productSales", rs.getInt("sum(ProductSales)"));
+				map.put("commentStar", rs.getInt("sum(CommentStar)"));
+				map.put("countComment",rs.getInt("count(CommentStar)"));
+				OrderDetailVO orderDetailVO = new OrderDetailVO();
+				ProductVO productVO = orderDetailVO.getProductVO(productNo);
+				String productName = productVO.getProductName();
+				Integer productPrice = productVO.getProductPrice();
+				map.put("productName", productName);
+				map.put("productPrice", productPrice);
+				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+
+				
+				list.add(map);			
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }

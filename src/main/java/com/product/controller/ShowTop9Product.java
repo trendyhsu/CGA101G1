@@ -45,11 +45,6 @@ public class ShowTop9Product extends HttpServlet {
 
 		OrderDetailService orderDetailService = new OrderDetailService();
 		orderDetailList = orderDetailService.GetTop9Product();
-		
-		
-		
-		
-
 //		for (int i = 0; i < productsList.size(); i++) {
 		for (OrderDetailVO orderDetailVO : orderDetailList) {
 			Integer productNo = orderDetailVO.getProductNo();

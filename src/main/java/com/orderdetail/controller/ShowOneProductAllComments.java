@@ -53,6 +53,7 @@ public class ShowOneProductAllComments extends HttpServlet {
 			Integer memNo= orderVO.getMemNo();
 			MemVO memVO =orderVO.getMemVObyMemNo(memNo);
 			map.put("memAccount", memVO.getMemAccount());
+			map.put("memPicURL","/CGA101G1/mem/MemSelfPicServlet?memNo="+memNo);
 			list.add(map);
 		}
 		

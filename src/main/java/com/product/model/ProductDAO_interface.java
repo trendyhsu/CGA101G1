@@ -24,6 +24,8 @@ public interface ProductDAO_interface {
 	
 	public List<ProductVO> getAllInSell();
 	
+	public List<Object> getAllInSellByMap();
+	
 	public List<ProductVO> getAllInDetail();
 	
 	public List<ProductVO> getAllInName();

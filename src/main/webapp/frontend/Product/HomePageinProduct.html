@@ -321,12 +321,12 @@
                                 "asNavFor": ".product-thumb"
                             }'>
                             <!-- 商品大圖相片 要開-->
-                            <div>
+                            <div style="text-align: right;">
                                 <a class="gallery-link"
                                     href="`data:image/png;base64,${jsonData.Pics[0].productPicContentBase64}`"><i
                                         class="bi bi-arrows-fullscreen"></i></a>
                                 <img :src="`data:image/png;base64,${jsonData.Pics[0].productPicContentBase64}`"
-                                    class="img-fluid" title="" alt="" style="width:80%">
+                                    class="img-fluid" title="" alt="" style="width:60%; height: max-content;">
                             </div>
                         </div>
                     </div>
@@ -338,7 +338,7 @@
                                 <span>Game Name</span>
                             </div>
                             <div class="products-title mb-2">
-                                <h4 class="h4">{{jsonData.productName}}</h4>
+                                <h1 class="h1">{{jsonData.productName}}</h1>
                             </div>
                             <div class="col-sm-6">
                                 <div class="rating-star small">
@@ -349,7 +349,7 @@
                                         v-for="(item, index) in (5-CaledCommentsData.avgCommentStar)" :key="index"></i>
                                 </div>
                             </div>
-                            <div class="product-description">
+                            <div class="product-description" style="font-size: medium;">
                                 <p>{{jsonData.itemProdDescription}}
                                 </p>
                             </div>
@@ -360,11 +360,11 @@
                                 <span class="text-primary">NT.{{jsonData.productPrice}}</span>
                             </div>
                             <!-- 加入購物車 要開-->
-                            <div class="product-detail-actions d-flex flex-wrap pt-3">
+                            <div class="product-detail-actions d-flex flex-wrap pt-3" style="height: 50px;">
                                 <div class="cart-qty me-3 mb-3">
-                                    <button type="button" @click="getComponentInfo">+</button>
+                                    <button type="button" @click="getComponentInfo" class="inc qty-btn">+</button>
                                     <card ref="innerComponent"></card>
-                                    <button type="button" @click="subtraction">-</button>
+                                    <button type="button" @click="subtraction" class="dec qty-btn">-</button>
                                 </div>
                                 <div class="cart-button mb-3 d-flex">
                                     <a @click="sendData()" class="btn btn-dark me-3">
@@ -434,15 +434,16 @@
         <!-- 商品規格 -->
         <section name="pd_information" id="pd_information">
             <h3 class="sub-heading"> 實機照片 </h3>
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 50%;">
-                <div class="carousel-inner">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"
+                style="width: 50%; height: 50%;">
+                <div class="carousel-inner" style="height: 100%;">
                     <div class="carousel-item active">
                         <img :src="`data:image/png;base64,${jsonData.Pics[1].productPicContentBase64}`" class="d-block"
-                            alt="..." style="width: 100%;">
+                            alt="..." style="width: 100%; height: 100%;">
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" style="height: 100%;">
                         <img :src="`data:image/png;base64,${jsonData.Pics[2].productPicContentBase64}`" class="d-block"
-                            alt="..." style="width: 100%;">
+                            alt="..." style="width: 100%; height: 100%;">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
@@ -993,10 +994,10 @@
                 }
             },
             template: `
-      <div class="card" style="width: 5rem;">
-        <div class="card-body">
-          <p class="card-text">{{ number }}</p>
-        </div>
+      <div class="card" style="width: 95px;height:100% ">
+
+          <p class="cart-qty-input form-control" style="height: 100%; padding-left:50px ; border:0">{{ number }}</p>
+
       </div>
     `,
             props: ['item']
@@ -1034,7 +1035,7 @@
                             <div class="d-flex review-box border-top mt-3 pt-3">
                                 <div>
                                     <div class="review-image sm">
-                                        <img class="img-fluid" src="../mainCss/images/logo.png" title="" alt="">
+                                        <img class="img-fluid" :src=item.memPicURL title="" alt="">
                                     </div>
                                 </div>
                                 <div class="col ps-3">

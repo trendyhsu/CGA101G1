@@ -38,4 +38,8 @@ public class OrderDetailService {
 	public List<OrderDetailVO> GetTop9Product(){
 		return dao.findTop9AllProduct();
 	}
+	
+	public List<Object> GetTop9ProductByMap(){
+		return dao.findTop9AllProductByMap();
+	}
 }

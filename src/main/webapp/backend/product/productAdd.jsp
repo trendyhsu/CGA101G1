@@ -6,8 +6,24 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.ProductVO"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.gamecompany.model.*"%>
+<%@ page import="com.gametype.model.*"%>
+<%@ page import="com.gameplatformtype.model.*"%>
+
 <%
 ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServlet.java (Concroller) 存入req的orderVO物件 (包括幫忙取出的orderVO, 也包括輸入資料錯誤時的orderVO物件)
+GameCompanyService gameCompanyService = new GameCompanyService();
+List<GameCompanyVO> gameCompanyList = gameCompanyService.getAll();
+pageContext.setAttribute("gameCompanyList",gameCompanyList);
+
+GameTypeService gameTypeService = new GameTypeService();
+List<GameTypeVO> gameTypeList = gameTypeService.getAll();
+pageContext.setAttribute("gameTypeList",gameTypeList);
+
+GamePlatformTypeService gamePlatformTypeService = new GamePlatformTypeService();
+List<GamePlatformTypeVO> gamePlatformTypeList = gamePlatformTypeService.getAll();
+pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +78,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServle
 							</ul>
 						</c:if>
 						<h3>
-							<i class="fa fa-angle-right"></i> 上次新增前三比
+							<i class="fa fa-angle-right"></i> 最近新增前三筆
 						</h3>
 						<table class="table table-striped">
 							<thead>
@@ -140,16 +156,10 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServle
 									<label for="gameTypeNo" class="form-label">遊戲種類</label> <select
 										name="GameTypeNo" id="gameTypeNo"
 										value="${productVO.gameTypeNo}" required>
-										<option value="63001">動作</option>
-										<option value="63002">動作冒險</option>
-										<option value="63003">冒險</option>
-										<option value="63004">大型多人在線</option>
-										<option value="63005">角色扮演</option>
-										<option value="63006">模擬</option>
-										<option value="63007">戰略</option>
-										<option value="63008">交通工具模擬</option>
-										<option value="63009">運動</option>
-										<option value="63010">射擊</option>
+										<c:forEach var="gameTypeVO"
+											items="${gameTypeList}">
+											<option value="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</option>
+										</c:forEach>
 									</select>
 									<!-- 
                                             <input type="number" id="gameTypeNo" name="GameTypeNo" class="form-control"
@@ -159,32 +169,24 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServle
 									<label for="gamePlatformNo" class="form-label">遊戲平台種類</label> <select
 										name="GamePlatformNo" id="gamePlatformNo"
 										value="${productVO.gamePlatformNo}" required>
-										<option value="64001">switch</option>
-										<option value="64002">PS5</option>
-										<option value="64003">XBOX</option>
-										<option value="64004">PC</option>
+										<c:forEach var="gamePlatformTypeVO"
+											items="${gamePlatformTypeList}">
+											<option value="${gamePlatformTypeVO.gamePlatformNo}">${gamePlatformTypeVO.gamePlatformName}</option>
+										</c:forEach>
 									</select>
-									<!-- 
-                                            <input type="number" id="gamePlatformNo" name="GamePlatformNo"
-                                                class="form-control" v-model="temp.gamePlatformNo"> -->
+
 								</div>
 								<div>
-									<label for="gameCompanyNo" class="form-label">遊戲公司</label> <select
+									<label for="gameCompanyNo" class="form-label">遊戲公司</label> 
+									<select
 										name="GameCompanyNo" id="gameCompanyNo"
 										value="${productVO.gameCompanyNo}" required>
-										<option value="61001">Nintendo</option>
-										<option value="61002">Imagineer</option>
-										<option value="61003">2K</option>
-										<option value="61004">SEGA</option>
-										<option value="61005">Capcom</option>
-										<option value="61006">Sony Entertainment</option>
-										<option value="61007">Xbox Game Studios</option>
-										<option value="61008">Ubisoft</option>
-										<option value="61009">Saber Interactive</option>
+										<c:forEach var="gameCompanyVO"
+											items="${gameCompanyList}">
+											<option value="${gameCompanyVO.gameCompanyNo}">${gameCompanyVO.gameCompanyName}</option>
+										</c:forEach>
 									</select>
-									<!-- <input
-                                                type="number" id="gameCompanyNo" name="GameCompanyNo"
-                                                class="form-control" v-model="temp.gameCompanyNo"> -->
+
 								</div>
 								<div>
 									<label for="upcNum" class="form-label">UpcNum</label> <input

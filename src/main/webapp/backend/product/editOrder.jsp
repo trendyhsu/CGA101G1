@@ -12,7 +12,10 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO"); //EmpServlet.java (
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+	crossorigin="anonymous"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -44,22 +47,29 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO"); //EmpServlet.java (
 					</ul>
 				</c:if>
 
-				<FORM METHOD="post" ACTION="/CGA101G1/porduct/modOrder" name="form1" class="row g-3">
+				<FORM METHOD="post" ACTION="/CGA101G1/porduct/modOrder" name="form1"
+					class="row g-3">
 					<table class="table table-hover">
 						<tr>
 							<td>訂單編號:<font color=red><b>*</b></font></td>
 							<td><input type="number" name="OrderNo"
-								value="<%=orderVO.getOrderNo()%>" readonly style="border: 0"/></td>
+								value="<%=orderVO.getOrderNo()%>" readonly style="border: 0" /></td>
+						</tr>
+						<tr>
+							<td>會員編號:<font color=red><b>*</b></font></td>
+							<td><input type="number" name="MemNo"
+								value="<%=orderVO.getMemNo()%>" readonly style="border: 0" /></td>
 						</tr>
 						<tr>
 							<td>訂購金額:</td>
-						    <td><input type="number" name="OrderTotalPrice"
-								value="<%=orderVO.getOrderTotalPrice()%>"  readonly style="border: 0"/></td>
+							<td><input type="number" name="OrderTotalPrice"
+								value="<%=orderVO.getOrderTotalPrice()%>" readonly
+								style="border: 0" /></td>
 						</tr>
 						<tr>
 							<td>訂購日期:</td>
 							<td><input type="text" name="TranTime"
-								value="<%=orderVO.getTranTime()%>"  readonly style="border: 0"/></td>
+								value="<%=orderVO.getTranTime()%>" readonly style="border: 0" /></td>
 						</tr>
 						<tr>
 							<td>訂單狀態</td>
