@@ -139,7 +139,7 @@
 							class="fa fa-solid fa-robot"></i> <span>FQ管理系統</span>
 					</a>
 						<ul class="sub">
-							<li><a href="#">真人文字客服</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/servicechatroom/ServiceChatroom.jsp">真人文字客服</a></li>
 							<li><a href="<%=request.getContextPath()%>/backend/fq/KeyWord-final.jsp">關鍵字設定</a></li>
 						</ul></li>
 

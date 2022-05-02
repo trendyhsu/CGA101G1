@@ -1,0 +1,171 @@
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(154, 180, 204);
+    border-radius: 20px;
+}
+
+
+h3.funcTitle02 {
+    font-weight: bold;
+}
+
+.Service-chatroom {
+/*     border: 4px solid var(--black); */
+    width: 80%;
+    height: 400px;
+    display: flex;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 3rem;
+    box-shadow: 0px 0px 8px 5px rgba(0, 0, 0, .1);
+}
+
+.Service-chatroom .userList {
+    /* border: 2px solid red; */
+    width: 30%;
+}
+
+.Service-chatroom .userList ul {
+    /* border: 2px solid pink; */
+    background: #fff;
+    height: 100%;
+    padding: 0;
+    overflow: auto;
+    cursor:pointer;
+}
+
+.Service-chatroom .userList ul li {
+    /* border: 2px solid pink; */
+    width: 100%;
+    min-width: 120px;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    /* margin: .5rem 0; */
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+.Service-chatroom .userList ul li:hover {
+    background: #ccc;
+}
+
+.Service-chatroom .userList ul li i {
+    /* border: 2px solid red; */
+    margin-right: 10px;
+}
+
+.Service-chatroom .chatroom {
+    /* border: 2px solid yellowgreen; */
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Service-chatroom .chatroom .userName {
+    /* border: 2px solid blue; */
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: .1rem .5rem;
+    margin-bottom: 5px;
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, .1);
+}
+
+.Service-chatroom .chatroom .chat-content {
+    /* border: 2px solid orange; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.Service-chatroom .chatroom .chat-content .messageLine {
+    /* border: 2px solid red; */
+    width: 100%;
+    /* height: fit-content; */
+}
+
+.Service-chatroom .chatroom .chat-content .messageLine .oneMessage {
+    font-size: 18px;
+    background: #bbb;
+    margin: 5px 10px;
+    width: fit-content;
+    max-width: 85%;
+    border-radius: 20px;
+    padding: 5px 15px;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.Service-chatroom .chatroom .chat-content .messageLine .oneAnswer {
+    font-size: 18px;
+    background: rgb(154, 180, 204);
+    float: right;
+    margin: 5px 10px;
+    width: fit-content;
+    max-width: 85%;
+    border-radius: 20px;
+    padding: 5px 15px;
+    word-wrap: break-word;
+    overflow: hidden;
+
+}
+
+.Service-chatroom .chatroom .answerBar {
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px -3px 8px rgba(0, 0, 0, .1);
+}
+
+.Service-chatroom .chatroom .answerBar input {
+    outline: none;
+    width: 85%;
+    font-size: 20px;
+    border: none;
+}
+
+.Service-chatroom .chatroom .answerBar i {
+    width: 32px;
+    height: 32px;
+    /* padding: 6px 5px; */
+    font-size: 20px;
+    /* border: 2px solid purple; */
+    border-radius: 50%;
+    /* background: #fff; */
+    color: var(--space);
+    margin: 0 .5rem;
+    cursor: pointer;
+    text-align: center;
+    line-height: 32px;
+}
+
+.Service-chatroom .chatroom .answerBar i:hover {
+    background: var(--space);
+    color: #fff;
+    /* transform: scale(200%); */
+}
+
+/*----------------------KeyWord回傳結果------------------*/
+h4.funcTitle02 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    /* border: 2px solid red; */
+}
