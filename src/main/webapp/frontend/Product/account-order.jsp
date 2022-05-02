@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="/frontend/fronthead.jsp" %>
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -46,123 +49,11 @@
 
 <body>
 
-    <header>
-
-        <div class="logo-div">
-            <img src=".\\images\\logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
-        </div>
-
-
-        <nav class="navbar">
-            <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
-            <a href="#" class="nav-link">遊戲新聞</a>
-            <a href="/CGA101G1/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
-            <a href="#" class="nav-link">二手競標商城</a>
-            <a href="#" class="nav-link">遊戲討論區</a>
-            <a href="#items">熱門商品</a>
-        </nav>
-
-        <div class="icons">
-            <!--右上方小icon區-->
-            <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
-            <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
-        </div>
-
-    </header>
-    <!-- Header End -->
-    <!-- Main -->
-    <main>
-        <!-- Breadcrumb -->
-        <div class="py-3 bg-gray-100">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 my-2">
-                        <h1 class="m-0 h4 text-center text-lg-start">Your Order</h1>
-                    </div>
-                    <div class="col-lg-6 my-2">
-                        <ol class="breadcrumb dark-link m-0 small justify-content-center justify-content-lg-end">
-                            <li class="breadcrumb-item"><a class="text-nowrap" href="index.html"><i
-                                        class="bi bi-home"></i>Home</a></li>
-                            <li class="breadcrumb-item text-nowrap active" aria-current="page">My Account</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- End Breadcrumb -->
         <!-- Table -->
-        <div class="py-6">
-            <div class="container">
-                <div class="row">
+
                     <!-- Profile Menu -->
-                    <div class="col-lg-4 pb-4 pb-lg-0 col-xxl-3  pe-xxl-5">
-                        <div class="bg-white border border-bottom-0 shadow-lg">
-                            <div class="d-flex p-3 align-items-center">
-                                <div class="avatar avatar-lg rounded-circle">
-                                    <img src="assets/img/avatar-2.jpg" title="" alt="">
-                                </div>
-                                <div class="col ps-3">
-                                    <h6 class="m-0">Edward Joe</h6>
-                                    <small><a href="javascript:void(0);">your@email.com</a></small>
-                                </div>
-                            </div>
-                            <div class="bg-gray-200 p-3 border-bottom border-top">
-                                <h6 class="m-0">Dashboard</h6>
-                            </div>
-                            <ul class="list-unstyled mb-0 theme-link">
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center active p-3"
-                                        href="account-order.html">
-                                        <i class="bi bi-bag me-2"></i> Order <div
-                                            class="ms-auto badge-pill badge bg-secondary">5</div>
-                                    </a>
-                                </li>
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3"
-                                        href="account-wishlist.html">
-                                        <i class="bi bi-heart me-2"></i>Wishlist <div
-                                            class="ms-auto badge-pill badge bg-secondary">5</div>
-                                    </a>
-                                </li>
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-tickets.html">
-                                        <i class="bi bi-bookmark me-2"></i>Support Tickets <div
-                                            class="ms-auto badge-pill badge bg-secondary">0</div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="bg-gray-200 p-3 border-bottom">
-                                <h6 class="m-0">Account settings</h6>
-                            </div>
-                            <ul class="list-unstyled mb-0 theme-link">
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-profile.html">
-                                        <i class="bi bi-person-circle me-2"></i>Profile info
-                                    </a>
-                                </li>
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-address.html">
-                                        <i class="bi bi-map-fill me-2"></i>Addresses
-                                    </a>
-                                </li>
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" href="account-payment.html">
-                                        <i class="bi bi-credit-card me-2"></i>Payment
-                                    </a>
-                                </li>
-                                <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" href="javascript:void(0);">
-                                        <i class="bi bi-box-arrow-left me-2"></i>Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    
                     <!-- End Profile Menu -->
                     <!-- Content -->
                     <div class="col-lg-8 col-xxl-9" id="app">
@@ -190,48 +81,7 @@
         <!--Table -->
     </main>
     <!-- End Main -->
-    <!-- Footer -->
-    <section class="footer">
 
-        <div class="box-container">
-
-            <div class="box">
-                <h3>會員專區</h3>
-                <a href="#">會員登入</a>
-                <a href="#">會員註冊</a>
-                <a href="#">訂單管理</a>
-                <a href="#">二手遊戲申請上架單管理</a>
-            </div>
-
-            <div class="box">
-                <h3>快速連結</h3>
-                <a href="#">首頁</a>
-                <a href="#">遊戲商城</a>
-                <a href="#">二手競標商城</a>
-                <a href="#">遊戲討論區</a>
-            </div>
-
-            <div class="box">
-                <h3>聯絡我們</h3>
-                <a href="#">+123-456-7890</a>
-                <a href="#">+111-222-3333</a>
-                <a href="#">shailhanas@gmail.com</a>
-                <a href="#">anasbhai@gmail.com</a>
-            </div>
-
-            <div class="box">
-                <h3>關於我們</h3>
-                <a href="#">管理團隊</a>
-                <a href="#">創始理念</a>
-                <a href="#">insuagram</a>
-                <a href="#">linkedin</a>
-            </div>
-        </div>
-
-        <div class="credit">copyright@2021 by <span>mr .web designer</span></div>
-
-    </section>
-    <!-- End Footer -->
     <!-- jquery -->
     <script src="../mainCss/assets/js/jquery-3.5.1.min.js"></script>
     <!-- appear -->
@@ -519,3 +369,4 @@
 <!-- end body -->
 
 </html>
+<%@include file="/frontend/frontfoot.jsp" %>

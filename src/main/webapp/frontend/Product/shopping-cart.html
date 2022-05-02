@@ -332,7 +332,8 @@
                         <tbody>
                             <tr v-for="(item, index) in datastore" :key="index">
                                 <td class="text-center product-name"><a class="text-reset"
-                                        href="product-details.html">{{item.productName}}</a></td>
+                                        :href="`/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo">{{item.productName}}</a>
+                                </td>
                                 <td class="text-center product-price-cart"><span
                                         class="amount">{{item.productTotalPrice/item.productSales}}</span></td>
                                 <td class="text-center product-quantity">
@@ -388,7 +389,7 @@
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverPhone">聯絡手機</label>
                                 <input class="form-control" type="number" id="ReceiverPhone" required
-                                    name="ReceiverPhone" @change="phoneCheck($event)" max="10">
+                                    name="ReceiverPhone" @change="phoneCheck($event)">
                                 <div style="color: red;" :style="{visibility: phoneInput ? 'visible' : 'hidden'}">
                                     請輸入正確的手機格式!!</div>
                             </div>

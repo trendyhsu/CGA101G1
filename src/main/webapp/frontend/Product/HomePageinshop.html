@@ -470,37 +470,9 @@
                                     <i class="fs-4 lh-1 bi bi-justify-left"></i>
                                 </button>
                                 <!-- End Mobile Toggle -->
-                                <!-- <a class="btn btn-sm active" href="javascript:void(0);"><i class="bi bi-grid"></i></a> -->
-                                <!-- <a class="btn btn-sm" href="shop-list.html"><i class="bi bi-view-stacked"></i></a> -->
                             </div>
                             <div class="shop-mob-button">
                             </div>
-                            <!-- <div class="shortby-dropdown ms-auto">
-                                <div class="dropdown">
-                                    <a class="btn btn-white btn-sm border dropdown-toggle" href="javascript:void(0);"
-                                        role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        Short by
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow"
-                                        aria-labelledby="dropdownMenuLink">
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Featured</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Best selling</a></li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Alphabetically, A-Z</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Alphabetically, Z-A</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Price, low to high</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Price, high to low</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Date, old to new</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:void(0);">Date, new to old</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> -->
                         </div>
                         <!-- 要改成有過濾器 -->
                         <!-- Product Box -->
@@ -643,16 +615,11 @@
 
     <!-- items section ends -->
 
-    <!-- News section starts -->
 
 
 
-    <!-- News section ends -->
-
-    <!-- onSale items section starts -->
 
 
-    <!-- onSale items section ends -->
 
     <!-- footer section starts -->
 
@@ -762,7 +729,7 @@
                 },
                 getProductData() {
 
-                    const apiUrl = '/CGA101G1/product/ShowToShop';
+                    const apiUrl = '/CGA101G1/product/showToShopMap';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
@@ -770,6 +737,15 @@
 
                             this.jsonData = response.data;//塞進去
                             console.log("datastore讀取資料ok");
+                            for (i = 0; i < this.jsonData.length; i++) {
+                                this.jsonData[i].gamePlatformName = "";
+                                for (j = 0; j < this.gamePlatformTypeData.length; j++) {
+                                    if (this.jsonData[i].gamePlatformNo == this.gamePlatformTypeData[j].gamePlatformNo) {
+                                        this.jsonData[i].gamePlatformName = this.gamePlatformTypeData[j].gamePlatformName;
+                                    }
+
+                                }
+                            }
                             for (product of this.jsonData) {
                                 this.temp.push(product);
                             }
@@ -925,7 +901,7 @@
         <div class="product-card-1" style="height:90%">
             <div class="product-card-image">
                                         <div class="badge-ribbon">
-                                            <span class="badge bg-danger">{{item.gamePlatformTypeName}}</span>
+                                            <span class="badge bg-danger">{{item.gamePlatformName}}</span>
                                         </div>
                                         <div class="product-action">
                                             <a :href="`+ "`" + `/CGA101G1/product/AddProduct2Fav?ProductNo=` + "`" + "+" + "item.productNo" + `" class="btn btn-outline-primary">

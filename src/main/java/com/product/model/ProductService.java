@@ -97,6 +97,12 @@ public class ProductService {
 		
 	} 
 	
+	//查詢正在販售的產品用map裝
+	public List<Object> GetAllSelledProductsByMap(){
+		return dao.getAllInSellByMap();
+		
+	} 
+	
 	public ProductVO GetOne(Integer productNo) {
 		return dao.findByPrimaryKey(productNo);
 	}

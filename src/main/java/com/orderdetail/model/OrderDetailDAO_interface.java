@@ -14,6 +14,9 @@ public interface OrderDetailDAO_interface {
     //查熱銷Top9產品
     public List<OrderDetailVO> findTop9AllProduct();
     
+    //查熱銷Top9產品map版
+    public List<Object> findTop9AllProductByMap();
+    
     //查某張訂單的全部項目
     public List<OrderDetailVO> findAllDetailByOrderNo(Integer OrderNo);
     
