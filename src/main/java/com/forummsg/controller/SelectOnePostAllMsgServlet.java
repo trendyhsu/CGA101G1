@@ -1,7 +1,8 @@
-package com.forum.controller;
+package com.forummsg.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -11,11 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.member.model.MemService;
-import com.member.model.MemVO;
+import com.forummsg.model.ForumMsgService;
+import com.forummsg.model.ForumMsgVO;
+import com.forumpost.model.ForumPostService;
+import com.forumpost.model.ForumPostVO;
 
-@WebServlet("/forum/forumGetOneBadMem")
-public class forumGetOneBadMem extends HttpServlet {
+@WebServlet("/forum/selectOnePostAllMsg")
+public class SelectOnePostAllMsgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,20 +35,22 @@ public class forumGetOneBadMem extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		// 1.接收請求參數
-		Integer memNo = Integer.valueOf(request.getParameter("memNo"));
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
 
-		MemVO memVO = new MemVO();
-
-		memVO.setMemNo(memNo);
 		// 2.開始查詢資料
-		MemService memSvc = new MemService();
-		memVO = memSvc.showMemInfo(memVO);
+		ForumPostService forumPostSvc = new ForumPostService();
+		ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+
+		ForumMsgService forumMsgSvc = new ForumMsgService();
+		List<ForumMsgVO> forumMsgVOs = forumMsgSvc.getOnePostAllMsg(forumPostNo);
 
 		// 3.查詢完成,準備轉交(Send the Success view)
-		// 從資料庫取memVO 物件, 存入 request 中
-		request.setAttribute("memVO", memVO);
-		String url = "/backend/forum/editBadMem.jsp";
-		// 成功轉交 editBadMemg.jsp
+		// 從資料庫取forumPostVO 物件, 存入 request 中
+		request.setAttribute("forumPostVO", forumPostVO);
+		request.setAttribute("forumMsgVOs", forumMsgVOs);
+
+		String url = "/frontend/forum/onePostAllMsg.jsp";
+		// 成功轉交 onePostAllMsg.jsp
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
 

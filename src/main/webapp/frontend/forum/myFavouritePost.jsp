@@ -36,6 +36,28 @@ th {
 input:hover {
 	background-color: #b2cdcc;
 }
+
+.button1 {
+	display: inline-block;
+	padding: 3px 7px;
+	font-size: 10px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+}
+
+.button1:hover {
+	background-color: #A3C6C4
+}
+
+.button1:active {
+	background-color: #E0E7E9;
+}
 </style>
 </head>
 <body>
@@ -107,6 +129,14 @@ input:hover {
 
 				</table>
 				<%@ include file="page2.file"%>
+
+				<div style="display: inline-block;">
+					<a
+						href="
+			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
+						<button class="button1">討論區首頁</button>
+					</a>
+				</div>
 			</div>
 
 		</div>

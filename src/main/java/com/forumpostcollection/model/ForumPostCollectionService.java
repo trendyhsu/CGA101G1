@@ -31,6 +31,11 @@ public class ForumPostCollectionService {
 		dao.delete(memNo, forumPostNo);
 
 	}
+	
+	public ForumPostCollectionVO getOnePostCollection(Integer memNo, Integer forumPostNo) {
+		
+		return dao.findByPrimaryKey(memNo, forumPostNo);
+	}
 
 	public List<ForumPostCollectionVO> getOwenrAllPostCollection(Integer memNo) {
 		return dao.getAll(memNo);

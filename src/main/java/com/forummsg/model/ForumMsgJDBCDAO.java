@@ -9,20 +9,12 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 	String userid = "tibame";
 	String passwd = "tibame";
 
-	private static final String INSERT_STMT = 
-			"INSERT INTO forummsg (MemNo,ForumPostNo,ForumMsgType,ForumMsg) VALUES (?, ?, ?, ?)";
-	private static final String UPDATE_FORUMMSG = 
-			"UPDATE forummsg SET ForumMsg=? WHERE ForumMsgNo = ?";
-	private static final String UPDATE_FORUMMSGTYPE = 
-			"UPDATE forummsg SET ForumMsgType=? WHERE ForumMsgNo = ?";
-	private static final String GET_ONE_STMT = 
-			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg WHERE ForumMsgNo = ?";
-	private static final String GET_ALL_STMT = 
-			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg ORDER BY ForumMsgNo DESC";
-	private static final String GET_ONE_FORUMPOST_FORUMMSG = 
-			"SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg WHERE ForumPostNo = ? ORDER BY ForumMsgNo";
-	
-	
+	private static final String INSERT_STMT = "INSERT INTO forummsg (MemNo,ForumPostNo,ForumMsgType,ForumMsg) VALUES (?, ?, ?, ?)";
+	private static final String UPDATE_FORUMMSG = "UPDATE forummsg SET ForumMsg=? WHERE ForumMsgNo = ?";
+	private static final String UPDATE_FORUMMSGTYPE = "UPDATE forummsg SET ForumMsgType=? WHERE ForumMsgNo = ?";
+	private static final String GET_ONE_STMT = "SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg WHERE ForumMsgNo = ?";
+	private static final String GET_ALL_STMT = "SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg ORDER BY ForumMsgNo DESC";
+	private static final String GET_ONE_FORUMPOST_FORUMMSG = "SELECT ForumMsgNo,MemNo,ForumPostNo,ForumMsgType,ForumMsg,ForumMsgTime FROM forummsg WHERE ForumPostNo = ? AND ForumMsgType = 1 ORDER BY ForumMsgTime";
 
 	@Override
 	public void insert(ForumMsgVO forumMsgVO) {
@@ -45,12 +37,10 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -90,12 +80,10 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -115,7 +103,7 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 		}
 
 	}
-	
+
 	public void updateForumMsgType(ForumMsgVO forumMsgVO) {
 
 		Connection con = null;
@@ -134,12 +122,10 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -179,7 +165,7 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				
+
 				forumMsgVO = new ForumMsgVO();
 				forumMsgVO.setForumMsgNo(rs.getInt("forumMsgNo"));
 				forumMsgVO.setMemNo(rs.getInt("memNo"));
@@ -191,12 +177,10 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -223,8 +207,7 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 		}
 		return forumMsgVO;
 	}
-	
-	
+
 	@Override
 	public List<ForumMsgVO> getAll() {
 		List<ForumMsgVO> list = new ArrayList<ForumMsgVO>();
@@ -242,7 +225,7 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				
+
 				forumMsgVO = new ForumMsgVO();
 				forumMsgVO.setForumMsgNo(rs.getInt("forumMsgNo"));
 				forumMsgVO.setMemNo(rs.getInt("memNo"));
@@ -255,12 +238,10 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -287,10 +268,11 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 		}
 		return list;
 	}
+
 	public List<ForumMsgVO> findForumPostForumMsg(Integer forumPostNo) {
 
 		List<ForumMsgVO> list = new ArrayList<ForumMsgVO>();
-		
+
 		ForumMsgVO forumMsgVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -305,7 +287,7 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-			
+
 				forumMsgVO = new ForumMsgVO();
 				forumMsgVO.setForumMsgNo(rs.getInt("forumMsgNo"));
 				forumMsgVO.setMemNo(rs.getInt("memNo"));
@@ -318,12 +300,10 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -350,7 +330,6 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 		}
 		return list;
 	}
-
 
 //	public static void main(String[] args) {
 //
@@ -371,15 +350,14 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 //		updateForumMsg.setForumMsgNo(42004);
 //		
 //		dao.update(updateForumMsg);
-			
+
 //OK!   //修改 ForumMsgType 
 //		ForumMsgVO updateForumMsg = new ForumMsgVO();
 //		updateForumMsg.setForumMsgType(0);
 //		updateForumMsg.setForumMsgNo(42004);
 //		
 //		dao.updateForumMsgType(updateForumMsg);
-		
-		
+
 //
 //OK!	//查詢 One 
 //		ForumMsgVO oneForumMsg = dao.findByPrimaryKey(42001);
@@ -404,8 +382,7 @@ public class ForumMsgJDBCDAO implements ForumMsgDAO_interface {
 //		System.out.println();
 //		System.out.println("----------");
 //		}
-		
-		
+
 //OK!   //查詢 某討論區所有留言
 //	
 //		List<ForumMsgVO> list = dao.findForumPostForumMsg(41005);

@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemVO"%>
 <%@page import="com.forumpost.model.*"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -9,6 +10,7 @@
 <%
 List<ForumPostVO> list = (List<ForumPostVO>) request.getAttribute("forumPostVOs");
 pageContext.setAttribute("list", list);
+MemVO memVO = (MemVO) request.getAttribute("memVO");
 %>
 
 <!DOCTYPE html>
@@ -35,6 +37,28 @@ th {
 
 input:hover {
 	background-color: #b2cdcc;
+}
+
+.button1 {
+	display: inline-block;
+	padding: 3px 7px;
+	font-size: 10px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+}
+
+.button1:hover {
+	background-color: #A3C6C4
+}
+
+.button1:active {
+	background-color: #E0E7E9;
 }
 </style>
 </head>
@@ -129,12 +153,13 @@ input:hover {
 							<td></td>
 							<td>
 								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/forum/XXXservlet"
+									ACTION="<%=request.getContextPath()%>/forum/myPostDelete"
 									style="margin-bottom: 0px;">
 									<input type="submit" value="刪除"
 										style="width: 37px; height: 37px;"> <input
 										type="hidden" name="forumPostNo"
-										value="${forumPostVO.forumPostNo}">
+										value="${forumPostVO.forumPostNo}"> <input
+										type="hidden" name="memNo" value="${memVO.memNo}">
 								</FORM>
 							</td>
 						</tr>
@@ -142,6 +167,15 @@ input:hover {
 
 				</table>
 				<%@ include file="page2.file"%>
+
+
+				<div style="display: inline-block;">
+					<a
+						href="
+			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
+						<button class="button1">討論區首頁</button>
+					</a>
+				</div>
 			</div>
 
 		</div>

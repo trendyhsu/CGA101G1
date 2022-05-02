@@ -67,4 +67,11 @@ public class ForumMsgVO implements java.io.Serializable {
 		com.forumpost.model.ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
 		return forumPostVO;
 	}
+
+	// for join memName from memNo
+	public com.member.model.MemVO getMemVO() {
+		com.member.model.MemJDBCDAO memDAO = new com.member.model.MemJDBCDAO();
+		com.member.model.MemVO memVO = memDAO.getOne(memNo);
+		return memVO;
+	}
 }

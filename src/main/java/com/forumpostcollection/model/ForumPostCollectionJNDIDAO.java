@@ -23,6 +23,7 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 
 	private static final String INSERT_STMT = "INSERT INTO forumpostcollection (MemNo,ForumPostNo) VALUES (?, ?)";
 	private static final String DELETE = "DELETE FROM forumpostcollection WHERE MemNo=? and ForumPostNo = ?";
+	private static final String GET_ONE_STMT = "SELECT MemNo,ForumPostNo,ForumPostCollectionTime FROM forumpostcollection WHERE MemNo=? AND ForumPostNo =?";
 	private static final String GET_ALL_STMT = "SELECT MemNo,ForumPostNo,ForumPostCollectionTime FROM forumpostcollection WHERE MemNo=? ORDER BY ForumPostCollectionTime DESC";
 
 	@Override
@@ -101,6 +102,63 @@ public class ForumPostCollectionJNDIDAO implements ForumPostCollectionDAO_interf
 			}
 		}
 
+	}
+
+	@Override
+	public ForumPostCollectionVO findByPrimaryKey(Integer memNo, Integer forumPostNo) {
+
+		ForumPostCollectionVO forumPostCollectionVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, forumPostNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				forumPostCollectionVO = new ForumPostCollectionVO();
+				forumPostCollectionVO.setMemNo(rs.getInt("memNo"));
+				forumPostCollectionVO.setForumPostNo(rs.getInt("forumPostNo"));
+				forumPostCollectionVO.setForumPostCollectionTime(rs.getTimestamp("forumPostCollectionTime"));
+
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return forumPostCollectionVO;
 	}
 
 	@Override

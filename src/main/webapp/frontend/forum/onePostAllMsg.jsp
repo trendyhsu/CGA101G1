@@ -3,14 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.forumpost.model.*"%>
-<%@ page import="com.forum.model.*"%>
+<%@ page import="com.forummsg.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
-List<ForumPostVO> list = (List<ForumPostVO>) request.getAttribute("forumPostVOs");
-ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
+List<ForumMsgVO> list = (List<ForumMsgVO>) request.getAttribute("forumMsgVOs");
+ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
+ForumMsgVO forumMsgVO = new ForumMsgVO();
 pageContext.setAttribute("list", list);
-pageContext.setAttribute("forumVO", forumVO);
+pageContext.setAttribute("forumPostVO", forumPostVO);
+pageContext.setAttribute("forumMsgVO", forumMsgVO);
 %>
 
 <!DOCTYPE html>
@@ -205,118 +207,155 @@ pageContext.setAttribute("forumVO", forumVO);
 
 	<!-- shopping-cart div ends -->
 
-	<div style="height: 66px"></div>
 
 
 	<!-- main 討論區 starts-->
 
 	<!-- home section starts-->
 
+	<section name="pd_information" id="pd_description"
+		style="padding-top: 96px;">
+		<!-- 標題 -->
+		<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0">
+			<div class="product-detail">
 
-	<section style="padding-left: 50px" class="home" id="home">
+				<div class="avatar avatar-lg rounded-circle" id="Pinf"
+					style="display: inline-block;">
 
-		<!-- <h1 class="title"> 討論區top圖 </h1> -->
-		<div style="border: 5px;">
-
-			<div>
-				<div class="item-img-container">
-					<h3 style="font-size: 450%; color: #2F365F;">${forumVO.forumName}</h3>
-				</div>
-				<div style="height: 10px"></div>
-				<div class="item-img-container" id="picPreview">
 					<img
-						src="<%=request.getContextPath()%>/forum/forumPicGetByForumNo?forumNo=${forumVO.forumNo}"
-						class="uploadedImg"
-						style="width: 650px; display: block; margin: auto; border-radius: 20px;">
+						src="/CGA101G1/mem/MemSelfPicServlet?memNo=${forumPostVO.memNo}"
+						title="" alt="" id="imgPinf">
+
+				</div>
+				<div class="products-title mb-2"
+					style="display: inline-block; padding-left: 5px;">
+					<h3 class="h3">${forumPostVO.memVO.memName}</h3>
+				</div>
+				<div class="products-brand pb-2" style="padding-top: 5px">
+					<span><fmt:formatDate value="${forumPostVO.forumPostTime}"
+							pattern="yyyy-MM-dd" /></span>
+				</div>
+				<div class="products-title mb-2" style="padding-top: 5px;">
+					<h1 class="h1"
+						style="width: 800px; color: #547492; font-size: 275%">${forumPostVO.forumPostTitle}</h1>
 				</div>
 
 			</div>
+		</div>
+
+
+
+		<div style="padding-left: 20px;">
+			<div style="padding-top: 15px;">
+
+				<p
+					style="white-space: pre-line; color: #2F365F; font-size: 16px; width: 90%;">${forumPostVO.forumPostContent}</p>
+			</div>
 
 		</div>
-	</section>
-	<div
-		style="display: inline-block; padding-left: 63px; padding-top: 15px">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/forum/XXX"
-			style="margin-bottom: 0px;" id="form1"></FORM>
-		<button type="submit" form="form1" class="button1" name="forumNo"
-			value="${forumVO.forumNo}">發表文章</button>
-	</div>
-	<div style="display: inline-block;">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/frontend/chatroom/chatroom.jsp?forumNo=${forumVO.forumNo}"
-			style="margin-bottom: 0px;" id="form2"></FORM>
-		<button type="submit" form="form2" class="button1">進入聊天室</button>
-	</div>
-	<div style="display: inline-block;">
-		<a
-			href="
+
+		<div
+			style="display: inline-block; padding-top: 15px; padding-left: 15px;">
+			<a
+				href="
+			<%=request.getContextPath()%>/forum/forumPostCollectionInsert?forumPostNo=${forumPostVO.forumPostNo}">
+				<button class="button1">❤加入我的收藏</button>
+			</a>
+		</div>
+		<div style="display: inline-block;">
+			<a
+				href="
 			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
-			<button class="button1">返回討論區首頁</button>
-		</a>
-	</div>
+				<button class="button1">檢舉文章</button>
+			</a>
+		</div>
+		<div style="display: inline-block;">
+			<a
+				href="
+			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
+				<button class="button1">返回討論區首頁</button>
+			</a>
+		</div>
+		<div style="display: inline-block;">
+			<a
+				href="
+			<%=request.getContextPath()%>/forum/selectOneForumAllPost?forumNo=${forumPostVO.forumNo}">
+				<button class="button1">返回討論區</button>
+			</a>
+		</div>
 
-	<div style="height: 30px"></div>
+	</section>
 
-	<!-- 文章區 -->
-	<div style="padding-left: 30px">
-	
-		<table style="margin: auto; width: 95%;">
-			<tr align='center' valign="middle">
-				<th align="left"></th>
-				<th align="left"></th>
-				<th>文章標題</th>
-				<th>發文會員</th>
-				<th>發表時間</th>
-			</tr>
+	<section name="pd_information" id="pd_review">
+		<div class="idpostion"></div>
+		<div class="pd-collapse-row">
+			<h3 class="sub-heading">留言區</h3>
 
-			<%@ include file="page3.file"%>
-			<c:forEach var="forumPostVO" items="${list}" begin="<%=pageIndex%>"
-				end="<%=pageIndex+rowsPerPage-1%>">
+			<div class="collapse show">
+				<div class="pd-collapse-box">
+					<div class="row align-items-end">
+						<div class="col-sm-6"></div>
+						<div class="col-sm-6 text-sm-end">
+							<a href="javascript:void(0);" class="me-4"></a> <a
+								data-bs-toggle="collapse" href="#pd_add_review" role="button"
+								aria-expanded="false" aria-controls="pd_add_review">留言</a>
+						</div>
+						<div class="col-12 collapse" id="pd_add_review">
+							<div class="my-4 p-3 bg-gray-100 border">
+								<form method="post"
+									action="<%=request.getContextPath()%>/forum/forumMsgInsert"
+									name="form1" id="forumA">
+									<div class="row g-2">
+										<div class="col-sm-12">
+											<label class="form-label">寫下你的留言</label>
+											<textarea rows="5" class="form-control" name="forumMsg">${forumMsgVO.forumMsg}</textarea>
+										</div>
 
-				<tr align='center' valign="middle">
+										<div class="col-sm-12 pt-2">
+											<button class="button1" form="forumA" type="submit"
+												name="forumPostNo" value="${forumPostVO.forumPostNo}">送出</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<c:forEach var="forumMsgVO" items="${list}">
+						<div class="d-flex review-box border-top mt-3 pt-3">
+							<div>
+								<div class="avatar avatar-lg rounded-circle" id="Pinf"
+									style="display: inline-block;">
 
-					<td style="color: orange; font-weight: bold; font-size: 50%;"
-						align="left"><c:if
-							test="${forumPostVO.forumPostFeatured == 0}" var="condition">
-							<c:out value="【一般】" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
-							var="condition">
-							<c:out value="【精選】" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 2}"
-							var="condition">
-							<c:out value="【置頂】" escapeXml="false"></c:out>
-						</c:if>&ensp;</td>
-					<td style="color: #6C7A89; font-weight: bold; font-size: 50%"
-						align="left"><c:if test="${forumPostVO.forumPostType == 0}"
-							var="condition">
-							<c:out value="管理員文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 1}" var="condition">
-							<c:out value="版主文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 2}" var="condition">
-							<c:out value="攻略文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 3}" var="condition">
-							<c:out value="情報" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 4}" var="condition">
-							<c:out value="閒聊" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 5}" var="condition">
-							<c:out value="其他" escapeXml="false"></c:out>
-						</c:if>&emsp;</td>
-					<td><div
-							style="width: 600px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-							<a style="font-weight: bolder; font-size: 200%"
-								href="<%=request.getContextPath()%>/forum/selectOnePostAllMsg?forumPostNo=${forumPostVO.forumPostNo}">${forumPostVO.forumPostTitle}</a>
-						</div></td>
-					<td><div
-							style="width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 75%">${forumPostVO.memVO.memName}</div></td>
-					<td style="font-size: 75%"><fmt:formatDate
-							value="${forumPostVO.forumPostTime}" pattern="yyyy-MM-dd" />&emsp;</td>
-				</tr>
-			</c:forEach>
+									<img
+										src="/CGA101G1/mem/MemSelfPicServlet?memNo=${forumMsgVO.memNo}"
+										title="" alt="" id="imgPinf">
+								</div>
+							</div>
+							<div class="col ps-3">
+								<div class="rating-star small" style="display: inline-block;">
+									<h6 class="m-0">${forumMsgVO.memVO.memName}</h6>
 
-		</table>
-		<%@ include file="page2.file"%>
-	</div>
+									<span><fmt:formatDate value="${forumMsgVO.forumMsgTime}"
+											pattern="yyyy-MM-dd HH:mm:ss" /></span>
+								</div>
+								<div style="display: inline-block;">
+									<p class="m-0 pt-2 small"
+										style="color: #2F365F; font-weight: border; font-size: 16px; padding-left: 24px">${forumMsgVO.forumMsg}</p>
+								</div>
+								<div>
+									<button>檢舉</button>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+
 	<!-- End 文章區 -->
 
 	<!-- home section ends-->
