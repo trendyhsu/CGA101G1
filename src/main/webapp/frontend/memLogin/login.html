@@ -329,8 +329,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(() => {
-            if (localStorage.getItem("memAccount") !== undefined) {
+            if (localStorage.getItem("memAccount") !== null) {
                 $("#memAccount").val(localStorage.getItem("memAccount"));
+                $("#remember").attr("checked", "checked");
             }
         })
 
