@@ -35,9 +35,6 @@ var newsSwiper = new Swiper(".news-slider", { /*變數名*/
 });
 
 
-
-
-
 let newsPlatform = $('.news .news-slider .news-type ul');
 let newsMovingbar = newsPlatform.children().last();
 //網頁生成時，moving-bar預設屬性
@@ -343,9 +340,9 @@ function showTop9Items(data){
                     <div class="flag">${count}</div>
                     <div class="trangle"></div>
                     <a href="#" class="fas fa-heart"></a>
-                    <div class="item-img-container">
+                    <a class="item-img-container" href="${item.productDetailPageURL}">
                         <img src="${item.imgURL}" alt="">
-                    </div>
+                    </a>
                     <h3>${item.productName}</h3>
                     <div class="stars">
                     	${showStar(item.commentStar,item.countComment)}

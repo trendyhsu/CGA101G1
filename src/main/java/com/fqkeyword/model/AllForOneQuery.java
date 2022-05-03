@@ -24,8 +24,7 @@ public class AllForOneQuery {
 		int count = 0;
 		for(String key : keys) {
 			String value = map.get(key)[0];
-			System.out.println("value1= "+value);
-			System.out.println("value2= "+map.get("fQKeyWordContent")[1]);
+		
 			if(value != null && value.trim().length() != 0 && !"action".equals(key)) {
 				count++;
 				String condition = makeCondition(key,value.trim());

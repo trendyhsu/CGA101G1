@@ -71,6 +71,7 @@ public class FQKeyWordServlet extends HttpServlet{
 			}
 		}
 		
+		
 		if("delete".equals(action)) {
 			String requestURL = req.getParameter("requestURL");
 			System.out.println(requestURL);
