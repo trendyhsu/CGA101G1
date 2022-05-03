@@ -67,11 +67,11 @@ pageContext.setAttribute("list", list);
 	background-color: #547492;
 	border: none;
 	border-radius: 15px;
-	box-shadow: 0 5px #999;
+ 	box-shadow: 0 5px #999;
 }
 
 .button1:hover {
-	background-color: #A3C6C4
+	background-color: #A3C6C4;
 }
 
 .button1:active {
