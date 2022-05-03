@@ -2,10 +2,13 @@ package com.manager.model;
 
 import java.util.List;
 
+import com.member.model.MemVO;
+
+
 
 public class ManagerService {
-private ManagerDAO_interface dao;
-	
+//private ManagerDAO_interface dao;
+private ManagerJDBCDAO dao;
 	public ManagerService() {
 		// TODO Auto-generated constructor stub
 		dao = new ManagerJDBCDAO ();
@@ -25,6 +28,22 @@ private ManagerDAO_interface dao;
 	
 	}
 
+	public ManagerVO addManagerRegister(ManagerVO managerVO) {
+
+		ManagerVO managerVO1 = new ManagerVO();
+		if (dao.selectManagerAccount(managerVO1.getManagerAccount()) != null) {
+			managerVO1.setMessage("帳號重複");
+			managerVO1.setSuccessful(false);
+			return managerVO1;
+			
+		}else {
+		dao.insertRegister(managerVO1);
+		managerVO1.setMessage("註冊成功");
+		managerVO1.setSuccessful(true);
+		return managerVO1;
+		}
+	}
+	
 	public ManagerVO updateManager(Integer managerNo, String managerAccount, String managerPassword, String managerName,
 			String managerPhone,byte[] myManagerPic,Integer managerState) {
 
@@ -71,4 +90,45 @@ private ManagerDAO_interface dao;
 
 		return managerVO;
 	}
+	// login
+	public ManagerVO login(ManagerVO managerVO) {
+		final String managerAccount = managerVO.getManagerAccount();
+		final String managerPassword = managerVO.getManagerPassword();
+		if (managerAccount == null) {
+			managerVO.setMessage("帳號未輸入");
+			managerVO.setSuccessful(false);
+			return managerVO;
+		}
+
+		if (managerPassword == null) {
+			managerVO.setMessage("密碼未輸入");
+			managerVO.setSuccessful(false);
+			return managerVO;
+		}
+
+		managerVO = dao.Managerlogin(managerAccount, managerPassword);
+		if (managerVO == null) {
+			managerVO = new ManagerVO();
+			managerVO.setMessage("帳號或密碼錯誤");
+			managerVO.setSuccessful(false);
+			return managerVO;
+		}
+		managerVO.setMessage("登入成功");
+		managerVO.setSuccessful(true);
+		return managerVO;
+	}
+		// register
+		public ManagerVO register(ManagerVO managerVO) {
+			if (dao.selectManagerAccount(managerVO.getManagerAccount()) != null) {
+				managerVO.setMessage("帳號重複");
+				managerVO.setSuccessful(false);
+				return managerVO;
+			}else {
+			dao.insert(managerVO);
+			managerVO.setMessage("註冊成功");
+			managerVO.setSuccessful(true);
+			return managerVO;
+			
+			}
+		}
 }

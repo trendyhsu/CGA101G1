@@ -80,7 +80,6 @@ h3 {
 						<hr>
 						<thead>
 							<tr>
-								<th><i class="fa fa-camera"></i>照片</th>
 								<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
 								<th><i class="fa fa-bookmark"></i> 姓名</th>
 								<th><i class=" fa fa-edit"></i>權限</th>
@@ -93,7 +92,6 @@ h3 {
 
 							<tbody>
 								<tr>
-									<td>${managerVO.myManagerPic}</td>
 									<td class="hidden-phone">${managerVO.managerNo}</td>
 									<td>${managerVO.managerName}</td>
 									<td><c:forEach var="deptVO" items="${deptSvc.all}">

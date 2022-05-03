@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.member.model.MemVO;
 import com.utils.DButil;
 
 
@@ -15,8 +16,8 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO manager (ManagerAccount,ManagerPassword,ManagerName,ManagerPhone,MyManagerPic,ManagerState) "
-		+ " VALUES (?, ?, ?, ?, ?, ?)";
+		"INSERT INTO manager (ManagerAccount,ManagerPassword,ManagerName,ManagerPhone,MyManagerPic) "
+		+ " VALUES (?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT ManagerNo,ManagerAccount,ManagerPassword,ManagerName,ManagerPhone,MyManagerPic,ManagerState "
 		+ " FROM manager order by ManagerNo";
@@ -28,9 +29,12 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 	private static final String UPDATE = 
 		"UPDATE manager set ManagerAccount=?, ManagerPassword=?, ManagerName=?, ManagerPhone=?, MyManagerPic=?, "
 		+ " ManagerState=? where ManagerNo = ?";
-	
 	private static final String UPDATE_MANAGERSTATE = "UPDATE manager SET ManagerState = ? WHERE ManagerNo = ?";
-	
+	private static final String SELECT_FOR_LOGIN = "SELECT * FROM manager WHERE managerAccount= ? and managerPassword= ? ";
+	private static final String SELECT_MANAGER_ACCOUNT = "SELECT managerAccount FROM manager WHERE managerAccount=?";
+	private static final String INSERT_REGISTER = 
+			"INSERT INTO manager (ManagerAccount,ManagerPassword,ManagerName,ManagerState) "
+			+ " VALUES (?, ?, ?, ?)";
 	@Override
 	public void insert(ManagerVO managerVO) {
 		// TODO Auto-generated method stub
@@ -48,7 +52,50 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 			pstmt.setString(3, managerVO.getManagerName());
 			pstmt.setString(4, managerVO.getManagerPhone());
 			pstmt.setBytes(5, managerVO.getMyManagerPic());
-			pstmt.setInt(6, managerVO.getManagerState());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	public void insertRegister(ManagerVO managerVO) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(INSERT_REGISTER);
+
+			pstmt.setString(1, managerVO.getManagerAccount());
+			pstmt.setString(2, managerVO.getManagerPassword());
+			pstmt.setString(3, managerVO.getManagerName());
+			pstmt.setInt(4, 0);
 
 			pstmt.executeUpdate();
 
@@ -194,6 +241,62 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 		}
 		return managerVO;
 	}
+	public ManagerVO selectManagerAccount(String managerAccount) {
+		ManagerVO managerVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(SELECT_MANAGER_ACCOUNT);
+
+			pstmt.setString(1, managerAccount);
+
+			rs = pstmt.executeQuery();
+				while (rs.next()) {
+					//
+					managerVO = new ManagerVO();
+					managerVO.setManagerAccount(rs.getString("managerAccount"));
+				}
+
+				// Handle any driver errors
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+		return managerVO;
+	}
+	
 	@Override
 	public List<ManagerVO> getAll() {
 		// TODO Auto-generated method stub
@@ -303,6 +406,71 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 		}
 	}
 	
+	public ManagerVO Managerlogin(String managerAccount,String managerPassword) {
+		// TODO Auto-generated method stub
+		ManagerVO managerVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(SELECT_FOR_LOGIN);
+
+			pstmt.setString(1, managerAccount);
+			pstmt.setString(2, managerPassword);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				//
+				managerVO = new ManagerVO();
+				managerVO.setManagerNo(rs.getInt("managerNo"));
+				managerVO.setManagerAccount(rs.getString("managerAccount"));
+				managerVO.setManagerPassword(rs.getString("managerPassword"));
+				managerVO.setManagerName(rs.getString("managerName"));
+				managerVO.setManagerPhone(rs.getString("managerPhone"));
+				managerVO.setMyManagerPic(rs.getBytes("myManagerPic"));
+				managerVO.setManagerState(rs.getInt("managerState"));
+				return managerVO;
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return managerVO;
+	}
+	
 	public static void main(String[] args) {
 
 		ManagerJDBCDAO dao = new ManagerJDBCDAO();
@@ -355,6 +523,15 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 //		System.out.println(managerVO3.getManagerState());
 //		System.out.println("---------------------");
 //
+		ManagerVO managerVO4 = dao.Managerlogin("Patrick123","p123p1234");
+		System.out.print(managerVO4.getManagerNo() + ",");
+		System.out.print(managerVO4.getManagerAccount() + ",");
+		System.out.print(managerVO4.getManagerPassword() + ",");
+		System.out.print(managerVO4.getManagerName() + ",");
+		System.out.print(managerVO4.getManagerPhone() + ",");
+		System.out.print(managerVO4.getMyManagerPic() + ",");
+		System.out.println(managerVO4.getManagerState());
+		System.out.println("---------------------");
 		
 		List<ManagerVO> list = dao.getAll();
 		for (ManagerVO aMana : list) {

@@ -1,6 +1,9 @@
 package com.managerauth.model;
 
 import java.util.List;
+import java.util.Set;
+
+import com.managerauthrizationfunction.model.ManagerAuthrizationFunctionVO;
 
 public class ManagerAuthService {
 	private ManagerAuthDAO_interface dao;
@@ -42,5 +45,8 @@ public class ManagerAuthService {
 		return dao.getAll();
 
 	}
-
+	//查詢，單一管理員多個功能
+		public Set<ManagerAuthrizationFunctionVO> getFunction(Integer managerNo) {
+			return dao.getFunction(managerNo);
+		}
 }

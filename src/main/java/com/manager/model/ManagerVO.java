@@ -2,10 +2,11 @@ package com.manager.model;
 
 import java.io.Serializable;
 
+import com.core.javaBeans.Core;
 import com.managerauth.model.ManagerAuthService;
 import com.managerauth.model.ManagerAuthVO;
 
-public class ManagerVO implements Serializable{
+public class ManagerVO extends Core implements Serializable{
 	/**
 	 * 
 	 */
