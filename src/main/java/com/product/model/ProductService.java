@@ -103,6 +103,13 @@ public class ProductService {
 		
 	} 
 	
+	
+	//查詢正在販售的產品用map裝且須輸入分頁資訊
+	public List<Object> GetAllSelledProductsByMap(Integer page){
+		return dao.getPageInSellByMap(page);
+		
+	} 
+	
 	public ProductVO GetOne(Integer productNo) {
 		return dao.findByPrimaryKey(productNo);
 	}
@@ -119,6 +126,11 @@ public class ProductService {
 	//查全產品的名字
 	public List<ProductVO> GetAllProductsName() {
 		return dao.getAllInName();
+	}
+	
+	//查正在上市產品的數量
+	public Integer ShowSellCount() {
+		return dao.showSellCount();
 	}
 
 }
