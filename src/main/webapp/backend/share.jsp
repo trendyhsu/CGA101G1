@@ -81,7 +81,7 @@
 
 					<p class="centered">
 						<a href="<%=request.getContextPath()%>/backend/index.jsp"><img
-							src="<%=request.getContextPath()%>/backend/assets/img/logo.png"
+							src="<%=request.getContextPath()%>/manager/managerPic?managerNo=${managerVO.managerNo}"
 							class="img-circle" width="60"></a>
 					</p>
 					<h5 class="centered">${managerVO.managerName}</h5>

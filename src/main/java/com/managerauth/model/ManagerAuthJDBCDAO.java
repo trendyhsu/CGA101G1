@@ -6,8 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.managerauthrizationfunction.model.ManagerAuthrizationFunctionService;
+import com.managerauthrizationfunction.model.ManagerAuthrizationFunctionVO;
 import com.utils.DButil;
 
 public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interface{
@@ -22,7 +26,9 @@ public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interfa
 		"DELETE FROM managerauth where (managerNo = ?) And (managerAuthrizationFunctionNo = ?)";
 	private static final String UPDATE = 
 		"UPDATE managerauth set managerAuthrizationFunctionNo=? where managerNo = ?";
-
+	private static final String GET_FUNCTIONNAME = 
+	"SELECT managerAuthrizationFunctionNo,managerAuthrizationFunction "
+	+ "FROM managerauthrizationfunction WHERE managerAuthrizationFunctionNo = ? order by managerAuthrizationFunction";
 	@Override
 	public void insert(ManagerAuthVO managerAuthVO) {
 		// TODO Auto-generated method stub
@@ -173,10 +179,12 @@ public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interfa
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo
+				// 
+				
 				managerAuthVO = new ManagerAuthVO();
 				managerAuthVO.setManagerNo(rs.getInt("managerNo"));
 				managerAuthVO.setManagerAuthrizationFunctionNo(rs.getInt("managerAuthrizationFunctionNo"));
+				managerAuthVO.getOneManagerAuthrizationFunctionVO();
 			}
 
 			// Handle any getDriver() errors
@@ -271,8 +279,69 @@ public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interfa
 			}
 		}
 		return list;	
-	}
 	
+	}
+	@Override
+	public Set<ManagerAuthrizationFunctionVO> getFunction(Integer managerNo) {
+		// TODO Auto-generated method stub
+		Set<ManagerAuthrizationFunctionVO> set = new LinkedHashSet<ManagerAuthrizationFunctionVO>();
+		ManagerAuthrizationFunctionVO managerAuthrizationFunctionVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(GET_FUNCTIONNAME);
+
+			pstmt.setInt(1, managerNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// 
+				managerAuthrizationFunctionVO = new ManagerAuthrizationFunctionVO();
+				managerAuthrizationFunctionVO.setManagerAuthrizationFunctionNo(rs.getInt("managerAuthrizationFunctionNo"));
+				managerAuthrizationFunctionVO.setManagerAuthrizationFunction(rs.getString("managerAuthrizationFunction"));
+				set.add(managerAuthrizationFunctionVO);
+			}
+
+			// Handle any getDriver() errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database getDriver(). "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
 	public static void main(String[] args) {
 
 		ManagerAuthJDBCDAO dao = new ManagerAuthJDBCDAO();
@@ -293,10 +362,11 @@ public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interfa
 //		dao.delete(71001, 73003);
 
 		// 
-		ManagerAuthVO MAuthVO3 = dao.findByPrimaryKey(71001);
-		System.out.print(MAuthVO3.getManagerNo() + ",");
-		System.out.print(MAuthVO3.getManagerAuthrizationFunctionNo() + ",");
-		System.out.println("---------------------");
+//		ManagerAuthVO MAuthVO3 = dao.findByPrimaryKey(71001);
+//		System.out.print(MAuthVO3.getManagerNo() + ",");
+//		System.out.print(MAuthVO3.getManagerAuthrizationFunctionNo() + ",");
+//		System.out.print(MAuthVO3.getOneManagerAuthrizationFunctionVO() + ",");
+//		System.out.println("---------------------");
 //
 //		// 
 //		List<ManagerAuthVO> list = dao.getAll();
@@ -305,5 +375,12 @@ public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interfa
 //			System.out.print(managerAuth.getManagerAuthrizationFunctionNo() + ",");
 //			System.out.println();
 //		}
+		Set<ManagerAuthrizationFunctionVO> set = dao.getFunction(71001);
+		System.out.println(set);
+		for (ManagerAuthrizationFunctionVO aFun : set) {
+			System.out.print(aFun.getManagerAuthrizationFunctionNo() + ",");
+			System.out.print(aFun.getManagerAuthrizationFunction() + ",");
+			System.out.println();
+		}
 	}
 }

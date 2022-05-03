@@ -37,14 +37,15 @@
                 <button type="button" class="toggle-btn" onclick="register()">register</button>
             </div>
 
-            <form id="login" class="input-group">
+            <div id="login" class="input-group">
                 <div class="input-div">
                     <div class="icon-div"><i class="fas fa-solid fa-user-astronaut"></i></div>
-                    <input type="text" class="input-field" placeholder="Username" required>
+                    <input id="account" type="text" class="input-field" placeholder="Username" required>
                 </div>
                 <div class="input-div">
-                    <div class="icon-div"> <i class="fas fa-solid fa-lock"></i></div>
-                    <input type="password" class="input-field" placeholder="Password" required>
+                    <div for="exampleInputPassword01" class="icon-div"> <i class="fas fa-solid fa-lock"></i></div>
+                    <input id="exampleInputPassword01" type="password" 
+                    class="input-field" placeholder="Password" required>
                 </div>
 
                 <div class="others">
@@ -52,24 +53,24 @@
                     <span>Remeber Password</span>
                 </div>
 
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
+                <button type="button" class="submit-btn" id="btn1">Log in</button>
+            </div>
 
-            <form id="register" class="input-group">
+            <div id="register" class="input-group">
                 <div class="input-div">
                     <div class="icon-div"><i class="fas fa-solid fa-user-astronaut"></i></div>
 
-                    <input type="text" class="input-field" placeholder="Account" required>
+                    <input id="registerAccount" type="text" class="input-field" placeholder="Account" required>
                 </div>
                 <div class="input-div">
                     <div class="icon-div"><i class="fas fa-solid fa-lock"></i></div>
-                    <input type="password" class="input-field" placeholder="Password" required>
+                    <input id="registerPassword" type="password" class="input-field" placeholder="Password" required>
                 </div>
 
                 <div class="input-div">
                     <div class="icon-div"><i class="fa-solid fa-id-card"></i></div>
 
-                    <input type="text" class="input-field" placeholder="Name" required>
+                    <input id="registerName" type="text" class="input-field" placeholder="Name" required>
                 </div>
 
                 <!-- <div class="others">
@@ -77,8 +78,8 @@
                     <span>I agree to the terms & conditions</span>
                 </div> -->
 
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
+                <button type="button" class="submit-btn" id="btn2">Register</button>
+            </div>
 
         </div>
 
@@ -86,10 +87,69 @@
 
 
     <!-- Login ends -->
-
-
-
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/backend/assets/weiwei/js/loginScript.js"></script>
+    <script>
+    $("#btn1").click(() => {
+    
+            $.ajax({
+                type: 'POST',
+                url: "/CGA101G1/manager/managerLogin",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    managerAccount: account.value,
+                    managerPassword: exampleInputPassword01.value
+                }),
+                success: data => {
+                    const { successful, message, initlocation } = data;
+                    if (successful) {
+                        let { managerNo, managerName, managerStatus } = data;
+                        sessionStorage.setItem("managerNo", managerNo);
+                        sessionStorage.setItem("managerName", managerName);
+                        sessionStorage.setItem("managerStatus", managerStatus);
+                      
+                        if (initlocation !== undefined) {
+                            location = initlocation;
+                        } else {
+                            location = "/CGA101G1/backend/index.jsp";
+                        }
+                        initlocation = "/CGA101G1/backend/index.jsp"; 
+                    } else {
+                        $("#errMsg").html(message);
+               
+                    }
+                },
+
+            });
+        });
+    
+    $("#btn2").click(() => {
+    	
+    	 $.ajax({
+             type: 'POST',
+             url: "/CGA101G1/manager/managerRegister",
+             contentType: "application/json",
+             data: JSON.stringify({
+                 managerAccount: registerAccount.value,
+                 managerPassword: registerPassword.value,
+                 managerName: registerName.value
+             }),
+            
+             success: data => {
+                 const { successful, message } = data;
+                 if (successful) {
+                     alert(message);
+
+                 } else {
+                     $("#l8").html(message);
+            
+                 }
+             },
+
+         });
+     });
+     </script>
+  <!--   <script src="<%=request.getContextPath()%>/backend/managerlogin/assets/js/login.js"></script> --> 
 </body>
 
 </html>
