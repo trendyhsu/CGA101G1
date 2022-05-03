@@ -20,7 +20,9 @@ public interface ProductDAO_interface {
 
 	public List<ProductVO> getAll();
 
-	public List<ProductVO> getAllByWord(String ProductName);
+	public List<Object> getAllByWord(Integer page,String keyword);
+	
+	public Integer showSellCountByKeyword(String keyword);
 	
 	public List<ProductVO> getAllInSell();
 	
@@ -33,5 +35,13 @@ public interface ProductDAO_interface {
 	public List<Object> getPageInSellByMap(Integer page);
 	
 	public Integer showSellCount();
+	
+	
+	//
+	public List<Object> getPageInSellByMapAndGameType(Integer page,Integer gameTypeNo);
+	public Integer showSellCountByGameType(Integer gameTypeNo);
+	
+	public List<Object> getPageInSellByMapAndGamePlatformNo(Integer page,Integer gamePlatformNo);
+	public Integer showSellCountByGamePlatformType(Integer gamePlatformNo);
 
 }

@@ -128,9 +128,45 @@ public class ProductService {
 		return dao.getAllInName();
 	}
 	
-	//查正在上市產品的數量
+	//查正在上市產品的數量：顯示頁數用
 	public Integer ShowSellCount() {
 		return dao.showSellCount();
 	}
+	
+	
+	//查正在上市產品且遊戲種類是??的數量：顯示頁數用
+	public Integer ShowSellCountAndGameType(Integer gameTypeNo) {
+		return dao.showSellCountByGameType(gameTypeNo);
+	}
+	
+	//查詢正在販售且遊戲種類是??的產品用map裝且須輸入分頁資訊
+	public List<Object> GetAllSelledProductsByMapAndGameType(Integer page,Integer gameTypeNo){
+		return dao.getPageInSellByMapAndGameType(page, gameTypeNo);
+		
+	} 
+	
+	
+	//查詢正在販售且關鍵字是??的產品用map裝且須輸入分頁資訊
+	public List<Object> GetAllSelledProductsBykeyword(Integer page,String keyword){
+		return dao.getAllByWord(page,keyword);
+		
+	}
+	
+	//查正在上市產品且關鍵字是??的數量：顯示頁數用
+	public Integer ShowSellCountByKeyword(String keyword) {
+		return dao.showSellCountByKeyword(keyword);
+	}
+	
+	
+	//查正在上市產品且遊戲平台是??的數量：顯示頁數用
+	public Integer ShowSellCountAndGamePlatform(Integer gamePlatformNo) {
+		return dao.showSellCountByGamePlatformType(gamePlatformNo);
+	}
+	
+	//查詢正在販售且遊戲種類是??的產品用map裝且須輸入分頁資訊
+	public List<Object> GetAllSelledProductsByMapAndGamePlatform(Integer page,Integer gamePlatformNo){
+		return dao.getPageInSellByMapAndGamePlatformNo(page, gamePlatformNo);
+		
+	} 
 
 }

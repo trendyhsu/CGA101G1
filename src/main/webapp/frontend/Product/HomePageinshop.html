@@ -477,20 +477,81 @@
                         <!-- 要改成有過濾器 -->
                         <!-- Product Box -->
                         <div class="row g-3">
-                            <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-center" id="productBox">
                                 <div class="spinner-border" role="status" v-show="loading">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>
-                            <section class="row" id="content" name="content">
-                                <card-template :read-data="renderData" :now-page="nowPage"></card-template>
-                            </section>
+                            <div class="col-sm-6 col-lg-4" v-for="(item, index) in ((temp.length==0)?jsonData:temp)"
+                                :key="index" style="height:60em">
+                                <div class="product-card-1" style="height:90%">
+                                    <div class="product-card-image">
+                                        <div class="badge-ribbon">
+                                            <span class="badge bg-danger">{{item.gamePlatformTypeName}}</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <a :href="`/CGA101G1/product/AddProduct2Fav?ProductNo=`+item.productNo"
+                                                class="btn btn-outline-primary">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        </div>
+                                        <div class="product-media">
+                                            <a
+                                                :href="
+                                                `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo">
+                                                <img class="img-fluid" :src=item.imgURL style="height: 80%;">
+                                            </a>
+                                            <div class="product-cart-btn">
+                                                <button @click="webcamSendRequestButton2($event)"
+                                                    class="btn btn-primary btn-sm w-100"
+                                                    :value="item.productNo+a+item.productPrice+a+item.productName">
+                                                    <i class="bi bi-cart"></i>
+                                                    加入購物車
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-card-info">
+                                        <div class="rating-star text">
+                                            <i class="bi small bi-star-fill active"
+                                                v-for="(item, index) in item.avgCommentStar" :key="index"></i>
 
-                            <nav class="d-flex justify-content-center">
-                                <pagination-list :pages="renderData" :now-page="nowPage" :total-page="totalPage"
-                                    @skip-page="skipPage" @previous-page="previousPage" @next-page="nextPage">
-                                </pagination-list>
-                            </nav>
+                                            <i class="bi small bi-star" v-for="(item, index) in (5-item.avgCommentStar)"
+                                                :key="index"></i>
+                                        </div>
+                                        <h6 class="product-title">
+                                            <a href="shop-fw-without-filtres.html">{{item.productName}}</a>
+                                        </h6>
+                                        <div class="product-price">
+
+                                            <span class="text-primary">$ {{item.productPrice}}</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 頁數區 -->
+                            <div class="ms-auto" style="padding-left: 40%;">
+                                <ul class="pagination" id="pageid">
+
+                                    <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
+
+                                    <li class="page-item" :class="{'disabled' : page === 1 }"><a class="page-link"
+                                            href="#productBox">Previous</a></li>
+
+                                    <li class="page-item" v-for="(item, index) in Math.ceil(pages/9)" :key="index + 1"
+                                        @click.prevent="skipPage(index)"><a class="page-link" href="#productBox"
+                                            data-page="{{index + 1}}">{{index + 1}}</a></li>
+
+                                    <li class="page-item" :class="{'disabled' : page === Math.ceil(pages/9)}"><a
+                                            class="page-link" href="#productBox">Next</a></li>
+
+                                    <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+
+                                </ul>
+                            </div>
                             <!-- End Product Box -->
                         </div>
 
@@ -707,51 +768,47 @@
                     loading: true,
                     jsonData: [], // 初始資料
                     temp: [],
+                    pages: 0,//總頁數
+                    page: 1,
                     gamePlatformTypeData: [],
                     gameTypeData: [],
                     renderData: [], // 建立每頁顯示資料
-                    pageBaseNum: 9,  // 每頁顯示資料數量
-                    nowPage: 0, // 初始、現在頁數
+                    // pageBaseNum: 9,  // 每頁顯示資料數量
+                    // nowPage: 0, // 初始、現在頁數
                     manaulPriceL: 0,
                     manaulPriceH: 99999,
+                    a: ";",
                 }
             },
             methods: {
-                renderingPage() {
-                    this.renderData = [];
-                    for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
-                        this.renderData.push(
-                            (this.temp.slice
-                                (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
-                            )
-                        );
-                    }
-                },
                 getProductData() {
-
-                    const apiUrl = '/CGA101G1/product/showToShopMap';
+                    const apiUrl = '/CGA101G1/product/showPageProduct?Page=' + `${this.page}`;
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
                             console.log("取ProductData的狀態：" + response.status); //狀態碼
-
                             this.jsonData = response.data;//塞進去
                             console.log("datastore讀取資料ok");
-                            for (i = 0; i < this.jsonData.length; i++) {
-                                this.jsonData[i].gamePlatformName = "";
-                                for (j = 0; j < this.gamePlatformTypeData.length; j++) {
-                                    if (this.jsonData[i].gamePlatformNo == this.gamePlatformTypeData[j].gamePlatformNo) {
-                                        this.jsonData[i].gamePlatformName = this.gamePlatformTypeData[j].gamePlatformName;
-                                    }
-
-                                }
-                            }
-                            for (product of this.jsonData) {
-                                this.temp.push(product);
-                            }
                             this.loading = false;
-                            this.renderingPage();
+                            // this.renderingPage();
 
+                        });
+                },
+                skipPage(index) {
+                    console.log(index);
+                    this.page = index + 1;
+                    this.jsonData = [];
+                    this.loading = true;
+                    this.getProductData();
+                },
+                getTatalPagesData() {
+                    const apiUrl = '/CGA101G1/product/showSelledCount';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取pages的狀態：" + response.status); //狀態碼
+                            this.pages = response.data;//塞進去
+                            console.log("pages讀取資料ok");
                         });
                 },
                 getAllGamePlatformType() {
@@ -774,108 +831,6 @@
                             console.log("gameTypeData讀取資料ok");
                         });
                 },
-                gamePlatformInput(e) {
-                    console.log(e.target.value);
-                    this.temp = [];
-                    for (i = 0; i < this.jsonData.length; i++) {
-                        if (this.jsonData[i].gamePlatformNo == parseInt(e.target.value)) {
-
-                            this.temp.push(this.jsonData[i]);
-                        }
-                    };
-
-                    this.renderingPage();
-
-                },
-                gameTypeInput(e) {
-                    this.temp = [];
-                    for (i = 0; i < this.jsonData.length; i++) {
-                        if (this.jsonData[i].gameTypeNo == parseInt(e.target.value)) {
-                            this.temp.push(this.jsonData[i]);
-                        }
-                    };
-                    this.renderingPage();
-                },
-                priceRange1(e) {
-                    lowPrice = e.target.value.split(';')[0];
-                    highPrice = e.target.value.split(';')[1];
-                    this.temp = [];
-                    for (i = 0; i < this.jsonData.length; i++) {
-                        if (this.jsonData[i].productPrice >= parseInt(lowPrice) && this.jsonData[i].productPrice <= parseInt(highPrice)) {
-                            this.temp.push(this.jsonData[i]);
-                        }
-                    };
-                    this.renderingPage();
-                },
-                manulPriceLow(e) {
-                    this.manaulPriceL = 0;
-                    this.manaulPriceL = e.target.valueAsNumber;
-                    this.temp = [];
-                    for (i = 0; i < this.jsonData.length; i++) {
-                        if (this.jsonData[i].productPrice >= this.manaulPriceL && this.jsonData[i].productPrice <= this.manaulPriceH) {
-                            this.temp.push(this.jsonData[i]);
-                        }
-                    };
-                    this.renderingPage();
-
-                },
-                manulPriceHigh(e) {
-                    this.manaulPriceH = 99999;
-                    this.manaulPriceH = e.target.valueAsNumber;
-                    this.temp = [];
-                    for (i = 0; i < this.jsonData.length; i++) {
-                        if (this.jsonData[i].productPrice >= this.manaulPriceL && this.jsonData[i].productPrice <= this.manaulPriceH) {
-                            this.temp.push(this.jsonData[i]);
-                        }
-                    };
-                    this.renderingPage();
-                },
-                keysearch(e) {
-                    console.log(e.target.value);
-                    this.temp = [];
-                    this.jsonData.filter(item => {
-                        if (item.productName.indexOf(e.target.value) !== -1) {
-                            this.temp.push(item);
-                        }
-                    });
-                    this.renderingPage();
-
-                },
-
-                previousPage() {
-                    if (this.nowPage != 0) { // 頁數初始值為 0 
-                        this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
-                    }
-                },
-                nextPage() {
-                    if (this.nowPage < this.totalPage - 1) {
-                        this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
-                    }
-                },
-                skipPage(pageNum) {
-                    this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
-                },
-            },
-            computed: {
-                totalPage() {
-                    return Math.ceil(this.temp.length / this.pageBaseNum); // 依每頁數量計算總頁數
-                }
-            },
-            created() {
-                this.getAllGamePlatformType();
-                this.getProductData();
-                this.getAllGameType();
-            }
-        })
-
-        app.component('card-template', {
-            data() {
-                return {
-                    a: ";",
-                }
-            },
-            props: ['readData', 'nowPage'],
-            methods: {
                 webcamSendRequestButton2: function (e) {
 
                     // 取編號跟錢，分離商品編號跟價錢再傳出去
@@ -894,84 +849,168 @@
                     })
                         .then((response) => console.log(response));
                     alert("成功加入購物車");
-                }
+                },
+                //篩選用
+                gameTypeInput(e) {
+                    console.log("種類篩選開始");
+                    this.loading = true;
+                    console.log(e.target.value);
+                    this.temp = [];
+                    this.jsonData = [];
+                    //先取頁數
+                    axios({
+                        method: 'post',
+                        url: '/CGA101G1/product/showSellAndGameTypeProductPages?gameTypeNo=' + `${e.target.value}`,
+                    })
+                        .then((response) => {
+                            console.log(response);
+                            this.pages = response.data;
+                            //開始抓資料放在頁面上
+                            axios({
+                                method: 'post',
+                                url: '/CGA101G1/product/showSellAndGameTypeProduct?gameTypeNo=' + `${e.target.value}` + '&Page=' + `${Math.ceil(this.pages / 9)}`,
+                            })
+                                .then((response) => {
+                                    console.log(response);
+                                    this.loading = false;
+                                    this.page = Math.ceil(this.pages / 9);
+                                    this.temp = response.data;
+                                });
+                        });
+
+                },
+                gamePlatformInput(e) {
+                    console.log("平台篩選開始");
+                    this.loading = true;
+                    console.log(e.target.value);
+                    this.temp = [];
+                    this.jsonData = [];
+                    sendURL = '/CGA101G1/product/showSellAndPlatFormTypeProductPages?gamePlatformNo=' + `${e.target.value}`;
+                    console.log("這是平台頁數的：" + sendURL);
+                    //先取頁數
+                    axios({
+                        method: 'post',
+                        url: sendURL,
+                    })
+                        .then((response) => {
+                            console.log(response);
+                            this.pages = response.data;
+                            console.log("這是平台頁數抓取完畢");
+                            console.log(this.pages);
+                            //開始抓數據
+                            axios({
+                                method: 'post',
+                                url: '/CGA101G1/product/showSellAndPlatformProduct?gamePlatformNo=' + `${e.target.value}` + '&Page=' + `${Math.ceil(this.pages / 9)}`,
+                            })
+                                .then((response) => {
+                                    console.log(response);
+                                    this.loading = false;
+                                    this.page = Math.ceil(this.pages / 9);
+                                    //放到暫時
+                                    this.temp = response.data;
+                                });
+                        });
+                    //在依據抓資料放在頁面上
+
+                },
+                // priceRange1(e) {
+                //     lowPrice = e.target.value.split(';')[0];
+                //     highPrice = e.target.value.split(';')[1];
+                //     this.temp = [];
+                //     for (i = 0; i < this.jsonData.length; i++) {
+                //         if (this.jsonData[i].productPrice >= parseInt(lowPrice) && this.jsonData[i].productPrice <= parseInt(highPrice)) {
+                //             this.temp.push(this.jsonData[i]);
+                //         }
+                //     };
+                //     this.renderingPage();
+                // },
+                // manulPriceLow(e) {
+                //     this.manaulPriceL = 0;
+                //     this.manaulPriceL = e.target.valueAsNumber;
+                //     this.temp = [];
+                //     for (i = 0; i < this.jsonData.length; i++) {
+                //         if (this.jsonData[i].productPrice >= this.manaulPriceL && this.jsonData[i].productPrice <= this.manaulPriceH) {
+                //             this.temp.push(this.jsonData[i]);
+                //         }
+                //     };
+                //     this.renderingPage();
+
+                // },
+                // manulPriceHigh(e) {
+                //     this.manaulPriceH = 99999;
+                //     this.manaulPriceH = e.target.valueAsNumber;
+                //     this.temp = [];
+                //     for (i = 0; i < this.jsonData.length; i++) {
+                //         if (this.jsonData[i].productPrice >= this.manaulPriceL && this.jsonData[i].productPrice <= this.manaulPriceH) {
+                //             this.temp.push(this.jsonData[i]);
+                //         }
+                //     };
+                //     this.renderingPage();
+                // },
+                keysearch(e) {
+
+                    console.log("關鍵字篩選開始");
+                    this.loading = true;
+                    console.log(e.target.value);
+                    this.temp = [];
+                    this.jsonData = [];
+                    sendURL = '/CGA101G1/product/showSellProductByKeyWordPages?keyWord=' + `${e.target.value}`;
+                    console.log("這是關鍵字頁數的：" + sendURL);
+                    //先取頁數
+                    axios({
+                        method: 'post',
+                        url: sendURL,
+                    })
+                        .then((response) => {
+                            console.log(response);
+                            this.pages = response.data;
+                            console.log("這是平台頁數抓取完畢");
+                            console.log(this.pages);
+
+                            getKeyDataURL = '/CGA101G1/product/showSellProductByKeyWord?keyWord=' + `${e.target.value}` + '&Page=' + `${Math.ceil(this.pages / 9)}`;
+                            console.log(getKeyDataURL);
+                            //開始抓數據
+                            axios({
+                                method: 'post',
+                                url: getKeyDataURL,
+                            })
+                                .then((response) => {
+                                    console.log(response);
+                                    this.loading = false;
+                                    this.page = Math.ceil(this.pages / 9);
+                                    //放到暫時
+                                    this.temp = response.data;
+                                });
+                        });
+
+                },
+
+
+                // previousPage() {
+                //     if (this.nowPage != 0) { // 頁數初始值為 0 
+                //         this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
+                //     }
+                // },
+                // nextPage() {
+                //     if (this.nowPage < this.totalPage - 1) {
+                //         this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
+                //     }
+                // },
+                // skipPage(pageNum) {
+                //     this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
+                // },
             },
-            template: `
-    <div class="col-sm-6 col-lg-4" v-for="(item, index) in readData[nowPage]" :key="index" style="height:60em">
-        <div class="product-card-1" style="height:90%">
-            <div class="product-card-image">
-                                        <div class="badge-ribbon">
-                                            <span class="badge bg-danger">{{item.gamePlatformName}}</span>
-                                        </div>
-                                        <div class="product-action">
-                                            <a :href="`+ "`" + `/CGA101G1/product/AddProduct2Fav?ProductNo=` + "`" + "+" + "item.productNo" + `" class="btn btn-outline-primary">
-                                                <i class="bi bi-heart"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-media"> 
-                                            <a :href="`+ "`" + `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=` + "`" + "+" + "item.productNo" + `">
-                                                <img class="img-fluid"
-                                                :src=item.imgURL  style="height: 80%;">
-                                            </a>
-                                            <div class="product-cart-btn">
-                                                <button  @click="webcamSendRequestButton2($event)" class="btn btn-primary btn-sm w-100" :value="item.productNo+a+item.productPrice+a+item.productName">
-                                                    <i class="bi bi-cart"></i>
-                                                    加入購物車
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <div class="rating-star text">
-                                            <i class="bi small bi-star-fill active"
-                                            v-for="(item, index) in item.avgCommentStar" :key="index"></i>
-
-                                            <i class="bi small bi-star"
-                                            v-for="(item, index) in (5-item.avgCommentStar)" :key="index"></i>
-                                        </div>
-                                        <h6 class="product-title">
-                                            <a href="shop-fw-without-filtres.html">{{item.productName}}</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            
-                                            <span class="text-primary">$ {{item.productPrice}}</span>
-                                            
-                                        </div>
-
-                                    </div>
-                                </div>
-    </div>
-  `,
-        })
-
-        app.component('pagination-list', {
-            props: ['pages', 'nowPage', 'totalPage'],
-            methods: {
-                previousPage() {  // 下一頁
-                    this.$emit('previousPage');
-                },
-                nextPage() {  // 上一頁
-                    this.$emit('nextPage');
-                },
-                skipPage(pageNum) { // 跳頁
-                    this.$emit('skipPage', pageNum);
-                },
+            computed: {
+                // totalPage() {
+                //     return Math.ceil(this.temp.length / this.pageBaseNum); // 依每頁數量計算總頁數
+                // }
             },
-            template: `
-      <ul class="pagination" id="pageid">
-      
-        <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
-        
-        <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
-        
-        <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
-        
-        <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
-
-        <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
-        
-      </ul>
-  `,
+            created() {
+                this.getProductData();
+                this.getTatalPagesData();
+                this.getAllGamePlatformType();
+                this.getAllGameType();
+            }
         })
 
         app.mount('#app');
