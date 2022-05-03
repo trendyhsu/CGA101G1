@@ -10,7 +10,7 @@
     /* background: var(--space); */
     padding: 10rem 1rem;
     background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)),
-        url("..\\..\\images\\astronaut.gif");
+        url("..\\images\\astronaut.gif");
     background-repeat: no-repeat;
     background-size: contain;
     overflow: hidden;
