@@ -178,13 +178,13 @@
     /*--------------------
        * Countdown
    ----------------------*/
-    CRE.CountTimer = function () {
-        var $count_timer = $('.count-down');
-        var regionalVar = { days: 'Days', day: 'Day', years: 'Years', year: 'Year', hours: 'Hours', hour: 'Hour', minutes: 'Minutes', minute: 'Minute', seconds: 'Seconds', second: 'Second' };
-        if ($count_timer.length > 0) {
-            $('.count-down').countdown({ regional: regionalVar });
-        }
-    }
+    // CRE.CountTimer = function () {
+    //     var $count_timer = $('.count-down');
+    //     var regionalVar = { days: 'Days', day: 'Day', years: 'Years', year: 'Year', hours: 'Hours', hour: 'Hour', minutes: 'Minutes', minute: 'Minute', seconds: 'Seconds', second: 'Second' };
+    //     if ($count_timer.length > 0) {
+    //         $('.count-down').countdown({ regional: regionalVar });
+    //     }
+    // }
 
     /*--------------------
         * Cart Qty

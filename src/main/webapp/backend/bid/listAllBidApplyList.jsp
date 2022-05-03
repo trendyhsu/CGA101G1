@@ -157,22 +157,31 @@ font-weight: bold;
 let returnBtn = document.querySelector("#returnBtn");
 if(returnBtn){
 	returnBtn.addEventListener("click",function(){
-		swal({
-				title: "確認退貨？",
-				text: "", 
-				icon: "info",
-			})
-			.then(() => {
-				swal("退貨成功！", {
-				  icon: "success",
-				})
-			})
-			.then(() => {
-				setTimeout(returnGame, 1200);
+		swal({ 
+			  title: "確定退貨嗎？", 
+			  text: "", 
+			  type: "warning",
+			  showCancelButton: true, 
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "確定刪除！", 
+			  cancelButtonText: "取消刪除！",
+			  closeOnConfirm: false, 
+			  closeOnCancel: false  
+			}).then(
+			function(isConfirm){ 
+			  if (isConfirm) {
+			    swal("退貨成功！", "商品狀態已更新。","success")
+			    .then(() => {
+				setTimeout(returnGame, 100);
 				function returnGame(){
 					document.querySelector("#returnForm").submit();
 				}
-			 })
+			 }); 
+			  } else { 
+			    swal("退貨取消！", "商品狀態未更新",
+			"error"); 
+			  } 
+			});
 	})
 }
 </script>

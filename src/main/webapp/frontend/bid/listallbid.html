@@ -63,64 +63,6 @@
 
     <!-- header section ends-->
 
-    <!--Login starts-->
-
-    <div action="" id="login-form">
-        <i class="fas fa-times" id="login-close"></i>
-
-
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
-            </div>
-
-            <form id="login" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>Remeber Password</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
-
-            <form id="register" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-envelope"></i>
-                    <input type="email" class="input-field" placeholder="E-mail" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>I agree to the terms & conditions</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
-
-        </div>
-
-    </div>
-
-    <!-- Login ends -->
 
     <!-- search form starts-->
 
@@ -663,14 +605,11 @@
 
                 function changeBidPrice(data){
                     let allBidRecords = JSON.parse(data);
-                    let i = 0;
                         for( let bidRecordVO of allBidRecords){
                             let bidProduct = document.querySelector(`#bidHighestPrice${bidRecordVO.bidProductNo}`);
                             if(bidProduct){
                                 bidProduct.innerHTML=`目前出價 $ ${bidRecordVO.bidPrice}`;
                             }
-                            console.log(i++);
-                            console.log(bidRecordVO);
                     }
                 }
 

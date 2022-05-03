@@ -10,7 +10,7 @@
 
 <%
 BidProductService bidsBidProductSvc = new BidProductService();
-List<BidProductVO> list = bidsBidProductSvc.getAll();
+List<BidProductVO> list = bidsBidProductSvc.getByBidState();
 pageContext.setAttribute("list", list);
 %>
 

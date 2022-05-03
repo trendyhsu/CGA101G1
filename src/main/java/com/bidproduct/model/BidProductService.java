@@ -108,6 +108,11 @@ public class BidProductService {
 	public List<BidProductVO> getByBidStateAndSoldTime() {
 		return dao.findByBidStateAndSoldTime();
 	}
+	
+	// 查詢競標商品 BidState 等於 1 (結帳結束進入訂單處理中)
+	public List<BidProductVO> getByBidState() {
+		return dao.findByBidState();
+	}
 
 	// 使用 bidProductNo 更新競標狀態
 	public void updateBidState(Integer bidState, Integer bidProductNo) {

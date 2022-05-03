@@ -37,6 +37,8 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 	private static final String GET_ALL_STMT_BIDNAME = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidName LIKE ?  OR BidProdDescription LIKE ?";
 	// 查詢競標商品 BidState 等於 0 (競標中) 而且 截標時間小於目前時間 ( 為了改成流標 )
 	private static final String GET_ALL_STMT_BIDSTATE_NEED_CHANGE = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidState = 0 AND BidSoldTime <= NOW()";
+	// 查詢競標商品 BidState 等於 1 (結帳結束進入訂單處理中)
+	private static final String GET_ALL_STMT_BIDSTATE = "SELECT BidProductNo, BidApplyListNo, ProductNo, BidName, BidProdDescription, BuyerNo, SellerNo, InitialPrice, BidState, BidLaunchedTime, BidSoldTime, BidWinnerPrice, BidPriceIncrement, OrderState, ReceiverName, ReceiverAddress, ReceiverPhone FROM bidproduct WHERE BidState = 1";
 	// 更新競標狀態
 	private static final String UPDATE_BIDSTATE = "UPDATE bidproduct SET BidState = ? WHERE BidProductNo = ?";
 	// 更新競標狀態(有買家 有出價者)
@@ -1095,6 +1097,72 @@ public class BidProductJDBCDAO extends DButil implements BidProductDAO_interface
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<BidProductVO> findByBidState() {
+		List<BidProductVO> list = new ArrayList<BidProductVO>();
+		BidProductVO bidProductVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			pstmt = con.prepareStatement(GET_ALL_STMT_BIDSTATE);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bidProductVO = new BidProductVO();
+				bidProductVO.setBidProductNo(rs.getInt("BidProductNo"));
+				bidProductVO.setBidApplyListNo(rs.getInt("BidApplyListNo"));
+				bidProductVO.setProductNo(rs.getInt("ProductNo"));
+				bidProductVO.setBidName(rs.getString("BidName"));
+				bidProductVO.setBidProdDescription(rs.getString("BidProdDescription"));
+				bidProductVO.setBuyerNo(rs.getInt("BuyerNo"));
+				bidProductVO.setSellerNo(rs.getInt("SellerNo"));
+				bidProductVO.setInitialPrice(rs.getInt("InitialPrice"));
+				bidProductVO.setBidState(rs.getInt("BidState"));
+				bidProductVO.setBidLaunchedTime(rs.getTimestamp("BidLaunchedTime"));
+				bidProductVO.setBidSoldTime(rs.getTimestamp("BidSoldTime"));
+				bidProductVO.setBidWinnerPrice(rs.getInt("BidWinnerPrice"));
+				bidProductVO.setBidPriceIncrement(rs.getInt("BidPriceIncrement"));
+				bidProductVO.setOrderState(rs.getInt("OrderState"));
+				bidProductVO.setReceiverName(rs.getString("ReceiverName"));
+				bidProductVO.setReceiverAddress(rs.getString("ReceiverAddress"));
+				bidProductVO.setReceiverPhone(rs.getString("ReceiverPhone"));
+				list.add(bidProductVO);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 
