@@ -166,6 +166,9 @@ public class BidProductInsertServlet extends HttpServlet {
 					picList.add(bidProdPicContent);
 				}
 			}
+			if(picList.size()==0) {
+				errorMsgs.add("請上傳圖片！");
+			}
 
 			// 錯誤處理回傳bidProductVO
 			if (!errorMsgs.isEmpty()) {

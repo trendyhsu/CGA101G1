@@ -32,6 +32,9 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 	// 查詢競標商品 BidState 等於 0 (競標中) 而且 截標時間小於目前時間 ( 為了改成流標 )
 	public List<BidProductVO> findByBidStateAndSoldTime();
 
+	// 查詢競標商品 BidState 等於 1 (結帳結束進入訂單處理中)
+	public List<BidProductVO> findByBidState();
+
 	// 使用 bidProductNo 更新競標狀態
 	public void updateBidState(BidProductVO bidProductVO);
 

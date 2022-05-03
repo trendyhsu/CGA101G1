@@ -47,7 +47,9 @@ public class BidProductGameSearchServlet extends HttpServlet {
 			List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByGamePlatformNo(Integer.valueOf(keyword));
 			for(BidApplyListVO bidApplyListVO:bidApplyListVOs) {
 				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListVO.getBidApplyListNo());
-				list.add(bidProductVO);
+				if(bidProductVO.getBidProductNo() != null) {
+					list.add(bidProductVO);					
+				}
 				
 			}
 			
@@ -56,7 +58,9 @@ public class BidProductGameSearchServlet extends HttpServlet {
 			List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByGameTypeNo(Integer.valueOf(keyword));
 			for(BidApplyListVO bidApplyListVO:bidApplyListVOs) {
 				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListVO.getBidApplyListNo());
-				list.add(bidProductVO);
+				if(bidProductVO.getBidProductNo() != null) {
+					list.add(bidProductVO);					
+				}
 			}
 			
 		} else {
@@ -64,7 +68,9 @@ public class BidProductGameSearchServlet extends HttpServlet {
 			List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByGameCompanyNo(Integer.valueOf(keyword));
 			for(BidApplyListVO bidApplyListVO:bidApplyListVOs) {
 				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListVO.getBidApplyListNo());
-				list.add(bidProductVO);
+				if(bidProductVO.getBidProductNo() != null) {
+					list.add(bidProductVO);					
+				}
 			}
 		}
 

@@ -1,3 +1,5 @@
+<%@page import="com.member.model.MemVO"%>
+<%@page import="com.bidapplylist.model.BidApplyListService"%>
 <%@page import="com.bidapplylist.model.BidApplyListVO"%>
 <%@page import="com.bidproduct.model.BidProductVO"%>
 <%@page import="java.util.List"%>
@@ -9,7 +11,10 @@
 <%@include file="/frontend/fronthead.jsp" %>
 
 <%
-List<BidApplyListVO> list = (List<BidApplyListVO>)request.getAttribute("bidApplyListVOs");
+BidApplyListService bidApplyListSvc = new BidApplyListService();
+MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+Integer memNo = memVO.getMemNo();
+List<BidApplyListVO> list = bidApplyListSvc.getAllBidApplyListByMemNo(memNo);
 pageContext.setAttribute("list", list);
 %>
 
@@ -28,8 +33,9 @@ border-bottom: solid;
 th{
 background-color: #b2cdcc;
 }
-#pageNumber, #dataNumber{
+#pageNumber, #dataNumber, #pageChange{
 float: right;
+font-weight: bold;
 }
 </style>
 </head>

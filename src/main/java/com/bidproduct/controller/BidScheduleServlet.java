@@ -103,7 +103,7 @@ public class BidScheduleServlet extends HttpServlet {
 				BidProductService bidProductSvc = new BidProductService();
 				
 				// 取得大於三十分鐘沒結帳的list
-				list = bidProductSvc.getByBidStateAndSoldTime();
+				list = bidProductSvc.getByBidStateAndOrderState();
 				
 				for (BidProductVO bidProductVO : list) {
 					// 將競標商品狀態改為狀態 3 棄標
