@@ -29,5 +29,9 @@ public interface ProductDAO_interface {
 	public List<ProductVO> getAllInDetail();
 	
 	public List<ProductVO> getAllInName();
+	
+	public List<Object> getPageInSellByMap(Integer page);
+	
+	public Integer showSellCount();
 
 }

@@ -476,21 +476,84 @@
                         </div>
                         <!-- 要改成有過濾器 -->
                         <!-- Product Box -->
-                        <div class="row g-3">
+                        <div class="row g-3" name="productBox">
                             <div class="d-flex justify-content-center">
                                 <div class="spinner-border" role="status" v-show="loading">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>
-                            <section class="row" id="content" name="content">
-                                <card-template :read-data="renderData" :now-page="nowPage"></card-template>
-                            </section>
+                            <div class="col-sm-6 col-lg-4" v-for="(item, index) in jsonData" :key="index"
+                                style="height:60em">
+                                <div class="product-card-1" style="height:90%">
+                                    <div class="product-card-image">
+                                        <div class="badge-ribbon">
+                                            <span class="badge bg-danger">{{item.gamePlatformTypeName}}</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <a :href="`/CGA101G1/product/AddProduct2Fav?ProductNo=`+item.productNo"
+                                                class="btn btn-outline-primary">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        </div>
+                                        <div class="product-media">
+                                            <a
+                                                :href="
+                                                `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo">
+                                                <img class="img-fluid" :src=item.imgURL style="height: 80%;">
+                                            </a>
+                                            <div class="product-cart-btn">
+                                                <button @click="webcamSendRequestButton2($event)"
+                                                    class="btn btn-primary btn-sm w-100"
+                                                    :value="item.productNo+a+item.productPrice+a+item.productName">
+                                                    <i class="bi bi-cart"></i>
+                                                    加入購物車
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-card-info">
+                                        <div class="rating-star text">
+                                            <i class="bi small bi-star-fill active"
+                                                v-for="(item, index) in item.avgCommentStar" :key="index"></i>
 
-                            <nav class="d-flex justify-content-center">
-                                <pagination-list :pages="renderData" :now-page="nowPage" :total-page="totalPage"
-                                    @skip-page="skipPage" @previous-page="previousPage" @next-page="nextPage">
-                                </pagination-list>
-                            </nav>
+                                            <i class="bi small bi-star" v-for="(item, index) in (5-item.avgCommentStar)"
+                                                :key="index"></i>
+                                        </div>
+                                        <h6 class="product-title">
+                                            <a href="shop-fw-without-filtres.html">{{item.productName}}</a>
+                                        </h6>
+                                        <div class="product-price">
+
+                                            <span class="text-primary">$ {{item.productPrice}}</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 頁數區 -->
+                            <div class="ms-auto" style="padding-left: 40%;">
+                                <ul class="pagination" id="pageid">
+
+                                    <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
+
+                                    <li class="page-item" :class="{'disabled' : page === 1 }"
+                                        @click.prevent="previousPage"><a class="page-link"
+                                            href="#productBox">Previous</a></li>
+
+                                    <li class="page-item" :class="{'active' : nowPage === index}"
+                                        v-for="(item, index) in Math.ceil(pages/9)" :key="index + 1"
+                                        @click.prevent="skipPage(index)"><a class="page-link" href="#productBox"
+                                            data-page="{{index + 1}}">{{index + 1}}</a></li>
+
+                                    <li class="page-item" :class="{'disabled' : page === Math.ceil(pages/9)}"
+                                        @click.prevent="nextPage"><a class="page-link" href="#productBox">Next</a></li>
+
+                                    <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
+
+                                </ul>
+                            </div>
                             <!-- End Product Box -->
                         </div>
 
@@ -707,50 +770,59 @@
                     loading: true,
                     jsonData: [], // 初始資料
                     temp: [],
+                    pages: 0,//總頁數
+                    page: 1,
                     gamePlatformTypeData: [],
                     gameTypeData: [],
                     renderData: [], // 建立每頁顯示資料
-                    pageBaseNum: 9,  // 每頁顯示資料數量
-                    nowPage: 0, // 初始、現在頁數
+                    // pageBaseNum: 9,  // 每頁顯示資料數量
+                    // nowPage: 0, // 初始、現在頁數
                     manaulPriceL: 0,
                     manaulPriceH: 99999,
+                    a: ";",
                 }
             },
             methods: {
-                renderingPage() {
-                    this.renderData = [];
-                    for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
-                        this.renderData.push(
-                            (this.temp.slice
-                                (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
-                            )
-                        );
-                    }
-                },
+                // renderingPage() {
+                //     this.renderData = [];
+                //     for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
+                //         this.renderData.push(
+                //             (this.temp.slice
+                //                 (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
+                //             )
+                //         );
+                //     }
+                // },
                 getProductData() {
-
-                    const apiUrl = '/CGA101G1/product/showToShopMap';
+                    const apiUrl = '/CGA101G1/product/showPageProduct?Page=' + `${this.page}`;
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
                         .then((response) => {
                             console.log("取ProductData的狀態：" + response.status); //狀態碼
-
                             this.jsonData = response.data;//塞進去
                             console.log("datastore讀取資料ok");
-                            for (i = 0; i < this.jsonData.length; i++) {
-                                this.jsonData[i].gamePlatformName = "";
-                                for (j = 0; j < this.gamePlatformTypeData.length; j++) {
-                                    if (this.jsonData[i].gamePlatformNo == this.gamePlatformTypeData[j].gamePlatformNo) {
-                                        this.jsonData[i].gamePlatformName = this.gamePlatformTypeData[j].gamePlatformName;
-                                    }
-
-                                }
-                            }
-                            for (product of this.jsonData) {
-                                this.temp.push(product);
-                            }
                             this.loading = false;
-                            this.renderingPage();
+                            // this.renderingPage();
+
+                        });
+                },
+                skipPage(index) {
+                    console.log(index);
+                    this.page = index + 1;
+                    this.jsonData = [];
+                    this.loading = true;
+                    this.getProductData();
+                },
+                getTatalPagesData() {
+                    const apiUrl = '/CGA101G1/product/showSelledCount';
+                    axios.get(apiUrl)
+                        // 一定要用箭頭函示!!!!
+                        .then((response) => {
+                            console.log("取pages的狀態：" + response.status); //狀態碼
+                            this.pages = response.data;//塞進去
+                            console.log("pages讀取資料ok");
+
+                            // this.renderingPage();
 
                         });
                 },
@@ -774,6 +846,26 @@
                             console.log("gameTypeData讀取資料ok");
                         });
                 },
+                webcamSendRequestButton2: function (e) {
+
+                    // 取編號跟錢，分離商品編號跟價錢再傳出去
+                    console.log(e.target.value);
+                    console.log(e.target.value.split(';'));
+                    console.log("ProNo:" + e.target.value.split(';')[0]);
+                    proNo = e.target.value.split(';')[0];
+                    console.log("ProPrice:" + e.target.value.split(';')[1]);
+                    proPrice = e.target.value.split(';')[1];
+                    console.log("ProName:" + e.target.value.split(';')[2]);
+                    proName = e.target.value.split(';')[2];
+
+                    axios({
+                        method: 'post',
+                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
+                    })
+                        .then((response) => console.log(response));
+                    alert("成功加入購物車");
+                },
+                //篩選用
                 gamePlatformInput(e) {
                     console.log(e.target.value);
                     this.temp = [];
@@ -842,136 +934,32 @@
 
                 },
 
-                previousPage() {
-                    if (this.nowPage != 0) { // 頁數初始值為 0 
-                        this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
-                    }
-                },
-                nextPage() {
-                    if (this.nowPage < this.totalPage - 1) {
-                        this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
-                    }
-                },
-                skipPage(pageNum) {
-                    this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
-                },
+
+                // previousPage() {
+                //     if (this.nowPage != 0) { // 頁數初始值為 0 
+                //         this.nowPage = this.nowPage - 1;  // 當頁數不是初始值，減一頁(回上一頁)
+                //     }
+                // },
+                // nextPage() {
+                //     if (this.nowPage < this.totalPage - 1) {
+                //         this.nowPage++;  // 當頁數小於總頁數，加一頁(下一頁)
+                //     }
+                // },
+                // skipPage(pageNum) {
+                //     this.nowPage = pageNum; // 將資料換成點擊的頁碼，切換頁面
+                // },
             },
             computed: {
-                totalPage() {
-                    return Math.ceil(this.temp.length / this.pageBaseNum); // 依每頁數量計算總頁數
-                }
+                // totalPage() {
+                //     return Math.ceil(this.temp.length / this.pageBaseNum); // 依每頁數量計算總頁數
+                // }
             },
             created() {
-                this.getAllGamePlatformType();
                 this.getProductData();
+                this.getTatalPagesData();
+                this.getAllGamePlatformType();
                 this.getAllGameType();
             }
-        })
-
-        app.component('card-template', {
-            data() {
-                return {
-                    a: ";",
-                }
-            },
-            props: ['readData', 'nowPage'],
-            methods: {
-                webcamSendRequestButton2: function (e) {
-
-                    // 取編號跟錢，分離商品編號跟價錢再傳出去
-                    console.log(e.target.value);
-                    console.log(e.target.value.split(';'));
-                    console.log("ProNo:" + e.target.value.split(';')[0]);
-                    proNo = e.target.value.split(';')[0];
-                    console.log("ProPrice:" + e.target.value.split(';')[1]);
-                    proPrice = e.target.value.split(';')[1];
-                    console.log("ProName:" + e.target.value.split(';')[2]);
-                    proName = e.target.value.split(';')[2];
-
-                    axios({
-                        method: 'post',
-                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
-                    })
-                        .then((response) => console.log(response));
-                    alert("成功加入購物車");
-                }
-            },
-            template: `
-    <div class="col-sm-6 col-lg-4" v-for="(item, index) in readData[nowPage]" :key="index" style="height:60em">
-        <div class="product-card-1" style="height:90%">
-            <div class="product-card-image">
-                                        <div class="badge-ribbon">
-                                            <span class="badge bg-danger">{{item.gamePlatformName}}</span>
-                                        </div>
-                                        <div class="product-action">
-                                            <a :href="`+ "`" + `/CGA101G1/product/AddProduct2Fav?ProductNo=` + "`" + "+" + "item.productNo" + `" class="btn btn-outline-primary">
-                                                <i class="bi bi-heart"></i>
-                                            </a>
-                                        </div>
-                                        <div class="product-media"> 
-                                            <a :href="`+ "`" + `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=` + "`" + "+" + "item.productNo" + `">
-                                                <img class="img-fluid"
-                                                :src=item.imgURL  style="height: 80%;">
-                                            </a>
-                                            <div class="product-cart-btn">
-                                                <button  @click="webcamSendRequestButton2($event)" class="btn btn-primary btn-sm w-100" :value="item.productNo+a+item.productPrice+a+item.productName">
-                                                    <i class="bi bi-cart"></i>
-                                                    加入購物車
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-card-info">
-                                        <div class="rating-star text">
-                                            <i class="bi small bi-star-fill active"
-                                            v-for="(item, index) in item.avgCommentStar" :key="index"></i>
-
-                                            <i class="bi small bi-star"
-                                            v-for="(item, index) in (5-item.avgCommentStar)" :key="index"></i>
-                                        </div>
-                                        <h6 class="product-title">
-                                            <a href="shop-fw-without-filtres.html">{{item.productName}}</a>
-                                        </h6>
-                                        <div class="product-price">
-                                            
-                                            <span class="text-primary">$ {{item.productPrice}}</span>
-                                            
-                                        </div>
-
-                                    </div>
-                                </div>
-    </div>
-  `,
-        })
-
-        app.component('pagination-list', {
-            props: ['pages', 'nowPage', 'totalPage'],
-            methods: {
-                previousPage() {  // 下一頁
-                    this.$emit('previousPage');
-                },
-                nextPage() {  // 上一頁
-                    this.$emit('nextPage');
-                },
-                skipPage(pageNum) { // 跳頁
-                    this.$emit('skipPage', pageNum);
-                },
-            },
-            template: `
-      <ul class="pagination" id="pageid">
-      
-        <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->
-        
-        <li class="page-item" :class="{'disabled' : nowPage === 0 }" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li>
-        
-        <li class="page-item" :class="{'active' : nowPage === index}" v-for="(item, index) in pages" :key="index + 1" @click.prevent="skipPage(index)"><a class="page-link" href="#" data-page="{{index + 1}}">{{index + 1}}</a></li>
-        
-        <li class="page-item" :class="{'disabled' : nowPage === totalPage - 1}" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li>
-
-        <!-- <li class="page-item" v-if="nowPage < totalPage - 1" @click.prevent="nextPage"><a class="page-link" href="#">Next</a></li> -->
-        
-      </ul>
-  `,
         })
 
         app.mount('#app');

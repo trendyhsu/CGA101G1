@@ -61,6 +61,7 @@ public class ShowTop9Product extends HttpServlet {
 			map.put("countComment",orderDetailVO.getProductTotalPrice());
 			map.put("productNo", productNo);
 			map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+			map.put("productDetailPageURL","/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo="+productNo);
 			list.add(map);
 		}
 //			
