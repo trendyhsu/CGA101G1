@@ -64,11 +64,39 @@ public class ProductDAO implements ProductDAO_interface{
 				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 order by productNo desc limit  ? , 9;";
 			         //    1          2               3             4            5           6       
 
-	   //顯示上市	
+		
+		//顯示上市的筆數
 		private static final String ShowInSellCount = 
-				"SELECT count(productNo) FROM product where ProductState = 1 order by productNo desc;";
+				"SELECT count(productNo) FROM product where ProductState = 1 ;";
 			         //    1           
 
+		
+		//顯示遊戲種類是???的分頁查詢				
+		private static final String GETInSellByPageAndGameType = 
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 and GameTypeNo = ? order by productNo desc limit  ? , 9;";
+			         //    1          2               3             4            5           6                                                        (1)                               (2)
+	
+
+		//顯示遊戲種類是???的筆數
+		private static final String ShowInSellCountAndGameType = 
+				"SELECT count(productNo) FROM product where ProductState = 1 and GameTypeNo = ? ;";
+			         //    1           
+
+
+		
+		
+		//顯示遊戲種類是???的分頁查詢				
+		private static final String GETInSellByPageAndGamePlatformType = 
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 and GamePlatformNo = ? order by productNo desc limit  ? , 9;";
+			         //    1          2               3             4            5           6       	
+
+		
+		//顯示遊戲平台是???的筆數
+		private static final String ShowInSellCountAndGamePlatformType = 
+				"SELECT count(productNo) FROM product where ProductState = 1 and GamePlatformNo = ? ;";
+			         //    1           
+
+		
 		
 		
 		//		                    產品修改也要上架
@@ -83,11 +111,18 @@ public class ProductDAO implements ProductDAO_interface{
 		                          //    1                 2               3             4                      5                 6                                                  7             8                     9
 
 		
-		//		                    
+		//		                  用關鍵字取得正在上市的產品
 		private static final String GetAllByWord = 
-			"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice,productState,itemProdDescription,upcNum FROM product where ProductName LIKE ?;";
-		                       //    1                 2               3             4                      5                 6                7                          8                     9
+			"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 and ProductName LIKE ? order by productNo desc limit  ? , 9;";
+		         //    1           2            3             4            5            6           
 
+		//用關鍵字取得正在上市的產品的筆數
+		private static final String ShowInSellCountByKeywrod = 
+				"SELECT count(productNo) FROM product where ProductState = 1 and ProductName LIKE ? ;";
+			         //    1   
+		
+		
+		
 		
 		private static final String GetAllName=
 				"select ProductNo,ProductName from product;";
@@ -432,9 +467,9 @@ public class ProductDAO implements ProductDAO_interface{
 	}
 	
 	@Override
-	public List<ProductVO> getAllByWord(String ProductName) {
-		List<ProductVO> list = new ArrayList<ProductVO>();
-		ProductVO productVO = null;
+	public List<Object> getAllByWord(Integer page,String keyword) {
+		List<Object> list = new ArrayList<Object>();
+
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -444,21 +479,28 @@ public class ProductDAO implements ProductDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GetAllByWord);
-			pstmt.setString(1, "%"+ProductName+"%");
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setInt(2, page);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				productVO = new ProductVO();
-				productVO.setProductNo(rs.getInt("ProductNo"));
-				productVO.setGameTypeNo(rs.getInt("GameTypeNo"));
-				productVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
-				productVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
-				productVO.setProductName(rs.getString("ProductName"));
-				productVO.setProductPrice(rs.getInt("ProductPrice"));
-				productVO.setProductState(rs.getInt("ProductState"));
-				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
-				productVO.setUpcNum(rs.getString("UpcNum"));
-				list.add(productVO);
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				ProductVO productVO = new ProductVO();
+				Integer productNo = Integer.valueOf(rs.getInt("ProductNo"));
+				map.put("productNo", productNo);
+				map.put("gameTypeNo", rs.getInt("GameTypeNo"));
+				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getString("ProductPrice"));
+				Integer gamePlatformNo=Integer.valueOf(rs.getInt("GamePlatformNo"));
+				map.put("gamePlatformNo", gamePlatformNo);
+				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
+				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
+				map.put("gamePlatformTypeName", gamePlatformTypeName);
+				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+
+				list.add(map);
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -1025,6 +1067,357 @@ public class ProductDAO implements ProductDAO_interface{
 		}
 		return count;
 	}
+
+	@Override
+	public Integer showSellCountByGameType(Integer gameTypeNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+        Integer count = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(ShowInSellCountAndGameType);
+			pstmt.setInt(1, gameTypeNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				count = (rs.getInt("count(productNo)"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return count;
+	}
+
+	@Override
+	public Integer showSellCountByGamePlatformType(Integer gamePlatformNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+        Integer count = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(ShowInSellCountAndGamePlatformType);
+			pstmt.setInt(1, gamePlatformNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				count = (rs.getInt("count(productNo)"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return count;
+	}
+
+	
+	
+	@Override
+	public List<Object> getPageInSellByMapAndGameType(Integer page, Integer gameTypeNo) {
+		List<Object>list = new ArrayList<Object>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GETInSellByPageAndGameType);
+			pstmt.setInt(1,gameTypeNo);
+			pstmt.setInt(2, (page-1)*9);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				ProductVO productVO = new ProductVO();				
+				Integer productNo = rs.getInt("ProductNo");
+				map.put("productNo", productNo);
+				
+
+				map.put("gameTypeNo", gameTypeNo);
+//				GameTypeVO gameTypeVO = productVO.getOneGameType(gameTypeNo);
+//				String gameTypeName = gameTypeVO.getGameTypeName();				
+//				map.put("gameTypeName", gameTypeName);
+				
+				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
+				map.put("gamePlatformNo", gamePlatformNo);
+				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
+				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
+				map.put("gamePlatformTypeName", gamePlatformTypeName);
+				
+				
+				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getInt("ProductPrice"));
+				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+				OrderDetailService orderDetailService = new OrderDetailService();
+				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+				
+				
+				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
+				if (orderDetailVO == null) {
+					map.put("avgCommentStar", 0);
+					list.add(map);
+				} else {
+					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+
+					map.put("avgCommentStar", avgC);
+					list.add(map);
+				}
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
+	}
+
+	
+	
+	@Override
+	public List<Object> getPageInSellByMapAndGamePlatformNo(Integer page, Integer gamePlatformNo) {
+		List<Object>list = new ArrayList<Object>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GETInSellByPageAndGamePlatformType);
+			pstmt.setInt(1,gamePlatformNo);
+			pstmt.setInt(2, (page-1)*9);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				ProductVO productVO = new ProductVO();				
+				Integer productNo = rs.getInt("ProductNo");
+				map.put("productNo", productNo);
+				
+
+				Integer gameTypeNo=rs.getInt("GameTypeNo");
+				map.put("gameTypeNo", gameTypeNo);
+//				GameTypeVO gameTypeVO = productVO.getOneGameType(gameTypeNo);
+//				String gameTypeName = gameTypeVO.getGameTypeName();				
+//				map.put("gameTypeName", gameTypeName);
+				
+
+				map.put("gamePlatformNo", gamePlatformNo);
+				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
+				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
+				map.put("gamePlatformTypeName", gamePlatformTypeName);
+				
+				
+				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getInt("ProductPrice"));
+				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+				OrderDetailService orderDetailService = new OrderDetailService();
+				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+				
+				
+				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
+				if (orderDetailVO == null) {
+					map.put("avgCommentStar", 0);
+					list.add(map);
+				} else {
+					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+
+					map.put("avgCommentStar", avgC);
+					list.add(map);
+				}
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
+	}
+
+	
+	
+	@Override
+	public Integer showSellCountByKeyword(String keyword) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+        Integer count = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(ShowInSellCountByKeywrod);
+			pstmt.setString(1, "%"+keyword+"%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				count = (rs.getInt("count(productNo)"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return count;
+	}
+	
 }
 	
 	
