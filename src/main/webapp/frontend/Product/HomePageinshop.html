@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POP.Game</title>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
@@ -29,6 +30,9 @@
     <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
 
 
 
@@ -59,7 +63,7 @@
             <i class="fas fa-bars" id="menu-bars"></i>
             <a href="/CGA101G1/frontend/memLogin/login.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
             <a href="#" class="fas fa-search" id="search-icon"></a>
-            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
+            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.jsp" class="fas fa-heart"></a>
             <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
@@ -490,10 +494,10 @@
                                             <span class="badge bg-danger">{{item.gamePlatformTypeName}}</span>
                                         </div>
                                         <div class="product-action">
-                                            <a :href="`/CGA101G1/product/AddProduct2Fav?ProductNo=`+item.productNo"
+                                            <button @click="webcamSendRequestButton1($event)" :value="item.productNo"
                                                 class="btn btn-outline-primary">
-                                                <i class="bi bi-heart"></i>
-                                            </a>
+                                                <i class="bi bi-heart" :value="item.productNo"></i>
+                                            </button>
                                         </div>
                                         <div class="product-media">
                                             <a
@@ -560,6 +564,62 @@
                 </div>
             </div>
         </section>
+        <!-- 跳出加入購物車的視窗 -->
+        <div class="position-fixed top-50 start-50 translate-middle-x" style="z-index: 11">
+            <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">商品成功加入購物車!!</h6>
+                </div>
+            </div>
+        </div>
+        <!-- 跳出需先加入會員的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="loginToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">請先登入會員唷</h6>
+                </div>
+            </div>
+        </div>
+        <!-- 跳出成功加入我的最愛的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="sucessToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">商品已成功添加至我的最愛</h6>
+                </div>
+            </div>
+        </div>
+        <!-- 跳出重複加入我的最愛的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="dupliToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">我的最愛清單上已經有這個商品囉</h6>
+                </div>
+            </div>
+        </div>
         <!-- End Shop -->
     </main>
 
@@ -675,7 +735,6 @@
     </section> -->
 
     <!-- items section ends -->
-
 
 
 
@@ -833,6 +892,15 @@
                 },
                 webcamSendRequestButton2: function (e) {
 
+                    // let toastTrigger1 = document.getElementById('liveToastBtn1')
+                    let toastLiveExample1 = document.getElementById('liveToast1')
+
+
+
+
+
+
+
                     // 取編號跟錢，分離商品編號跟價錢再傳出去
                     console.log(e.target.value);
                     console.log(e.target.value.split(';'));
@@ -847,8 +915,45 @@
                         method: 'post',
                         url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
                     })
-                        .then((response) => console.log(response));
-                    alert("成功加入購物車");
+                        .then((response) => {
+                            console.log(response);
+                            let toast = new bootstrap.Toast(toastLiveExample1)
+                            toast.show()
+                        });
+                },
+                webcamSendRequestButton1(e) {
+
+
+                    let loginToFavMas = document.getElementById('loginToFavMas');
+                    let sucessToFavMas = document.getElementById('sucessToFavMas');
+                    let dupliToFavMas = document.getElementById('dupliToFavMas');
+
+                    console.log("開始加入我的最愛");
+                    console.log(e.target.value);
+                    sendURL = '/CGA101G1/product/AddProduct2Fav?ProductNo=' + `${e.target.value}`;
+                    console.log(sendURL);
+                    axios({
+                        method: 'post',
+                        url: sendURL,
+                    })
+                        .then((response) => {
+                            console.log(response.data);
+                            if (response.data == 0) {
+                                console.log("需登入會員");
+                                let loginToFavMasToast = new bootstrap.Toast(loginToFavMas);
+                                loginToFavMasToast.show();
+                            } else if (response.data == 1) {
+                                console.log("成功加入我的最愛");
+                                let sucessToFavMasToast = new bootstrap.Toast(sucessToFavMas);
+                                sucessToFavMasToast.show();
+                            } else if (response.data == 2) {
+                                console.log("我的最愛已經有這個商品囉");
+                                let dupliToFavMasToast = new bootstrap.Toast(dupliToFavMas);
+                                dupliToFavMasToast.show();
+                            }
+
+
+                        });
                 },
                 //篩選用
                 gameTypeInput(e) {

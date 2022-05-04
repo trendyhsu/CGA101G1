@@ -1,3 +1,4 @@
+<%@page import="com.forumpostpic.model.ForumPostPicVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,9 +11,12 @@
 List<ForumMsgVO> list = (List<ForumMsgVO>) request.getAttribute("forumMsgVOs");
 ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 ForumMsgVO forumMsgVO = new ForumMsgVO();
+List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribute("forumPostPicVOs");
+
 pageContext.setAttribute("list", list);
 pageContext.setAttribute("forumPostVO", forumPostVO);
 pageContext.setAttribute("forumMsgVO", forumMsgVO);
+pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 %>
 
 <!DOCTYPE html>
@@ -254,6 +258,20 @@ pageContext.setAttribute("forumMsgVO", forumMsgVO);
 
 		</div>
 
+		<div>
+			<c:if test="${forumPostPicVOs.size() != 0}">
+				<c:forEach var="forumPostPicVO" items="${forumPostPicVOs}">
+					<img
+						src="<%=request.getContextPath()%>/forum/forumPostPicGetOneByPicNo?forumPostPicNo=${forumPostPicVO.forumPostPicNo}"
+						height="300px" width="300px" class="uploadedImg">
+					<input type="hidden" name="forumPostPicNo"
+						value="${forumPostPicVO.forumPostPicNo}">
+
+				</c:forEach>
+
+			</c:if>
+		</div>
+		<div></div>
 		<div
 			style="display: inline-block; padding-top: 15px; padding-left: 15px;">
 			<a
@@ -265,15 +283,8 @@ pageContext.setAttribute("forumMsgVO", forumMsgVO);
 		<div style="display: inline-block;">
 			<a
 				href="
-			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
+			<%=request.getContextPath()%>/frontend/forum/editForumPostReport.jsp?forumPostNo=${forumPostVO.forumPostNo}">
 				<button class="button1">檢舉文章</button>
-			</a>
-		</div>
-		<div style="display: inline-block;">
-			<a
-				href="
-			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
-				<button class="button1">返回討論區首頁</button>
 			</a>
 		</div>
 		<div style="display: inline-block;">
@@ -283,7 +294,13 @@ pageContext.setAttribute("forumMsgVO", forumMsgVO);
 				<button class="button1">返回討論區</button>
 			</a>
 		</div>
-
+		<div style="display: inline-block;">
+			<a
+				href="
+			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
+				<button class="button1">返回討論區首頁</button>
+			</a>
+		</div>
 	</section>
 
 	<section name="pd_information" id="pd_review">
@@ -298,7 +315,8 @@ pageContext.setAttribute("forumMsgVO", forumMsgVO);
 						<div class="col-sm-6 text-sm-end">
 							<a href="javascript:void(0);" class="me-4"></a> <a
 								data-bs-toggle="collapse" href="#pd_add_review" role="button"
-								aria-expanded="false" aria-controls="pd_add_review">留言</a>
+								aria-expanded="false" aria-controls="pd_add_review"
+								style="font-size: 14px;">留言</a>
 						</div>
 						<div class="col-12 collapse" id="pd_add_review">
 							<div class="my-4 p-3 bg-gray-100 border">
@@ -343,7 +361,12 @@ pageContext.setAttribute("forumMsgVO", forumMsgVO);
 										style="color: #2F365F; font-weight: border; font-size: 16px; padding-left: 24px">${forumMsgVO.forumMsg}</p>
 								</div>
 								<div>
-									<button>檢舉</button>
+									<a
+										href="
+									<%=request.getContextPath()%>/frontend/forum/editForumMsgReport.jsp?forumPostNo=${forumPostVO.forumPostNo}&forumMsgNo=${forumMsgVO.forumMsgNo}">
+
+										<button>檢舉</button>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -462,7 +485,7 @@ pageContext.setAttribute("forumMsgVO", forumMsgVO);
 				reader.onload = function(event) {
 					let image = new Image();
 					image.src = event.target.result;
-					image.width = 300;
+					image.width = 500;
 					picPreview.appendChild(image);
 				};
 				reader.readAsDataURL(file);

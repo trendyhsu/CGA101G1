@@ -11,11 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.forummsg.model.ForumMsgService;
 import com.forummsg.model.ForumMsgVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
+import com.forumpostpic.model.ForumPostPicService;
+import com.forumpostpic.model.ForumPostPicVO;
 
 @WebServlet("/forum/selectOnePostAllMsg")
 public class SelectOnePostAllMsgServlet extends HttpServlet {
@@ -44,10 +45,14 @@ public class SelectOnePostAllMsgServlet extends HttpServlet {
 		ForumMsgService forumMsgSvc = new ForumMsgService();
 		List<ForumMsgVO> forumMsgVOs = forumMsgSvc.getOnePostAllMsg(forumPostNo);
 
+		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
+		List<ForumPostPicVO> forumPostPicVOs = forumPostPicSvc.getOneForumTotalPostPic(forumPostNo);
 		// 3.查詢完成,準備轉交(Send the Success view)
 		// 從資料庫取forumPostVO 物件, 存入 request 中
+
 		request.setAttribute("forumPostVO", forumPostVO);
 		request.setAttribute("forumMsgVOs", forumMsgVOs);
+		request.setAttribute("forumPostPicVOs", forumPostPicVOs);
 
 		String url = "/frontend/forum/onePostAllMsg.jsp";
 		// 成功轉交 onePostAllMsg.jsp
