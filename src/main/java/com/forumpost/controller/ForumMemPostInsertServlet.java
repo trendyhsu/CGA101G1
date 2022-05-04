@@ -1,26 +1,35 @@
 package com.forumpost.controller;
 
-
+import java.io.BufferedInputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-
+import com.bidpic.model.BidPicVO;
+import com.forum.model.ForumService;
+import com.forum.model.ForumVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
+import com.forumpostpic.model.ForumPostPicService;
+import com.forumpostpic.model.ForumPostPicVO;
+import com.member.model.MemVO;
 
-@WebServlet("/forum/forumMasterPostInsert")
-public class ForumMasterPostInsertServlet extends HttpServlet {
+@WebServlet("/forum/forumMemPostInsert")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+public class ForumMemPostInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,16 +43,20 @@ public class ForumMasterPostInsertServlet extends HttpServlet {
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
+		// session 取得會員編號
+		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
+//		Integer memNo = memVO.getMemNo();
+
+		Integer memNo = 11003;
+
 		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		ForumPostService forumPostSvc = new ForumPostService();
 		ForumPostVO forumPostVO = new ForumPostVO();
 
-		Integer managerNo = Integer.valueOf(request.getParameter("managerNo").trim());
-		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
+		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
+		ForumPostPicVO forumPostPicVO = new ForumPostPicVO();
 
-		if (forumNo == 0) {
-			errorMsgs.put("forumNo", "請選擇討論區");
-		}
+		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
 		Integer forumPostState = Integer.valueOf(request.getParameter("forumPostState").trim());
 		Integer forumPostType = Integer.valueOf(request.getParameter("forumPostType").trim());
@@ -52,28 +65,30 @@ public class ForumMasterPostInsertServlet extends HttpServlet {
 		String forumPostTitle = request.getParameter("forumPostTitle").trim();
 
 		if (forumPostTitle == null || forumPostTitle.trim().length() == 0) {
-			errorMsgs.put("forumPostTitle", "請勿空白");
+			errorMsgs.put("forumPostTitle", "文章標題: 請勿空白");
 		} else if (forumPostTitle.trim().length() > 100) {
 			errorMsgs.put("forumPostTitle", "文章標題:長度必需在1到100之間");
 		}
 
 		String forumPostContent = request.getParameter("forumPostContent").trim();
 		if (forumPostContent == null || forumPostContent.trim().length() == 0) {
-			errorMsgs.put("forumPostContent", "請勿空白");
+			errorMsgs.put("forumPostContent", "文章內容: 請勿空白");
 		}
 
-		
 		// 錯誤處理回傳forumPostVO
 		if (!errorMsgs.isEmpty()) {
 
-			forumPostVO.setManagerNo(managerNo);
+			ForumService forumSvc = new ForumService();
+			ForumVO forumVO = forumSvc.getOneForum(forumNo);
+
 			forumPostVO.setForumNo(forumNo);
-			forumPostVO.setForumPostState(forumPostState);
+			forumPostVO.setForumPostState(forumPostType);
 			forumPostVO.setForumPostTitle(forumPostTitle);
 			forumPostVO.setForumPostContent(forumPostContent);
 
-			request.setAttribute("forumPostVO", forumPostVO); // 含有輸入格式錯誤的forumVO物件,也存入req
-			RequestDispatcher failureView = request.getRequestDispatcher("/backend/forum/addForumMasterPost.jsp");
+			request.setAttribute("forumPostVO", forumPostVO);
+			request.setAttribute("forumVO", forumVO);// 含有輸入格式錯誤的forumVO物件,也存入req
+			RequestDispatcher failureView = request.getRequestDispatcher("/frontend/forum/addForumPost.jsp");
 			failureView.forward(request, response);
 			return;
 		}
@@ -83,17 +98,30 @@ public class ForumMasterPostInsertServlet extends HttpServlet {
 
 		Integer forumPostNo = null;
 
-		forumPostNo = forumPostSvc.addForumMasterPost(forumNo, forumPostType, managerNo, forumPostState, forumPostTitle,
+		forumPostNo = forumPostSvc.addForumPost(forumNo, forumPostType, memNo, forumPostState, forumPostTitle,
 				forumPostContent, forumPostFeatured);
 
-		/*************************** 3.收尋資料 ***************************************/
+		// 將取得圖片資料裝入 List<byte[]> 物件
 
-		forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+		Collection<Part> list = request.getParts();
+
+		BufferedInputStream bis = null;
+		byte[] forumPostImgs = null;
+
+		// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
+		for (Part part : list) {
+			bis = new BufferedInputStream(part.getInputStream());
+			if (bis.available() > 1024) {
+				forumPostImgs = new byte[bis.available()];
+				bis.read(forumPostImgs);
+				forumPostPicVO = forumPostPicSvc.addForumPostPic(forumPostNo, forumPostImgs);
+			}
+		}
+		bis.close();
 
 		/*************************** 4.新增完成,準備轉交(Send the Success view) ***********/
 
-		request.setAttribute("forumPostVO", forumPostVO);
-		String url = "/backend/forum/listOneForumMasterPost.jsp";
+		String url = "/forum/selectOnePostAllMsg?forumPostNo=" + forumPostNo;
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
 

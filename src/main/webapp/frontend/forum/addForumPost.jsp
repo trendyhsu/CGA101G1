@@ -1,16 +1,15 @@
+<%@page import="com.forumpost.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.forumpost.model.*"%>
+
 <%@ page import="com.forum.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
-List<ForumPostVO> list = (List<ForumPostVO>) request.getAttribute("forumPostVOs");
 ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
-pageContext.setAttribute("list", list);
-pageContext.setAttribute("forumVO", forumVO);
+ForumPostVO forumPostVO = new ForumPostVO();
 %>
 
 <!DOCTYPE html>
@@ -57,7 +56,7 @@ pageContext.setAttribute("forumVO", forumVO);
 <link rel="stylesheet"
 	href="/CGA101G1/frontend/mainCss/assets/css/style01.css">
 <style type="text/css">
-.button1 {
+.button1, .acess {
 	display: inline-block;
 	padding: 5px 10px;
 	font-size: 15px;
@@ -71,11 +70,11 @@ pageContext.setAttribute("forumVO", forumVO);
 	border-radius: 7px;
 }
 
-.button1:hover {
+.button1:hover, .acess:hover {
 	background-color: #A3C6C4
 }
 
-.button1:active {
+.button1:active, .acess:active {
 	background-color: #E0E7E9;
 }
 </style>
@@ -205,119 +204,79 @@ pageContext.setAttribute("forumVO", forumVO);
 
 	<!-- shopping-cart div ends -->
 
-	<div style="height: 66px"></div>
 
 
 	<!-- main 討論區 starts-->
 
 	<!-- home section starts-->
 
-
-	<section style="padding-left: 50px" class="home" id="home">
-
-		<!-- <h1 class="title"> 討論區top圖 </h1> -->
-		<div style="border: 5px;">
-
-			<div>
-				<div class="item-img-container">
-					<h3 style="font-size: 450%; color: #2F365F;">${forumVO.forumName}</h3>
-				</div>
-				<div style="height: 10px"></div>
-				<div class="item-img-container" id="picPreview">
-					<img
-						src="<%=request.getContextPath()%>/forum/forumPicGetByForumNo?forumNo=${forumVO.forumNo}"
-						class="uploadedImg"
-						style="width: 650px; display: block; margin: auto; border-radius: 20px;">
-				</div>
-
-			</div>
-
-		</div>
-	</section>
-	<div
-		style="display: inline-block; padding-left: 63px; padding-top: 15px">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/forum/forumPostInsert"
-			style="margin-bottom: 0px;" id="form1"></FORM>
-		<button type="submit" form="form1" class="button1" name="forumNo"
-			value="${forumVO.forumNo}">發表文章</button>
-	</div>
-	<div style="display: inline-block;">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/frontend/chatroom/chatroom.jsp?forumNo=${forumVO.forumNo}"
-			style="margin-bottom: 0px;" id="form2"></FORM>
-		<button type="submit" form="form2" class="button1">進入聊天室</button>
-	</div>
-	<div style="display: inline-block;">
-		<a
-			href="
-			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
-			<button class="button1">返回討論區首頁</button>
-		</a>
-	</div>
-
 	<div style="height: 30px"></div>
+	<div style="height: 30px"></div>
+	<!-- 商品詳情 -->
+	<section name="pd_information" id="pd_description">
+		<FORM method="post"
+			action="<%=request.getContextPath()%>/forum/forumMemPostInsert"
+			name="form1" enctype="multipart/form-data" onsubmit="return ">
+			<div>
+				<div>
 
-	<!-- 文章區 -->
-	<div style="padding-left: 30px">
+					<div class="row g-2">
+						<div class="col-sm-12" style="width: 90%">
+							<label class="form-label" style="font-size: 18px;">標題${errorMsgs.forumPostTitle}</label>
+							<input type="text" name="forumPostTitle"
+								class="form-control form-control-sm"
+								value="${forumPostVO.forumPostTitle}" style="font-size: 14px" />
+						</div>
+						<div>
+							<input type="radio" id="master" name="forumPostType" value="1"
+								style="width: 16px; height: 16px"> <label for="master"
+								style="font-size: 15PX;">版主文章</label> <input type="radio"
+								id="attack" name="forumPostType" value="2" checked
+								style="width: 16px; height: 16px"> <label for="attack"
+								style="font-size: 15PX;">攻略文章</label> <input type="radio"
+								id="message" name="forumPostType" value="3"
+								style="width: 16px; height: 16px"> <label for="message"
+								style="font-size: 15PX;">情報</label> <input type="radio"
+								id="chat" name="forumPostType" value="4"
+								style="width: 16px; height: 16px"> <label for="chat"
+								style="font-size: 15PX;">閒聊</label> <input type="radio"
+								id="other" name="forumPostType" value="5"
+								style="width: 16px; height: 16px"> <label for="other"
+								style="font-size: 15PX;">其他</label>
+						</div>
+						<div class="col-sm-12" style="width: 90%">
+							<label class="form-label" style="font-size: 18px;">內容${errorMsgs.forumPostContent}</label>
+							<textarea rows="5" class="form-control"
+								style="height: 500px; font-size: 16px" name="forumPostContent">${forumPostVO.forumPostContent}</textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="height: 8px;"></div>
+			<label class="form-label" style="font-size: 18px;">上傳圖片</label>
+			<div></div>
+			<input type="file" name="upfile1" onclick="previewImage()" multiple
+				id="upfile"> <br> <br> <input type="hidden"
+				name="forumPostFeatured" value="0"> <input class="acess"
+				type="submit" value="送出"><input type="hidden" name="forumNo"
+				value="${forumVO.forumNo}"> <input type="hidden"
+				name="forumPostState" value="1"> <input class="acess"
+				type="reset" value="重設">
+			<div style="display: inline-block;">
+				<a
+					href="
+			<%=request.getContextPath()%>/forum/selectOneForumAllPost?forumNo=${forumVO.forumNo}">
+					<button class="button1" form="fake">返回討論區</button>
+				</a>
+			</div>
+		</FORM>
+		<div style="height: 5px"></div>
 
-		<table style="margin: auto; width: 95%;">
-			<tr align='center' valign="middle">
-				<th align="left"></th>
-				<th align="left"></th>
-				<th>文章標題</th>
-				<th>發文會員</th>
-				<th>發表時間</th>
-			</tr>
+		<div id="picPreview"
+			style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative;"></div>
 
-			<%@ include file="page3.file"%>
-			<c:forEach var="forumPostVO" items="${list}" begin="<%=pageIndex%>"
-				end="<%=pageIndex+rowsPerPage-1%>">
+	</section>
 
-				<tr align='center' valign="middle">
-
-					<td style="color: orange; font-weight: bold; font-size: 50%;"
-						align="left"><c:if
-							test="${forumPostVO.forumPostFeatured == 0}" var="condition">
-							<c:out value="【一般】" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
-							var="condition">
-							<c:out value="【精選】" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 2}"
-							var="condition">
-							<c:out value="【置頂】" escapeXml="false"></c:out>
-						</c:if>&ensp;</td>
-					<td style="color: #6C7A89; font-weight: bold; font-size: 50%"
-						align="left"><c:if test="${forumPostVO.forumPostType == 0}"
-							var="condition">
-							<c:out value="管理員文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 1}" var="condition">
-							<c:out value="版主文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 2}" var="condition">
-							<c:out value="攻略文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 3}" var="condition">
-							<c:out value="情報" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 4}" var="condition">
-							<c:out value="閒聊" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 5}" var="condition">
-							<c:out value="其他" escapeXml="false"></c:out>
-						</c:if>&emsp;</td>
-					<td><div
-							style="width: 600px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-							<a style="font-weight: bolder; font-size: 200%"
-								href="<%=request.getContextPath()%>/forum/selectOnePostAllMsg?forumPostNo=${forumPostVO.forumPostNo}">${forumPostVO.forumPostTitle}</a>
-						</div></td>
-					<td><div
-							style="width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 75%">${forumPostVO.memVO.memName}</div></td>
-					<td style="font-size: 75%"><fmt:formatDate
-							value="${forumPostVO.forumPostTime}" pattern="yyyy-MM-dd" />&emsp;</td>
-				</tr>
-			</c:forEach>
-
-		</table>
-		<%@ include file="page2.file"%>
-
-	</div>
 	<!-- End 文章區 -->
 
 	<!-- home section ends-->
@@ -424,7 +383,7 @@ pageContext.setAttribute("forumVO", forumVO);
 				reader.onload = function(event) {
 					let image = new Image();
 					image.src = event.target.result;
-					image.width = 300;
+					image.width = 125;
 					picPreview.appendChild(image);
 				};
 				reader.readAsDataURL(file);
@@ -435,6 +394,11 @@ pageContext.setAttribute("forumVO", forumVO);
 						+ file.size + "_$tag____ bytes_$ta";
 			}
 		}
+		// 當upload重新選擇 清空舊有資料
+		$("#upload").change(function() {
+			$("#picPreview").empty() // 清空當下預覽
+			previewfile(this.files) // this即為<input>元素
+		})
 	</script>
 </body>
 </html>
