@@ -57,6 +57,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								
 								<c:forEach var="gameNews" items="${AllQuery}">
 									<tr>
 
