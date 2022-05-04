@@ -43,7 +43,6 @@ public class ManagerLogin extends HttpServlet {
 		//如果帳密錯誤即立刻回傳
 		if(!managerVO.isSuccessful()) {
 			writePojo2Json(response, managerVO);
-			System.out.println("進來了");
 			return;
 		}
 		//帳號權限關閉回傳
@@ -54,7 +53,6 @@ public class ManagerLogin extends HttpServlet {
 			return;
 		}
 		final HttpSession session = request.getSession();
-		System.out.println(managerVO.isSuccessful()+"123");
 		//驗證成功設定session
 		if(managerVO.isSuccessful()) {
 			if(request.getSession(false) != null) {

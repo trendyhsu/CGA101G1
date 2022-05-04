@@ -20,6 +20,10 @@
 						<div id="mainBackend" style="font-size: 3rem; text-align: center;">
 						管理者您好，歡迎來到 POP GAME 管理後臺						
 						</div>
+						
+					</div>
+					<div>
+					${message}
 					</div>
 					<!-- /col-lg-9 END SECTION MIDDLE -->
 
