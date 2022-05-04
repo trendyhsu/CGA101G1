@@ -155,22 +155,31 @@ float: right;
 	let receiveBtn = document.querySelector("#receiveBtn");
 	if(receiveBtn){
 		receiveBtn.addEventListener("click",function(){
-			swal({
-					title: "確認收貨？",
-					text: "",
-					icon: "info",
-				})
-				.then(() => {
-					swal("收貨成功！感謝您", {
-					icon: "success",
-					})
-				})
-				.then(() => {
-					setTimeout(receiveGame, 1200);
-					function receiveGame(){
+			swal({ 
+				  title: "確定收貨嗎？", 
+				  text: "", 
+				  type: "warning",
+				  showCancelButton: true, 
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "確定收貨！", 
+				  cancelButtonText: "取消收貨！",
+				  closeOnConfirm: false, 
+				  closeOnCancel: false  
+				}).then(
+				function(isConfirm){ 
+				  if (isConfirm) {
+				    swal("收貨成功！", "商品狀態已更新。","success")
+				    .then(() => {
+					setTimeout(returnGame, 100);
+					function returnGame(){
 						document.querySelector("#receiveForm").submit();
 					}
-			 })
+				 }); 
+				  } else { 
+				    swal("收貨取消！", "商品狀態未更新",
+				"error"); 
+				  } 
+				});
 	})
 }
 	</script>

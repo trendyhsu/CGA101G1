@@ -8,9 +8,7 @@
 <%@include file="/backend/share.jsp"%>
 
 <%
-BidProductService bidsBidProductSvc = new BidProductService();
-List<BidProductVO> list = bidsBidProductSvc.getAll();
-pageContext.setAttribute("list", list);
+List<BidProductVO> list = (List<BidProductVO>)request.getAttribute("list");
 %>
 
 <!DOCTYPE html>
@@ -18,7 +16,7 @@ pageContext.setAttribute("list", list);
 <head>
 
 <meta charset="UTF-8">
-<title>所有競標商品</title>
+<title>競標商品搜尋結果</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,12 +56,13 @@ font-weight: bold;
 		<table id="table-1">
 			<tr>
 
-			 		<h3>所有競標商品資料</h3>
+			 		<h3>競標商品搜尋結果</h3>
 
 			</tr>
 		</table>
 		<%-- 錯誤表列 --%>
 		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
 					<li style="color: red">${message}</li>
@@ -169,6 +168,9 @@ font-weight: bold;
 			</c:forEach>
 		</table>
 		<%@ include file="page2.file"%>
+		<div style="text-align: center;">
+			<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp" style="font-weight: bold; font-size: 1.5rem">回競標商品列表</a>		
+		</div>
 	</div>
 
 	</section>
