@@ -313,7 +313,8 @@
                                         <div class="form-group mb-3">
                                             <label for="memAccount" class="form-label">帳號:<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" id="memAccount" class="form-control" placeholder="您的帳號" style="text-transform: none;">
+                                            <input type="text" id="memAccount" class="form-control" placeholder="您的帳號"
+                                                style="text-transform: none;">
                                             <label id="l1" style="color: red; font-size: 15;"></label>
                                         </div>
 
@@ -336,7 +337,8 @@
                                         <div class="form-group mb-3">
                                             <label for="memName" class="form-label">帳戶名稱:<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" id="memName" class="form-control" placeholder="您的帳戶名稱" style="text-transform: none;">
+                                            <input type="text" id="memName" class="form-control" placeholder="您的帳戶名稱"
+                                                style="text-transform: none;">
                                             <label id="l4" style="color: red; font-size: 15;"></label>
                                         </div>
 
@@ -344,7 +346,8 @@
                                         <div class="form-group mb-3">
                                             <label for="memMobile" class="form-label">行動電話:<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" id="memMobile" class="form-control" placeholder="您的行動電話" style="text-transform: none;">
+                                            <input type="text" id="memMobile" class="form-control" placeholder="您的行動電話"
+                                                style="text-transform: none;">
                                             <label id="l5" style="color: red; font-size: 15;"></label>
                                         </div>
                                     </div>
@@ -352,15 +355,16 @@
                                         <div class=" form-group mb-3">
                                             <label for="memEmail" class="form-label">E-mail:<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" id="memEmail" class="form-control"
-                                                placeholder="您的E-mail" style="text-transform: none;">
+                                            <input type="text" id="memEmail" class="form-control" placeholder="您的E-mail"
+                                                style="text-transform: none;">
                                             <label id="l7" style="color: red; font-size: 15;"></label>
                                         </div>
 
                                         <div class="form-group mb-3">
                                             <label for="memBirth" class="form-label">出生年月日:<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" id="memBirth" class="form-control" placeholder="您的出生年月日" style="text-transform: none;">
+                                            <input type="text" id="memBirth" class="form-control" placeholder="您的出生年月日"
+                                                style="text-transform: none;">
                                             <label id="d1" style="color: red; font-size: 15;"></label>
                                         </div>
                                         <div class="city-selector-set">
@@ -385,7 +389,8 @@
                                         <div class="form-group mb-3">
                                             <label for="memAdd" class="form-label">地址:<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" id="memAdd" class="form-control" placeholder="您的地址" style="text-transform: none;">
+                                            <input type="text" id="memAdd" class="form-control" placeholder="您的地址"
+                                                style="text-transform: none;">
                                             <label id="l6" style="color: red; font-size: 15;"></label>
                                         </div>
                                     </div>
@@ -485,6 +490,7 @@
     <link rel="stylesheet" type="text/css" href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
     <script src="/CGA101G1/datetimepicker/jquery.js"></script>
     <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         //日期
         $.datetimepicker.setLocale('zh'); // kr ko ja en
@@ -695,12 +701,26 @@
                         }),
                         success: data => {
                             const { successful, message } = data;
+                            console.log(successful);
                             if (successful) {
-                                alert(message);
+                                console.log(message);
+                                swal(message, "", "success")
+                                // .then(function () {
+
+                                // })
                                 // location = "login.html";
                             } else {
                                 $("#l8").html(message);
                             }
+
+                            swal(message, "", "success")
+                                .then(function () {
+
+                                })
+
+
+
+
                         }
                     })
                 }
