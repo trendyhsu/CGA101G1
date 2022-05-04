@@ -1,16 +1,20 @@
+<%@page import="com.forumpostreport.model.ForumPostReportVO"%>
+<%@page import="com.forumpostreport.model.ForumPostReportService"%>
+<%@page import="com.forumpost.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.forumpost.model.*"%>
+
 <%@ page import="com.forum.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
-List<ForumPostVO> list = (List<ForumPostVO>) request.getAttribute("forumPostVOs");
-ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
-pageContext.setAttribute("list", list);
-pageContext.setAttribute("forumVO", forumVO);
+Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
+ForumPostService forumPostSvc = new ForumPostService();
+ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+pageContext.setAttribute("forumPostVO", forumPostVO);
+ForumPostReportVO forumPostReportVO = new ForumPostReportVO();
 %>
 
 <!DOCTYPE html>
@@ -57,7 +61,7 @@ pageContext.setAttribute("forumVO", forumVO);
 <link rel="stylesheet"
 	href="/CGA101G1/frontend/mainCss/assets/css/style01.css">
 <style type="text/css">
-.button1 {
+.button1, .acess {
 	display: inline-block;
 	padding: 5px 10px;
 	font-size: 15px;
@@ -71,11 +75,11 @@ pageContext.setAttribute("forumVO", forumVO);
 	border-radius: 7px;
 }
 
-.button1:hover {
+.button1:hover, .acess:hover {
 	background-color: #A3C6C4
 }
 
-.button1:active {
+.button1:active, .acess:active {
 	background-color: #E0E7E9;
 }
 </style>
@@ -205,119 +209,47 @@ pageContext.setAttribute("forumVO", forumVO);
 
 	<!-- shopping-cart div ends -->
 
-	<div style="height: 66px"></div>
 
 
 	<!-- main 討論區 starts-->
 
 	<!-- home section starts-->
 
-
-	<section style="padding-left: 50px" class="home" id="home">
-
-		<!-- <h1 class="title"> 討論區top圖 </h1> -->
-		<div style="border: 5px;">
-
+	<div style="height: 66px"></div>
+	<!-- 商品詳情 -->
+	<section name="pd_information" id="pd_description">
+		<FORM method="post"
+			action="<%=request.getContextPath()%>/forum/forumMemPostReportInsert"
+			name="form1">
 			<div>
-				<div class="item-img-container">
-					<h3 style="font-size: 450%; color: #2F365F;">${forumVO.forumName}</h3>
-				</div>
-				<div style="height: 10px"></div>
-				<div class="item-img-container" id="picPreview">
-					<img
-						src="<%=request.getContextPath()%>/forum/forumPicGetByForumNo?forumNo=${forumVO.forumNo}"
-						class="uploadedImg"
-						style="width: 650px; display: block; margin: auto; border-radius: 20px;">
-				</div>
+				<div>
 
+					<div class="row g-2">
+						<div class="col-sm-12" style="width: 90%">
+							<label class="form-label" style="font-size: 14px;">文章檢舉原因${errorMsgs.forumPostReportWhy}</label>
+							<textarea rows="5" class="form-control"
+								style="height: 360px; font-size: 16px" name="forumPostReportWhy">${forumPostReportVO.forumPostReportWhy}</textarea>
+						</div>
+					</div>
+				</div>
 			</div>
-
-		</div>
+			<div style="height: 8px;"></div>
+			<input type="hidden" name="forumPostReportType" value="0"> <input
+				class="acess" type="submit" value="送出"><input type="hidden"
+				name="forumPostNo" value="${forumPostVO.forumPostNo}"> <input
+				class="acess" type="reset" value="重設">
+			<div style="display: inline-block;">
+				<a
+					href="
+			<%=request.getContextPath()%>/forum/selectOnePostAllMsg?forumPostNo=${forumPostVO.forumPostNo}">
+					<button class="button1" form="fake">返回文章</button>
+				</a>
+			</div>
+		</FORM>
+		<div style="height: 39px;"></div>
 	</section>
-	<div
-		style="display: inline-block; padding-left: 63px; padding-top: 15px">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/forum/forumPostInsert"
-			style="margin-bottom: 0px;" id="form1"></FORM>
-		<button type="submit" form="form1" class="button1" name="forumNo"
-			value="${forumVO.forumNo}">發表文章</button>
-	</div>
-	<div style="display: inline-block;">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/frontend/chatroom/chatroom.jsp?forumNo=${forumVO.forumNo}"
-			style="margin-bottom: 0px;" id="form2"></FORM>
-		<button type="submit" form="form2" class="button1">進入聊天室</button>
-	</div>
-	<div style="display: inline-block;">
-		<a
-			href="
-			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
-			<button class="button1">返回討論區首頁</button>
-		</a>
-	</div>
 
-	<div style="height: 30px"></div>
 
-	<!-- 文章區 -->
-	<div style="padding-left: 30px">
-
-		<table style="margin: auto; width: 95%;">
-			<tr align='center' valign="middle">
-				<th align="left"></th>
-				<th align="left"></th>
-				<th>文章標題</th>
-				<th>發文會員</th>
-				<th>發表時間</th>
-			</tr>
-
-			<%@ include file="page3.file"%>
-			<c:forEach var="forumPostVO" items="${list}" begin="<%=pageIndex%>"
-				end="<%=pageIndex+rowsPerPage-1%>">
-
-				<tr align='center' valign="middle">
-
-					<td style="color: orange; font-weight: bold; font-size: 50%;"
-						align="left"><c:if
-							test="${forumPostVO.forumPostFeatured == 0}" var="condition">
-							<c:out value="【一般】" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
-							var="condition">
-							<c:out value="【精選】" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 2}"
-							var="condition">
-							<c:out value="【置頂】" escapeXml="false"></c:out>
-						</c:if>&ensp;</td>
-					<td style="color: #6C7A89; font-weight: bold; font-size: 50%"
-						align="left"><c:if test="${forumPostVO.forumPostType == 0}"
-							var="condition">
-							<c:out value="管理員文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 1}" var="condition">
-							<c:out value="版主文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 2}" var="condition">
-							<c:out value="攻略文章" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 3}" var="condition">
-							<c:out value="情報" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 4}" var="condition">
-							<c:out value="閒聊" escapeXml="false"></c:out>
-						</c:if> <c:if test="${forumPostVO.forumPostType == 5}" var="condition">
-							<c:out value="其他" escapeXml="false"></c:out>
-						</c:if>&emsp;</td>
-					<td><div
-							style="width: 600px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
-							<a style="font-weight: bolder; font-size: 200%"
-								href="<%=request.getContextPath()%>/forum/selectOnePostAllMsg?forumPostNo=${forumPostVO.forumPostNo}">${forumPostVO.forumPostTitle}</a>
-						</div></td>
-					<td><div
-							style="width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 75%">${forumPostVO.memVO.memName}</div></td>
-					<td style="font-size: 75%"><fmt:formatDate
-							value="${forumPostVO.forumPostTime}" pattern="yyyy-MM-dd" />&emsp;</td>
-				</tr>
-			</c:forEach>
-
-		</table>
-		<%@ include file="page2.file"%>
-
-	</div>
 	<!-- End 文章區 -->
 
 	<!-- home section ends-->
@@ -396,45 +328,5 @@ pageContext.setAttribute("forumVO", forumVO);
 	<!-- 外來區over -->
 	<!-- custom js file link-->
 	<script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
-	<script type="text/javascript">
-		var filereader_support = typeof FileReader != 'undefined';
-
-		if (!filereader_support) {
-			alert("No FileReader support");
-		}
-
-		acceptedTypes = {
-			'image/png' : true,
-			'image/jpeg' : true,
-			'image/gif' : true
-		};
-
-		let upfile = document.getElementById("upfile");
-		upfile.addEventListener("change", function(event) {
-			let files = event.target.files || event.dataTransfer.files;
-			for (let i = 0; i < files.length; i++) {
-				previewfile(files[i])
-			}
-		}, false);
-
-		function previewfile(file) {
-			if (filereader_support === true
-					&& acceptedTypes[file.type] === true) {
-				let reader = new FileReader();
-				reader.onload = function(event) {
-					let image = new Image();
-					image.src = event.target.result;
-					image.width = 300;
-					picPreview.appendChild(image);
-				};
-				reader.readAsDataURL(file);
-			} else {
-				picPreview.innerHTML += "_$t" + "filename: _$tag___"
-						+ file.name + "_$tag_____$ta" + "ContentTyp: _$tag___"
-						+ file.type + "_$tag_____$ta" + "size: _$tag___"
-						+ file.size + "_$tag____ bytes_$ta";
-			}
-		}
-	</script>
 </body>
 </html>

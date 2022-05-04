@@ -130,13 +130,13 @@ h3 {
 				</form>
 
 				<div style="height: 15px"></div>
-				<div style="display: inline-block; width: 77px;"></div>
-				<div style="display: inline-block;">
-					<a
-						href="<%=request.getContextPath()%>/backend/forum/listAllForumMasterPost.jsp">
-						<button>返回管理員文章列表</button>
-					</a>
-				</div>
+			<div style="display: inline-block; width: 77px;"></div>
+			<div style="display: inline-block;">
+				<a
+					href="<%=request.getContextPath()%>/backend/forum/listAllForumMasterPost.jsp">
+					<button>返回管理員文章列表</button>
+				</a>
+			</div>
 			</div>
 		</section>
 
