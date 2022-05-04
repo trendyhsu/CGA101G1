@@ -45,6 +45,154 @@
 		<url-pattern>/bid/bidProductCheckout</url-pattern>
 		<url-pattern>/bid/bidProductSeller</url-pattern>
 		<url-pattern>/bid/bidProductWonByMemNo</url-pattern>
+		<url-pattern>/frontend/Product/shopping-cart.html</url-pattern>
+		<url-pattern>/frontend/Product/postComment.html</url-pattern>
+		<url-pattern>/frontend/Product/HomePageinProduct-wishlist.jsp</url-pattern>
+		<url-pattern>/frontend/Product/account-order.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<!-- 討論區管理權限  -->
+		
+	<filter>
+					<!-- 管理員 -->
+		<filter-name>ManagerAuthManager</filter-name>
+		<filter-class>com.filters.ManagerAuth1</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthManager</filter-name>
+		<url-pattern>/backend/manager/getAllManager.jsp</url-pattern>
+		<url-pattern>/backend/managerauth/getAllManagerAuth.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+						<!-- 前台網站管理 -->
+		<filter-name>ManagerAuthFrontend</filter-name>
+		<filter-class>com.filters.ManagerAuth2</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthFrontend</filter-name>
+		<url-pattern>/backend/mem/listAllMem.jsp</url-pattern>
+		<url-pattern>/backend/forum/selectReportHome.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+						<!-- 討論區 -->
+		<filter-name>ManagerAuthForum</filter-name>
+		<filter-class>com.filters.ManagerAuth3</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthForum</filter-name>
+		<url-pattern>/backend/forum/listAllForum.jsp</url-pattern>
+		<url-pattern>/backend/forum/listAllForumMasterPost.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+					<!-- FQ管理 -->
+		<filter-name>ManagerAuthFQ</filter-name>
+		<filter-class>com.filters.ManagerAuth4</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthFQ</filter-name>
+		<url-pattern>/backend/servicechatroom/ServiceChatroom.jsp</url-pattern>
+		<url-pattern>/backend/fq/KeyWord-final.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+					<!-- 遊戲分類 -->
+		<filter-name>ManagerAuthGame</filter-name>
+		<filter-class>com.filters.ManagerAuth5</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthGame</filter-name>
+		<url-pattern>/backend/gameplatformtype/GetAllGamePlatformType.jsp</url-pattern>
+		<url-pattern>/backend/gametype/GetAllGameType.jsp</url-pattern>
+		<url-pattern>/backend/gamecompany/GetAllGameCompany.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+					<!-- 行銷管理 -->
+		<filter-name>ManagerAuthMarketing</filter-name>
+		<filter-class>com.filters.ManagerAuth6</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthMarketing</filter-name>
+		<url-pattern>/backend/news/GameNews-final.jsp</url-pattern>
+		<url-pattern>/backend/couponType/listAllCouponType.jsp</url-pattern>
+		<url-pattern>/backend/couponType/addCouponType.jsp</url-pattern>
+		<url-pattern>/backend/memCoupon/showMemCoupon.jsp</url-pattern>
+		<url-pattern>/backend/memCoupon/sendMemCoupon.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+					<!-- 二手商城 -->
+		<filter-name>ManagerAuthBid</filter-name>
+		<filter-class>com.filters.ManagerAuth7</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthBid</filter-name>
+		<url-pattern>/backend/bid/listAllBidApplyList.jsp</url-pattern>
+		<url-pattern>/backend/bid/listAllBid.jsp</url-pattern>
+		<url-pattern>/backend/bid/listAllBidOrder.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+					<!--主要商城 -->
+		<filter-name>ManagerAuthProduct</filter-name>
+		<filter-class>com.filters.ManagerAuth8</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ManagerAuthProduct</filter-name>
+		<url-pattern>/backend/product/productAdd.jsp</url-pattern>
+		<url-pattern>/backend/product/productMod.jsp</url-pattern>
+		<url-pattern>/backend/product/order.jsp</url-pattern>
+
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
