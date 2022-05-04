@@ -326,7 +326,8 @@
                                             :src=item.picList[0].imageUrl class="img-fluid" width="60" alt=""></a>
                                 </td>
                                 <td class="product-name"><a class="text-reset"
-                                        href="product-details.html">{{item.productName}}</a></td>
+                                        :href="`/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo">{{item.productName}}</a>
+                                </td>
                                 <td class="product-price-cart"><span class="amount">{{item.productPrice}}</span></td>
                                 <td class="product-remove text-end text-nowrap">
                                     <a :href="`/CGA101G1/product/deleteMemFavor?ProductNo=`+item.productNo"
@@ -704,10 +705,11 @@
                     proPrice = e.target.value.split(';')[1];
                     console.log("ProName:" + e.target.value.split(';')[2]);
                     proName = e.target.value.split(';')[2];
-
+                    sendURL = `/CGA101G1/product/add2ShoppingCart?ProductNo=` + proNo + `&ProductSales=1&ProductTotalPrice=` + proPrice + `&ProductName=` + proName;
+                    console.log(sendURL);
                     axios({
                         method: 'post',
-                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
+                        url: sendURL,
                     })
                         .then((response) => console.log(response));
                     alert("成功添加至購物車");
