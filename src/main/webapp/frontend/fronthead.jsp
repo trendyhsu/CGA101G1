@@ -309,13 +309,13 @@
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="<%=request.getContextPath()%>/frontend/forum/">
+                                        href="<%=request.getContextPath()%>/forum/forumPostCollectionMemNo">
                                         <i class="bi bi-heart me-2"></i>我的文章收藏
                                     </a>
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="<%=request.getContextPath()%>/frontend/forum/">
+                                        href="<%=request.getContextPath()%>/forum/forumPostMyPostMemNo">
                                         <i class="bi bi-heart me-2"></i>我的文章
                                     </a>
                                 </li>
