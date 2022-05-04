@@ -2,8 +2,10 @@ package com.bidproduct.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,11 +33,14 @@ public class BidProductBackendSearchServlet extends HttpServlet {
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 		
-		String keyword = request.getParameter("keyword");
+		// 取得前端送過來的map
+		Map<String, String[]> map = new HashMap<String, String[]>(request.getParameterMap());
+		
+		/***************************2.開始複合查詢***************************************/
 		BidProductService bidProductSvc = new BidProductService();
-		List<BidProductVO> list = bidProductSvc.getAllByBidName(keyword);
+		List<BidProductVO> list = bidProductSvc.getAll(map);
+		
 		if(list.size()==0) {
-			String url = "/backend/bid/listAllBid.jsp";
 			errorMsgs.add("查無資料");
 		}
 		

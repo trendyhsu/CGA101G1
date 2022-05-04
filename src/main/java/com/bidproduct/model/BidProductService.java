@@ -2,6 +2,7 @@ package com.bidproduct.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 public class BidProductService {
 	private BidProductDAO_interface dao;
@@ -83,7 +84,7 @@ public class BidProductService {
 		return dao.getAll();
 
 	}
-	
+
 	// 使用 bidApplyListNo 取得商品
 	public BidProductVO getByBidApplyListNo(Integer bidApplyListNo) {
 		return dao.findByBidApplyListNo(bidApplyListNo);
@@ -108,7 +109,7 @@ public class BidProductService {
 	public List<BidProductVO> getByBidStateAndSoldTime() {
 		return dao.findByBidStateAndSoldTime();
 	}
-	
+
 	// 查詢競標商品 BidState 等於 1 (結帳結束進入訂單處理中)
 	public List<BidProductVO> getByBidState() {
 		return dao.findByBidState();
@@ -182,6 +183,10 @@ public class BidProductService {
 		bidProductVO.setReceiverPhone(receiverPhone);
 
 		dao.updateByBackend(bidProductVO);
+	}
+
+	public List<BidProductVO> getAll(Map<String, String[]> map) {
+		return dao.getAll(map);
 	}
 
 }
