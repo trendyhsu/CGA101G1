@@ -7,23 +7,7 @@ menu.onclick = () => {
     navbar.classList.toggle('active');
 }
 
-/*查詢頁面出現*/
-document.querySelector('#search-icon').onclick = () => {
-    document.querySelector('#search-form').classList.toggle('active');
-}
-/*查詢頁面關閉*/
-document.querySelector('#search-close').onclick = () => {
-    document.querySelector('#search-form').classList.remove('active');
-}
 
-/*LOGIN頁面跳出*/
-document.querySelector('#login-icon').onclick = () => {
-    document.querySelector('#login-form').classList.toggle('active');
-}
-/*LOGIN頁面關閉 */
-document.querySelector('#login-close').onclick = () => {
-    document.querySelector('#login-form').classList.remove('active');
-}
 /*LOGIN上BTN條*/
 let x = document.querySelector('#login');
 let y = document.querySelector('#register');
