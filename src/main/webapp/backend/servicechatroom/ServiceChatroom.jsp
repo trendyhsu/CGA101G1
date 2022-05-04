@@ -46,72 +46,18 @@
 
                             <div class="messageLine">
                                 <div class="oneMessage">
-                                    HI!zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+                                    HI!
                                 </div>
-
                             </div>
 
                             <div class="messageLine">
                                 <div class="oneAnswer">
-                                    zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzBye!
+                                    Bye!
                                 </div>
 
                             </div>
 
-                            <div class="messageLine">
-                                <div class="oneMessage">
-                                    HI!zzzzzzzzzzzzz
-                                </div>
-
-                            </div>
-
-                            <div class="messageLine">
-                                <div class="oneAnswer">
-                                    zzzzzzzzzzzzzzzzBye!
-                                </div>
-
-                            </div>
-
-                            <div class="messageLine">
-                                <div class="oneMessage">
-                                    HI!zzzzzzzzzzzzz
-                                </div>
-
-                            </div>
-
-                            <div class="messageLine">
-                                <div class="oneAnswer">
-                                    zzzzzzzzzzzzzzzzBye!
-                                </div>
-
-                            </div>
-
-                            <div class="messageLine">
-                                <div class="oneMessage">
-                                    HI!zzzzzzzzzzzzz
-                                </div>
-
-                            </div>
-
-                            <div class="messageLine">
-                                <div class="oneAnswer">
-                                    zzzzzzzzzzzzzzzzBye!
-                                </div>
-
-                            </div>
-                            <div class="messageLine">
-                                <div class="oneMessage">
-                                    HI!zzzzzzzzzzzzz
-                                </div>
-
-                            </div>
-
-                            <div class="messageLine">
-                                <div class="oneAnswer">
-                                    zzzzzzzzzzzzzzzzBye!
-                                </div>
-
-                            </div>
+         
 
 
 
@@ -130,7 +76,7 @@
 
    
 
-   
+   <script src="<%=request.getContextPath()%>/backend/servicechatroom/assets/service-chatroom-js.js"></script>
 
 
 </body>
