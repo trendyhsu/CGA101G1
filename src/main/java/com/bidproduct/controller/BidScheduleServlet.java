@@ -26,6 +26,7 @@ public class BidScheduleServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getServletContext().getAttribute("bidAll");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -36,6 +37,7 @@ public class BidScheduleServlet extends HttpServlet {
 
 	// 初始化時建立 timer 並放置於實體變數
 	public void init() {
+		
 		timer = new Timer();
 		// 設定何時開始
 		Calendar cal = new GregorianCalendar(2022, Calendar.MARCH, 26, 0, 0, 0);

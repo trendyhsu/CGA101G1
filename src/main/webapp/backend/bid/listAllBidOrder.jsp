@@ -178,22 +178,31 @@ font-weight: bold;
 let pay = document.querySelector("#pay");
 if(pay){
 	pay.addEventListener("click",function(){
-		swal({
-				title: "是否確認撥付？",
-				text: "", 
-				icon: "info",
-			})
-			.then(() => {
-				swal("撥付成功！", {
-				  icon: "success",
-				})
-			})
-			.then(() => {
-				setTimeout(pay, 1200);
-				function pay(){
+		swal({ 
+			  title: "確定撥付嗎？", 
+			  text: "", 
+			  type: "warning",
+			  showCancelButton: true, 
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "確定撥付！", 
+			  cancelButtonText: "取消撥付！",
+			  closeOnConfirm: false, 
+			  closeOnCancel: false  
+			}).then(
+			function(isConfirm){ 
+			  if (isConfirm) {
+			    swal("撥付成功！", "狀態已更新。","success")
+			    .then(() => {
+				setTimeout(returnGame, 100);
+				function returnGame(){
 					document.querySelector("#payForm").submit();
 				}
-			 })
+			 }); 
+			  } else { 
+			    swal("撥付取消！", "狀態未更新",
+			"error"); 
+			  } 
+			});
 		})
 }
 
@@ -201,22 +210,31 @@ if(pay){
 let shippingBtn = document.querySelector("#shippingBtn");
 if(shippingBtn){
 	shippingBtn.addEventListener("click",function(){
-		swal({
-				title: "確認出貨？",
-				text: "", 
-				icon: "info",
-			})
-			.then(() => {
-				swal("出貨成功！", {
-				  icon: "success",
-				})
-			})
-			.then(() => {
-				setTimeout(shipping, 1200);
-				function shipping(){
+		swal({ 
+			  title: "確定出貨嗎？", 
+			  text: "", 
+			  type: "warning",
+			  showCancelButton: true, 
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "確定出貨！", 
+			  cancelButtonText: "取消出貨！",
+			  closeOnConfirm: false, 
+			  closeOnCancel: false  
+			}).then(
+			function(isConfirm){ 
+			  if (isConfirm) {
+			    swal("出貨成功！", "狀態已更新。","success")
+			    .then(() => {
+				setTimeout(returnGame, 100);
+				function returnGame(){
 					document.querySelector("#shippingForm").submit();
 				}
-			 })
+			 }); 
+			  } else { 
+			    swal("出貨取消！", "狀態未更新",
+			"error"); 
+			  } 
+			});
 	})
 }
 </script>

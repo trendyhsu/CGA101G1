@@ -121,8 +121,8 @@ float: right;
 							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductGetBack"
-									style="margin-bottom: 0px;">
-									<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="取回">
+									style="margin-bottom: 0px;" id="getBackForm">
+									<input class="btn btn-success btn-sm" style="margin: 0" type="button" value="取回" id="getBackBtn">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 								</FORM>
@@ -133,9 +133,9 @@ float: right;
 						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
 							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
 								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/bid/bidProductRelist"
+									ACTION="<%=request.getContextPath()%>/bid/bidProductRelist" id="reListForm"
 									>
-									<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="重新上架">
+									<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="重新上架" id="reListBtn">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 								</FORM>
@@ -158,6 +158,41 @@ float: right;
         <!--Table -->
     </main>
     <!-- End Main -->
+    
+<script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+	// 取回
+let returnBtn = document.querySelector("#getBackBtn");
+if(returnBtn){
+	returnBtn.addEventListener("click",function(){
+		swal({ 
+			  title: "確定取回嗎？", 
+			  text: "", 
+			  type: "warning",
+			  showCancelButton: true, 
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "確定取回！", 
+			  cancelButtonText: "取消取回！",
+			  closeOnConfirm: false, 
+			  closeOnCancel: false  
+			}).then(
+			function(isConfirm){ 
+			  if (isConfirm) {
+			    swal("取回申請成功！", "請靜待商品寄出。","success")
+			    .then(() => {
+				setTimeout(returnGame, 100);
+				function returnGame(){
+					document.querySelector("#getBackForm").submit();
+				}
+			 }); 
+			  } else { 
+			    swal("取回取消！", "商品狀態未更新",
+			"error"); 
+			  } 
+			});
+	})
+}
+</script>
 </body>
 </html>
 <%@include file="/frontend/frontfoot.jsp" %>
