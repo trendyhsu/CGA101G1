@@ -366,6 +366,9 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 									<%=request.getContextPath()%>/frontend/forum/editForumMsgReport.jsp?forumPostNo=${forumPostVO.forumPostNo}&forumMsgNo=${forumMsgVO.forumMsgNo}">
 
 										<button>檢舉</button>
+									</a> <a
+										herf="<%=request.getContextPath()%>/frontend/forum/editForumMsgReport.jsp?forumPostNo=${forumPostVO.forumPostNo}&forumMsgNo=${forumMsgVO.forumMsgNo}">
+										<button>刪除</button>
 									</a>
 								</div>
 							</div>
