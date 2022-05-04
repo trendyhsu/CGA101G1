@@ -66,7 +66,7 @@
             <i class="fas fa-bars" id="menu-bars"></i>
             <a href="/CGA101G1/frontend/memLogin/login.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
             <a href="#" class="fas fa-search" id="search-icon"></a>
-            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html" class="fas fa-heart"></a>
+            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.jsp" class="fas fa-heart"></a>
             <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
@@ -369,31 +369,28 @@
                                 <div class="cart-button mb-3 d-flex">
                                     <a @click="sendData()" class="btn btn-dark me-3">
                                         <i class="bi bi-cart"></i>
-                                        Add to cart
+                                        加入購物車
                                     </a>
                                     <!-- 原本是jsonData[0].productNo -->
-                                    <a :href="`/CGA101G1/product/AddProduct2FavFromAlone?ProductNo=`+jsonData.productNo"
+                                    <button @click="webcamSendRequestButton1($event)" :value="jsonData.productNo"
                                         class="btn btn-outline-dark me-3">
                                         <i class="bi bi-heart"></i>
-                                    </a>
-                                    <a href="shop-compare.html" class="btn btn-outline-dark">
-                                        <i class="bi bi-arrow-left-right"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             <!-- 購買跟問問題 -->
-                            <div class="product-info-buttons nav pt-4">
-                                <!-- <a href="javascript:void(0);" class="me-3" data-bs-toggle="modal"
+                            <!-- <div class="product-info-buttons nav pt-4"> -->
+                            <!-- <a href="javascript:void(0);" class="me-3" data-bs-toggle="modal"
                                     data-bs-target="#px_size_chart_modal"><i class="bi bi-scissors"></i>Size guide</a> -->
-                                <a href="javascript:void(0);" class="" data-bs-toggle="modal"
+                            <!-- <a href="javascript:void(0);" class="" data-bs-toggle="modal"
                                     data-bs-target="#px_shipping_modal"><i class="bi bi-truck me-2"></i>Shipping</a>
                                 <a href="javascript:void(0);" class="ms-auto" data-bs-toggle="modal"
                                     data-bs-target="#px_ask_modal"><i class="bi bi-envelope ms-auto"></i>Ask
                                     about
                                     product</a>
-                            </div>
+                            </div> -->
                             <!-- 商品的分類 要開-->
-                            <div class="pt-3 border-top mt-3 small">
+                            <div class="pt-3 border-top mt-3 small" style="font-size: medium;">
                                 <p class="theme-link mb-2">
                                     <label class="m-0 text-dark">支援平台:</label>
                                     <a href="javascript:void(0);">{{jsonData.gamePlatformName}}</a>
@@ -418,10 +415,6 @@
                                     </a>
                                 </p>
                             </div>
-                            <div class="pt-4">
-                                <img class="img-fluid" src="../mainCss/assets/img/payment-details.png" title="" alt="">
-                            </div>
-
                         </div>
                     </div>
                     <!-- End Product Details -->
@@ -457,29 +450,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!-- <h1 class="heading"> Game Platform </h1> -->
-            <!-- <div class="idpostion"></div> -->
-            <!-- <div class="pd-collapse-row"> -->
-            <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                            aria-controls="pd_information">遊戲規格
-                            <i class="bi bi-chevron-up"></i></a> -->
-            <!-- <div class="collapse show">
-                    <div class="pd-collapse-box">
-                        <table class="table text-sm small m-0 table-borderless">
-                            <tbody>
-                                <tr>
-                                    <th class="fw-500 text-dark px-0">平台：</th>
-                                    <td class="text-muted">Switch</td>
-                                </tr>
-                                <tr>
-                                    <th class="fw-500 text-dark px-0">Size:</th>
-                                    <td class="text-muted "> 15.8GB</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> -->
-            <!-- </div> -->
+
         </section>
         <!-- 評論區 -->
         <section name="pd_information" id="pd_review" v-show="reviewShow">
@@ -521,6 +492,64 @@
 
 
         <!-- 商品詳情over -->
+        <!-- 跳出加入購物車的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">商品成功加入購物車!!</h6>
+                </div>
+            </div>
+        </div>
+        <!-- 跳出需先加入會員的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="loginToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">請先登入會員唷</h6>
+                </div>
+            </div>
+        </div>
+        <!-- 跳出成功加入我的最愛的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="sucessToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">商品已成功添加至我的最愛</h6>
+                </div>
+            </div>
+        </div>
+        <!-- 跳出重複加入我的最愛的視窗 -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="dupliToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
+                        style="width: 10%; height: 10%;">
+                    <strong class="me-auto">系統訊息</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: #7d879c;;">
+                    <h6 style="color: aliceblue;">我的最愛清單上已經有這個商品囉</h6>
+                </div>
+            </div>
+        </div>
+
+
 
     </main>
     <!-- End Main -->
@@ -531,194 +560,7 @@
 
     <!-- onSale items section starts -->
 
-    <!-- <section class="sale" id="sale">
-        <h3 class="sub-heading"> On Sale </h3>
-        <h1 class="heading"> today's speciality </h1>
 
-        <div class="box-container">
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\MHR.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>全球最大駭客組織「匿名者」（Anonymous）也加入制裁俄羅斯行列！他們宣布最新「戰果」，表示已經駭進俄羅斯電視台，甚至是俄羅斯航太總署（Roscosmos），癱瘓對方的間諜衛星。</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\DontStarveTogether.jpeg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹商品介紹商品介紹商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\PrisonArchitect.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹商品介紹商品介紹商品介紹商品介紹商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\pieces.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\ATRI.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\dokidoki.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\nekopara.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\timestop.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <p>商品介紹</p>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="image">
-                    <img src=".\\images\\threecolor.jpg" alt="">
-                    <a href="#" class="fas fa-heart"></a>
-                </div>
-                <div class="content">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <h3>delicious food</h3>
-                    <a href="#" class="btn">add to cart</a>
-                    <span class="price">$12.99</span>
-                </div>
-            </div>
-
-        </div>
-    </section> -->
-    <!-- onSale items section ends -->
 
     <!-- footer section starts -->
 
@@ -938,17 +780,55 @@
 
                 },
                 sendData() {
+
+                    let toastLiveExample1 = document.getElementById('liveToast1');
+
                     productSales = this.$refs.innerComponent.number;
                     totalPrice = (this.$refs.innerComponent.number * this.jsonData.productPrice);
                     productNo = (this.jsonData.productNo);
                     productName = (this.jsonData.productName);
-                    alert("成功加入購物車");
+
                     axios({
                         method: 'post',
                         url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${productNo}` + '&ProductSales=' + `${productSales}` + '&ProductTotalPrice=' + `${totalPrice}` + '&ProductName=' + `${productName}`,
                         // 請更新
                     })
-                        .then((response) => console.log(response))
+                        .then((response) => {
+                            console.log(response);
+                            let toast = new bootstrap.Toast(toastLiveExample1)
+                            toast.show();
+                        })
+                },
+
+                webcamSendRequestButton1(e) {
+                    let loginToFavMas = document.getElementById('loginToFavMas');
+                    let sucessToFavMas = document.getElementById('sucessToFavMas');
+                    let dupliToFavMas = document.getElementById('dupliToFavMas');
+
+                    // :href="`/CGA101G1/product/AddProduct2FavFromAlone?ProductNo=`+jsonData.productNo"
+                    sendURL = '/CGA101G1/product/AddProduct2FavFromAlone?ProductNo=' + `${e.target.value}`;
+                    axios({
+                        method: 'post',
+                        url: sendURL,
+                    })
+                        .then((response) => {
+                            console.log(response.data);
+                            if (response.data == 0) {
+                                console.log("需登入會員");
+                                let loginToFavMasToast = new bootstrap.Toast(loginToFavMas);
+                                loginToFavMasToast.show();
+                            } else if (response.data == 1) {
+                                console.log("成功加入我的最愛");
+                                let sucessToFavMasToast = new bootstrap.Toast(sucessToFavMas);
+                                sucessToFavMasToast.show();
+                            } else if (response.data == 2) {
+                                console.log("我的最愛已經有這個商品囉");
+                                let dupliToFavMasToast = new bootstrap.Toast(dupliToFavMas);
+                                dupliToFavMasToast.show();
+                            }
+
+
+                        });
                 },
 
                 //分頁

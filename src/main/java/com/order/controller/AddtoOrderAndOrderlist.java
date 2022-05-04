@@ -146,7 +146,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 		
 		session.removeAttribute("shoppingCart");
 
-		response.sendRedirect("/CGA101G1/frontend/Product/account-order.html");
+		response.sendRedirect("/CGA101G1/frontend/Product/account-order.jsp");
 
 		/******* step3.依照結帳方式轉到合適畫面 ************/
 	}

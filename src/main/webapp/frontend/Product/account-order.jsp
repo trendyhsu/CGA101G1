@@ -279,10 +279,10 @@
                             <table class="table table-bordered table-hover mb-0">
                                 <thead class="text-700 bg-gray-200">
                                     <tr>
-                                        <th class="fw-600">訂單編號</th>
-                                        <th class="fw-600">下單日期</th>
-                                        <th class="fw-600">訂單狀態</th>
-                                        <th class="fw-600">金額</th>
+                                        <th class="fw-600" style="width:25%">訂單編號：點擊查看明細</th>
+                                        <th class="fw-600" style="width:25%">下單日期</th>
+                                        <th class="fw-600" style="width:25%">訂單狀態</th>
+                                        <th class="fw-600" style="width:25%">金額</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -303,16 +303,16 @@
                                 <table class="table table-bordered table-hover mb-0">
                                     <thead class="text-700 bg-gray-200">
                                         <tr>
-                                            <th class="fw-600">遊戲編號</th>
-                                            <th class="fw-600">遊戲名稱</th>
-                                            <th class="fw-600">數量</th>
-                                            <th class="fw-600">總價</th>
-                                            <th class="fw-600">發表評論</th>
+                                            
+                                        <th class="fw-600" style="width:40%">遊戲名稱</th>
+                                        <th class="fw-600" style="width:15%">數量</th>
+                                        <th class="fw-600" style="width:15%">總價</th>
+                                        <th class="fw-600" style="width:30%">發表評論</th>
                                         </tr>
                                     </thead>
                                     <tbody v-for="(orderDetails, index) in item.orderDetail" :key="index">
                                         <tr>
-                                            <td class="p-3">{{orderDetails.productNo}}</td>
+                                            
                                             <td class="p-3">{{orderDetails.productName}}</td>
                                             <td class="p-3">{{orderDetails.productSales}}</td>
                                             <td class="p-3"><span
