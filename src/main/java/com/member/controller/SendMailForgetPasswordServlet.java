@@ -35,7 +35,7 @@ public class SendMailForgetPasswordServlet extends HttpServlet {
 		MemVO memVO = memService.getMemVOByEmail(memEmail);
 		
 		if (memEmail.length() == 0) {
-			errorMsgs.put("memEmail", "請輸入Email!!");
+			errorMsgs.put("memEmail", "請輸入您的Email!!");
 
 		}else if (!memEmail.trim().matches(Reg)) {
 			errorMsgs.put("memEmail", "請輸入正確Email格式!!");
@@ -57,7 +57,7 @@ public class SendMailForgetPasswordServlet extends HttpServlet {
 		mail.sendMail(memVO.getMemEmail(), subject, messageText);
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
-		String url = "/frontend/memLogin/login.html";
+		String url = "/frontend/mem/EmailForChangePassword.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
 

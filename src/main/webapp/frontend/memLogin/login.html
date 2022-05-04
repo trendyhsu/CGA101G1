@@ -327,6 +327,9 @@
     <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"
+        type="text/javascript"></script> -->
+
     <script>
         $(document).ready(() => {
             if (localStorage.getItem("memAccount") !== null) {
@@ -355,7 +358,7 @@
             } else {
                 localStorage.removeItem("memAccount");
             }
-
+            // swal("已寄出新密碼", "請至您的信箱查收新的登入密碼", "success");
             $.ajax({
                 type: 'POST',
                 url: "/CGA101G1/mem/LoginServlet",
@@ -372,16 +375,14 @@
                         sessionStorage.setItem("memName", memName);
                         sessionStorage.setItem("memStatus", memStatus);
                         sessionStorage.setItem("memVrfed", memVrfed);
-                        swal("Good job!", "You clicked the button!", "success").then
-
-                        alert("歡迎光臨買鳳(ﾉ>ω<)ﾉ");
-
-                        if (initlocation !== undefined) {
-                            location = initlocation;
-                        } else {
-                            location = "/CGA101G1/frontend/mem/index.html";
-                        }
-
+                        swal("您好歡迎光臨買鳳(ﾉ>ω<)ﾉ", "", "success")
+                            .then(function () {
+                                if (initlocation !== undefined) {
+                                    location = initlocation;
+                                } else {
+                                    location = "/CGA101G1/frontend/mem/index.html";
+                                }
+                            })
                     } else {
                         $("#errMsg").html(message);
                     }
