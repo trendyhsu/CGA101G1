@@ -32,9 +32,9 @@ public class ManagerAuthService {
 
 		return dao.findByPrimaryKey(managerNo);
 	}
-	//刪除，管理員單一功能
-	public void deleteOneManagerAuthrizationFunction(Integer managerAuthrizationFunctionNo,Integer managerNo) {
-		dao.delete(managerAuthrizationFunctionNo,managerNo);
+	//刪除，管理員全功能
+	public void deleteOneManagerAuthrizationFunction(Integer managerNo) {
+		dao.deleteAll(managerNo);
 	}
 	//查詢，單一管理員多個功能
 	public ManagerAuthVO getOneManagerAuth(Integer managerNo) {
@@ -46,7 +46,7 @@ public class ManagerAuthService {
 
 	}
 	//查詢，單一管理員多個功能
-		public Set<ManagerAuthrizationFunctionVO> getFunction(Integer managerNo) {
+		public List<ManagerAuthVO> getFunction(Integer managerNo) {
 			return dao.getFunction(managerNo);
 		}
 }

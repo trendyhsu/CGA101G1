@@ -112,7 +112,14 @@ h3 {
 											<input type="hidden"
 												name="managerNo" value="${managerVO.managerNo}">
 										</FORM>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/backend/manager/authManager.jsp"
+											style="margin-top: 40px;">
+											<input class="btn btn-primary btn-sm" type="submit" value="權限"> 
+											<input type="hidden"
+												name="managerNo" value="${managerVO.managerNo}">
 									</td>
+								
 								</tr>
 							
 

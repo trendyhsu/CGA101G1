@@ -9,8 +9,9 @@ public interface ManagerAuthDAO_interface {
 	public void insert(ManagerAuthVO managerAuthVO);
     public void update(ManagerAuthVO managerAuthVO);
     public void delete(Integer managerNo,Integer managerAuthrizationFunctionNo);
+    public void deleteAll(Integer managerNo);
     public ManagerAuthVO findByPrimaryKey(Integer managerNo);
     public List<ManagerAuthVO> getAll();
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
-    public Set<ManagerAuthrizationFunctionVO> getFunction(Integer Managerno);
+    public List<ManagerAuthVO> getFunction(Integer Managerno);
 }
