@@ -194,6 +194,10 @@ public class BidProductInsertServlet extends HttpServlet {
 			// 修改BidApplyList 的 ApplyState 為 1 已上架
 			BidApplyListService bidApplyListSvc = new BidApplyListService();
 			bidApplyListSvc.updateApplyState(bidApplyListNo, new Integer(1));
+			
+			// 放置新的BidProductVOAll
+			List<BidProductVO> bidProductVOAll = bidProductSvc.getAll();
+			getServletContext().setAttribute("bidProductVOAll", bidProductVOAll);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/backend/bid/listAllBid.jsp";

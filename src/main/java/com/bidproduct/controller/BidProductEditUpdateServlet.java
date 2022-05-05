@@ -210,6 +210,11 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			request.setAttribute("list",list);
 			
 			request.setAttribute("bidProductVO", bidProductVO); // 資料庫update成功後,正確的的bidProductVO物件,存入request
+			
+			// 放置新的BidProductVOAll
+			List<BidProductVO> bidProductVOAll = bidProductSvc.getAll();
+			getServletContext().setAttribute("bidProductVOAll", bidProductVOAll);
+			
 			String url = "/backend/bid/listOneBid.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交listOneBid.jsp
 			successView.forward(request, response);
