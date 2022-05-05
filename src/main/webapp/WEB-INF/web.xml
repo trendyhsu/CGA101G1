@@ -200,41 +200,41 @@
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
 	
-	<filter>
-     <!--全限 -->
-  <filter-name>ManagerOpen</filter-name>
-  <filter-class>com.filters.ManagerAuth9</filter-class>
- </filter>
- <filter-mapping>
-  <filter-name>ManagerOpen</filter-name>
-  <url-pattern>/backend/manager/getAllManager.jsp</url-pattern>
-  <url-pattern>/backend/managerauth/getAllManagerAuth.jsp</url-pattern>
-  <url-pattern>/backend/mem/listAllMem.jsp</url-pattern>
-  <url-pattern>/backend/forum/selectReportHome.jsp</url-pattern>
-  <url-pattern>/backend/forum/listAllForum.jsp</url-pattern>
-  <url-pattern>/backend/forum/listAllForumMasterPost.jsp</url-pattern>
-  <url-pattern>/backend/servicechatroom/ServiceChatroom.jsp</url-pattern>
-  <url-pattern>/backend/fq/KeyWord-final.jsp</url-pattern>
-  <url-pattern>/backend/gameplatformtype/GetAllGamePlatformType.jsp</url-pattern>
-  <url-pattern>/backend/gametype/GetAllGameType.jsp</url-pattern>
-  <url-pattern>/backend/gamecompany/GetAllGameCompany.jsp</url-pattern>
-  <url-pattern>/backend/news/GameNews-final.jsp</url-pattern>
-  <url-pattern>/backend/couponType/listAllCouponType.jsp</url-pattern>
-  <url-pattern>/backend/couponType/addCouponType.jsp</url-pattern>
-  <url-pattern>/backend/memCoupon/showMemCoupon.jsp</url-pattern>
-  <url-pattern>/backend/memCoupon/sendMemCoupon.jsp</url-pattern>
-  <url-pattern>/backend/bid/listAllBidApplyList.jsp</url-pattern>
-  <url-pattern>/backend/bid/listAllBid.jsp</url-pattern>
-  <url-pattern>/backend/bid/listAllBidOrder.jsp</url-pattern>
-  <url-pattern>/backend/product/productAdd.jsp</url-pattern>
-  <url-pattern>/backend/product/productMod.jsp</url-pattern>
-  <url-pattern>/backend/product/order.jsp</url-pattern>
+<!-- 	<filter> -->
+<!--      全限 -->
+<!--   <filter-name>ManagerOpen</filter-name> -->
+<!--   <filter-class>com.filters.ManagerAuth9</filter-class> -->
+<!--  </filter> -->
+<!--  <filter-mapping> -->
+<!--   <filter-name>ManagerOpen</filter-name> -->
+<!--   <url-pattern>/backend/manager/getAllManager.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/managerauth/getAllManagerAuth.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/mem/listAllMem.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/forum/selectReportHome.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/forum/listAllForum.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/forum/listAllForumMasterPost.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/servicechatroom/ServiceChatroom.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/fq/KeyWord-final.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/gameplatformtype/GetAllGamePlatformType.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/gametype/GetAllGameType.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/gamecompany/GetAllGameCompany.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/news/GameNews-final.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/couponType/listAllCouponType.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/couponType/addCouponType.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/memCoupon/showMemCoupon.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/memCoupon/sendMemCoupon.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/bid/listAllBidApplyList.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/bid/listAllBid.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/bid/listAllBidOrder.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/product/productAdd.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/product/productMod.jsp</url-pattern> -->
+<!--   <url-pattern>/backend/product/order.jsp</url-pattern> -->
   
 
-  <dispatcher>REQUEST</dispatcher>
-  <dispatcher>FORWARD</dispatcher>
-  <dispatcher>INCLUDE</dispatcher>
-  <dispatcher>ERROR</dispatcher>
-  <dispatcher>ASYNC</dispatcher>
- </filter-mapping>
+<!--   <dispatcher>REQUEST</dispatcher> -->
+<!--   <dispatcher>FORWARD</dispatcher> -->
+<!--   <dispatcher>INCLUDE</dispatcher> -->
+<!--   <dispatcher>ERROR</dispatcher> -->
+<!--   <dispatcher>ASYNC</dispatcher> -->
+<!--  </filter-mapping> -->
 </web-app>
