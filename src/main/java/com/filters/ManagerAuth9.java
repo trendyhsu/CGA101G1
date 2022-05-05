@@ -39,7 +39,7 @@ public class ManagerAuth9 extends HttpFilter implements Filter {
 				
 				for(ManagerAuthVO Auth:Auths)  {
 					
-					if(Auth.getManagerAuthrizationFunctionNo() == 73000) {
+					if(Auth.getManagerAuthrizationFunctionNo() == 73009) {
 						chain.doFilter(request, response);
 						return;
 					}

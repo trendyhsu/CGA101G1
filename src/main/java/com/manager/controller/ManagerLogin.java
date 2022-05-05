@@ -38,8 +38,6 @@ public class ManagerLogin extends HttpServlet {
 		//調用service
 		ManagerService managerService = new ManagerService();
 		managerVO = managerService.login(managerVO);
-		
-		System.out.println(managerVO.isSuccessful());
 		//如果帳密錯誤即立刻回傳
 		if(!managerVO.isSuccessful()) {
 			writePojo2Json(response, managerVO);
@@ -64,7 +62,6 @@ public class ManagerLogin extends HttpServlet {
 		}
 		String initlocation = (String) session.getAttribute("initlocation");
 		managerVO.setInitlocation(initlocation);
-		System.out.println(managerVO.isSuccessful());
 		writePojo2Json(response, managerVO);
 		
 	}
