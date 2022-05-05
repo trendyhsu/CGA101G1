@@ -32,7 +32,6 @@ public class BidProductGameSearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String keyword = request.getParameter("keyword");
-		System.out.println(keyword);
 		Writer out = response.getWriter();
 		
 		BidProductService bidProductSvc = new BidProductService();
@@ -43,7 +42,6 @@ public class BidProductGameSearchServlet extends HttpServlet {
 		
 		// 過濾是遊戲分類還是遊戲公司還是遊戲平台
 		if (keyword.startsWith("64")) {
-			System.out.println("這是遊戲平台");
 			List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByGamePlatformNo(Integer.valueOf(keyword));
 			for(BidApplyListVO bidApplyListVO:bidApplyListVOs) {
 				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListVO.getBidApplyListNo());
@@ -54,7 +52,6 @@ public class BidProductGameSearchServlet extends HttpServlet {
 			}
 			
 		} else if (keyword.startsWith("63")) {
-			System.out.println("這是遊戲分類");
 			List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByGameTypeNo(Integer.valueOf(keyword));
 			for(BidApplyListVO bidApplyListVO:bidApplyListVOs) {
 				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListVO.getBidApplyListNo());
@@ -64,7 +61,6 @@ public class BidProductGameSearchServlet extends HttpServlet {
 			}
 			
 		} else {
-			System.out.println("這是遊戲公司");
 			List<BidApplyListVO> bidApplyListVOs = bidApplyListSvc.getAllBidApplyListByGameCompanyNo(Integer.valueOf(keyword));
 			for(BidApplyListVO bidApplyListVO:bidApplyListVOs) {
 				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListVO.getBidApplyListNo());

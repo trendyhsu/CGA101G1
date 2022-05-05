@@ -423,8 +423,10 @@
                     document.getElementById("demo").innerHTML = "已結束";
                     document.querySelector("#bidSubmit").disabled="disabled";
                     let nowText = document.querySelector("#congratulation").innerHTML;
-                        let NewNowText = nowText.replace("目前最高出價為：","");
-                        document.querySelector("#congratulation").innerHTML=`恭喜 ${NewNowText} 會員得標`;
+                        if(!(nowText.trim()=="")){
+                            let NewNowText = nowText.replace("目前最高出價為：","");
+                            document.querySelector("#congratulation").innerHTML=`恭喜 ${NewNowText} 會員得標`;
+                        }
                 }
             }, 1000);
 
