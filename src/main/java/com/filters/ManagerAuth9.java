@@ -44,7 +44,8 @@ public class ManagerAuth9 extends HttpFilter implements Filter {
 						return;
 					}
 				} 
-		
+				session.setAttribute("message", "你沒有拜訪此管理頁面的權限");
+				res.sendRedirect(req.getContextPath() + "/backend/index.jsp");
 				
 	}
 

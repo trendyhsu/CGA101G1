@@ -16,7 +16,7 @@ List<ManagerAuthrizationFunctionVO> list = managerAuthrizationFunctionService.ge
 pageContext.setAttribute("list", list);
 
 ManagerAuthService managerAuthService = new ManagerAuthService();
-List<ManagerAuthVO> list2 = managerAuthService.getFunction(71001);
+List<ManagerAuthVO> list2 = managerAuthService.getFunction(managerNo);
 pageContext.setAttribute("list2", list2);
 %>
 <!DOCTYPE html>
@@ -83,7 +83,7 @@ h3 {
 				<!-- 		主要修改資訊區 -->
 				<div>
 					<form method="post"
-						action="<%=request.getContextPath()%>/managerAuth/managerAuthCR"
+						action="<%=request.getContextPath()%>/managerauth/managerEditAuth"
 						name="form1">
 						<table>
 						

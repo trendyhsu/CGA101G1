@@ -66,7 +66,9 @@ public class ManagerAuthCR extends HttpServlet {
 		for(String managerAuth:managerAuthNos) {
 			managerAuthService.addManagerAuth(managerNo, Integer.valueOf(managerAuth));
 		}
-		
+		String url = "/backend/manager/getAllManager.jsp";
+		RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交
+		successView.forward(request, response);
 	}
 
 }
