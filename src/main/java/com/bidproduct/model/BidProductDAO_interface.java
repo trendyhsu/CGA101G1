@@ -1,6 +1,7 @@
 package com.bidproduct.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bidproduct.model.BidProductVO;
 import com.connection.model.ConnectionDAO;
@@ -52,5 +53,8 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 
 	// 後臺更新競標資訊
 	public void updateByBackend(BidProductVO bidProductVO);
+	
+	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
+	public List<BidProductVO> getAll(Map<String, String[]> map);
 
 }

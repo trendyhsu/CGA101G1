@@ -69,13 +69,7 @@ font-weight: bold;
 				</c:forEach>
 			</ul>
 		</c:if>
-<div>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/bid/bidProductBackendSearch" >
-        <b>輸入名稱查詢:</b>
-        <input type="text" name="keyword" value="">
-        <input class="btn btn-primary btn-sm" type="submit" value="送出">
-    </FORM>
-</div>
+		
 		<table class="showPanel" style="table-layout: fixed; color: black;">
 			<tr align='center' valign="middle">
 				<th>競標商品編號</th>

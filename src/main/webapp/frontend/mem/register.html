@@ -28,248 +28,42 @@
     <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/assets/css/style01.css">
-    <link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/MemStyle.css">
+    <link rel="stylesheet" href="/CGA101G1/frontend/mem/css/MemStyle.css">
 </head>
 
 <body>
 
+    
     <!-- header section starts-->
 
     <header>
 
         <div class="logo-div">
             <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
-            <a href="#" class="logo">帕Game</a>
+            <a href="/CGA101G1/frontend/HomePage/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="#home">首頁</a>
-            <a href="#pd_review" class="nav-link">遊戲新聞</a>
-            <a href="#pd_description" class="nav-link">遊戲商城</a>
-            <a href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
-            <a href="#pd_review" class="nav-link">遊戲討論區</a>
+            <a class="active" href="/CGA101G1/frontend/HomePage/HomePage.html">首頁</a>
+            <a href="/CGA101G1/frontend/Product/HomePageinshop.html" class="nav-link">商品區</a>
+            <a href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">競標區</a>
+            <a href="/CGA101G1/frontend/forum/forumHomePage.jsp" class="nav-link">討論區</a>
         </nav>
 
         <div class="icons">
             <!--右上方小icon區-->
             <i class="fas fa-bars" id="menu-bars"></i>
-            <i class="fas fa-solid fa-user-astronaut" id="login-icon"></i>
-            <i class="fas fa-search" id="search-icon"></i>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-shopping-cart" id="cart"></a>
+            <a href="/CGA101G1/frontend/mem/updateMemberData.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
+            <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.jsp" class="fas fa-heart"></a>
+            <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
 
     </header>
 
+
     <!-- header section ends-->
-
-    <!--Login starts-->
-
-    <div action="" id="login-form">
-        <i class="fas fa-times" id="login-close"></i>
-
-
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
-            </div>
-
-            <form id="login" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>Remeber Password</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
-
-            <form id="register" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i>
-                    <input type="text" class="input-field" placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-envelope"></i>
-                    <input type="email" class="input-field" placeholder="E-mail" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i>
-                    <input type="password" class="input-field" placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box">
-                    <span>I agree to the terms & conditions</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
-
-        </div>
-
-    </div>
-
-    <!-- Login ends -->
-
-    <!-- search form starts-->
-
-    <form action="" id="search-form">
-        <div class="search-group">
-
-            <div>
-                <input type="search" placeholder="search here..." name="" id="search-box">
-                <input type="button" id="advanced" value="&#x21FE;Advanced search">
-                <!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
-            </div>
-            <label for="search-box" class="fas fa-search"></label>
-
-        </div>
-
-
-        <i class="fas fa-times" id="search-close"></i>
-    </form>
-
-    <!-- search form ends-->
-
-    <!-- advanced search form starts -->
-
-    <form action="" id="advanced-search-form">
-
-        <i class="fas fa-times" id="advanced-search-close"></i>
-
-        <div id="search-select">
-            <div class="search-type">
-                <span class="list-title">Condition</span>
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="PS5">
-                        <span>New </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
-                        <span>Used </span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="search-type">
-                <span class="list-title">Platforms</span>
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="PS5">
-                        <span>PS5 </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
-                        <span>Nintendo Switch </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
-                        <span>Xbox </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check4" class="check" value="PS5">
-                        <span>PS4 </span>
-                    </label>
-
-                </div>
-            </div>
-
-            <div class="search-type">
-                <span class="list-title">Items Type</span>
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="PS5">
-                        <span>Game Software </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Nintendo Switch">
-                        <span>Hardware </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check3" class="check" value="Nintendo Switch">
-                        <span>Figures </span>
-                    </label>
-
-                </div>
-            </div>
-
-            <div class="search-type">
-                <span class="list-title">Game Type</span>
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" id="check" class="check" value="RPG">
-                        <span>RPG </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check2" class="check" value="Strategy">
-                        <span>Strategy</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check3" class="check" value="Gal-Game">
-                        <span>Gal-Game </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check4" class="check" value="FPS">
-                        <span>FPS </span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="check9" class="check" value="Simulation">
-                        <span>Simulation </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check6" class="check" value="Action">
-                        <span>Action </span>
-                    </label>
-
-                    <label>
-                        <input type="checkbox" id="check7" class="check" value="Adventure">
-                        <span>Adventure </span>
-                    </label>
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="advanced-btn-group">
-            <div>
-                <input type="button" class="advanced-reset" value="&#x21BA;Reset">
-            </div>
-            <div>
-                <!-- <i class="fas fa-solid fa-rocket"></i> -->
-                <button type="submit"><i class="fas fa-solid fa-rocket"></i>Submit</button>
-                <!-- <input type="button" class="advanced-submit" value="&#x21C0;Submit"> -->
-            </div>
-
-
-        </div>
-
-
-
-    </form>
-
-
-    <!-- advanced search form ends -->
-
     <!-- shopping-cart div starts -->
     <div id="shopping-cart">
         <span>Monopoly</span>
