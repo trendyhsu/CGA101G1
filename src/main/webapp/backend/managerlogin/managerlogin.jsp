@@ -40,7 +40,7 @@
             <div id="login" class="input-group">
                 <div class="input-div">
                     <div class="icon-div"><i class="fas fa-solid fa-user-astronaut"></i></div>
-                    <input id="account" type="text" class="input-field" placeholder="Username" required>${message}
+                    <input id="account" type="text" class="input-field" placeholder="Username" required>
                 </div>
                 <div class="input-div">
                     <div for="exampleInputPassword01" class="icon-div"> <i class="fas fa-solid fa-lock"></i></div>

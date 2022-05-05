@@ -388,10 +388,10 @@ public class ManagerAuthJDBCDAO extends DButil implements ManagerAuthDAO_interfa
 		ManagerAuthJDBCDAO dao = new ManagerAuthJDBCDAO();
 
 		// 新增
-//		ManagerAuthVO MAuthVO1 = new ManagerAuthVO();
-//		MAuthVO1.setManagerNo(71001);
-//		MAuthVO1.setManagerAuthrizationFunctionNo(73003);
-//		dao.insert(MAuthVO1);
+		ManagerAuthVO MAuthVO1 = new ManagerAuthVO();
+		MAuthVO1.setManagerNo(71015);
+		MAuthVO1.setManagerAuthrizationFunctionNo(73001);
+		dao.insert(MAuthVO1);
 
 //		// 修改
 //		ManagerAuthVO MAuthVO2 = new ManagerAuthVO();

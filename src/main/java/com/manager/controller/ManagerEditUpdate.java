@@ -48,7 +48,7 @@ public class ManagerEditUpdate extends HttpServlet {
 			try {
 				managerNo = Integer.valueOf(request.getParameter("managerNo").trim());
 			} catch (NumberFormatException e) {
-				errorMsgs.add("競標商品編號需為數字");
+				errorMsgs.add("競標需為數字");
 			}
 			// 判斷帳號
 			String managerAccount = request.getParameter("managerAccount");
