@@ -174,13 +174,13 @@
                                 </li>
                                 <li class="border-bottom mb-0">
                                     <a class="nav-link-style d-flex align-items-center p-3" style="color:black"
-                                        href="<%=request.getContextPath()%>/frontend/chat/">
+                                        href="<%=request.getContextPath()%>/frontend/chatroom/chatroomignorelist.jsp">
                                         <i class="bi bi-emoji-angry me-2"></i>我的忽略會員清單
                                     </a>
                                 </li>
 
                                 <li class="border-bottom mb-0">
-                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="<%=request.getContextPath()%>/frontend/mem/lookUpOneMemCoupon.jsp">
+                                    <a class="nav-link-style d-flex align-items-center p-3" style="color:black" href="<%=request.getContextPath()%>/frontend/memCoupon/lookUpOneMemCoupon.jsp">
                                         <i class="bi bi-bookmark me-2"></i>我的優惠卷
                                     </a>
                                 </li>

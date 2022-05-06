@@ -62,7 +62,7 @@ public class BidProductInsertServlet extends HttpServlet {
 				productNo = 0;
 				errorMsgs.add("商品編號需為數字");
 			}
-			System.out.println(productNo);
+//			System.out.println(productNo);
 			// 賣家編號
 			Integer sellerNo = null;
 			try {
@@ -71,7 +71,7 @@ public class BidProductInsertServlet extends HttpServlet {
 				sellerNo = 0;
 				errorMsgs.add("賣家編號需為數字");
 			}
-			System.out.println(sellerNo);
+//			System.out.println(sellerNo);
 			// 判斷商品名稱
 			String bidName = request.getParameter("bidName");
 			String bidNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_:)(\\-\\)]{1,30}$";
@@ -80,7 +80,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			} else if (!bidName.trim().matches(bidNameReg)) {
 				errorMsgs.add("商品名稱: 只能包含中文、英文大小寫、數字和底線及冒號 , 且長度須在1到30之間");
 			}
-			System.out.println(bidName);
+//			System.out.println(bidName);
 
 			// 判斷商品介紹
 			String bidProdDescription = null;
@@ -89,7 +89,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			} catch (IllegalArgumentException e) {
 				bidProdDescription = "";
 			}
-			System.out.println(bidProdDescription);
+//			System.out.println(bidProdDescription);
 			// 判斷起標價
 			Integer initialPrice = null;
 			try {
@@ -101,7 +101,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			if (initialPrice < 0 || initialPrice > 100000) {
 				errorMsgs.add("起標價應在0 - 100000之間");
 			}
-			System.out.println(initialPrice);
+//			System.out.println(initialPrice);
 
 			// 定義bidState為0
 			Integer bidState = new Integer(0);
@@ -117,7 +117,7 @@ public class BidProductInsertServlet extends HttpServlet {
 			if (bidPriceIncrement < 0) {
 				errorMsgs.add("最低增額應大於0");
 			}
-			System.out.println(bidPriceIncrement);
+//			System.out.println(bidPriceIncrement);
 
 			// 判斷起標時間
 			Timestamp bidLaunchedTime = null;
@@ -145,7 +145,7 @@ public class BidProductInsertServlet extends HttpServlet {
 				bidSoldTime = new Timestamp(System.currentTimeMillis() + 600000);
 				errorMsgs.add("截標時間應晚於起標時間，請重新輸入！");
 			}
-			System.out.println(bidSoldTime);
+//			System.out.println(bidSoldTime);
 
 			// 設定orderState為0
 			Integer orderState = new Integer(0);
