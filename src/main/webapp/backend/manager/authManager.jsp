@@ -3,6 +3,8 @@
 <%@page import="com.managerauth.model.ManagerAuthService"%>
 <%@page import="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionVO"%>
 <%@page import="com.managerauth.model.ManagerAuthVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/backend/share.jsp"%>
@@ -15,9 +17,12 @@ ManagerAuthrizationFunctionService managerAuthrizationFunctionService = new Mana
 List<ManagerAuthrizationFunctionVO> list = managerAuthrizationFunctionService.getAll();
 pageContext.setAttribute("list", list);
 
-ManagerAuthService managerAuthService = new ManagerAuthService();
-List<ManagerAuthVO> list2 = managerAuthService.getFunction(managerNo);
-pageContext.setAttribute("list2", list2);
+// ManagerAuthService managerAuthService = new ManagerAuthService();
+// List<ManagerAuthVO> list2 = managerAuthService.getFunction(managerNo);
+// pageContext.setAttribute("list2", list2);
+
+// List<Integer> lists3 = ;
+// pageContext.setAttribute("list2", list2);
 %>
 <!DOCTYPE html>
 <html>
@@ -93,21 +98,23 @@ h3 {
 								<th><i class="fa fa-camera"></i>新增權限</th>
 							<tr>
 					
-						<c:forEach var="managerAuthrizationFunctionVO" items="${list}" >
+<jsp:useBean id="managerAuthSvc" scope="page" class="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionService" />
 							<tr>
+								<c:forEach var="map" items="${map}">
 								<td class="hidden-phone" style="line-height:100px;">
-									${managerAuthrizationFunctionVO.managerAuthrizationFunction}
+									${managerAuthSvc.getOneManagerAuthrizationFunction(map.key).managerAuthrizationFunction}
 								</td>
 								<td>
 								
-								
-    								<input type="checkbox" class="cktoggle_checkbox" name="authName" value="${managerAuthrizationFunctionVO.managerAuthrizationFunctionNo}">
+    								<input type="checkbox" class="cktoggle_checkbox" name="authName" value="${map.key}" ${(map.value == 1) ? "checked" : ""}>
+    			
 								</td>
+								</c:forEach>
 							</tr>
-						</c:forEach>
+
 							<tr>
-							<input type="hidden" name="managerNo" value="<%=managerNo%>">
 								<td>
+							<input type="hidden" name="managerNo" value="<%=managerNo%>">
 								<input type="submit" value="新增"> <input
 									type="reset" value="重設"></td>
 							</tr>
