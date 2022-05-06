@@ -29,7 +29,6 @@ public class BidProductSearchServlet extends HttpServlet {
 		BidProductService bidProductSvc = new BidProductService();
 		List<BidProductVO> list = bidProductSvc.getAllByBidName(keyword);
 		
-		System.out.println(list);
 		if(list.size()==0) {
 			list = bidProductSvc.getAll();
 		}
