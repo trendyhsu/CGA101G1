@@ -65,7 +65,7 @@ public class OrderDetailVO implements java.io.Serializable{
 	
 	public com.product.model.ProductVO getProductVO(Integer productNo) {
 		com.product.model.ProductService productService = new ProductService();
-		System.out.println(productService.GetOne(productNo).getProductName());
+//		System.out.println(productService.GetOne(productNo).getProductName());
 		return productService.GetOne(productNo);
 	}
 	

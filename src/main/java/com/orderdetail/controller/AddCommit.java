@@ -31,24 +31,24 @@ public class AddCommit extends HttpServlet {
 		String productNo_str = request.getParameter("productNo");
 		Integer productNo = Integer.valueOf(productNo_str);
 		orderDetailVO.setProductNo(productNo);
-		System.out.println(productNo);
+//		System.out.println(productNo);
 		
 		/*******取訂單編號*******/
 		String orderNo_str = request.getParameter("orderNo");
 		Integer orderNo = Integer.valueOf(orderNo_str);
 		orderDetailVO.setOrderNo(orderNo);
-		System.out.println(orderNo);
+//		System.out.println(orderNo);
 		
 		/*******取評論文章*******/
 		String commentCotent = request.getParameter("commentCotent");
 		orderDetailVO.setCommentCotent(commentCotent);
-		System.out.println(commentCotent);
+//		System.out.println(commentCotent);
 		
 		/*******取評論星星*******/
 		String commentStar_str = request.getParameter("CommentStar");
 		Integer commentStar = Integer.valueOf(commentStar_str);
 		orderDetailVO.setCommentStar(commentStar);
-		System.out.println(commentStar);
+//		System.out.println(commentStar);
 		
 		
 		/*********開始更新************/

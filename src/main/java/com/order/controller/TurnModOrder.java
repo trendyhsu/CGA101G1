@@ -37,7 +37,7 @@ public class TurnModOrder extends HttpServlet {
 			// 1.接收請求參數
 			Integer orderNo = Integer.valueOf(request.getParameter("orderNo"));
 
-			System.out.println(orderNo);
+//			System.out.println(orderNo);
 			// 2.開始查詢資料
 			OrderService orderService = new OrderService();
 			OrderVO orderVO = orderService.findOneOrderByOrderNo(orderNo);
@@ -52,7 +52,7 @@ public class TurnModOrder extends HttpServlet {
 			
 			// 其他可能的錯誤處理
 		} catch (Exception e) {
-			System.out.println("沒有資料");
+//			System.out.println("沒有資料");
 			String url = "/backend/product/order.jsp";
 			errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 			RequestDispatcher failureView = request.getRequestDispatcher(url);

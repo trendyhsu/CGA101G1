@@ -44,7 +44,7 @@ public class ShowCart extends HttpServlet {
 //		} else if(!(session.getAttribute("member") == null)){
 			MemVO memVO = (MemVO) (session.getAttribute("memVO"));
 			Integer memNo = memVO.getMemNo();
-			System.out.println("現在登入的會員編號是：" + memNo);
+//			System.out.println("現在登入的會員編號是：" + memNo);
 		
 //		String memNo = "11001";
 
@@ -54,7 +54,7 @@ public class ShowCart extends HttpServlet {
 
 			Gson gson = new Gson();
 			String json = gson.toJson(orderList);
-			System.out.println(json);
+//			System.out.println(json);
 			out.print(json);
 //			response.sendRedirect("frontend/product/HomePageinshop.html");
 

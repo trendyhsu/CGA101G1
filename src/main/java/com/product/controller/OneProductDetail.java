@@ -44,15 +44,15 @@ public class OneProductDetail extends HttpServlet {
 		map.put("productName", productVO.getProductName());
 		map.put("productNo", productVO.getProductNo().toString());
 		map.put("gameTypeName", productVO.getOneGameType(productVO.getGameTypeNo()).getGameTypeName());
-		map.put("gameTypeNo", productVO.getGameTypeNo().toString());
-		map.put("gamePlatformNo", productVO.getGamePlatformNo().toString());
+//		map.put("gameTypeNo", productVO.getGameTypeNo().toString());
+//		map.put("gamePlatformNo", productVO.getGamePlatformNo().toString());
 		map.put("gamePlatformName", productVO.getOneGamePlatformType(productVO.getGamePlatformNo()).getGamePlatformName());
-		map.put("gameCompanyNo", productVO.getGameCompanyNo().toString());
+//		map.put("gameCompanyNo", productVO.getGameCompanyNo().toString());
 		map.put("gameCompanyName", productVO.getOneGameCompanyVO(productVO.getGameCompanyNo()).getGameCompanyName());
 		map.put("itemProdDescription", productVO.getItemProdDescription());
-		map.put("upcNum", productVO.getUpcNum());
+//		map.put("upcNum", productVO.getUpcNum());
 		map.put("productPrice", productVO.getProductPrice().toString());
-		map.put("productState",productVO.getProductState().toString());
+//		map.put("productState",productVO.getProductState().toString());
 		
 		
 		Gson gson = new Gson();
