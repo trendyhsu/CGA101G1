@@ -42,7 +42,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
 		Integer memNo = memVO.getMemNo();
 
-		System.out.println("現在下訂單的會員編號是：memNo");
+//		System.out.println("現在下訂單的會員編號是：memNo");
 //		Integer memNo = 11001;
 		String memCNoString = request.getParameter("MemCouponNo");
 //		System.out.println("會員專屬優惠券號碼" + memCNoString);
@@ -91,7 +91,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 
 			MemCouponJDBCDAO dao = new MemCouponJDBCDAO();
 			dao.changestate(memCouponVO);
-			System.out.println("更改優惠券狀態為已經使用");
+//			System.out.println("更改優惠券狀態為已經使用");
 			
 		} else {
 			OrderService orderService = new OrderService();
@@ -125,7 +125,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 //		System.out.println("新增結束");
 
 		/************  新增成功寄mail通知   **************/
-		System.out.println("開始寄信");
+//		System.out.println("開始寄信");
 		MailService mailService = new MailService();
 //		String receiverMailAddress=memVO.getMemEmail();
 		String targetName =memVO.getMemName();
@@ -140,7 +140,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 		
 		
 		mailService.sendMail(receiverMailAddress, subject, messageText.toString());
-		System.out.println("寄信完畢");
+//		System.out.println("寄信完畢");
 		
 		
 		

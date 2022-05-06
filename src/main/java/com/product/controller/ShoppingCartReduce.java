@@ -33,7 +33,7 @@ public class ShoppingCartReduce extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
 		Integer memNo = memVO.getMemNo();
-		System.out.println("現在登入的會員編號是：" + memNo);
+//		System.out.println("現在登入的會員編號是：" + memNo);
 //		String memNo = "11001";
 //		List<Orderdetail> orderList = new ArrayList<Orderdetail>();
 //		List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart")==null?new ArrayList<Cartdetail>():(List<Cartdetail>) session.getAttribute("shoppingCart"));
@@ -41,19 +41,19 @@ public class ShoppingCartReduce extends HttpServlet {
 
 		String productNo = request.getParameter("ProductNo");
 
-		System.out.println("有購物車");
+//		System.out.println("有購物車");
 		//判斷有該物件
 		Cartdetail cartdetail = getCartdetail(request);
-		System.out.println(cartdetail.getProductNo());
-		System.out.println(cartdetail.getProductName());
+//		System.out.println(cartdetail.getProductNo());
+//		System.out.println(cartdetail.getProductName());
 
-		System.out.println(cartList.contains(cartdetail));
+//		System.out.println(cartList.contains(cartdetail));
 
 		if (cartList.contains(cartdetail)) {
-			System.out.println("開始刪除");
+//			System.out.println("開始刪除");
 			Cartdetail innerCartdetail = cartList.get(cartList.indexOf(cartdetail));
-			System.out.println("要刪除的數量：" + cartdetail.getProductSales());
-			System.out.println("目前購物車上的數量：" + innerCartdetail.getProductSales());
+//			System.out.println("要刪除的數量：" + cartdetail.getProductSales());
+//			System.out.println("目前購物車上的數量：" + innerCartdetail.getProductSales());
 
 			if(innerCartdetail.getProductSales()>1) {
 				innerCartdetail.setProductSales(innerCartdetail.getProductSales() - cartdetail.getProductSales());
@@ -63,14 +63,14 @@ public class ShoppingCartReduce extends HttpServlet {
 			}
 
 		} else {
-			System.out.println("沒有這個物品欸");
+//			System.out.println("沒有這個物品欸");
 
 			response.sendRedirect("/CGA101G1/frontend/Product/shopping-cart.html");
 		}
 
 		Gson gson = new Gson();
 		String json = gson.toJson(session.getAttribute("shoppingCart"));
-		System.out.println(json);
+//		System.out.println(json);
 //			out.print(json);
 		response.sendRedirect("/CGA101G1/frontend/Product/shopping-cart.html");
 

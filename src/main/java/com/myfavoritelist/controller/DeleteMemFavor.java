@@ -34,9 +34,9 @@ public class DeleteMemFavor extends HttpServlet {
 		
 		MyfavoritelistService myfavoritelistService = new MyfavoritelistService();
 		myfavoritelistService.deleteOne(memNo, IntDeleteProdcutNo);
-		System.out.println("成功刪除會員: "+memNo+"的最愛商品編號"+deleteProductNo);
+//		System.out.println("成功刪除會員: "+memNo+"的最愛商品編號"+deleteProductNo);
 		
-		response.sendRedirect("/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html");
+		response.sendRedirect("/CGA101G1/frontend/Product/HomePageinProduct-wishlist.jsp");
 		
 	}
 

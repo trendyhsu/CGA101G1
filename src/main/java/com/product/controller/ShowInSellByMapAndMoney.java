@@ -14,15 +14,16 @@ import com.google.gson.Gson;
 import com.product.model.ProductService;
 
 
-@WebServlet("/product/showSellProductByKeyWord")
-public class ShowSellProductByKeyWord extends HttpServlet {
+@WebServlet("/product/showInSellByMapAndMoney")
+public class ShowInSellByMapAndMoney extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 
-    public ShowSellProductByKeyWord() {
+
+    public ShowInSellByMapAndMoney() {
         super();
- 
+
     }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -32,26 +33,25 @@ public class ShowSellProductByKeyWord extends HttpServlet {
 		ProductService productService = new ProductService();
 		
 		String pageStr =request.getParameter("Page");
-		String keyWord =request.getParameter("keyWord");
-		
-		if(pageStr==null||pageStr.equals("1")) {
+		Integer lowPrice = Integer.valueOf(request.getParameter("lowPrice"));
+		Integer highPrice = Integer.valueOf(request.getParameter("highPrice"));
+		if(pageStr==null) {
 
-//			System.out.println(keyWord);
 			/****** 首頁為0 *******/
-			List<Object> list = productService.GetAllSelledProductsBykeyword(0, keyWord);
+			List<Object> list = productService.showInSellByMapAndMoney(1, lowPrice, highPrice);
 			Gson gson = new Gson();
 			String json = gson.toJson(list);
 			out.print(json);
 			
 			
 		}else {
-//			System.out.println("有頁數參數："+keyWord);
 			Integer page = Integer.valueOf(pageStr);
-			List<Object> list = productService.GetAllSelledProductsBykeyword(page, keyWord);
+			List<Object> list = productService.showInSellByMapAndMoney(page, lowPrice, highPrice);
 			Gson gson = new Gson();
 			String json = gson.toJson(list);
 			out.print(json);
 		}
+		
 	}
 
 

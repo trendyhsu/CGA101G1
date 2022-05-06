@@ -56,7 +56,7 @@ public class OrderService {
 	}
 	
 	public void updateOrder(OrderVO orderVO) {
-		System.out.println("在S層開始更新Order");
+//		System.out.println("在S層開始更新Order");
 		dao.update(orderVO);
 	}
 	

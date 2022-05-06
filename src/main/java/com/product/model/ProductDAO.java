@@ -933,9 +933,18 @@ public class ProductDAO implements ProductDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GETInSellByPage);
 			
-			pstmt.setInt(1, (page-1)*9);
+			String sql = "SELECT a.productNo,a.gameTypeNo,a.gamePlatformNo,a.productName,a.productPrice,b.sumC,b.CCS FROM product a  "
+					+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
+					+ "where ProductState = 1 order by productNo desc limit ? ,9 ;";
+			
+			
+			pstmt = con.prepareStatement(sql);
+			
+			if(page<=0) {
+				pstmt.setInt(1, (0)*9);
+			}else {
+			pstmt.setInt(1, (page-1)*9);}
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -951,26 +960,31 @@ public class ProductDAO implements ProductDAO_interface{
 //				map.put("gameTypeName", gameTypeName);
 				
 				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
-				map.put("gamePlatformNo", gamePlatformNo);
+//				map.put("gamePlatformNo", gamePlatformNo);
 				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
 				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
 				map.put("gamePlatformTypeName", gamePlatformTypeName);
 				
 				
-				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
+//				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
 				map.put("productName", rs.getString("ProductName"));
 				map.put("productPrice", rs.getInt("ProductPrice"));
 				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
-				OrderDetailService orderDetailService = new OrderDetailService();
-				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+//				OrderDetailService orderDetailService = new OrderDetailService();
+//				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
 				
 				
 				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
-				if (orderDetailVO == null) {
+//				if (orderDetailVO == null) {
+				if (rs.getInt("sumC") == 0) {
 					map.put("avgCommentStar", 0);
 					list.add(map);
 				} else {
-					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+					Integer totalStar= Integer.valueOf(rs.getInt("sumC"));
+					Integer commentCounts = Integer.valueOf(rs.getInt("CCS"));
+					
+					Integer avgC = (int) Math.floor((totalStar / commentCounts));
+//					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
 
 					map.put("avgCommentStar", avgC);
 					list.add(map);
@@ -1194,7 +1208,12 @@ public class ProductDAO implements ProductDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GETInSellByPageAndGameType);
 			pstmt.setInt(1,gameTypeNo);
-			pstmt.setInt(2, (page-1)*9);
+			
+			
+			if(page<=0) {
+				pstmt.setInt(2, (0)*9);
+			}else {
+			pstmt.setInt(2, (page-1)*9);}
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -1284,8 +1303,12 @@ public class ProductDAO implements ProductDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GETInSellByPageAndGamePlatformType);
 			pstmt.setInt(1,gamePlatformNo);
-			pstmt.setInt(2, (page-1)*9);
+			if(page<=0) {
+				pstmt.setInt(2, (0)*9);
+			}else {
+			pstmt.setInt(2, (page-1)*9);}
 			rs = pstmt.executeQuery();
+
 
 			while (rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -1380,6 +1403,177 @@ public class ProductDAO implements ProductDAO_interface{
 			while (rs.next()) {
 
 				count = (rs.getInt("count(productNo)"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return count;
+	}
+
+	
+	
+	
+	@Override
+	public List<Object> getPageInSellByMapAndMoney(Integer page, Integer lowPrice, Integer highPrice) {
+	
+		String sql = "SELECT a.productNo,a.gameTypeNo,a.gamePlatformNo,a.productName,a.productPrice,b.sumC,b.CCS FROM product a  "
+				+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
+				+ "where ProductState = 1 and productPrice between ? and ? order by productNo desc limit ? ,9 ;";
+		
+		
+		List<Object>list = new ArrayList<Object>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, lowPrice);
+			pstmt.setInt(2, highPrice);
+			if(page<=0) {
+				pstmt.setInt(3, (0)*9);
+			}else {
+			pstmt.setInt(3, (page-1)*9);
+			}
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				ProductVO productVO = new ProductVO();				
+				Integer productNo = rs.getInt("ProductNo");
+				map.put("productNo", productNo);
+				
+				Integer gameTypeNo=rs.getInt("GameTypeNo");
+				map.put("gameTypeNo", gameTypeNo);
+
+				
+				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
+
+				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
+				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
+				map.put("gamePlatformTypeName", gamePlatformTypeName);
+				
+				
+
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getInt("ProductPrice"));
+				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
+
+				
+				
+				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
+//				if (orderDetailVO == null) {
+				if (rs.getInt("sumC") == 0) {
+					map.put("avgCommentStar", 0);
+					list.add(map);
+				} else {
+					Integer totalStar= Integer.valueOf(rs.getInt("sumC"));
+					Integer commentCounts = Integer.valueOf(rs.getInt("CCS"));
+					
+					Integer avgC = (int) Math.floor((totalStar / commentCounts));
+//					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+
+					map.put("avgCommentStar", avgC);
+					list.add(map);
+				}
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return list;
+	}
+
+	
+	
+	@Override
+	public Integer showSellCountByMoney(Integer lowPrice, Integer highPrice) {
+
+	final String sql ="SELECT count(a.productNo) FROM product a  "
+				+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
+				+ "where ProductState = 1 and productPrice between ? and ? ;";
+		
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+        Integer count = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, lowPrice);
+			pstmt.setInt(2, highPrice);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				count = (rs.getInt("count(a.productNo)"));
 
 			}
 

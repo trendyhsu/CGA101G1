@@ -94,7 +94,7 @@ public class GetParameter extends HttpServlet {
 		
 
 		String gameTypeNo_String = request.getParameter("GameTypeNo");
-		System.out.println(gameTypeNo_String);
+//		System.out.println(gameTypeNo_String);
 		Integer gameTypeNo = Integer.valueOf(gameTypeNo_String);
 		out.print("<h1>" + gameTypeNo + "</h1>");
 		productVO.setGameTypeNo(gameTypeNo);
@@ -149,30 +149,30 @@ public class GetParameter extends HttpServlet {
 		/*--------------前端輸入資訊結束--------------------*/
 
 		String compare = "select ProductNo from product where ProductNo = ?;";
-		System.out.println("查詢比對是要編輯還是新增");
+//		System.out.println("查詢比對是要編輯還是新增");
 		try {
 			String productNoCompare = (request.getParameter("ProductNo").equals("") ? "0"
 					: request.getParameter("ProductNo"));
 
-			System.out.println("有商品編號嗎?字串版: " + productNoCompare);
+//			System.out.println("有商品編號嗎?字串版: " + productNoCompare);
 			Integer productNo = Integer.valueOf(productNoCompare);
-			System.out.println("有商品編號嗎?數字版: " + productNo);
+//			System.out.println("有商品編號嗎?數字版: " + productNo);
 			PreparedStatement preparedStatement0 = connection.prepareStatement(compare);
 			preparedStatement0.setString(1, productNoCompare);
 			ResultSet resultset = preparedStatement0.executeQuery();
 
 			if (!(errorMsgs.size() == 0)) {
-				System.out.println("錯誤訊息forward開始");
+//				System.out.println("錯誤訊息forward開始");
 				if (resultset.next()) {
-					System.out.println("錯誤訊息forward到修改頁面開始");
+//					System.out.println("錯誤訊息forward到修改頁面開始");
 					/***** 帶著錯誤訊息導到修改頁面 *******/
 					for(String r:errorMsgs) {
-						System.out.println(r);
+//						System.out.println(r);
 					}
 					response.sendRedirect("/CGA101G1/backend/product/productMod.jsp");
 					return;
 				} else {
-					System.out.println("錯誤訊息forward到新增頁面開始");
+//					System.out.println("錯誤訊息forward到新增頁面開始");
 					/***** 帶著錯誤訊息導到新增頁面 *******/
 					
 					request.setAttribute("productVO", productVO);
@@ -182,10 +182,10 @@ public class GetParameter extends HttpServlet {
 //					response.sendRedirect("/CGA101G1/backend/product/productAdd.jsp");
 				}
 			};
-			System.out.println(errorMsgs.isEmpty());
+//			System.out.println(errorMsgs.isEmpty());
 
 			if (resultset.next()&&(errorMsgs.isEmpty())) {
-				System.out.println("開改修改");
+//				System.out.println("開改修改");
 
 				if ((request.getParameter("ProductState").equals("1"))) {
 					/*--------------要更新且上架--------------------*/
@@ -196,7 +196,7 @@ public class GetParameter extends HttpServlet {
 //					// 1 2 3 4 5 6 7 8
 //					String update = "UPDATE product SET ProductName = ?, ProductPrice = ?, GameTypeNo = ?, GamePlatformNo = ?, GameCompanyNo = ?, ProductState = ?,LaunchedTime = now(), ItemProdDescription = ? WHERE (ProductNo = ?); ";
 
-					System.out.println("開始更新的程式碼且要上架");
+//					System.out.println("開始更新的程式碼且要上架");
 
 					ProductService productService = new ProductService();
 					productService.updateProductAndSold(productNo, gameTypeNo, gamePlatformNo, gameCompanyNo,
@@ -263,7 +263,7 @@ public class GetParameter extends HttpServlet {
 					// 1 2 3 4 5 6 7 8
 //					String update = "UPDATE product SET ProductName = ?, ProductPrice = ?, GameTypeNo = ?, GamePlatformNo = ?, GameCompanyNo = ?, ProductState = ?,SoldTime = now(), ItemProdDescription = ? WHERE (ProductNo = ?); ";
 
-					System.out.println("開始下架的程式碼");
+//					System.out.println("開始下架的程式碼");
 					ProductService productService = new ProductService();
 					productService.updateProductNotSold(productNo, gameTypeNo, gamePlatformNo, gameCompanyNo,
 							productName, productPrice, productState, itemProdDescription, upcNum);
@@ -271,10 +271,10 @@ public class GetParameter extends HttpServlet {
 					out.print("下架成功");
 
 //					更新封面
-					System.out.println("開始更新圖");
-					System.out.println(request.getParameter("productImage1NO"));
+//					System.out.println("開始更新圖");
+//					System.out.println(request.getParameter("productImage1NO"));
 					Integer productImage1NO = Integer.valueOf(request.getParameter("productImage1NO"));
-					System.out.println(productImage1NO);
+//					System.out.println(productImage1NO);
 					Part picPart1 = request.getPart("productImage1");
 					InputStream picInputStream = picPart1.getInputStream();
 
@@ -326,17 +326,17 @@ public class GetParameter extends HttpServlet {
 				}
 
 			} else if((errorMsgs.isEmpty())){
-				System.out.println("開始新增資料");
+//				System.out.println("開始新增資料");
 
 //				判斷是否上架 未來要檢查有沒有是int
 				if (request.getParameter("ProductState").equals("1")) {
 					/*--------------新增且上架--------------------*/
-					System.out.println("新增且上架");
+//					System.out.println("新增且上架");
 					ProductService productService = new ProductService();
 					productService.AddNewProductAndSold(gameTypeNo, gamePlatformNo, gameCompanyNo, productName,
 							productPrice, productState, itemProdDescription, upcNum);
 
-					System.out.println("新增且上架資料結束，開始新增圖片");
+//					System.out.println("新增且上架資料結束，開始新增圖片");
 
 //			圖1
 					Part picPart1 = request.getPart("productImage1");

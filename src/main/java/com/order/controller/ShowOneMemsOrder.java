@@ -35,7 +35,7 @@ public class ShowOneMemsOrder extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
 		Integer memNo = memVO.getMemNo();
-		System.out.println("現在查看訂單的會員編號是："+memNo);
+//		System.out.println("現在查看訂單的會員編號是："+memNo);
 //		Integer memNo = 11001;
 		OrderService orderService = new OrderService();
 		List<OrderVO> list = orderService.findAllOrdersByMemNo(memNo);

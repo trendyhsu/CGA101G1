@@ -43,7 +43,7 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 			pstmt.setInt(1, memNo);
 			pstmt.setInt(2, productNo);					
 			pstmt.executeUpdate();
-			System.out.println("成功刪除");
+
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -86,8 +86,7 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 
 			pstmt = con.prepareStatement(getOneInMem);
-			System.out.println(memNo);
-			System.out.println(productNo);
+
 			
 			
 			pstmt.setInt(1, memNo);
@@ -97,13 +96,11 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 			if(rs.next()) {
 				myfavoritelistVo.setMemNo(rs.getInt(1));
 				myfavoritelistVo.setProductNo(rs.getInt(2));
-				System.out.println("查詢成功有重複");
 				return myfavoritelistVo;
 			}else
 			{
 			myfavoritelistVo.setMemNo(memNo);
-			myfavoritelistVo.setProductNo(0);
-			System.out.println("查詢成功沒有重複");		
+			myfavoritelistVo.setProductNo(0);	
 			return myfavoritelistVo;
 			}
 
@@ -149,7 +146,7 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 			pstmt.setInt(1, memNo);
 			pstmt.setInt(2, productNo);					
 			pstmt.executeUpdate();
-			System.out.println("成功添加");
+
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {

@@ -13,9 +13,9 @@ public class ProductService {
 	
 	//更新產品不上架                    //           1             2                       3                 4                       5                   6                         7                       8              9
 	public ProductVO updateProductNotSold(Integer productNo,Integer gameTypeNo,Integer gamePlatformNo,Integer gameCompanyNo,String productName,Integer productPrice,Integer productState,String itemProdDescription,String upcNum) {
-		System.out.println("開始更新不上架");
+//		System.out.println("開始更新不上架");
 		ProductVO productVO = new ProductVO();
-		System.out.println(productNo);
+//		System.out.println(productNo);
 		productVO.setProductNo(productNo);
 		productVO.setGameTypeNo(gameTypeNo);
 		productVO.setGamePlatformNo(gamePlatformNo);
@@ -26,7 +26,7 @@ public class ProductService {
 		productVO.setItemProdDescription(itemProdDescription);
 		productVO.setUpcNum(upcNum);
 		dao.updateNotSold(productVO);
-		System.out.println("更新不上架over");
+//		System.out.println("更新不上架over");
 	
         return productVO;
 	};
@@ -168,5 +168,17 @@ public class ProductService {
 		return dao.getPageInSellByMapAndGamePlatformNo(page, gamePlatformNo);
 		
 	} 
+	
+	
+	//查正在上市產品且價格是??+??的數量：顯示頁數用
+	public Integer showSellCountByMoney(Integer lowPrice, Integer highPrice) {
+		return dao.showSellCountByMoney(lowPrice, highPrice);
+	}
+	
+	//查正在上市產品且價格是??+??的產品用map裝且須輸入分頁資訊
+	public List<Object> showInSellByMapAndMoney(Integer page,Integer lowPrice, Integer highPrice){
+		return dao.getPageInSellByMapAndMoney(page, lowPrice, highPrice);
+		
+	}
 
 }

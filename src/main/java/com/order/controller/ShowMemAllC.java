@@ -65,7 +65,7 @@ public class ShowMemAllC extends HttpServlet {
 			CouponTypeVO couponTypeVO = CouponTypeService.listOneCouponType(couponTypeNo);
 			Integer discountPrice = couponTypeVO.getDiscountPrice();
 			map.put("discountPrice", discountPrice);
-			System.out.println(discountPrice);
+//			System.out.println(discountPrice);
 			list.add(map);
 		}
 

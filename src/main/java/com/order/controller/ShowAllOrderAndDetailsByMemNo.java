@@ -43,7 +43,7 @@ public class ShowAllOrderAndDetailsByMemNo extends HttpServlet {
 		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
 		Integer memNo = memVO.getMemNo();
 //		Integer memNo = 11003;
-		System.out.println("現在查看訂單的會員編號是："+memNo);
+//		System.out.println("現在查看訂單的會員編號是："+memNo);
 		
 
 		OrderService orderService = new OrderService();

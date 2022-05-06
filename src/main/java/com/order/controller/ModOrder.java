@@ -52,7 +52,7 @@ public class ModOrder extends HttpServlet {
 		if (receiverName.trim().length() == 0 || receiverName == null) {
 			errorMsgs.add("收件人姓名: 不能空白");
 		} else if (!receiverName.trim().matches(nameRule)) {
-			System.out.println("收件人姓名: 只能包含中文.....");
+//			System.out.println("收件人姓名: 只能包含中文.....");
 			errorMsgs.add("收件人姓名: 只能包含中文、英文大小寫、數字和底線及冒號 , 且長度須在2到30之間");
 		}
 		checkedOrderVO.setReceiverName(receiverName);
@@ -82,37 +82,37 @@ public class ModOrder extends HttpServlet {
 
 		/****** orderNo **********/
 		String orderNo_Str = request.getParameter("OrderNo");
-		System.out.println(orderNo_Str);
+//		System.out.println(orderNo_Str);
 		Integer orderNo = Integer.valueOf(orderNo_Str);
 		checkedOrderVO.setOrderNo(orderNo);
 
 		/****** OrderTotalPrice **********/
 		String orderTotalPrice_Str = request.getParameter("OrderTotalPrice");
-		System.out.println(orderTotalPrice_Str);
+//		System.out.println(orderTotalPrice_Str);
 		Integer orderTotalPrice = Integer.valueOf(orderTotalPrice_Str);
 		checkedOrderVO.setOrderTotalPrice(orderTotalPrice);
 
 		/****** TranTime **********/
 		String tranTime_Str = request.getParameter("TranTime");
-		System.out.println(tranTime_Str);
+//		System.out.println(tranTime_Str);
 		java.sql.Timestamp tranTime = java.sql.Timestamp.valueOf(request.getParameter("TranTime"));
 		checkedOrderVO.setTranTime(tranTime);
 
 		/****** OrderState **********/
 		String orderState_Str = request.getParameter("OrderState");
-		System.out.println(orderState_Str);
+//		System.out.println(orderState_Str);
 		Integer orderState = Integer.valueOf(orderState_Str);
 		checkedOrderVO.setOrderState(orderState);
 
 		/****** 取貨方式 **********/
 		String pickupMethod_Str = request.getParameter("PickupMethod");
-		System.out.println(pickupMethod_Str);
+//		System.out.println(pickupMethod_Str);
 		Integer pickupMethod = Integer.valueOf(pickupMethod_Str);
 		checkedOrderVO.setPickupMethod(pickupMethod);
 
 		/****** 物流編號 **********/
 		String trackingNum = request.getParameter("TrackingNum");
-		System.out.println(trackingNum);
+//		System.out.println(trackingNum);
 		if (orderState == 4 && !trackingNum.equals("0")) {
 			errorMsgs.add("訂單作廢的話，物流編號請填0");
 		}
@@ -123,9 +123,9 @@ public class ModOrder extends HttpServlet {
 		/********* 有錯誤訊息就回到編輯頁面 *************/
 
 		if (!(errorMsgs.size() == 0)) {
-			System.out.println("錯誤訊息forward開始");
+//			System.out.println("錯誤訊息forward開始");
 
-			System.out.println("錯誤訊息forward到新增頁面開始");
+//			System.out.println("錯誤訊息forward到新增頁面開始");
 			/***** 帶著錯誤訊息導到新增頁面 *******/
 			request.setAttribute("orderVO", checkedOrderVO);
 
@@ -136,7 +136,7 @@ public class ModOrder extends HttpServlet {
 		}
 
 		/********* 沒有錯誤訊息開始更新 *************/
-		System.out.println("開始更新訂單");
+//		System.out.println("開始更新訂單");
 		OrderService orderService = new OrderService();
 		orderService.updateOrder(checkedOrderVO);
 		
@@ -144,7 +144,7 @@ public class ModOrder extends HttpServlet {
 
 		/********** 訂單如果作廢也要同步更新明細 *****/
 		if (orderState == 4) {
-			System.out.println("訂單作廢也把明細歸0");
+//			System.out.println("訂單作廢也把明細歸0");
 			List<OrderDetailVO> list = checkedOrderVO.getAllDetailByOrderNo(orderNo);
 			for (OrderDetailVO orderDetailVO : list) {
 				OrderDetailService orderDetailService = new OrderDetailService();
@@ -158,8 +158,8 @@ public class ModOrder extends HttpServlet {
 		Integer memNo = Integer.valueOf(request.getParameter("MemNo"));
 		
 		if (orderState == 2) {
-			System.out.println("因為完成訂單了所以開始寄信");
-			System.out.println("完成訂單的編號："+orderNo);
+//			System.out.println("因為完成訂單了所以開始寄信");
+//			System.out.println("完成訂單的編號："+orderNo);
 			MemVO memVO = checkedOrderVO.getMemVObyMemNo(memNo);
 			
 			MailService mailService = new MailService();
@@ -176,13 +176,13 @@ public class ModOrder extends HttpServlet {
 			
 			
 			mailService.sendMail(receiverMailAddress, subject, messageText.toString());
-			System.out.println("寄信完畢");
+//			System.out.println("寄信完畢");
 		}
 
 
 		/*********** 更新完成轉看更新後成果 *********************/
 
-		System.out.println("更新完成開始forward到ShowOrder.jsp");
+//		System.out.println("更新完成開始forward到ShowOrder.jsp");
 		request.setAttribute("orderVO", checkedOrderVO);
 		RequestDispatcher failureView = request.getRequestDispatcher("/backend/product/ShowOrder.jsp");
 		failureView.forward(request, response);

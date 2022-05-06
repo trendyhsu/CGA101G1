@@ -37,11 +37,18 @@ public interface ProductDAO_interface {
 	public Integer showSellCount();
 	
 	
-	//
+
 	public List<Object> getPageInSellByMapAndGameType(Integer page,Integer gameTypeNo);
+	
 	public Integer showSellCountByGameType(Integer gameTypeNo);
 	
 	public List<Object> getPageInSellByMapAndGamePlatformNo(Integer page,Integer gamePlatformNo);
+	
 	public Integer showSellCountByGamePlatformType(Integer gamePlatformNo);
+	
+	public List<Object> getPageInSellByMapAndMoney(Integer page,Integer lowPrice,Integer highPrice);
+	
+	public Integer showSellCountByMoney(Integer lowPrice,Integer highPrice);
+
 
 }
