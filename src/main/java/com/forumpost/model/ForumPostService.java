@@ -179,7 +179,11 @@ public class ForumPostService {
 		return dao.getAllMemPost();
 	}
 
-	public List<ForumPostVO> getAllMasterPost(Map<String, String[]> map) {
+	public List<ForumPostVO> getAllMasterPost() {
+		return dao.getAllMasterPost();
+	}
+
+	public List<ForumPostVO> getAllPowerSearch(Map<String, String[]> map) {
 		return dao.getPowerAll(map);
 	}
 

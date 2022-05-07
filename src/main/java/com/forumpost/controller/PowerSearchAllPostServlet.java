@@ -36,7 +36,7 @@ public class PowerSearchAllPostServlet extends HttpServlet {
 
 		/*************************** 2.開始複合查詢 ***************************************/
 		ForumPostService forumPostSvc = new ForumPostService();
-		List<ForumPostVO> powerList = forumPostSvc.getAllMasterPost(map);
+		List<ForumPostVO> powerList = forumPostSvc.getAllPowerSearch(map);
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 		request.getSession().setAttribute("powerList", powerList); // 資料庫取出的list物件,存入request
