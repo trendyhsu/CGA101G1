@@ -213,13 +213,12 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 							style="border-style: solid; padding: 10px; border-radius: 10px">
 							<input class="form-check-input"
 								style="width: 15px; height: 15px; margin-top: 55px;"
-								type="checkbox" name="forumPostPicNo"
+								type="checkbox" name="forumPostPicNos"
 								value="${forumPostPicVO.forumPostPicNo}" class="delete_checkbox">
 							&nbsp;<img
 								src="<%=request.getContextPath()%>/forum/forumPostPicGetOneByPicNo?forumPostPicNo=${forumPostPicVO.forumPostPicNo}"
 								height="128px" width="200px" class="uploadedImg"
-								style="border-radius: 5px;"> <input type="hidden"
-								name="forumPostPicNo" value="${forumPostPicVO.forumPostPicNo}">
+								style="border-radius: 5px;">
 						</div>
 						&emsp;
 					</c:forEach>

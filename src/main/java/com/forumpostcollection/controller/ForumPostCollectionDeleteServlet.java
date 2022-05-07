@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forumpostcollection.model.ForumPostCollectionService;
 import com.forumpostcollection.model.ForumPostCollectionVO;
+import com.member.model.MemVO;
 
 @WebServlet("/forum/forumPostCollectionDelete")
 public class ForumPostCollectionDeleteServlet extends HttpServlet {
@@ -32,9 +33,12 @@ public class ForumPostCollectionDeleteServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		/*********************** 1.接收請求參數 *************************/
+
+		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
+		Integer memNo = memVO.getMemNo();
+		
 		ForumPostCollectionService forumPostCollectionSvc = new ForumPostCollectionService();
 
-		Integer memNo = Integer.valueOf(request.getParameter("memNo").trim());
 		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
 
 		/*************************** 2.開始刪除資料 ***************************************/

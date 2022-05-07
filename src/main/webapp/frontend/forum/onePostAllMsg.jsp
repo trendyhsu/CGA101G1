@@ -293,7 +293,7 @@ pageContext.setAttribute("memVO", memVO);
 									name="form1" id="forumA">
 									<div class="row g-2">
 										<div class="col-sm-12">
-											<label class="form-label">寫下你的留言</label>
+											<label class="form-label">寫下你的留言${errorMsgs.forumMsg}</label>
 											<textarea rows="5" class="form-control" name="forumMsg">${forumMsgVO.forumMsg}</textarea>
 										</div>
 

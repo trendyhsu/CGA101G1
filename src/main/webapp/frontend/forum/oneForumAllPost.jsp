@@ -173,8 +173,10 @@ pageContext.setAttribute("forumVO", forumVO);
 				</div>
 
 			</div>
-
 		</div>
+		<h3
+			style="font-size: 150%; color: #6C7A89; font-weight: bolder; padding-left: 15px">
+			本版版主:&ensp; ${forumVO.memNo == ''?'暫無版主':forumVO.memVO.memName}</h3>
 	</section>
 	<div
 		style="display: inline-block; padding-left: 63px; padding-top: 15px">
@@ -206,6 +208,7 @@ pageContext.setAttribute("forumVO", forumVO);
 				<button class="button1">版主精選</button>
 			</a>
 		</c:if>
+		<c:if test="${memVO.memNo!=forumVO.memNo}"><div style="width: 77px;display: inline-block;"></div></c:if>
 	</div>
 
 	<jsp:useBean id="forumSvc" scope="page"

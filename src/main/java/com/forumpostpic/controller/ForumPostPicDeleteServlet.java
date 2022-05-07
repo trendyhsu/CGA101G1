@@ -24,11 +24,14 @@ public class ForumPostPicDeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("image/gif");
 
-		Integer forumPostPicNo = Integer.valueOf(request.getParameter("forumPostPicNo").trim());
-		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
-
 		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
-		forumPostPicSvc.deleteForumPostPic(forumPostPicNo);
+		String[] forumPostPicNos = request.getParameterValues("forumPostPicNos");
+		if (forumPostPicNos != null) {
+			for (String forumPostPicNo : forumPostPicNos) {
+				forumPostPicSvc.deleteForumPostPic(new Integer(forumPostPicNo));
+			}
+		}
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
 
 		request.setAttribute("forumPostNo", forumPostNo);
 		String url = "/forum/forumMemPostOne";

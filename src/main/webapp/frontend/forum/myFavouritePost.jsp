@@ -18,23 +18,54 @@ pageContext.setAttribute("list", list);
 <title>我的文章收藏</title>
 <style type="text/css">
 table {
-	font-weight: bold;
-}
-
-table tr td, th {
-	border-bottom: solid;
+	border-collapse: collapse;
 }
 
 th {
-	background-color: #b2cdcc;
+	font-size: larger;
+	margin: 1em auto;
+}
+
+th, td {
+	padding: .65em;
+}
+
+th {
+	background: #A3C6C4;
+	color: #fff;
+}
+
+th:first-child {
+	border-radius: 9px 0 0 0;
+}
+
+th:last-child {
+	border-radius: 0 9px 0 0;
+}
+
+tr:last-child td:first-child {
+	border-radius: 0 0 0 9px;
+}
+
+tr:last-child td:last-child {
+	border-radius: 0 0 9px 0;
+}
+
+tbody tr:hover {
+	background: linear-gradient(#E0E7E9, #B2CDCC);
 }
 
 #pageNumber, #dataNumber {
 	float: right;
 }
 
-input:hover {
-	background-color: #b2cdcc;
+input {
+	background-color: #E0E7E9;
+	border-radius: 5px
+}
+
+input:active {
+	background-color: #fff;
 }
 
 .button1 {

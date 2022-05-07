@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
-import com.member.model.MemService;
 import com.member.model.MemVO;
 
 @WebServlet("/forum/forumPostMyPostMemNo")
@@ -27,11 +26,8 @@ public class ForumPostMyPostMemNoServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 取得會員編號
-		MemVO memVO = (MemVO) request.getAttribute("memVO");
-		
-		MemService memSvc = new MemService();
-		memVO = memSvc.getMemVObyMemNo(11003);
-		
+
+		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
 		Integer memNo = memVO.getMemNo();
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();

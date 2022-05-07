@@ -20,23 +20,54 @@ MemVO memVO = (MemVO) request.getAttribute("memVO");
 <title>我的文章</title>
 <style type="text/css">
 table {
-	font-weight: bold;
-}
-
-table tr td, th {
-	border-bottom: solid;
+	border-collapse: collapse;
 }
 
 th {
-	background-color: #b2cdcc;
+	font-size: larger;
+	margin: 1em auto;
+}
+
+th, td {
+	padding: .65em;
+}
+
+th {
+	background: #A3C6C4;
+	color: #fff;
+}
+
+th:first-child {
+	border-radius: 9px 0 0 0;
+}
+
+th:last-child {
+	border-radius: 0 9px 0 0;
+}
+
+tr:last-child td:first-child {
+	border-radius: 0 0 0 9px;
+}
+
+tr:last-child td:last-child {
+	border-radius: 0 0 9px 0;
+}
+
+tbody tr:hover {
+	background: linear-gradient(#E0E7E9, #B2CDCC);
 }
 
 #pageNumber, #dataNumber {
 	float: right;
 }
 
-input:hover {
-	background-color: #b2cdcc;
+input {
+	background-color: #E0E7E9;
+	border-radius: 5px
+}
+
+input:active {
+	background-color: #fff;
 }
 
 .button1 {
@@ -88,16 +119,15 @@ input:hover {
 					</ul>
 				</c:if>
 
-				<table class="showPanel" style="table-layout: fixed; color: black;">
+				<table class="showPanel" style="table-layout: fixed;">
 					<tr align='center' valign="middle">
-						<th style="width: 150px">討論區名稱</th>
-						<th style="width: 60px">文章精選</th>
-						<th style="width: 400px">文章標題</th>
-						<th style="width: 60px">文章分類</th>
+						<th style="width: 125px">討論區名稱</th>
+						<th style="width: 85px">文章精選</th>
+						<th style="width: 350px">文章標題</th>
+						<th style="width: 85px">文章分類</th>
 						<th style="width: 100px">發表時間</th>
-						<th style="width: 25px"></th>
-						<th>&ensp;</th>
-						<th style="width: 25px"></th>
+						<th></th>
+						<th></th>
 					</tr>
 					<%@ include file="page3.file"%>
 					<c:forEach var="forumPostVO" items="${list}" begin="<%=pageIndex%>"
@@ -105,7 +135,7 @@ input:hover {
 
 						<tr align='center' valign="middle">
 							<td><div
-									style="width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${forumPostVO.forumVO.forumName}</div></td>
+									style="width: 125x; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${forumPostVO.forumVO.forumName}</div></td>
 
 							<td><c:if test="${forumPostVO.forumPostFeatured == 0}"
 									var="condition">
@@ -118,7 +148,7 @@ input:hover {
 									<c:out value="置頂" escapeXml="false"></c:out>
 								</c:if>&emsp;</td>
 							<td><div
-									style="width: 400px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+									style="width: 350px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 									<a
 										href="<%=request.getContextPath()%>/forum/forumPostOneEdit?forumPostNo=${forumPostNo}">${forumPostVO.forumPostTitle}</a>
 								</div></td>
@@ -142,7 +172,7 @@ input:hover {
 
 							<td>
 								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/forum/XXXservlet"
+									ACTION="<%=request.getContextPath()%>/forum/forumMemPostOne"
 									style="margin-bottom: 0px;">
 									<input type="submit" value="修改"
 										style="width: 37px; height: 37px;"><input
@@ -150,7 +180,6 @@ input:hover {
 										value="${forumPostVO.forumPostNo}">
 								</FORM>
 							</td>
-							<td></td>
 							<td>
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/forum/myPostDelete"

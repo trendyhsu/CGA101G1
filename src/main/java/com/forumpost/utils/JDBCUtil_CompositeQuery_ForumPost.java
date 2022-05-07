@@ -32,7 +32,7 @@ public class JDBCUtil_CompositeQuery_ForumPost {
 				String aCondition = get_aCondition_For_myDB(key, value.trim());
 
 				if (count == 1)
-					whereCondition.append(" WHERE ForumPostState > 0 AND " + aCondition);
+					whereCondition.append(" AND " + aCondition);
 				else
 					whereCondition.append(" AND " + aCondition);
 

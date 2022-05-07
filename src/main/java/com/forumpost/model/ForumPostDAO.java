@@ -29,7 +29,7 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 	private static final String UPDATE_FORUMPOSTSTATE = "UPDATE forumpost SET ForumPostState=? WHERE ForumPostNo = ?";
 	private static final String UPDATE_MASTER = "UPDATE forumpost SET ForumPostFeatured=? WHERE ForumPostNo = ?";
 	private static final String UPDATE_ADMIN = "UPDATE forumpost SET ForumPostType=?, ForumPostState=? WHERE ForumPostNo = ?";
-	private static final String UPDATE_ADMIN_POST = "UPDATE forumpost SET ForumPostState=?, ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
+	private static final String UPDATE_ADMIN_POST = "UPDATE forumpost SET ManagerNo=?, ForumPostState=?, ForumPostTitle=?, ForumPostContent=? WHERE ForumPostNo = ?";
 	private static final String GET_ONE_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostNo = ?";
 	private static final String GET_ALL_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ORDER BY ForumPostNo DESC";
 	private static final String GET_ONE_FORUM_STMT = "SELECT ForumPostNo,ForumNo,ForumPostType,ManagerNo,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumNo = ? AND ForumPostState = 1 ORDER BY ForumPostFeatured DESC,ForumPostTime DESC";
@@ -317,11 +317,12 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_ADMIN_POST);
-
-			pstmt.setInt(1, forumPostVO.getForumPostState());
-			pstmt.setString(2, forumPostVO.getForumPostTitle());
-			pstmt.setString(3, forumPostVO.getForumPostContent());
-			pstmt.setInt(4, forumPostVO.getForumPostNo());
+			
+			pstmt.setInt(1, forumPostVO.getManagerNo());
+			pstmt.setInt(2, forumPostVO.getForumPostState());
+			pstmt.setString(3, forumPostVO.getForumPostTitle());
+			pstmt.setString(4, forumPostVO.getForumPostContent());
+			pstmt.setInt(5, forumPostVO.getForumPostNo());
 
 			pstmt.executeUpdate();
 
@@ -865,8 +866,8 @@ public class ForumPostDAO implements ForumPostDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			String finalSQL = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost "
-					+ JDBCUtil_CompositeQuery_ForumPost.get_WhereCondition(map) + "ORDER BY ForumPostNo DESC";
+			String finalSQL = "SELECT ForumPostNo,ForumNo,ForumPostType,MemNo,ForumPostState,ForumPostTitle,ForumPostContent,ForumPostTime,ForumPostFeatured FROM forumpost WHERE ForumPostState > 0 AND ForumPostType > 0 "
+					+ JDBCUtil_CompositeQuery_ForumPost.get_WhereCondition(map) + " ORDER BY ForumPostNo DESC";
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("●●finalSQL(by DAO) = " + finalSQL);
 			rs = pstmt.executeQuery();

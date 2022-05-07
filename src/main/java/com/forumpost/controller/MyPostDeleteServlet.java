@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.forumpost.model.ForumPostService;
-import com.forumpost.model.ForumPostVO;
-import com.member.model.MemService;
 import com.member.model.MemVO;
 
 @WebServlet("/forum/myPostDelete")
@@ -35,10 +33,7 @@ public class MyPostDeleteServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		// session 取得會員編號
-//		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-		Integer memNo = Integer.valueOf(request.getParameter("memNo").trim());
-		MemService memSvc = new MemService();
-		MemVO memVO = memSvc.getMemVObyMemNo(memNo);
+		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
 
 		// 1.接收請求參數
 		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());

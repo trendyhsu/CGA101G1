@@ -1,6 +1,5 @@
 package com.forumpost.controller;
 
-
 import java.io.IOException;
 
 import java.util.LinkedHashMap;
@@ -15,9 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
+import com.manager.model.ManagerVO;
 
 @WebServlet("/forum/forumMasterPostInsert")
 public class ForumMasterPostInsertServlet extends HttpServlet {
@@ -37,8 +36,11 @@ public class ForumMasterPostInsertServlet extends HttpServlet {
 		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		ForumPostService forumPostSvc = new ForumPostService();
 		ForumPostVO forumPostVO = new ForumPostVO();
+		
+		ManagerVO mangerVO = (ManagerVO) request.getSession().getAttribute("managerVO");
+		Integer managerNo = mangerVO.getManagerNo();
+		
 
-		Integer managerNo = Integer.valueOf(request.getParameter("managerNo").trim());
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
 		if (forumNo == 0) {

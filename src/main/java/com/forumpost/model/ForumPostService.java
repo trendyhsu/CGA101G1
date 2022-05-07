@@ -129,11 +129,12 @@ public class ForumPostService {
 		dao.updateAdmin(forumPostVO);
 	}
 
-	public ForumPostVO updateAdminPostEdit(Integer forumPostNo, Integer forumPostState, String forumPostTitle,
-			String forumPostContent) {
+	public ForumPostVO updateAdminPostEdit(Integer managerNo, Integer forumPostNo, Integer forumPostState,
+			String forumPostTitle, String forumPostContent) {
 
 		ForumPostVO forumPostVO = new ForumPostVO();
 
+		forumPostVO.setManagerNo(managerNo);
 		forumPostVO.setForumPostNo(forumPostNo);
 		forumPostVO.setForumPostState(forumPostState);
 		forumPostVO.setForumPostTitle(forumPostTitle);
