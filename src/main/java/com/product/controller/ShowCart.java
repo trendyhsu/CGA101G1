@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.member.model.MemService;
 import com.member.model.MemVO;
 import com.test.Cartdetail;
 
@@ -24,11 +25,8 @@ public class ShowCart extends HttpServlet {
 		super();
 
 	}
-	
 
-	
-
-
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -36,29 +34,20 @@ public class ShowCart extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
-//		Integer memNo = null;
-
-		//要用過濾器
-//		if (session.getAttribute("member") == null) {
-//			response.sendRedirect("/CGA101G1/frontend/mem/login.html");
-//		} else if(!(session.getAttribute("member") == null)){
-			MemVO memVO = (MemVO) (session.getAttribute("memVO"));
-			Integer memNo = memVO.getMemNo();
-//			System.out.println("現在登入的會員編號是：" + memNo);
+//		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+//		Integer memNo = memVO.getMemNo();
+//		
+//		MemService memService = new MemService(); 
 		
-//		String memNo = "11001";
+		
 
-			List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart") == null
-					? new ArrayList<Cartdetail>()
-					: (List<Cartdetail>) session.getAttribute("shoppingCart"));
+		List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart") == null
+				? new ArrayList<Cartdetail>()
+				: (List<Cartdetail>) session.getAttribute("shoppingCart"));
 
-			Gson gson = new Gson();
-			String json = gson.toJson(orderList);
-//			System.out.println(json);
-			out.print(json);
-//			response.sendRedirect("frontend/product/HomePageinshop.html");
-
-//		}
+		Gson gson = new Gson();
+		String json = gson.toJson(orderList);
+		out.print(json);
 
 	}
 
