@@ -2,20 +2,18 @@ package com.forumpostpic.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.MultipartConfig;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.forumpostpic.model.ForumPostPicService;
-import com.forumpostpic.model.ForumPostPicVO;
 
-@WebServlet("/forum/forumPostPicGetOneByPicNo")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-public class ForumPostPicGetOneByPicNoServlet extends HttpServlet {
+@WebServlet("/forum/forumPostPicDelete")
+public class ForumPostPicDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,14 +25,16 @@ public class ForumPostPicGetOneByPicNoServlet extends HttpServlet {
 		response.setContentType("image/gif");
 
 		Integer forumPostPicNo = Integer.valueOf(request.getParameter("forumPostPicNo").trim());
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
 
 		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
-		ForumPostPicVO forumPostPicVO = forumPostPicSvc.getOneForumPostPic(forumPostPicNo);
+		forumPostPicSvc.deleteForumPostPic(forumPostPicNo);
 
-		ServletOutputStream out = response.getOutputStream();
-		out.write(forumPostPicVO.getForumPic());
-		
-		out.close();
+		request.setAttribute("forumPostNo", forumPostNo);
+		String url = "/forum/forumMemPostOne";
+		RequestDispatcher successView = request.getRequestDispatcher(url);
+		successView.forward(request, response);
+
 	}
 
 }

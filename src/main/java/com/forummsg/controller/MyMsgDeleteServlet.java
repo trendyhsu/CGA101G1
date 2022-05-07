@@ -1,4 +1,4 @@
-package com.forumpost.controller;
+package com.forummsg.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -12,13 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.forumpost.model.ForumPostService;
-import com.forumpost.model.ForumPostVO;
-import com.member.model.MemService;
-import com.member.model.MemVO;
+import com.forummsg.model.ForumMsgService;
 
-@WebServlet("/forum/myPostDelete")
-public class MyPostDeleteServlet extends HttpServlet {
+@WebServlet("/forum/myMsgDelete")
+public class MyMsgDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,23 +31,19 @@ public class MyPostDeleteServlet extends HttpServlet {
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		// session 取得會員編號
-//		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-		Integer memNo = Integer.valueOf(request.getParameter("memNo").trim());
-		MemService memSvc = new MemService();
-		MemVO memVO = memSvc.getMemVObyMemNo(memNo);
-
 		// 1.接收請求參數
+		Integer forumMsgNo = Integer.valueOf(request.getParameter("forumMsgNo").trim());
 		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
-		Integer forumPostState = Integer.valueOf(0);
+
+		Integer ForumMsgType = Integer.valueOf(0);
 		// 2.開始修改資料
-		ForumPostService forumPostSvc = new ForumPostService();
-		forumPostSvc.updateMemPostState(forumPostNo, forumPostState);
+		ForumMsgService forumMsgSvc = new ForumMsgService();
+		forumMsgSvc.updateMsgType(forumMsgNo, ForumMsgType);
 
 		// 3.查詢完成,準備轉交(Send the Success view)
 		// 從資料庫取forumPostReportVO 物件, 存入 request 中
-		request.setAttribute("memVO", memVO);
-		String url = "/forum/forumPostMyPostMemNo";
+		request.setAttribute("forumPostNo", forumPostNo);
+		String url = "/forum/selectOnePostAllMsg";
 		// 成功轉交 editForumPost.jsp
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
