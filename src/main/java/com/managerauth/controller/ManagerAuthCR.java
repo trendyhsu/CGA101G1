@@ -47,15 +47,15 @@ public class ManagerAuthCR extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		System.out.println(request.getParameter("managerNo"));
+		
 		// 從input hidden 取得
 		Integer managerNo = Integer.valueOf(request.getParameter("managerNo"));
-		
+		System.out.println(request.getParameter("managerNo"));
 		
 		// 資料庫中目前managerNo有的權限清單
 		ManagerAuthService managerAuthService = new ManagerAuthService();
-//		Set<ManagerAuthVO> set = managerAuthService.getFunction(managerNo);
-
+		List<ManagerAuthVO> list = managerAuthService.getFunction(managerNo);
+		System.out.println(list);
 		// 刪除所有managerNo的權限
 		managerAuthService.deleteOneManagerAuthrizationFunction(managerNo);
 		

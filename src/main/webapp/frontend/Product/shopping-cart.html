@@ -186,27 +186,30 @@
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverName">收件人姓名</label>
                                 <input class="form-control" type="text" id="ReceiverName" required name="ReceiverName"
-                                    @change="nameCheck($event)">
+                                    @change="nameCheck($event)" :value="memInfo.memName">
                                 <div style="color: red;" :style="{visibility: nameInput ? 'visible' : 'hidden'}">
                                     請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="ReceiverPhone">聯絡手機</label>
                                 <input class="form-control" type="number" id="ReceiverPhone" required
-                                    name="ReceiverPhone" @change="phoneCheck($event)">
+                                    name="ReceiverPhone" @change="phoneCheck($event)" :value="memInfo.memMobile">
                                 <div style="color: red;" :style="{visibility: phoneInput ? 'visible' : 'hidden'}">
                                     請輸入正確的手機格式!!</div>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="Rod">地址</label>
                                 <input class="js-demeter-tw-zipcode-selector form-select" data-city="#city4"
-                                    data-dist="#dist4" placeholder="請輸入郵遞區號" value="" hidden>
-                                <select id="city4" placeholder="請選擇縣市" class="form-select" name="city"
-                                    required></select>
+                                    data-dist="#dist4" placeholder="請輸入郵遞區號" hidden>
+                                <select class="county" id="memCity" class="form-control"></select>
+                                <select id="city4" placeholder="請選擇縣市" class="form-select" name="city" required
+                                    v-model="memCitySelect">
+                                    <option :value="memCitySelect" v-show="memCitySelect">{{memCitySelect}}</option>
+                                </select>
                                 <select id="dist4" placeholder="請選擇鄉鎮區" class="form-select" name="dist"
                                     required></select>
                                 <input class="form-control" type="text" id="Rod" required name="Rod"
-                                    @change="RodInputCheck($event)">
+                                    v-model="memInfo.memAdd" @change="RodInputCheck($event)">
                                 <div style="color: red;" :style="{visibility: RodInput ? 'visible' : 'hidden'}">
                                     請輸入正確格式的地址，不應包含特殊符號及英文或是只填空格!!</div>
                             </div>
@@ -376,9 +379,11 @@
                 datastore: [],
                 totalPrice: 0,
                 coupons: [],
+                memInfo: [],
                 selectCoupon: 0,
                 selectCouponNo: '',
                 memCouponNo: 0,
+                memCitySelect: '',
                 form: false,
                 a: ",",
                 //表單驗證用
@@ -402,14 +407,22 @@
                     // 一定要用箭頭函示!!!!
                     .then((response) => {
                         console.log("取ProductData的狀態：" + response.status); //狀態碼
-
                         this.datastore = response.data;//塞進去
                         console.log("datastore讀取資料ok");
                         this.datastore.forEach(element => {
                             this.totalPrice += element.productTotalPrice;
                         });
-
-
+                    });
+            },
+            getMemData() {
+                const apiUrl = '/CGA101G1/product/showShoppingMemInfo';
+                axios.get(apiUrl)
+                    // 一定要用箭頭函示!!!!
+                    .then((response) => {
+                        console.log("取memInfo的狀態：" + response.status); //狀態碼
+                        this.memInfo = response.data;//塞進去
+                        this.memCitySelect = this.memInfo.memCity;
+                        console.log("memInfo讀取資料ok");
                     });
             },
             showForm() {
@@ -500,6 +513,7 @@
         created() {
             this.getProductData();
             this.getMemCoupons();
+            this.getMemData();
             //想辦法取優惠券編號跟折扣金額
         },
 

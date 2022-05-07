@@ -1,9 +1,13 @@
 package com.managerauth.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.manager.model.ManagerService;
 import com.manager.model.ManagerVO;
@@ -28,11 +33,14 @@ import com.managerauthrizationfunction.model.ManagerAuthrizationFunctionVO;
 public class ManagerEditAuth extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
+
 	// 處理來自authManager.jsp 送出修改請求
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		List<String> errorMsgs = new LinkedList<String>();
@@ -40,50 +48,56 @@ public class ManagerEditAuth extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		try {
-			/*************************** 1.接收參數  **********************/
+			/*************************** 1.接收參數 **********************/
 			Integer managerNo = Integer.valueOf(request.getParameter("managerNo"));
 
 			// 2.開始查詢資料
 			ManagerService managerService = new ManagerService();
 			ManagerVO managerVO = managerService.getOneManager(managerNo);
-			
-			ManagerAuthService managerAuthService = new ManagerAuthService();
-			List<ManagerAuthVO> lists = managerAuthService.getFunction(managerNo);
-			
+
+			// 全部的
 			ManagerAuthrizationFunctionService managerAuthrizationFunctionService = new ManagerAuthrizationFunctionService();
-			List<ManagerAuthrizationFunctionVO> lists2 = managerAuthrizationFunctionService.getAll();
-			List<Integer> lists3 = null;
-			int[] arr = null;
-			int[] arr2 = null;
+			List<ManagerAuthrizationFunctionVO> auList = managerAuthrizationFunctionService.getAll();
+			// System.out.println(auList.size());
+			// 會員有的
+			ManagerAuthService managerAuthService = new ManagerAuthService();
+			List<ManagerAuthVO> managerList = managerAuthService.getFunction(managerNo);
+			// System.out.println(managerList.size());
+
+			Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
+
+			// 會員跑回圈
+			  for (int j = 0; j < managerList.size(); j++) {
+			//   System.out.println(managerAuthVO.getManagerAuthrizationFunctionNo());
+			   // 全部的迴圈
+			   for (int i = 0; i < auList.size(); i++) {
+			    if (managerList.get(j).getManagerAuthrizationFunctionNo()
+			      + 0 == auList.get(i).getManagerAuthrizationFunctionNo() + 0) {
+			     map.put(auList.get(i).getManagerAuthrizationFunctionNo(), 1);
+			    }
+
+			   }
+
+			  }
+			  System.out.println(map);
+			  // 補 0 進去
+			  for (int i = 0; i < auList.size(); i++) {
+			   if (map.get(auList.get(i).getManagerAuthrizationFunctionNo()) == null) {
+			    map.put(auList.get(i).getManagerAuthrizationFunctionNo(), 0);
+			   }
+
+			  }
+			 
 			
-			for(int i=0; i<lists.size(); i++) {
-				arr[i] = lists.get(i).getManagerAuthrizationFunctionNo();
-			}
-			for(int i=0; i<lists2.size(); i++) {
-				arr2[i]= lists2.get(i).getManagerAuthrizationFunctionNo();
-			}
 			
- 			for(int i=0; i<lists2.size(); i++) {
- 				for (int j = 0; j<lists.size(); j++) {
-					arr[j] = lists.get(j).getManagerAuthrizationFunctionNo();
-					if(arr2[i] == arr[j]) {
-						lists3.add(1);
-					}else {
-						lists3.add(0);
-					}
- 				}
- 				System.out.println(lists3);
-			}
-			// 3.查詢完成,準備轉交(Send the Success view)
-			// 從資料庫取 managerVO 物件, 存入 request 中
+			HttpSession session = request.getSession();
 			request.setAttribute("managerVO", managerVO);
-			request.setAttribute("list", list);
+			session.setAttribute("map", map);
 			String url = "/backend/manager/authManager.jsp";
 			// 成功轉交 authManager.jsp
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);
-			
-			
+
 			/*************************** 其他可能的錯誤處理 *************************************/
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,6 +106,5 @@ public class ManagerEditAuth extends HttpServlet {
 			failureView.forward(request, response);
 		}
 	}
-	
 
 }
