@@ -98,7 +98,7 @@ color: black;
 
 			<div id="showmainRight"style="margin-left: auto;">
 				<c:forEach var="bidPicVO" items="${bidPicVOs}">
-					<img src="/CGA101G1/bid/bidPicGetOneByProdPicNo?bidProdPicNo=${bidPicVO.bidProdPicNo}" style="width: 160px">
+					<img src="<%=request.getContextPath()%>/bid/bidPicGetOneByProdPicNo?bidProdPicNo=${bidPicVO.bidProdPicNo}" style="width: 160px">
 				</c:forEach>
 			</div>
 		</div>
@@ -108,27 +108,28 @@ color: black;
 				<div class="mb-3">
 					<label for="receiverName"><span class="info">收件人姓名</span></label>
 					<input type="text" class="form-control" id="receiverName" name="receiverName"
-							placeholder="" value="" required>
+							placeholder="" value="${memVO.memName}" required>
 				</div>
 				<input class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#dist" placeholder="請輸入郵遞區號" />
-				<select id="city" placeholder="請選擇縣市" name="receiverAddressCity" required></select>
-				<select id="dist" placeholder="請選擇鄉鎮區" name="receiverAddressDist" required></select>
-				
+				<select id="city" placeholder="請選擇縣市" name="receiverAddressCity" required>
+				</select>
+				<select id="dist" placeholder="請選擇鄉鎮區" name="receiverAddressDist" required>
+				</select>
 				<div class="mb-3">
 					<label for="receiverAddressDetail"><span class="info">收件人住址</span></label>
 					<input type="text" class="form-control" id="receiverName" name="receiverAddressDetail"
-							placeholder="" value="" required>
+							placeholder="" value="${memVO.memAdd}" required>
 				</div>
 				
 				<div class="mb-3">
 					<label for="receiverPhone"><span class="info">收件人電話</span></label>
-					<input pattern="09\d{2}\-?\d{3}\-?\d{3}" class="form-control" type="text" id="receiverPhone" name="receiverPhone"
-							placeholder="" value="" required>
+					<input class="form-control" type="text" id="receiverPhone" name="receiverPhone"
+							placeholder="" value="${memVO.memMobile}" required>
 				</div>
 				<div class="mb-3">
 					<label for="creditcardNum"><span class="info">信用卡號碼</span></label>
 					<input pattern="[0-9]{13,16}" class="form-control" type="text" id="creditcardNum" name="creditcardNum"
-						placeholder="" required>
+						placeholder="${memVO.creditcardNo}" required>
 				</div>
 				<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 

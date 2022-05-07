@@ -2,7 +2,9 @@
 //
 //import java.io.IOException;
 //import java.util.List;
+//import java.util.Map;
 //import java.util.Set;
+//import java.util.TreeMap;
 //
 //import javax.servlet.RequestDispatcher;
 //import javax.servlet.ServletException;
@@ -25,46 +27,63 @@
 //@WebServlet("/test/testForward")
 //public class Test extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
-//       
-//    /**
-//     * @see HttpServlet#HttpServlet()
-//     */
-//    public Test() {
-//        super();
-//        // TODO Auto-generated constructor stub
-//    }
 //
 //	/**
-//	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+//	 * @see HttpServlet#HttpServlet()
 //	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	public Test() {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	/**
+//	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+//	 *      response)
+//	 */
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
 //		doPost(request, response);
 //	}
 //
 //	/**
-//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+//	 *      response)
 //	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//		// 從input hidden 取得
-//		Integer managerNo = Integer.valueOf(request.getParameter("managerNo"));
-//		
-//		
-//		// 資料庫中目前managerNo有的權限清單
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		Integer managerNo = 71016;
+//		// 全部的
+//		ManagerAuthrizationFunctionService managerAuthrizationFunctionService = new ManagerAuthrizationFunctionService();
+//		List<ManagerAuthrizationFunctionVO> auList = managerAuthrizationFunctionService.getAll();
+////		System.out.println(auList.size());
+//		// 會員有的
 //		ManagerAuthService managerAuthService = new ManagerAuthService();
-////		Set<ManagerAuthVO> set = managerAuthService.getFunction(managerNo);
+//		List<ManagerAuthVO> managerList = managerAuthService.getFunction(managerNo);
+////		System.out.println(managerList.size());
 //
-//		// 刪除所有managerNo的權限
-//		managerAuthService.deleteAllByManagerNo(managerNo);
-//		
-//		// 從checkbox取得勾選的list
-//		String[] managerAuthNos = request.getParameterValues("name");
-//		
-//		// 查詢現在有沒有
-//		for(String managerAuth:managerAuthNos) {
-//			managerAuthService.addManagerAuth(managerNo, Integer.valueOf(managerAuth));
+//		Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
+//
+//		// 會員跑回圈
+//		for (int j = 0; j < managerList.size(); j++) {
+////			System.out.println(managerAuthVO.getManagerAuthrizationFunctionNo());
+//			// 全部的迴圈
+//			for (int i = 0; i < auList.size(); i++) {
+//				if (managerList.get(j).getManagerAuthrizationFunctionNo()
+//						+ 0 == auList.get(i).getManagerAuthrizationFunctionNo() + 0) {
+//					map.put(auList.get(i).getManagerAuthrizationFunctionNo(), 1);
+//				}
+//
+//			}
+//
 //		}
-//		
+//		System.out.println(map);
+//		// 補 0 進去
+//		for (int i = 0; i < auList.size(); i++) {
+//			if (map.get(auList.get(i).getManagerAuthrizationFunctionNo()) == null) {
+//				map.put(auList.get(i).getManagerAuthrizationFunctionNo(), 0);
+//			}
+//
+//		}
 //	}
 //
 //}
