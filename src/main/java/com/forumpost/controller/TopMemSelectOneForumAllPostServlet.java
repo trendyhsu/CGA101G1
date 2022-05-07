@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.forum.model.ForumService;
+import com.forum.model.ForumVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
-import com.member.model.MemService;
-import com.member.model.MemVO;
 
-@WebServlet("/forum/forumPostMyPostMemNo")
-public class ForumPostMyPostMemNoServlet extends HttpServlet {
+@WebServlet("/forum/topMemSelectOneForumAllPost")
+public class TopMemSelectOneForumAllPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,25 +26,23 @@ public class ForumPostMyPostMemNoServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session 取得會員編號
-		MemVO memVO = (MemVO) request.getAttribute("memVO");
-		
-		MemService memSvc = new MemService();
-		memVO = memSvc.getMemVObyMemNo(11003);
-		
-		Integer memNo = memVO.getMemNo();
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 
+		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
+
 		ForumPostService forumPostSvc = new ForumPostService();
-		List<ForumPostVO> forumPostVOs = forumPostSvc.findMyPost(memNo);
+		List<ForumPostVO> forumPostPowerVOs = forumPostSvc.findTopMemAllPost(forumNo);
+
+		ForumService forumSvc = new ForumService();
+		ForumVO forumPowerVO = forumSvc.getOneForum(forumNo);
 
 		// 將過濾好的VO放置於request scope內
-		request.setAttribute("forumPostVOs", forumPostVOs);
-		request.setAttribute("memVO", memVO);
+		request.getSession().setAttribute("forumPostPowerVOs", forumPostPowerVOs);
+		request.getSession().setAttribute("forumPowerVO", forumPowerVO);
 
-		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/myPostList.jsp");
+		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/topMemOneForumAllPost.jsp");
 		successView.forward(request, response);
 	}
 

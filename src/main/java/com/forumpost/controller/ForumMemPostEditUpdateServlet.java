@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -21,12 +22,11 @@ import com.forum.model.ForumVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
 import com.forumpostpic.model.ForumPostPicService;
+import com.forumpostpic.model.ForumPostPicVO;
 
-import com.member.model.MemVO;
-
-@WebServlet("/forum/forumMemPostInsert")
+@WebServlet("/forum/forumMemPostEditUpdate")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-public class ForumMemPostInsertServlet extends HttpServlet {
+public class ForumMemPostEditUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,10 +40,6 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		// session 取得會員編號
-		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
-		Integer memNo = 11003;
 		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		ForumPostService forumPostSvc = new ForumPostService();
 		ForumPostVO forumPostVO = new ForumPostVO();
@@ -51,10 +47,8 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
 
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
-
-		Integer forumPostState = Integer.valueOf(request.getParameter("forumPostState").trim());
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
 		Integer forumPostType = Integer.valueOf(request.getParameter("forumPostType").trim());
-		Integer forumPostFeatured = Integer.valueOf(request.getParameter("forumPostFeatured").trim());
 
 		String forumPostTitle = request.getParameter("forumPostTitle").trim();
 
@@ -69,31 +63,30 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 			errorMsgs.put("forumPostContent", "文章內容: 請勿空白");
 		}
 
+		List<ForumPostPicVO> forumPostPicVOs = forumPostPicSvc.getOneForumTotalPostPic(forumPostNo);
+
 		// 錯誤處理回傳forumPostVO
 		if (!errorMsgs.isEmpty()) {
 
 			ForumService forumSvc = new ForumService();
 			ForumVO forumVO = forumSvc.getOneForum(forumNo);
 
-			forumPostVO.setForumNo(forumNo);
 			forumPostVO.setForumPostState(forumPostType);
 			forumPostVO.setForumPostTitle(forumPostTitle);
 			forumPostVO.setForumPostContent(forumPostContent);
 
 			request.setAttribute("forumPostVO", forumPostVO);
 			request.setAttribute("forumVO", forumVO);// 含有輸入格式錯誤的forumVO物件,也存入req
-			RequestDispatcher failureView = request.getRequestDispatcher("/frontend/forum/addForumPost.jsp");
+			request.setAttribute("forumPostPicVOs", forumPostPicVOs);
+			RequestDispatcher failureView = request.getRequestDispatcher("/frontend/forum/editForumPost.jsp");
 			failureView.forward(request, response);
 			return;
 		}
 
 		/*************************** 2.開始新增資料 ***************************************/
-		// 新增資料
+		// 修改資料
 
-		Integer forumPostNo = null;
-
-		forumPostNo = forumPostSvc.addForumPost(forumNo, forumPostType, memNo, forumPostState, forumPostTitle,
-				forumPostContent, forumPostFeatured);
+		forumPostVO = forumPostSvc.updateForumPost(forumPostNo, forumPostType, forumPostTitle, forumPostContent);
 
 		// 將取得圖片資料裝入 List<byte[]> 物件
 

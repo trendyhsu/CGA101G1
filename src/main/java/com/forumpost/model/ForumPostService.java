@@ -1,6 +1,7 @@
 package com.forumpost.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class ForumPostService {
 
@@ -161,6 +162,11 @@ public class ForumPostService {
 		return dao.findByForumNo(forumNo);
 	}
 
+	public List<ForumPostVO> findTopMemAllPost(Integer forumNo) {
+
+		return dao.findByForumNoTopMem(forumNo);
+	}
+
 	public List<ForumPostVO> findMyPost(Integer memNo) {
 		return dao.findByMemNo(memNo);
 	}
@@ -173,8 +179,8 @@ public class ForumPostService {
 		return dao.getAllMemPost();
 	}
 
-	public List<ForumPostVO> getAllMasterPost() {
-		return dao.getAllMasterPost();
+	public List<ForumPostVO> getAllMasterPost(Map<String, String[]> map) {
+		return dao.getPowerAll(map);
 	}
 
 }

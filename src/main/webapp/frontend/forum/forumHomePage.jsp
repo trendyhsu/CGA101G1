@@ -12,10 +12,9 @@ pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
 
 <head>
-
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,32 +27,38 @@ pageContext.setAttribute("list", list);
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <!-- custom css file link -->
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/css/allStyle.css">
-<link rel="stylesheet" href="/CGA101G1/frontend/mainCss/css/style.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/css/allStyle.css">
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/css/headerStyle.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/css/style.css">
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/css/footerStyle.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/css/headerStyle.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/frontend/mainCss/css/footerStyle.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/frontend/mainCss/css/headerFunctionStyle.css">
 
 
 <!-- Favicon -->
 <link rel="shortcut icon"
-	href="/CGA101G1/frontend/mainCss/images/logo.png">
+	href="<%=request.getContextPath()%>/frontend/mainCss/images/logo.png">
 <!-- Fonts CSS -->
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/assets/vendor/fonts/fonts.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/fonts/fonts.css">
 <!-- Bootstrap-icons CSS -->
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/bootstrap/icons/bootstrap-icons.css">
 <!--Magnific-Popup CSS -->
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/assets/vendor/magnific/magnific-popup.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/magnific/magnific-popup.css">
 <!-- Slick CSS -->
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/assets/vendor/slick/slick.css">
 <!-- Style CSS -->
 <link rel="stylesheet"
-	href="/CGA101G1/frontend/mainCss/assets/css/style01.css">
+	href="<%=request.getContextPath()%>/frontend/mainCss/assets/css/style01.css">
+
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <style type="text/css">
 .button1 {
 	display: inline-block;
@@ -67,7 +72,7 @@ pageContext.setAttribute("list", list);
 	background-color: #547492;
 	border: none;
 	border-radius: 15px;
- 	box-shadow: 0 5px #999;
+	box-shadow: 0 5px #737373;
 }
 
 .button1:hover {
@@ -87,125 +92,46 @@ pageContext.setAttribute("list", list);
 	<header>
 
 		<div class="logo-div">
-			<img src="/CGA101G1/frontend/mainCss/images/logo.png" alt=""> <a
-				href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
+			<img
+				src="<%=request.getContextPath()%>/frontend/mainCss/images/logo.png"
+				alt=""> <a
+				href="<%=request.getContextPath()%>/frontend/HomePage/HomePage.html"
+				class="logo">帕Game</a>
 		</div>
 
 
 		<nav class="navbar">
 			<!-- 上方標籤列 -->
-			<a href="/CGA101G1/frontend/HomePage.html">首頁</a> <a
-				href="/CGA101G1/frontend/Product/HomePageinshop.html"
-				class="nav-link">遊戲商城</a> <a
-				href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
-			<a class="active" href="/CGA101G1/frontend/forum/ForumAllHome.html"
-				class="nav-link">遊戲討論區</a>
+			<a class="active"
+				href="<%=request.getContextPath()%>/frontend/HomePage/HomePage.html">首頁</a>
+			<a
+				href="<%=request.getContextPath()%>/frontend/Product/HomePageinshop.html">商品區</a>
+			<!-- <a href="#news">遊戲新聞</a> -->
+			<a href="<%=request.getContextPath()%>/frontend/bid/listallbid.html">競標區</a>
+			<a
+				href="<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">討論區</a>
 		</nav>
 
 		<div class="icons">
 			<!--右上方小icon區-->
 			<i class="fas fa-bars" id="menu-bars"></i> <a
-				href="/CGA101G1/frontend/memLogin/login.html"
+				href="<%=request.getContextPath()%>/frontend/mem/updateMemberData.html"
 				class="fas fa-solid fa-user-astronaut" id="login-icon"></a> <a
-				href="#" class="fas fa-search" id="search-icon"></a> <a
-				href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html"
+				href="<%=request.getContextPath()%>/frontend/Product/HomePageinProduct-wishlist.jsp"
 				class="fas fa-heart"></a> <a
-				href="/CGA101G1/frontend/Product/shopping-cart.html"
+				href="<%=request.getContextPath()%>/frontend/Product/shopping-cart.html"
 				class="fas fa-shopping-cart" id="cart"></a>
 		</div>
 
 	</header>
 
+	<!-- header section ends-->
 
 	<!-- header section ends-->
-	<!--Login starts-->
 
-	<div action="" id="login-form">
-		<i class="fas fa-times" id="login-close"></i>
+	<div style="height: 33px"></div>
 
-
-		<div class="form-box">
-			<div class="button-box">
-				<div id="btn"></div>
-				<button type="button" class="toggle-btn" onclick="login()">Log
-					in</button>
-				<button type="button" class="toggle-btn" onclick="register()">Register</button>
-			</div>
-
-			<form id="login" class="input-group">
-				<div class="input-div">
-					<i class="fas fa-solid fa-user-astronaut"></i> <input type="text"
-						class="input-field" placeholder="Username" required>
-				</div>
-				<div class="input-div">
-					<i class="fas fa-solid fa-lock"></i> <input type="password"
-						class="input-field" placeholder="Password" required>
-				</div>
-
-				<div class="others">
-					<input type="checkbox" class="check-box"> <span>Remeber
-						Password</span>
-				</div>
-
-				<button type="submit" class="submit-btn">Log in</button>
-			</form>
-
-			<form id="register" class="input-group">
-				<div class="input-div">
-					<i class="fas fa-solid fa-user-astronaut"></i> <input type="text"
-						class="input-field" placeholder="Username" required>
-				</div>
-				<div class="input-div">
-					<i class="fas fa-solid fa-envelope"></i> <input type="email"
-						class="input-field" placeholder="E-mail" required>
-				</div>
-				<div class="input-div">
-					<i class="fas fa-solid fa-lock"></i> <input type="password"
-						class="input-field" placeholder="Password" required>
-				</div>
-
-				<div class="others">
-					<input type="checkbox" class="check-box"> <span>I
-						agree to the terms & conditions</span>
-				</div>
-
-				<button type="submit" class="submit-btn">Register</button>
-			</form>
-
-		</div>
-
-	</div>
-
-	<!-- Login ends -->
-	<!-- search form starts-->
-
-	<form action="" id="search-form">
-		<div class="search-group">
-
-			<div>
-				<input type="search" placeholder="search here..." name=""
-					id="search-box"> <input type="button" id="advanced"
-					value="&#x21FE;Advanced search">
-				<!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
-			</div>
-			<label for="search-box" class="fas fa-search"></label>
-
-		</div>
-
-
-		<i class="fas fa-times" id="search-close"></i>
-	</form>
-
-	<!-- search form ends-->
-
-	<!-- shopping-cart div starts -->
-	<div id="shopping-cart">
-		<span>Monopoly</span>
-	</div>
-
-	<!-- shopping-cart div ends -->
-
-	<div style="height: 60px"></div>
+	<div style="height: 33px"></div>
 
 	<!-- main 討論區 starts-->
 
@@ -243,47 +169,7 @@ pageContext.setAttribute("list", list);
 
 	<!-- main ends-->
 	<!-- Footer -->
-	<footer class="bg-white footer">
-		<div class="footer-top py-6">
-			<div class="container">
-				<div class="row">
-					<section class="footer">
-						<div class="box-container">
-							<div class="box">
-								<h3>會員專區</h3>
-								<a href="#">會員登入</a> <a href="#">會員註冊</a> <a href="#">訂單管理</a> <a
-									href="#">二手遊戲申請上架單管理</a>
-							</div>
-
-							<div class="box">
-								<h3>快速連結</h3>
-								<a href="#">首頁</a> <a href="#">遊戲商城</a> <a href="#">二手競標商城</a> <a
-									href="#">遊戲討論區</a>
-							</div>
-
-							<div class="box">
-								<h3>聯絡我們</h3>
-								<a href="#">02-3456-7890</a> <a href="#">03-1111-2222</a> <a
-									href="#">CGA101G1@gmail.com</a> <a href="#">anasbhai@gmail.com</a>
-							</div>
-
-							<div class="box">
-								<h3>關於我們</h3>
-								<a href="#">管理團隊</a> <a href="#">創始理念</a> <a href="#">insuagram</a>
-								<a href="#">linkedin</a>
-							</div>
-						</div>
-
-						<div class="credit">
-							copyright@2022 by <span>CGA101G1</span>
-						</div>
-
-					</section>
-				</div>
-			</div>
-		</div>
-
-	</footer>
+	<%@include file="/frontend/frontfoot.jsp"%>
 	<!-- End Footer -->
 	<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script

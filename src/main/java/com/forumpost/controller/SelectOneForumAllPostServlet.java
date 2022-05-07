@@ -33,18 +33,15 @@ public class SelectOneForumAllPostServlet extends HttpServlet {
 
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
-		System.out.println(forumNo);
-
 		ForumPostService forumPostSvc = new ForumPostService();
-		List<ForumPostVO> forumPostVOs = forumPostSvc.findOneForumAllPost(forumNo);
-		
+		List<ForumPostVO> forumPostPowerVOs = forumPostSvc.findOneForumAllPost(forumNo);
+
 		ForumService forumSvc = new ForumService();
-		ForumVO forumVO = forumSvc.getOneForum(forumNo);
-		
+		ForumVO forumPowerVO = forumSvc.getOneForum(forumNo);
 
 		// 將過濾好的VO放置於request scope內
-		request.setAttribute("forumPostVOs", forumPostVOs);
-		request.setAttribute("forumVO",forumVO);
+		request.getSession().setAttribute("forumPostPowerVOs", forumPostPowerVOs);
+		request.getSession().setAttribute("forumPowerVO", forumPowerVO);
 
 		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/oneForumAllPost.jsp");
 		successView.forward(request, response);
