@@ -166,6 +166,12 @@
                     </table>
                 </div>
                 <!-- Cart Table -->
+                <div v-if="(this.datastore.length == 0)">
+                    <div style="font-size:large; text-align:center">
+                        <i class="fas fa-shopping-cart"></i> 目前購物車中還沒有東西唷~<i class="fas fa-shopping-cart"></i>
+                    </div>
+
+                </div>
                 <div class="d-flex">
                     <div>
                         <a class="btn btn-outline-dark" href="/CGA101G1/frontend/Product/HomePageinshop.html">
@@ -177,121 +183,121 @@
                 <div class="row flex-row-reverse pt-4">
 
                 </div>
-                <form class="card mt-5" action="/CGA101G1/order/addtoOrderAndOrderlist" method="post">
-                    <div class="card-header py-3">
-                        <h6 class="m-0">請填寫訂購資料</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="ReceiverName">收件人姓名</label>
-                                <input class="form-control" type="text" id="ReceiverName" required name="ReceiverName"
-                                    @change="nameCheck($event)" :value="memInfo.memName">
-                                <div style="color: red;" :style="{visibility: nameInput ? 'visible' : 'hidden'}">
-                                    請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="ReceiverPhone">聯絡手機</label>
-                                <input class="form-control" type="number" id="ReceiverPhone" required
-                                    name="ReceiverPhone" @change="phoneCheck($event)" :value="memInfo.memMobile">
-                                <div style="color: red;" :style="{visibility: phoneInput ? 'visible' : 'hidden'}">
-                                    請輸入正確的手機格式!!</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="Rod">地址</label>
-                                <input class="js-demeter-tw-zipcode-selector form-select" data-city="#city4"
-                                    data-dist="#dist4" placeholder="請輸入郵遞區號" hidden>
-                                <select class="county" id="memCity" class="form-control"></select>
-                                <select id="city4" placeholder="請選擇縣市" class="form-select" name="city" required
-                                    v-model="memCitySelect">
-                                    <option :value="memCitySelect" v-show="memCitySelect">{{memCitySelect}}</option>
-                                </select>
-                                <select id="dist4" placeholder="請選擇鄉鎮區" class="form-select" name="dist"
-                                    required></select>
-                                <input class="form-control" type="text" id="Rod" required name="Rod"
-                                    v-model="memInfo.memAdd" @change="RodInputCheck($event)">
-                                <div style="color: red;" :style="{visibility: RodInput ? 'visible' : 'hidden'}">
-                                    請輸入正確格式的地址，不應包含特殊符號及英文或是只填空格!!</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="PickupMethod">取貨方式</label>
-                                <select class="form-select" id="PickupMethod" required name="PickupMethod"
-                                    @change="feeCheck($event)">
-                                    <option value="0">宅配</option>
-                                    <option value="1">超商取貨</option>
-                                </select>
-                                <label class="form-label" for="shippingFee">運費</label>
-                                <select class="form-select" id="shippingFee" disabled name="shippingFee"
-                                    :value="shippingFeeCal">
-                                    <option value="0">宅配運費:100元</option>
-                                    <option value="1">超商取貨運費:60元</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="payMethod">付款方式</label>
-                                <select class="form-select" id="payMethod" required name="payMethod">
-                                    <option value="0">信用卡</option>
-                                    <option value="1">超商取貨付款</option>
-                                    <option value="2">匯款</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 col-lg-8">
-                                <div class="card">
-                                    <div class="card-header bg-transparent py-3">
-                                        <h6 class="m-0">Use Coupon Code</h6>
-                                    </div>
-                                    <div class="card-body ">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">優惠券</label>
-                                            <select class="form-select" id="MemCouponNo" required
-                                                @change="getCoup($event)">
-                                                <option value="0">不使用優惠券</option>
-                                                <option v-for="(item, index) in coupons" :key="index"
-                                                    :value="item.discountPrice+a+item.couponTypeNo">
-                                                    {{item.couponTypeNo}}：優惠金額-{{item.discountPrice}}</option>
-                                            </select>
-                                            <input :value="memCouponNo" name="MemCouponNo">
-                                            <input :value="selectCouponNo" name="couponTypeNo">
+                <div v-if="(this.datastore.length != 0)">
+                    <form class="card mt-5" action="/CGA101G1/order/addtoOrderAndOrderlist" method="post">
+                        <div class="card-header py-3">
+                            <h6 class="m-0">請填寫訂購資料</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="ReceiverName">收件人姓名</label>
+                                    <input class="form-control" type="text" id="ReceiverName" required
+                                        name="ReceiverName" @change="nameCheck($event)" v-model="memInfo.memName">
+                                    <div style="color: red;" :style="{visibility: nameInput ? 'visible' : 'hidden'}">
+                                        請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="ReceiverPhone">聯絡手機</label>
+                                    <input class="form-control" type="number" id="ReceiverPhone" required
+                                        name="ReceiverPhone" @change="phoneCheck($event)" v-model="memInfo.memMobile">
+                                    <div style="color: red;" :style="{visibility: phoneInput ? 'visible' : 'hidden'}">
+                                        請輸入正確的手機格式!!</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="Rod">地址</label>
+                                    <input class="js-demeter-tw-zipcode-selector form-control" data-city="#city4"
+                                        data-dist="#dist4" placeholder="請輸入郵遞區號" v-model="postNo" hidden>
+                                    <select id="city4" placeholder="請選擇縣市" class="form-select" name="city" required>
+                                    </select>
+                                    <select id="dist4" placeholder="請選擇鄉鎮區" class="form-select" name="dist"
+                                        required></select>
+                                    <input class="form-control" type="text" id="Rod" required name="Rod"
+                                        v-model="memInfo.Add" @change="RodInputCheck($event)">
+                                    <div style="color: red;" :style="{visibility: RodInput ? 'visible' : 'hidden'}">
+                                        請輸入正確格式的地址，不應包含特殊符號及英文或是只填空格!!</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="PickupMethod">取貨方式</label>
+                                    <select class="form-select" id="PickupMethod" required name="PickupMethod"
+                                        @change="feeCheck($event)">
+                                        <option value="0">宅配</option>
+                                        <option value="1">超商取貨</option>
+                                    </select>
+                                    <label class="form-label" for="shippingFee">運費</label>
+                                    <select class="form-select" id="shippingFee" disabled name="shippingFee"
+                                        :value="shippingFeeCal">
+                                        <option value="0">宅配運費:100元</option>
+                                        <option value="1">超商取貨運費:60元</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="payMethod">付款方式</label>
+                                    <select class="form-select" id="payMethod" required name="payMethod">
+                                        <option value="0">信用卡</option>
+                                        <option value="1">超商取貨付款</option>
+                                        <option value="2">匯款</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-lg-8">
+                                    <div class="card">
+                                        <div class="card-header bg-transparent py-3">
+                                            <h6 class="m-0">Use Coupon Code</h6>
+                                        </div>
+                                        <div class="card-body ">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label">優惠券</label>
+                                                <select class="form-select" id="MemCouponNo" required
+                                                    @change="getCoup($event)">
+                                                    <option value="0">不使用優惠券</option>
+                                                    <option v-for="(item, index) in coupons" :key="index"
+                                                        :value="item.discountPrice+a+item.couponTypeNo">
+                                                        {{item.couponTypeNo}}：優惠金額-{{item.discountPrice}}</option>
+                                                </select>
+                                                <input :value="memCouponNo" name="MemCouponNo">
+                                                <input :value="selectCouponNo" name="couponTypeNo">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <div class="card">
-                                    <div class="card-header bg-transparent py-3">
-                                        <h6 class="m-0 mb-1">Order Total</h6>
-                                    </div>
-                                    <!-- 結帳 -->
-                                    <div class="card-body ">
-                                        <ul class="list-unstyled">
-                                            <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">原價</h6><span
-                                                    class="text-end">{{totalPrice}}</span>
-                                            </li>
-                                            <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">優惠券折抵金額</h6><span
-                                                    class="text-end">-{{this.selectCoupon}}</span>
-                                            </li>
-                                            <li class="d-flex justify-content-between align-items-center mb-2">
-                                                <h6 class="me-2 text-body">運費</h6><span
-                                                    class="text-end">+{{this.shipFeeConfirm}}</span>
-                                            </li>
-                                            <li
-                                                class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                                <h6 class="me-2">最後所需支付總價</h6>
-                                                <input type="text" :value="totalPrice-selectCoupon+shipFeeConfirm"
-                                                    name="OrderTotalPrice">
-                                            </li>
-                                        </ul>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card">
+                                        <div class="card-header bg-transparent py-3">
+                                            <h6 class="m-0 mb-1">Order Total</h6>
+                                        </div>
+                                        <!-- 結帳 -->
+                                        <div class="card-body ">
+                                            <ul class="list-unstyled">
+                                                <li class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="me-2 text-body">原價</h6><span
+                                                        class="text-end">{{totalPrice}}</span>
+                                                </li>
+                                                <li class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="me-2 text-body">優惠券折抵金額</h6><span
+                                                        class="text-end">-{{this.selectCoupon}}</span>
+                                                </li>
+                                                <li class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="me-2 text-body">運費</h6><span
+                                                        class="text-end">+{{this.shipFeeConfirm}}</span>
+                                                </li>
+                                                <li
+                                                    class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
+                                                    <h6 class="me-2">最後所需支付總價</h6>
+                                                    <input type="text" :value="totalPrice-selectCoupon+shipFeeConfirm"
+                                                        name="OrderTotalPrice">
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <input type="submit" value="送出訂單" class="btn btn-primary" v-show="ckeckoutOK">
+                                <div class="col-12">
+                                    <input type="submit" value="送出訂單" class="btn btn-primary" v-show="ckeckoutOK">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
         </div>
         <!-- Cart Table -->
@@ -380,10 +386,11 @@
                 totalPrice: 0,
                 coupons: [],
                 memInfo: [],
+                postData: [],
                 selectCoupon: 0,
                 selectCouponNo: '',
                 memCouponNo: 0,
-                memCitySelect: '',
+                postNo: 0,
                 form: false,
                 a: ",",
                 //表單驗證用
@@ -395,7 +402,7 @@
                 phoneCheckN: 0,
                 shippingFeeCal: 0,
                 shipFeeConfirm: 100,
-                ckeckoutOK: false,
+                ckeckoutOK: true,
                 ckeckoutNumber: 0,
 
             }
@@ -412,17 +419,37 @@
                         this.datastore.forEach(element => {
                             this.totalPrice += element.productTotalPrice;
                         });
+                        if (this.datastore.length == 0) {
+                            this.ckeckoutOK = false;
+                        }
                     });
             },
             getMemData() {
                 const apiUrl = '/CGA101G1/product/showShoppingMemInfo';
+                this.getPostData();
                 axios.get(apiUrl)
                     // 一定要用箭頭函示!!!!
                     .then((response) => {
                         console.log("取memInfo的狀態：" + response.status); //狀態碼
                         this.memInfo = response.data;//塞進去
-                        this.memCitySelect = this.memInfo.memCity;
+                        if (this.memInfo.Dist == '') {
+                            this.ckeckoutOK = false;
+                        }
                         console.log("memInfo讀取資料ok");
+                        for (i = 0; i < this.postData.length; i++) {
+                            if ((this.postData[i].city_name === this.memInfo.City) && (this.postData[i].name === this.memInfo.Dist)) {
+                                this.postNo = this.postData[i].zipcode;
+                                console.log(this.postData[i].zipcode);
+                            }
+                        }
+                    });
+            },
+            getPostData() {
+                const apiUrl = 'https://demeter.5fpro.com/tw/zipcodes.json';
+                axios.get(apiUrl)
+                    // 一定要用箭頭函示!!!!
+                    .then((response) => {
+                        this.postData = response.data;//塞進去
                     });
             },
             showForm() {
@@ -460,10 +487,10 @@
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.nameInput = true;
                 } else {
-                    this.nameCheckN = 1;
-                    if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
-                        this.ckeckoutOK = true;
-                    }
+                    // this.nameCheckN = 1;
+                    // if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
+                    this.ckeckoutOK = true;
+                    // }
                 }
             },
             phoneCheck(e) {
@@ -474,10 +501,10 @@
                 if (!rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.phoneInput = true;
                 } else {
-                    this.phoneCheckN = 1;
-                    if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
-                        this.ckeckoutOK = true;
-                    }
+                    // this.phoneCheckN = 1;
+                    // if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
+                    this.ckeckoutOK = true;
+                    // }
                 }
             },
             RodInputCheck(e) {
@@ -488,10 +515,10 @@
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.RodInput = true;
                 } else {
-                    this.RodCheckN = 1;
-                    if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
-                        this.ckeckoutOK = true;
-                    }
+                    // this.RodCheckN = 1;
+                    // if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
+                    this.ckeckoutOK = true;
+                    // }
                 }
             },
             feeCheck(e) {

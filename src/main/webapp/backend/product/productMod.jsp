@@ -74,9 +74,17 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div id="app">
-						<!-- <div class="text-end mx-3">
-                                <button type="button" class="btn btn-primary" v-on:click="additem">新增</button>
-                            </div> -->
+
+                            <div style="width:30%">
+                                <input class="form-control" type="text" name="keysearch" id=""
+                                    @change="keysearch($event)" placeholder="搜尋遊戲名稱">
+                            </div>
+                            <div v-if="(this.search.length == 0)" style="color:red ">
+                                查無資料
+                            </div>
+                            <div v-else>
+                                目前總共<span style="color:blue ">{{this.search.length}}</span>筆資料
+                            </div>
 
 						<card-template :read-data="renderData" :now-page="nowPage"
 							v-on:emitedit="edit"> </card-template>
@@ -86,7 +94,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 								@previous-page="previousPage" @next-page="nextPage">
 							</pagination-list>
 						</nav>
-						<!--   v-if="isNew" 判斷要不要打開編輯的表單  -->
+
 						<!--   form內容要進去資料庫  -->
 						<div style="width: 30%;">
 							<form v-if="isNew || temp.productNo" method="post"
@@ -266,6 +274,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                     data() {
                         return {
                             datastore: [],
+                            search: [],
                             picData: [],
                             gametype: [],
                             gameplatform: [],
@@ -308,7 +317,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                         renderingPage() {
                             for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
                                 this.renderData.push(
-                                    (this.datastore.slice
+                                    (this.search.slice
                                         (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
                                     )
                                 );
@@ -327,6 +336,9 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                                     this.getGametype();
                                     this.getGameplatform();
                                     this.insertproductStatusName(this.productStatus);
+                                    for (product of this.datastore) {
+                                        this.search.push(product);
+                                    }
 
 
 
@@ -414,12 +426,17 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                             }
                             console.log("insert完畢");
                         },
-                        additem() {
-                            this.isNew = true;
-                            this.temp = {};
-                            this.url = null;
-                            this.url2 = null;
-                            this.url3 = null;
+                        keysearch(e) {
+                            console.log(e.target.value);
+                            this.search = [];
+                            this.datastore.filter(item => {
+                                if (item.productName.indexOf(e.target.value) !== -1) {
+                                    this.search.push(item);
+                                }
+                            });
+                            this.renderData = [];
+                            this.renderingPage();
+
                         },
                         edit(para) {
                             console.log("帶入想要編輯的物件")
@@ -493,7 +510,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                     },
                     computed: {
                         totalPage() {
-                            return Math.ceil(this.datastore.length / this.pageBaseNum); // 依每頁數量計算總頁數
+                            return Math.ceil(this.search.length / this.pageBaseNum); // 依每頁數量計算總頁數
                         }
                     },
                     created() {
@@ -548,7 +565,9 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                                         <td>{{item.gamePlatformName}}</td>
                                         <td>{{item.gameCompanyNo}}</td>
                                         <td>{{item.StatusName}}</td>
-                                        <td class="descriptionArea">{{item.itemProdDescription}}</td>
+                                        <td class="descriptionArea" style="width: 100px;">
+                                        <div style="width: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4;-webkit-box-orient: vertical;">{{item.itemProdDescription}}</div>
+                                        </td>
                                         <td>{{item.upcNum}}</td>
                                         <td>
                                             <img :src="item.picList[1].imageUrl" alt="" height="100">
@@ -595,106 +614,6 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                 })
                 app.mount('#app');
 
-
-
-
-
-
-
-
-        // const App = Vue.createApp({
-        //     data() {
-        //         return {
-        //             datastore: [],
-        //             picData: [],
-        //             temp: {},
-        //             isNew: false,
-        //             url: null,
-        //             url2: null,
-        //             url3: null,
-        //         }
-        //     },
-        //     methods: {
-        //         getProductData() {
-        //             const apiUrl = 'http://localhost:8081/CGA101G1/product/OneProductToJson';
-        //             axios.get(apiUrl)
-        //                 // 一定要用箭頭函示!!!!
-        //                 .then((response) => {
-        //                     console.log("取ProductData的狀態：" + response.status); //狀態碼
-
-        //                     this.datastore = response.data;//塞進去
-        //                     console.log("datastore讀取資料ok");
-        //                     this.getPicData();
-        //                 });
-        //         },
-        //         getPicData() {
-        //             const apiUrl = 'http://localhost:8081/CGA101G1/product/ProductPics';
-        //             axios.get(apiUrl)
-        //                 // 一定要用箭頭函示!!!!
-        //                 .then((response) => {
-        //                     console.log("取pic的狀態：" + response.status); //狀態碼
-
-        //                     this.picData = response.data;//塞進去
-        //                     this.insertPic(this.picData);
-
-        //                 });
-        //         },
-        //         additem() {
-        //             this.isNew = true;
-        //             this.temp = {};
-        //             this.url = null;
-        //             this.url2 = null;
-        //             this.url3 = null;
-        //         },
-        //         edit(para) {
-        //             this.temp = {};
-        //             this.temp = { ...para };//淺層拷貝，把點選編輯的物件放進temp
-        //             this.url = this.temp.picList[0].imageUrl;
-        //             this.url2 = this.temp.picList[1].imageUrl;
-        //             this.url3 = this.temp.picList[2].imageUrl;
-
-        //         },
-        //         onFileChange(e) {
-        //             const file = e.target.files[0];
-        //             this.url = URL.createObjectURL(file);
-        //         },
-        //         onFileChange2(e) {
-        //             const file2 = e.target.files[0];
-        //             this.url2 = URL.createObjectURL(file2);
-        //         },
-        //         onFileChange3(e) {
-        //             const file3 = e.target.files[0];
-        //             this.url3 = URL.createObjectURL(file3);
-        //         },
-        //         insertPic(picData) {
-        //             console.log("insertPic開始");
-        //             for (j = 0; j < this.datastore.length; j++) {
-        //                 this.datastore[j].picList = [];
-        //                 for (i = 0; i < picData.length; i++) {
-        //                     if (picData[i].productNo == this.datastore[j].productNo) {
-        //                         this.datastore[j].picList.push(picData[i]);
-        //                     }
-        //                 }
-        //             }
-        //             this.picData = [];
-        //             console.log("insert完畢");
-        //         },
-
-
-        //         checkdata(e) {
-        //             console.log(e);
-        //             if ((e.target.value).trim().length() == 0) {
-        //                 console.log("不能空值或是空格")
-        //             }
-        //         }
-
-        //     },
-        //     created() {
-        //         this.getProductData();
-
-        //     }
-        // });
-        // App.mount('#app');
 
             </script>
 

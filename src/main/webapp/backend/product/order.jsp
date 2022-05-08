@@ -37,7 +37,7 @@ pageContext.setAttribute("list", list);
 		<div class="row" style="width: 100%">
 			<div class="accordion" id="accordionExample">
 				<div class="col-lg-9 main-chart" style="width: 100%">
-					我是首頁
+					<h1>訂單管理</h1>
 
 
 					<%@ include file="page1.file"%>
