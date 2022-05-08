@@ -1,9 +1,8 @@
 package com.forumpost.controller;
 
 import java.io.IOException;
-
 import java.util.LinkedHashMap;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -15,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forum.model.ForumService;
 import com.forum.model.ForumVO;
+import com.forumpost.model.ForumPostService;
+import com.forumpost.model.ForumPostVO;
 
-@WebServlet("/forum/forumPostInsert")
-public class ForumPostInsertServlet extends HttpServlet {
+@WebServlet("/forum/topMemSelectOneForumAllPost")
+public class TopMemSelectOneForumAllPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,30 +26,24 @@ public class ForumPostInsertServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		/*********************** 1.接收請求參數 *************************/
-		ForumService forumSvc = new ForumService();
-		ForumVO forumVO = new ForumVO();
-
-		// 討論區編號
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
-		/*************************** 2.開始新增資料 ***************************************/
-		// 新增討論區資料 並回傳新討論區編號
+		ForumPostService forumPostSvc = new ForumPostService();
+		List<ForumPostVO> forumPostPowerVOs = forumPostSvc.findTopMemAllPost(forumNo);
 
-		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+		ForumService forumSvc = new ForumService();
+		ForumVO forumPowerVO = forumSvc.getOneForum(forumNo);
 
-		forumVO = forumSvc.getOneForum(forumNo);
+		// 將過濾好的VO放置於request scope內
+		request.getSession().setAttribute("forumPostPowerVOs", forumPostPowerVOs);
+		request.getSession().setAttribute("forumPowerVO", forumPowerVO);
 
-		request.setAttribute("forumVO", forumVO);
-		String url = "/frontend/forum/addForumPost.jsp";
-		RequestDispatcher successView = request.getRequestDispatcher(url);
+		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/topMemOneForumAllPost.jsp");
 		successView.forward(request, response);
-
 	}
+
 }

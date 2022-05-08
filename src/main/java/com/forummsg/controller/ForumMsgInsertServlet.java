@@ -37,9 +37,7 @@ public class ForumMsgInsertServlet extends HttpServlet {
 		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
 		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
-
-		Integer memNo = 11008;
+		Integer memNo = memVO.getMemNo();
 
 		ForumMsgService forumMsgSvc = new ForumMsgService();
 
@@ -48,7 +46,7 @@ public class ForumMsgInsertServlet extends HttpServlet {
 		String forumMsg = request.getParameter("forumMsg".trim());
 
 		if (forumMsg == null || forumMsg.trim().length() == 0) {
-			errorMsgs.put("forumMsg", "留言請勿空白");
+			errorMsgs.put("forumMsg", ":留言請勿空白");
 		}
 
 		// 錯誤處理回傳forumPostVO

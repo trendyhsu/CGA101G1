@@ -35,9 +35,7 @@ public class ForumMemMsgReportInsertServlet extends HttpServlet {
 
 		// session 取得會員編號
 		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
-
-		Integer memNo = 11003;
+		Integer memNo = memVO.getMemNo();
 
 		// 1.接收請求參數
 		Integer forumMsgReportType = Integer.valueOf(request.getParameter("forumMsgReportType").trim());

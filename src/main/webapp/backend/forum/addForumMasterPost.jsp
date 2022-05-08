@@ -74,13 +74,7 @@ h3 {
 							<jsp:useBean id="managerSvc" scope="page"
 								class="com.manager.model.ManagerService" />
 							<td>管理員名稱</td>
-							<td><select size="1" name="managerNo">
-									<c:forEach var="managerVO" items="${managerSvc.getAll()}">
-										<option value="${managerVO.managerNo}"
-											${(managerVO.managerNo==forumPostVO.managerNo) ? "selected" : ""}>
-											${managerVO.managerName}
-									</c:forEach>
-							</select></td>
+							<td>${managerVO.managerNo}-${managerVO.managerName}</td>
 						</tr>
 
 						<tr>
@@ -130,13 +124,13 @@ h3 {
 				</form>
 
 				<div style="height: 15px"></div>
-			<div style="display: inline-block; width: 77px;"></div>
-			<div style="display: inline-block;">
-				<a
-					href="<%=request.getContextPath()%>/backend/forum/listAllForumMasterPost.jsp">
-					<button>返回管理員文章列表</button>
-				</a>
-			</div>
+				<div style="display: inline-block; width: 77px;"></div>
+				<div style="display: inline-block;">
+					<a
+						href="<%=request.getContextPath()%>/backend/forum/listAllForumMasterPost.jsp">
+						<button>返回管理員文章列表</button>
+					</a>
+				</div>
 			</div>
 		</section>
 

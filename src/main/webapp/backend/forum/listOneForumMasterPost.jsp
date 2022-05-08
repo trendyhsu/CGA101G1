@@ -61,7 +61,6 @@ h3 {
 						</td>
 					</tr>
 				</table>
-				<!-- main content -->
 				<table>
 					<tr>
 						<td>文章編號</td>

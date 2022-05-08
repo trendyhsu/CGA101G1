@@ -3,13 +3,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ page import="com.forum.model.*"%>
+<%@ page import="com.forumpost.model.*"%>
+<%@ page import="com.forumpostpic.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
 ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
-ForumPostVO forumPostVO = new ForumPostVO();
+ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
+
+List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribute("forumPostPicVOs");
 %>
 
 <!DOCTYPE html>
@@ -136,7 +139,7 @@ ForumPostVO forumPostVO = new ForumPostVO();
 	<!-- 商品詳情 -->
 	<section name="pd_information" id="pd_description">
 		<FORM method="post"
-			action="<%=request.getContextPath()%>/forum/forumMemPostInsert"
+			action="<%=request.getContextPath()%>/forum/forumMemPostEditUpdate"
 			name="form1" enctype="multipart/form-data" onsubmit="return ">
 			<div>
 				<div>
@@ -181,29 +184,58 @@ ForumPostVO forumPostVO = new ForumPostVO();
 			<label class="form-label" style="font-size: 18px;">上傳圖片</label>
 			<div></div>
 			<input type="file" name="upfile1" onclick="previewImage()" multiple
-				id="upfile"> <br> <br> <input type="hidden"
-				name="forumPostFeatured" value="0"> <input class="acess"
+				id="upfile"> <br> <br> <input class="acess"
 				type="submit" value="送出"><input type="hidden" name="forumNo"
-				value="${forumVO.forumNo}"> <input type="hidden"
-				name="forumPostState" value="1"> <input class="acess"
-				type="reset" value="重設">
+				value="${forumPostVO.forumNo}"><input type="hidden"
+				name="forumPostNo" value="${forumPostVO.forumPostNo}"><input
+				class="acess" type="reset" value="重設">
 			<div style="display: inline-block;">
 				<a
 					href="
-			<%=request.getContextPath()%>/forum/selectOneForumAllPost?forumNo=${forumVO.forumNo}">
+			<%=request.getContextPath()%>/forum/selectOneForumAllPost?forumNo=${forumPostVO.forumNo}">
 					<button class="button1" form="fake">返回討論區</button>
 				</a>
 			</div>
 		</FORM>
-
 		<div style="height: 8px"></div>
-		<div style="margin-left: -7px">
-			<div id="picPreview"
-				style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative;"></div>
 
+
+		<div id="delete-form" style="position: relative;">
+			<form method="post"
+				ACTION="<%=request.getContextPath()%>/forum/forumPostPicDelete"
+				onsubmit="return checkConfirm();"
+				style="display: flex; align-items: center">
+				<br>
+				<c:if test="${forumPostPicVOs.size() != 0}">
+
+					<c:forEach var="forumPostPicVO" items="${forumPostPicVOs}">
+						<div
+							style="border-style: solid; padding: 10px; border-radius: 10px">
+							<input class="form-check-input"
+								style="width: 15px; height: 15px; margin-top: 55px;"
+								type="checkbox" name="forumPostPicNos"
+								value="${forumPostPicVO.forumPostPicNo}" class="delete_checkbox">
+							&nbsp;<img
+								src="<%=request.getContextPath()%>/forum/forumPostPicGetOneByPicNo?forumPostPicNo=${forumPostPicVO.forumPostPicNo}"
+								height="128px" width="200px" class="uploadedImg"
+								style="border-radius: 5px;">
+						</div>
+						&emsp;
+					</c:forEach>
+					<div style="display: block;">
+						<input type="hidden" name="forumPostNo"
+							value="${forumPostVO.forumPostNo}"> <input
+							class="button1" type="submit" style="margin-left: 10px;"
+							value="刪除">
+					</div>
+				</c:if>
+			</FORM>
+			<div style="margin-left: -7px">
+				<div id="picPreview"
+					style="display: flex; width: 100%; height: 100%; flex-wrap: wrap; position: relative;"></div>
+
+			</div>
 		</div>
-
-
 	</section>
 
 	<!-- End 文章區 -->

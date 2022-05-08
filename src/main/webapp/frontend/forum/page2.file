@@ -19,6 +19,6 @@
             <option value="<%=i%>">跳至第<%=i%>頁
          <%}%> 
        </select>
-       <input type="submit" value="確定" >  
+       <input type="submit" class="page" value="確定" >  
     </FORM>
   <%}%>

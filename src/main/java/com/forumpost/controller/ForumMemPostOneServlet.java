@@ -2,7 +2,7 @@ package com.forumpost.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -13,43 +13,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.forumpost.model.ForumPostService;
-import com.member.model.MemVO;
+import com.forumpost.model.ForumPostVO;
+import com.forumpostpic.model.ForumPostPicService;
+import com.forumpostpic.model.ForumPostPicVO;
 
-@WebServlet("/forum/myPostDelete")
-public class MyPostDeleteServlet extends HttpServlet {
+@WebServlet("/forum/forumMemPostOne")
+public class ForumMemPostOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doPost(request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// 處理來自editForumPost.jsp 送出修改商品請求
 
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		// session 取得會員編號
-		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
+		/*************************** 1.接收請求參數 **********************/
 
-		// 1.接收請求參數
-		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
-		Integer forumPostState = Integer.valueOf(0);
-		// 2.開始修改資料
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo"));
+
+		// 2.開始查詢資料
 		ForumPostService forumPostSvc = new ForumPostService();
-		forumPostSvc.updateMemPostState(forumPostNo, forumPostState);
+		ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
+
+		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
+
+		List<ForumPostPicVO> forumPostPicVOs = forumPostPicSvc.getOneForumTotalPostPic(forumPostNo);
 
 		// 3.查詢完成,準備轉交(Send the Success view)
-		// 從資料庫取forumPostReportVO 物件, 存入 request 中
-		request.setAttribute("memVO", memVO);
-		String url = "/forum/forumPostMyPostMemNo";
+		// 從資料庫取forumPostVO 物件, 存入 request 中
+		request.setAttribute("forumPostVO", forumPostVO);
+		request.setAttribute("forumPostPicVOs", forumPostPicVOs);
+
+		String url = "/frontend/forum/editForumPost.jsp";
 		// 成功轉交 editForumPost.jsp
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
 
 	}
-
 }

@@ -2,11 +2,9 @@ package com.forumpost.controller;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -18,13 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.bidpic.model.BidPicVO;
 import com.forum.model.ForumService;
 import com.forum.model.ForumVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
 import com.forumpostpic.model.ForumPostPicService;
-import com.forumpostpic.model.ForumPostPicVO;
+
 import com.member.model.MemVO;
 
 @WebServlet("/forum/forumMemPostInsert")
@@ -45,16 +42,13 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 
 		// session 取得會員編號
 		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
-
-		Integer memNo = 11003;
+		Integer memNo = memVO.getMemNo();
 
 		/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 		ForumPostService forumPostSvc = new ForumPostService();
 		ForumPostVO forumPostVO = new ForumPostVO();
 
 		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
-		ForumPostPicVO forumPostPicVO = new ForumPostPicVO();
 
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
@@ -114,7 +108,7 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 			if (bis.available() > 1024) {
 				forumPostImgs = new byte[bis.available()];
 				bis.read(forumPostImgs);
-				forumPostPicVO = forumPostPicSvc.addForumPostPic(forumPostNo, forumPostImgs);
+				forumPostPicSvc.addForumPostPic(forumPostNo, forumPostImgs);
 			}
 		}
 		bis.close();

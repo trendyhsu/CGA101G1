@@ -27,9 +27,7 @@ public class ForumPostCollectionMemNoServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 取得會員編號
 		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-//		Integer memNo = memVO.getMemNo();
-
-		Integer memNo = 11003;
+		Integer memNo = memVO.getMemNo();
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);

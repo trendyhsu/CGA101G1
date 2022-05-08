@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
+import com.manager.model.ManagerVO;
 
 @WebServlet("/forum/forumMasterPostEditUpdate")
 public class ForumMasterPostEditUpdateServlet extends HttpServlet {
@@ -32,6 +33,9 @@ public class ForumMasterPostEditUpdateServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		/*************************** 1.接收請求參數 **********************/
+		ManagerVO mangerVO = (ManagerVO) request.getSession().getAttribute("managerVO");
+		Integer managerNo = mangerVO.getManagerNo();
+
 		ForumPostService forumPostSvc = new ForumPostService();
 		ForumPostVO forumPostVO = new ForumPostVO();
 
@@ -69,7 +73,8 @@ public class ForumMasterPostEditUpdateServlet extends HttpServlet {
 
 		/*************************** 2.開始修改資料 *****************************************/
 
-		forumPostVO = forumPostSvc.updateAdminPostEdit(forumPostNo, forumPostState, forumPostTitle, forumPostContent);
+		forumPostVO = forumPostSvc.updateAdminPostEdit(managerNo, forumPostNo, forumPostState, forumPostTitle,
+				forumPostContent);
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 

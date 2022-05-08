@@ -17,8 +17,8 @@ import com.forum.model.ForumVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
 
-@WebServlet("/forum/selectOneForumAllPost")
-public class SelectOneForumAllPostServlet extends HttpServlet {
+@WebServlet("/forum/topMemEditUpdatePostFeaturedServlet")
+public class TopMemEditUpdatePostFeaturedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,15 +26,21 @@ public class SelectOneForumAllPostServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session 取得會員編號
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		request.setAttribute("errorMsgs", errorMsgs);
 
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
+
+		Integer forumPostFeatured = Integer.valueOf(request.getParameter("forumPostFeatured").trim());
+
 		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
 
 		ForumPostService forumPostSvc = new ForumPostService();
-		List<ForumPostVO> forumPostPowerVOs = forumPostSvc.findOneForumAllPost(forumNo);
+
+		forumPostSvc.updateMasterPostFeatured(forumPostNo, forumPostFeatured);
+
+		List<ForumPostVO> forumPostPowerVOs = forumPostSvc.findTopMemAllPost(forumNo);
 
 		ForumService forumSvc = new ForumService();
 		ForumVO forumPowerVO = forumSvc.getOneForum(forumNo);
@@ -43,7 +49,7 @@ public class SelectOneForumAllPostServlet extends HttpServlet {
 		request.getSession().setAttribute("forumPostPowerVOs", forumPostPowerVOs);
 		request.getSession().setAttribute("forumPowerVO", forumPowerVO);
 
-		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/oneForumAllPost.jsp");
+		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/topMemOneForumAllPost.jsp");
 		successView.forward(request, response);
 	}
 

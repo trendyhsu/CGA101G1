@@ -1,7 +1,6 @@
-package com.forumpost.controller;
+package com.forummsg.controller;
 
 import java.io.IOException;
-
 import java.util.LinkedHashMap;
 
 import java.util.Map;
@@ -13,42 +12,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.forum.model.ForumService;
-import com.forum.model.ForumVO;
+import com.forummsg.model.ForumMsgService;
 
-@WebServlet("/forum/forumPostInsert")
-public class ForumPostInsertServlet extends HttpServlet {
+@WebServlet("/forum/myMsgDelete")
+public class MyMsgDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		doPost(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
 		request.setAttribute("errorMsgs", errorMsgs);
 
-		/*********************** 1.接收請求參數 *************************/
-		ForumService forumSvc = new ForumService();
-		ForumVO forumVO = new ForumVO();
+		// 1.接收請求參數
+		Integer forumMsgNo = Integer.valueOf(request.getParameter("forumMsgNo").trim());
+		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
 
-		// 討論區編號
-		Integer forumNo = Integer.valueOf(request.getParameter("forumNo").trim());
+		Integer ForumMsgType = Integer.valueOf(0);
+		// 2.開始修改資料
+		ForumMsgService forumMsgSvc = new ForumMsgService();
+		forumMsgSvc.updateMsgType(forumMsgNo, ForumMsgType);
 
-		/*************************** 2.開始新增資料 ***************************************/
-		// 新增討論區資料 並回傳新討論區編號
-
-		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-
-		forumVO = forumSvc.getOneForum(forumNo);
-
-		request.setAttribute("forumVO", forumVO);
-		String url = "/frontend/forum/addForumPost.jsp";
+		// 3.查詢完成,準備轉交(Send the Success view)
+		// 從資料庫取forumPostReportVO 物件, 存入 request 中
+		request.setAttribute("forumPostNo", forumPostNo);
+		String url = "/forum/selectOnePostAllMsg";
+		// 成功轉交 editForumPost.jsp
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);
 
 	}
+
 }

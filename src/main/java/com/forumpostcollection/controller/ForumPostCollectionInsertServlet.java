@@ -2,7 +2,6 @@ package com.forumpostcollection.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -32,9 +31,7 @@ public class ForumPostCollectionInsertServlet extends HttpServlet {
 
 		// session 取得會員編號
 		MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-//				Integer memNo = memVO.getMemNo();
-
-		Integer memNo = 11003;
+		Integer memNo = memVO.getMemNo();
 
 		/*********************** 1.接收請求參數 *************************/
 		ForumPostCollectionService forumPostCollectionSvc = new ForumPostCollectionService();

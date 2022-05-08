@@ -36,7 +36,7 @@ public class Add2ShoppingCart extends HttpServlet {
 		HttpSession session = request.getSession();
 
 
-	    /*****************有會員身分開始加入購物車****************/
+
 
 		List<Cartdetail> orderList = ((List<Cartdetail>) session.getAttribute("shoppingCart")==null?new ArrayList<Cartdetail>():(List<Cartdetail>) session.getAttribute("shoppingCart"));
 		if (session.getAttribute("shoppingCart") == null) {

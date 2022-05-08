@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.forumpost.model.*"%>
 <%@ page import="com.forummsg.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
@@ -12,15 +13,19 @@ List<ForumMsgVO> list = (List<ForumMsgVO>) request.getAttribute("forumMsgVOs");
 ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 ForumMsgVO forumMsgVO = new ForumMsgVO();
 List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribute("forumPostPicVOs");
+//MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
+MemService memSvc = new MemService();
+MemVO memVO = memSvc.getMemVObyMemNo(11003);
 
 pageContext.setAttribute("list", list);
 pageContext.setAttribute("forumPostVO", forumPostVO);
 pageContext.setAttribute("forumMsgVO", forumMsgVO);
 pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
+pageContext.setAttribute("memVO", memVO);
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
 
 <head>
 
@@ -84,6 +89,29 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 .button1:active {
 	background-color: #E0E7E9;
 }
+
+.page {
+	display: inline-block;
+	padding: 3px 5px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+	font-size: 3px;
+}
+
+.page:hover {
+	background-color: #A3C6C4
+}
+
+.page:active {
+	background-color: #E0E7E9;
+}
 </style>
 </head>
 <body>
@@ -92,133 +120,49 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 	<header>
 
 		<div class="logo-div">
-			<img src="/CGA101G1/frontend/mainCss/images/logo.png" alt=""> <a
-				href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
+			<img
+				src="<%=request.getContextPath()%>/frontend/mainCss/images/logo.png"
+				alt=""> <a
+				href="<%=request.getContextPath()%>/frontend/HomePage/HomePage.html"
+				class="logo">帕Game</a>
 		</div>
 
 
 		<nav class="navbar">
 			<!-- 上方標籤列 -->
-			<a href="/CGA101G1/frontend/HomePage.html">首頁</a> <a
-				href="/CGA101G1/frontend/Product/HomePageinshop.html"
-				class="nav-link">遊戲商城</a> <a
-				href="/CGA101G1/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
-			<a class="active" href="/CGA101G1/frontend/forum/ForumAllHome.html"
-				class="nav-link">遊戲討論區</a>
+			<a class="active"
+				href="<%=request.getContextPath()%>/frontend/HomePage/HomePage.html">首頁</a>
+			<a
+				href="<%=request.getContextPath()%>/frontend/Product/HomePageinshop.html">商品區</a>
+			<!-- <a href="#news">遊戲新聞</a> -->
+			<a href="<%=request.getContextPath()%>/frontend/bid/listallbid.html">競標區</a>
+			<a
+				href="<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">討論區</a>
 		</nav>
 
 		<div class="icons">
 			<!--右上方小icon區-->
 			<i class="fas fa-bars" id="menu-bars"></i> <a
-				href="/CGA101G1/frontend/memLogin/login.html"
+				href="<%=request.getContextPath()%>/frontend/mem/updateMemberData.html"
 				class="fas fa-solid fa-user-astronaut" id="login-icon"></a> <a
-				href="#" class="fas fa-search" id="search-icon"></a> <a
-				href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.html"
+				href="<%=request.getContextPath()%>/frontend/Product/HomePageinProduct-wishlist.jsp"
 				class="fas fa-heart"></a> <a
-				href="/CGA101G1/frontend/Product/shopping-cart.html"
+				href="<%=request.getContextPath()%>/frontend/Product/shopping-cart.html"
 				class="fas fa-shopping-cart" id="cart"></a>
 		</div>
 
 	</header>
 
-
 	<!-- header section ends-->
-
-	<!--Login starts-->
-
-	<div action="" id="login-form">
-		<i class="fas fa-times" id="login-close"></i>
-
-
-		<div class="form-box">
-			<div class="button-box">
-				<div id="btn"></div>
-				<button type="button" class="toggle-btn" onclick="login()">Log
-					in</button>
-				<button type="button" class="toggle-btn" onclick="register()">Register</button>
-			</div>
-
-			<form id="login" class="input-group">
-				<div class="input-div">
-					<i class="fas fa-solid fa-user-astronaut"></i> <input type="text"
-						class="input-field" placeholder="Username" required>
-				</div>
-				<div class="input-div">
-					<i class="fas fa-solid fa-lock"></i> <input type="password"
-						class="input-field" placeholder="Password" required>
-				</div>
-
-				<div class="others">
-					<input type="checkbox" class="check-box"> <span>Remeber
-						Password</span>
-				</div>
-
-				<button type="submit" class="submit-btn">Log in</button>
-			</form>
-
-			<form id="register" class="input-group">
-				<div class="input-div">
-					<i class="fas fa-solid fa-user-astronaut"></i> <input type="text"
-						class="input-field" placeholder="Username" required>
-				</div>
-				<div class="input-div">
-					<i class="fas fa-solid fa-envelope"></i> <input type="email"
-						class="input-field" placeholder="E-mail" required>
-				</div>
-				<div class="input-div">
-					<i class="fas fa-solid fa-lock"></i> <input type="password"
-						class="input-field" placeholder="Password" required>
-				</div>
-
-				<div class="others">
-					<input type="checkbox" class="check-box"> <span>I
-						agree to the terms & conditions</span>
-				</div>
-
-				<button type="submit" class="submit-btn">Register</button>
-			</form>
-
-		</div>
-
-	</div>
-
-	<!-- Login ends -->
-	<!-- search form starts-->
-
-	<form action="" id="search-form">
-		<div class="search-group">
-
-			<div>
-				<input type="search" placeholder="search here..." name=""
-					id="search-box"> <input type="button" id="advanced"
-					value="&#x21FE;Advanced search">
-				<!-- <a href="#" id="advanced">&#x21FE;Advanced search</a> -->
-			</div>
-			<label for="search-box" class="fas fa-search"></label>
-
-		</div>
-
-
-		<i class="fas fa-times" id="search-close"></i>
-	</form>
-
-	<!-- search form ends-->
-
-	<!-- shopping-cart div starts -->
-	<div id="shopping-cart">
-		<span>Monopoly</span>
-	</div>
-
-	<!-- shopping-cart div ends -->
 
 
 
 	<!-- main 討論區 starts-->
-
+	<div style="height: 1px"></div>
 	<!-- home section starts-->
 
 	<section name="pd_information" id="pd_description"
-		style="padding-top: 96px;">
+		style="padding-top: 95px;">
 		<!-- 標題 -->
 		<div class="col-lg-6 ps-lg-5 pt-5 pt-lg-0">
 			<div class="product-detail">
@@ -234,6 +178,27 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 				<div class="products-title mb-2"
 					style="display: inline-block; padding-left: 5px;">
 					<h3 class="h3">${forumPostVO.memVO.memName}</h3>
+				</div>
+				<div style="display: inline-block; padding-left: 10px;">
+					<c:if test="${memVO.memNo==forumPostVO.memNo}">
+						<a
+							href="
+			<%=request.getContextPath()%>/forum/forumMemPostOne?forumPostNo=${forumPostVO.forumPostNo}">
+							<button class="page">修改文章</button>
+						</a>
+					</c:if>
+				</div>
+				<div style="display: inline-block;">
+					<c:if test="${memVO.memNo==forumPostVO.memNo}">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/forum/myPostDelete"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="刪除文章" class="page"> <input
+								type="hidden" name="forumPostNo"
+								value="${forumPostVO.forumPostNo}"> <input type="hidden"
+								name="memNo" value="${memVO.memNo}">
+						</FORM>
+					</c:if>
 				</div>
 				<div class="products-brand pb-2" style="padding-top: 5px">
 					<span><fmt:formatDate value="${forumPostVO.forumPostTime}"
@@ -263,10 +228,11 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 				<c:forEach var="forumPostPicVO" items="${forumPostPicVOs}">
 					<img
 						src="<%=request.getContextPath()%>/forum/forumPostPicGetOneByPicNo?forumPostPicNo=${forumPostPicVO.forumPostPicNo}"
-						height="300px" width="300px" class="uploadedImg">
+						width="61%" class="uploadedImg"
+						style="border-radius: 15px; box-shadow: 3px 3px 12px gray; padding: 2px;">
 					<input type="hidden" name="forumPostPicNo"
 						value="${forumPostPicVO.forumPostPicNo}">
-
+					<div style="height: 10px"></div>
 				</c:forEach>
 
 			</c:if>
@@ -281,11 +247,13 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 			</a>
 		</div>
 		<div style="display: inline-block;">
-			<a
-				href="
+			<c:if test="${memVO.memNo!=forumPostVO.memNo}">
+				<a
+					href="
 			<%=request.getContextPath()%>/frontend/forum/editForumPostReport.jsp?forumPostNo=${forumPostVO.forumPostNo}">
-				<button class="button1">檢舉文章</button>
-			</a>
+					<button class="button1">檢舉文章</button>
+				</a>
+			</c:if>
 		</div>
 		<div style="display: inline-block;">
 			<a
@@ -325,7 +293,7 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 									name="form1" id="forumA">
 									<div class="row g-2">
 										<div class="col-sm-12">
-											<label class="form-label">寫下你的留言</label>
+											<label class="form-label">寫下你的留言${errorMsgs.forumMsg}</label>
 											<textarea rows="5" class="form-control" name="forumMsg">${forumMsgVO.forumMsg}</textarea>
 										</div>
 
@@ -361,15 +329,21 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 										style="color: #2F365F; font-weight: border; font-size: 16px; padding-left: 24px">${forumMsgVO.forumMsg}</p>
 								</div>
 								<div>
-									<a
-										href="
+									<c:if test="${memVO.memNo!=forumMsgVO.memNo}">
+										<a
+											href="
 									<%=request.getContextPath()%>/frontend/forum/editForumMsgReport.jsp?forumPostNo=${forumPostVO.forumPostNo}&forumMsgNo=${forumMsgVO.forumMsgNo}">
+											<button>檢舉</button>
+										</a>
+									</c:if>
+									<c:if test="${memVO.memNo==forumMsgVO.memNo}">
+										<a
+											href="
+									<%=request.getContextPath()%>/forum/myMsgDelete?forumPostNo=${forumPostVO.forumPostNo}&forumMsgNo=${forumMsgVO.forumMsgNo}">
+											<button>刪除</button>
+										</a>
 
-										<button>檢舉</button>
-									</a> <a
-										herf="<%=request.getContextPath()%>/frontend/forum/editForumMsgReport.jsp?forumPostNo=${forumPostVO.forumPostNo}&forumMsgNo=${forumMsgVO.forumMsgNo}">
-										<button>刪除</button>
-									</a>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -388,47 +362,7 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 
 	<!-- main ends-->
 	<!-- Footer -->
-	<footer class="bg-white footer">
-		<div class="footer-top py-6">
-			<div class="container">
-				<div class="row">
-					<section class="footer">
-						<div class="box-container">
-							<div class="box">
-								<h3>會員專區</h3>
-								<a href="#">會員登入</a> <a href="#">會員註冊</a> <a href="#">訂單管理</a> <a
-									href="#">二手遊戲申請上架單管理</a>
-							</div>
-
-							<div class="box">
-								<h3>快速連結</h3>
-								<a href="#">首頁</a> <a href="#">遊戲商城</a> <a href="#">二手競標商城</a> <a
-									href="#">遊戲討論區</a>
-							</div>
-
-							<div class="box">
-								<h3>聯絡我們</h3>
-								<a href="#">02-3456-7890</a> <a href="#">03-1111-2222</a> <a
-									href="#">CGA101G1@gmail.com</a> <a href="#">anasbhai@gmail.com</a>
-							</div>
-
-							<div class="box">
-								<h3>關於我們</h3>
-								<a href="#">管理團隊</a> <a href="#">創始理念</a> <a href="#">insuagram</a>
-								<a href="#">linkedin</a>
-							</div>
-						</div>
-
-						<div class="credit">
-							copyright@2022 by <span>CGA101G1</span>
-						</div>
-
-					</section>
-				</div>
-			</div>
-		</div>
-
-	</footer>
+	<%@include file="/frontend/frontfoot.jsp"%>
 	<!-- End Footer -->
 	<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script

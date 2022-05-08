@@ -6,12 +6,14 @@
 <%@ page import="com.forum.model.*"%>
 <%@ page import="java.util.*"%>
 
-<%
-List<ForumPostVO> list = (List<ForumPostVO>) request.getSession().getAttribute("forumPostPowerVOs");;
-pageContext.setAttribute("list", list);
 
-ForumVO forumVO = (ForumVO) request.getSession().getAttribute("forumPowerVO");
-pageContext.setAttribute("forumVO", forumVO);
+
+<%-- 萬用複合查詢-可由客戶端select_page.jsp隨意增減任何想查詢的欄位 --%>
+<%-- 此頁只作為複合查詢時之結果練習，可視需要再增加分頁、送出修改、刪除之功能--%>
+
+<%
+List<ForumPostVO> list = (List<ForumPostVO>) request.getSession().getAttribute("powerList");;
+pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -79,7 +81,6 @@ pageContext.setAttribute("forumVO", forumVO);
 .button1:active, .acess:active {
 	background-color: #E0E7E9;
 }
-
 .page {
 	display: inline-block;
 	padding: 3px 5px;
@@ -95,11 +96,11 @@ pageContext.setAttribute("forumVO", forumVO);
 	font-size: 3px;
 }
 
-.page:hover {
+ .page:hover {
 	background-color: #A3C6C4
 }
 
-.page:active {
+ .page:active {
 	background-color: #E0E7E9;
 }
 </style>
@@ -147,76 +148,19 @@ pageContext.setAttribute("forumVO", forumVO);
 	<!-- header section ends-->
 
 	<div style="height: 33px"></div>
-	<div style="height: 33px"></div>
+	<div style="height: 65px"></div>
 
 
 	<!-- main 討論區 starts-->
 
 	<!-- home section starts-->
 
-
-	<section style="padding-left: 50px" class="home" id="home">
-
-		<!-- <h1 class="title"> 討論區top圖 </h1> -->
-		<div style="border: 5px;">
-
-			<div>
-				<div class="item-img-container">
-					<h3 style="font-size: 450%; color: #2F365F;">${forumVO.forumName}</h3>
-				</div>
-				<div style="height: 10px"></div>
-				<div class="item-img-container" id="picPreview">
-					<img
-						src="<%=request.getContextPath()%>/forum/forumPicGetByForumNo?forumNo=${forumVO.forumNo}"
-						class="uploadedImg"
-						style="width: 650px; display: block; margin: auto; border-radius: 20px;">
-				</div>
-
-			</div>
-		</div>
-		<h3
-			style="font-size: 150%; color: #6C7A89; font-weight: bolder; padding-left: 15px">
-			本版版主:&ensp; ${forumVO.memNo == ''?'暫無版主':forumVO.memVO.memName}</h3>
-	</section>
-	<div
-		style="display: inline-block; padding-left: 63px; padding-top: 15px">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/forum/forumPostInsert"
-			style="margin-bottom: 0px;" id="form1"></FORM>
-		<button type="submit" form="form1" class="button1" name="forumNo"
-			value="${forumVO.forumNo}">發表文章</button>
-	</div>
-	<div style="display: inline-block;">
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/frontend/chatroom/chatroom.jsp?forumNo=${forumVO.forumNo}"
-			style="margin-bottom: 0px;" id="form2"></FORM>
-		<button type="submit" form="form2" class="button1">進入聊天室</button>
-	</div>
-	<div style="display: inline-block;">
-		<a
-			href="
-			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
-			<button class="button1">返回討論區首頁</button>
-		</a>
-	</div>
-
-	<div style="display: inline-block;">
-		<c:if test="${memVO.memNo==forumVO.memNo}">
-			<a
-				href="
-				<%=request.getContextPath()%>/forum/topMemSelectOneForumAllPost?forumNo=${forumVO.forumNo}">
-				<button class="button1">版主精選</button>
-			</a>
-		</c:if>
-		<c:if test="${memVO.memNo!=forumVO.memNo}"><div style="width: 77px;display: inline-block;"></div></c:if>
-	</div>
-
 	<jsp:useBean id="forumSvc" scope="page"
 		class="com.forum.model.ForumService" />
 
 	<FORM METHOD="post"
 		ACTION="<%=request.getContextPath()%>/forum/powerSearchAllPost"
-		name="form1" style="display: inline-block; margin-left: 240px">
+		name="form1" style="display: inline-block; margin-left: 340px">
 		<div style="display: inline-block; width: 350px;" class="col-sm-12">
 			<input type="text" name="forumPostTitle"
 				class="form-control form-control-sm" placeholder="輸入文章標題"
@@ -233,8 +177,15 @@ pageContext.setAttribute("forumVO", forumVO);
 		</div>
 
 	</FORM>
+	<div style="display: inline-block;padding-left: 5px">
+		<a
+			href="
+			<%=request.getContextPath()%>/frontend/forum/forumHomePage.jsp">
+			<button class="button1">返回討論區首頁</button>
+		</a>
+	</div>
 
-	<div style="height: 30px"></div>
+	<div style="height: 10px"></div>
 
 	<!-- 文章區 -->
 	<div style="padding-left: 30px">
