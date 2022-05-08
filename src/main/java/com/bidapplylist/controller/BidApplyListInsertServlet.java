@@ -43,8 +43,8 @@ public class BidApplyListInsertServlet extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			// 取得會員編號
 			MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
-//			Integer memNo = memVO.getMemNo();
-			Integer memNo = 11001;
+			Integer memNo = memVO.getMemNo();
+//			Integer memNo = 11001;
 			
 			// 判斷商品名稱
 			String bidName = request.getParameter("bidName");
@@ -112,7 +112,7 @@ public class BidApplyListInsertServlet extends HttpServlet {
 				errorMsgs.put("bidPriceIncrement","最低增額應為數字");
 			}
 			if (initialPrice < 0 || initialPrice > 100000) {
-				errorMsgs.put("bidPriceIncrement","起標價應在0 - 100000之間");
+				errorMsgs.put("bidPriceIncrement","增額應在0 - 100000之間");
 			}
 			System.out.println(bidPriceIncrement);
 			
