@@ -1,4 +1,3 @@
-<%@page import="com.member.model.MemVO"%>
 <%@page import="com.bidpic.model.BidPicVO"%>
 <%@page import="com.bidpic.model.BidPicService"%>
 <%@page import="com.bidproduct.model.BidProductService"%>
@@ -17,8 +16,6 @@ BidPicService bidPicSvc = new BidPicService();
 List<BidPicVO> bidPicVOs = bidPicSvc.getAllBidPicByBidProductNo(bidProductNo);
 pageContext.setAttribute("bidProductVO", bidProductVO);
 pageContext.setAttribute("bidPicVOs", bidPicVOs);
-
-MemVO memVO =(MemVO)request.getSession().getAttribute("memVO");
 %>
     
 <!DOCTYPE html>
@@ -39,26 +36,6 @@ display: flex;
 #checkout{
 font-weight: bold;
 color: black;
-}
-
-.addr-county {
-color:#7d879c;
-background-color:#f6f9fc;
-border: 1px solid gray;
-width: 100px;
-height: 30px;
-border-radius: 3px;
-margin-right: 8px;
-margin-bottom: 5px;
-}
-.addr-district {
-color:#7d879c;
-background-color:#f6f9fc;
-border: 1px solid gray;
-width: 100px;
-height: 30px;
-border-radius: 3px;
-margin-right: 8px;
 }
 </style>
 </head>
@@ -133,8 +110,11 @@ margin-right: 8px;
 					<input type="text" class="form-control" id="receiverName" name="receiverName"
 							placeholder="" value="${memVO.memName}" required>
 				</div>
-				<div id="twzipcode">
-				</div>
+				<input class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#dist" placeholder="請輸入郵遞區號" />
+				<select id="city" placeholder="請選擇縣市" name="receiverAddressCity" required>
+				</select>
+				<select id="dist" placeholder="請選擇鄉鎮區" name="receiverAddressDist" required>
+				</select>
 				<div class="mb-3">
 					<label for="receiverAddressDetail"><span class="info">收件人住址</span></label>
 					<input type="text" class="form-control" id="receiverName" name="receiverAddressDetail"
@@ -149,7 +129,7 @@ margin-right: 8px;
 				<div class="mb-3">
 					<label for="creditcardNum"><span class="info">信用卡號碼</span></label>
 					<input pattern="[0-9]{13,16}" class="form-control" type="text" id="creditcardNum" name="creditcardNum"
-						placeholder="" value="${memVO.creditcardNo}" required>
+						placeholder="${memVO.creditcardNo}" required>
 				</div>
 				<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 
@@ -168,7 +148,7 @@ margin-right: 8px;
     </main>
     <!-- End Main -->
     <script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/frontend/bid/js/jquery.twzipcode.min.js"></script>
+    <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script type="text/javascript"></script>
     
@@ -195,18 +175,7 @@ margin-right: 8px;
 		}
     });
     
-    $('#twzipcode').twzipcode({
-    	'countyName': 'receiverAddressCity',
-    	'districtName': 'receiverAddressDist',
-        'countySel': '<%=memVO.getMemCity()%>',
-        'districtSel': '<%=memVO.getMemDist()%>',
-        'css': [
-            'addr-county', //縣市
-            'addr-district',  // 鄉鎮市區
-        ]
-    });
     
-    $('select[name="receiverAddressCity"]')[0].setAttribute("required","true");
     </script>
 </body>
 </html>
