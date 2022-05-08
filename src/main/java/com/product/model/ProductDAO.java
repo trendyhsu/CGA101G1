@@ -500,7 +500,25 @@ public class ProductDAO implements ProductDAO_interface{
 				map.put("gamePlatformTypeName", gamePlatformTypeName);
 				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
 
-				list.add(map);
+				OrderDetailService orderDetailService = new OrderDetailService();
+				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+				
+				
+				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
+				if (orderDetailVO == null) {
+//				if (rs.getInt("sumC") == 0) {
+					map.put("avgCommentStar", 0);
+					list.add(map);
+				} else {
+//					Integer totalStar= Integer.valueOf(rs.getInt("sumC"));
+//					Integer commentCounts = Integer.valueOf(rs.getInt("CCS"));					
+//					Integer avgC = (int) Math.floor((totalStar / commentCounts));
+					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+
+					map.put("avgCommentStar", avgC);
+					list.add(map);
+				}
+				
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -934,13 +952,17 @@ public class ProductDAO implements ProductDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			
-			String sql = "SELECT a.productNo,a.gameTypeNo,a.gamePlatformNo,a.productName,a.productPrice,b.sumC,b.CCS FROM product a  "
-					+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
-					+ "where ProductState = 1 order by productNo desc limit ? ,9 ;";
+//			String sql = "SELECT a.productNo,a.gameTypeNo,a.gamePlatformNo,a.productName,a.productPrice,b.sumC,b.CCS FROM product a  "
+//					+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
+//					+ "where ProductState = 1 order by productNo desc limit ? ,9 ;";
+//			pstmt = con.prepareStatement(sql);
 			
 			
+			
+			String sql = "SELECT a.productNo,a.gameTypeNo,a.gamePlatformNo,a.productName,a.productPrice,b.GamePlatformName FROM product a  "
+					+ "join gameplatformtype b on a.gamePlatformNo = b.gamePlatformNo "
+					+ "where ProductState = 1 order by productNo desc limit ? ,9 ";
 			pstmt = con.prepareStatement(sql);
-			
 			if(page<=0) {
 				pstmt.setInt(1, (0)*9);
 			}else {
@@ -959,32 +981,29 @@ public class ProductDAO implements ProductDAO_interface{
 //				String gameTypeName = gameTypeVO.getGameTypeName();				
 //				map.put("gameTypeName", gameTypeName);
 				
-				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
-//				map.put("gamePlatformNo", gamePlatformNo);
-				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
-				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
-				map.put("gamePlatformTypeName", gamePlatformTypeName);
+//				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
+
+				map.put("gamePlatformTypeName", rs.getString("GamePlatformName"));
 				
 				
 //				map.put("gameCompanyNo", rs.getInt("GameCompanyNo"));
 				map.put("productName", rs.getString("ProductName"));
 				map.put("productPrice", rs.getInt("ProductPrice"));
 				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
-//				OrderDetailService orderDetailService = new OrderDetailService();
-//				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+				OrderDetailService orderDetailService = new OrderDetailService();
+				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
 				
 				
 				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
-//				if (orderDetailVO == null) {
-				if (rs.getInt("sumC") == 0) {
+				if (orderDetailVO == null) {
+//				if (rs.getInt("sumC") == 0) {
 					map.put("avgCommentStar", 0);
 					list.add(map);
 				} else {
-					Integer totalStar= Integer.valueOf(rs.getInt("sumC"));
-					Integer commentCounts = Integer.valueOf(rs.getInt("CCS"));
-					
-					Integer avgC = (int) Math.floor((totalStar / commentCounts));
-//					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+//					Integer totalStar= Integer.valueOf(rs.getInt("sumC"));
+//					Integer commentCounts = Integer.valueOf(rs.getInt("CCS"));					
+//					Integer avgC = (int) Math.floor((totalStar / commentCounts));
+					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
 
 					map.put("avgCommentStar", avgC);
 					list.add(map);

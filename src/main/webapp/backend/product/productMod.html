@@ -350,6 +350,13 @@
                             <div class="text-end mx-3">
                                 <button type="button" class="btn btn-primary" v-on:click="additem">新增</button>
                             </div>
+                            <div v-show="(this.search.length == 0)" style="color:red ">
+                                查無資料
+                            </div>
+                            <div>
+                                <input class="form-control" type="text" name="keysearch" id=""
+                                    @change="keysearch($event)" placeholder="搜尋遊戲名稱">
+                            </div>
 
                             <card-template :read-data="renderData" :now-page="nowPage" v-on:emitedit="edit">
                             </card-template>
@@ -502,6 +509,9 @@
             data() {
                 return {
                     datastore: [],
+                    //放搜尋結果
+                    search: [],
+
                     picData: [],
                     temp: {},
                     isNew: false,
@@ -517,13 +527,16 @@
             },
             methods: {
                 renderingPage() {
+                    console.log("開始渲染")
+                    console.log(this.totalPage)
                     for (let n = 0; n < this.totalPage; n++) { // 依每頁顯示數量建立新陣列
                         this.renderData.push(
-                            (this.datastore.slice
+                            (this.search.slice
                                 (n * this.pageBaseNum, n * this.pageBaseNum + this.pageBaseNum)
                             )
                         );
                     }
+                    console.log("渲染over")
                 },
                 getProductData() {
                     const apiUrl = '/CGA101G1/product/OneProductToJson';
@@ -535,6 +548,10 @@
                             this.datastore = response.data;//塞進去
                             console.log("datastore讀取資料ok");
                             this.getPicData();
+                            //放到搜尋
+                            for (product of this.datastore) {
+                                this.search.push(product);
+                            }
                             this.renderingPage();
                         });
                 },
@@ -549,6 +566,18 @@
                             this.insertPic(this.picData);
 
                         });
+                },
+                keysearch(e) {
+                    console.log(e.target.value);
+                    this.search = [];
+                    this.datastore.filter(item => {
+                        if (item.productName.indexOf(e.target.value) !== -1) {
+                            this.search.push(item);
+                        }
+                    });
+                    this.renderData = [];
+                    this.renderingPage();
+
                 },
                 additem() {
                     this.isNew = true;
@@ -614,9 +643,10 @@
                 }
 
             },
+            //搜尋
             computed: {
                 totalPage() {
-                    return Math.ceil(this.datastore.length / this.pageBaseNum); // 依每頁數量計算總頁數
+                    return Math.ceil(this.search.length / this.pageBaseNum); // 依每頁數量計算總頁數
                 }
             },
             created() {

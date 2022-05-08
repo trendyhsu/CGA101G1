@@ -61,8 +61,6 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 	<!--main content start-->
 	<section id="main-content">
 		<section class="wrapper site-min-height">
-			<%=productVO == null%>
-			--${productVO.productName}--
 			<h3>
 				<i class="fa fa-angle-right"></i> 商品新增
 			</h3>

@@ -44,9 +44,9 @@ public class ShowShoppingMemInfo extends HttpServlet {
 		map.put("memNo", memNo);
 		map.put("creditcardDate", memVO.getCreditcardDate());
 		map.put("creditcardNo", memVO.getCreditcardNo());
-		map.put("memCity", memVO.getMemCity());
-		map.put("memDist", memVO.getMemDist());
-		map.put("memAdd", memVO.getMemAdd());
+		map.put("City", memVO.getMemCity());
+		map.put("Dist", memVO.getMemDist());
+		map.put("Add", memVO.getMemAdd());
 		map.put("memMobile", memVO.getMemMobile());
 		map.put("memName", memVO.getMemName());
 		
