@@ -58,8 +58,9 @@ float: right;
 			</ul>
 		</c:if>
 
-		<table class="showPanel" style="table-layout: fixed; color: black ;">
-			<tr align='center' valign="middle">
+		<table class="table table-striped table-hover">
+		<thead>
+			<tr align='center' valign="middle" style="background-color: #b2cdcc;color: black;">
 				<th style="width: 10%">競標商品編號</th>
 				<th style="width: 20%">商品名稱</th>
 				<th>賣家</th>
@@ -68,13 +69,15 @@ float: right;
 				<th>最高出價</th>
 				<th>起標時間</th>
 				<th>截標時間</th>
-				<th>競標狀態</th>
+				<th style="width: 10%">競標狀態</th>
 			</tr>
+		
+		</thead>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidProductVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 
-				<tr align='center' valign="middle">
+				<tr align='center' valign="middle" style="color: black;">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td><a href="<%=request.getContextPath()%>/frontend/bid/listonebid.html?bidProductNo=${bidProductVO.bidProductNo}">${bidProductVO.bidName}</a></td>
 					<td>${bidProductVO.getMemVOBySellerNo().memName}</td>
@@ -100,7 +103,6 @@ float: right;
 						</c:if> <c:if test="${bidProductVO.bidState == 3}" var="condition">
 							<c:out value="3<br>棄標" escapeXml="false"></c:out>
 						</c:if></td>
-					<td>
 
 				</tr>
 			</c:forEach>

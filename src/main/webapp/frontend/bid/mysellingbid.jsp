@@ -26,7 +26,7 @@ border-bottom: solid;
 th{
 background-color: #b2cdcc;
 }
-#pageNumber, #dataNumber{
+#pageNumber, #dataNumber, #pageChange{
 float: right;
 }
 </style>
@@ -59,8 +59,9 @@ float: right;
 		<%-- 成功表列 --%>
 		<p style="color: red;">${successMsg}</p>
 
-		<table class="showPanel" style="table-layout: fixed; color: black ;">
-			<tr align='center' valign="middle">
+		<table class="table table-striped table-hover">
+		<thead>
+			<tr align='center' valign="middle" style="background-color: #b2cdcc;color: black;">
 				<th style="width: 10%">競標商品編號</th>
 				<th style="width: 15%">商品名稱</th>
 				<th>起標價</th>
@@ -74,11 +75,12 @@ float: right;
 				<th>取回</th>
 				<th>重新上架</th>
 			</tr>
+		</thead>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidProductVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 
-				<tr align='center' valign="middle">
+				<tr align='center' valign="middle" style="color: black;">
 					<td>${bidProductVO.bidProductNo}</td>
 					<td><a href="<%=request.getContextPath()%>/frontend/bid/listonebid.html?bidProductNo=${bidProductVO.bidProductNo}">${bidProductVO.bidName}</a></td>
 					<td>${bidProductVO.initialPrice}</td>
