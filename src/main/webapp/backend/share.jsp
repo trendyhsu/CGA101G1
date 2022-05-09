@@ -66,7 +66,18 @@
 			<!--logo start-->
 			<a href="<%=request.getContextPath()%>/backend/index.jsp" class="logo"><b>POP.Game</b></a>
 			<!--logo end-->
-
+			<!--login/out start-->
+			<div class="top-menu">
+                <ul class="nav pull-right top-menu">
+					<c:if test="${managerVO.managerNo != null}">
+	                    <li><a class="logout" href="<%=request.getContextPath()%>/manager/managerLogout">登出</a></li>
+					</c:if>
+					<c:if test="${managerVO.managerNo == null}">
+						<li><a class="logout" href="<%=request.getContextPath()%>/backend/managerlogin/managerlogin.jsp">登入 / 註冊</a></li>
+					</c:if>
+                </ul>
+            </div>
+			<!--login/out end-->
 		</header>
 		<!--header end-->
 
@@ -80,9 +91,16 @@
 				<ul class="sidebar-menu" id="nav-accordion">
 
 					<p class="centered">
-						<a href="<%=request.getContextPath()%>/backend/index.jsp"><img
-							src="<%=request.getContextPath()%>/manager/managerPic?managerNo=${managerVO.managerNo}"
-							class="img-circle" width="60"></a>
+						<c:if test="${managerVO.managerNo == null}">
+							<a href="<%=request.getContextPath()%>/backend/index.jsp"><img
+								src="<%=request.getContextPath()%>/backend/assets/img/logo.png"
+								class="img-circle" width="60"></a>
+						</c:if>
+						<c:if test="${managerVO.managerNo != null}">
+							<a href="<%=request.getContextPath()%>/backend/index.jsp"><img
+								src="<%=request.getContextPath()%>/manager/managerPic?managerNo=${managerVO.managerNo}"
+								class="img-circle" width="60"></a>
+						</c:if>
 					</p>
 					<h5 class="centered">${managerVO.managerName}</h5>
 

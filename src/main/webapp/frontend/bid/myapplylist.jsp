@@ -67,10 +67,11 @@ font-weight: bold;
 		<%-- 成功表列 --%>
 			<p style="color: red;">${successMsg}</p>
 
-		<table class="showPanel" style="table-layout: fixed; color: black;">
-			<tr align='center' valign="middle">
+		<table class="table table-striped table-hover table-sm">
+		<thead>
+			<tr align='center' valign="middle" style="background-color: #b2cdcc;color: black;">
 				<th style="width: 10%">申請單編號</th>
-				<th style="width: 15%">商品名稱</th>
+				<th style="width: 10%">商品名稱</th>
 				<th>商品敘述</th>
 				<th>遊戲公司</th>
 				<th>遊戲種類</th>
@@ -82,11 +83,12 @@ font-weight: bold;
 				<th>UPC Number</th>
 				<th>申請狀態</th>
 			</tr>
+		</thead>
 			<%@ include file="page1.file"%>
 			<c:forEach var="bidApplyListVO" items="${list}" begin="<%=pageIndex%>"
 				end="<%=pageIndex+rowsPerPage-1%>">
 
-				<tr align='center' valign="middle">
+				<tr align='center' valign="middle" style="color: black;">
 					<td>${bidApplyListVO.bidApplyListNo}</td>
 					<td>${bidApplyListVO.bidName}</td>
 					<td>
