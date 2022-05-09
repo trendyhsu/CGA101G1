@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app1">
+        <input type="text" v-model="message">
+        <input type="text" v-model="message">
+        {{ message }} ????
+        price: {{ price }},
+        quantity {{ quantity }},
+        total: {{ price * quantity }} 元
+    </div>
+
+    <div id="app2"> {{ message }}</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+    <script>
+        const vueObject = {
+            message: 'Hello World',
+            price: 100,
+            quantity: 10
+        }
+        const vm1 = Vue.createApp({
+            data() {
+                return vueObject
+            }
+        }).mount('#app1');
+
+        const vm2 = Vue.createApp({
+            data() {
+                return vueObject
+            }
+        }).mount('#app2');
+    </script>
+
+
+</body>
+
+</html>
