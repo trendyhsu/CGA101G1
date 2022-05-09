@@ -33,8 +33,6 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO"); //EmpServlet.java (
 		<div class="row">
 
 			<div class="col-lg-9 main-chart">
-				<%=orderVO == null%>
-				--${orderVO.orderNo}--
 				<h3>訂單資料修改:</h3>
 
 				<%-- 錯誤表列 --%>

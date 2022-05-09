@@ -68,7 +68,8 @@
         <div class="icons">
             <!--右上方小icon區-->
             <i class="fas fa-bars" id="menu-bars"></i>
-            <a href="/CGA101G1/frontend/memLogin/login.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
+            <a href="/CGA101G1/frontend/mem/updateMemberData.html" class="fas fa-solid fa-user-astronaut"
+                id="login-icon"></a>
             <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.jsp" class="fas fa-heart"></a>
             <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
@@ -314,15 +315,15 @@
         <div class="shoppingCartimg">
             <a href="/CGA101G1/frontend/Product/shopping-cart.html">
                 <p style="margin-bottom: 0;padding-left:15px;"><span
-                        style="color: #CC6D3D;font-weight: 1000; font-size: 2em;position: absolute;bottom: 80%;">{{this.totalItemOfCart}}</span>
+                        style="color: #CC6D3D;font-weight: 1000; font-size: 2em;position: absolute;bottom: 70%; left: 12%;">{{this.totalItemOfCart}}</span>
                 </p>
-                <img src="../mainCss/assets/img/shoppingCart.png" style="width: 50%; height: 50%;" alt="">
+                <img src="../mainCss/assets/img/shoppingCart2.png" style="width: 50%; height: 50%;" alt="">
                 <p>${{this.totalPriceOfCart}}</p>
             </a>
 
         </div>
         <!-- 跳出加入購物車的視窗 -->
-        <div class="position-fixed top-50 start-50 translate-middle-x" style="z-index: 11">
+        <!-- <div class="position-fixed top-50 start-50 translate-middle-x" style="z-index: 11">
             <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
@@ -334,7 +335,7 @@
                     <h6 style="color: aliceblue;">商品成功加入購物車!!</h6>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- 跳出需先加入會員的視窗 -->
         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="loginToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -706,8 +707,8 @@
                                 this.totalItemOfCart = this.totalItemOfCart + item.productSales;
                                 this.totalPriceOfCart = this.totalPriceOfCart + item.productTotalPrice;
                             }
-                            let toast = new bootstrap.Toast(toastLiveExample1)
-                            toast.show()
+                            // let toast = new bootstrap.Toast(toastLiveExample1)
+                            // toast.show()
                         });
                 },
                 webcamSendRequestButton1(e) {

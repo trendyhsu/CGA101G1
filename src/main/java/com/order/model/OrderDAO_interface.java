@@ -1,6 +1,7 @@
 package com.order.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderDAO_interface {
 
@@ -33,4 +34,7 @@ public interface OrderDAO_interface {
     public List<OrderVO> findByPulledOrderNo();
          
     public List<OrderVO> getAll();
+
+
+	public List<OrderVO> getOrdersBysearch(Map<String, String[]> map);
 }

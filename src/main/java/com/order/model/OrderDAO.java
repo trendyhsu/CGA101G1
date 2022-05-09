@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class OrderDAO implements OrderDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -904,4 +906,87 @@ public class OrderDAO implements OrderDAO_interface{
 		return orderVO;
 	}
 
+	@Override
+	public List<OrderVO> getOrdersBysearch(Map<String, String[]> map) {
+		
+		List<OrderVO> list = new ArrayList<OrderVO>();
+		OrderVO orderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		/***  針對關鍵字集做處理  **/
+		StringBuffer whereCondition = new StringBuffer();
+		int count = 0;
+		Set<String> valueSet = map.keySet();	
+		for(String value : valueSet) {
+			String keyValue = map.get(value)[0];
+			if (keyValue != null && keyValue.trim().length() != 0	&& !"action".equals(value)) {
+				count++;
+				String aCondition = get_aCondition_For_myDB(value, keyValue.trim());
+
+				if (count == 1)
+					whereCondition.append(" where " + aCondition);
+				else
+					whereCondition.append(" and " + aCondition);
+
+				System.out.println("有送出查詢資料的欄位數count = " + count);
+			}
+		}
+		
+		/***sql語句**/
+		String finalSQL = "select * from cga101g1.order "
+		          + whereCondition
+		          + "order by OrderNo";				
+		try {
+			
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				orderVO = new OrderVO();
+				orderVO.setOrderNo(rs.getInt("OrderNo"));
+				orderVO.setMemNo(rs.getInt("MemNo"));
+				orderVO.setMemCouponNo(rs.getInt("MemCouponNo"));
+				orderVO.setTranTime(rs.getTimestamp("TranTime"));
+				orderVO.setOrderTotalPrice(rs.getInt("OrderTotalPrice"));
+				orderVO.setOrderState(rs.getInt("OrderState"));
+				orderVO.setPickupMethod(rs.getInt("PickupMethod"));
+				orderVO.setShippingFee(rs.getInt("ShippingFee"));
+				orderVO.setTrackingNum(rs.getString("TrackingNum"));
+				orderVO.setReceiverName(rs.getString("ReceiverName"));
+				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
+				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
+				list.add(orderVO); // Store the row in the List
+			}
+			
+			return list;
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+
+public static String get_aCondition_For_myDB(String columnName, String value) {
+
+	String aCondition = null;
+
+	if ("orderNo".equals(columnName) || "memNo".equals(columnName)) // 用於其他
+		aCondition = columnName + "=" + value;
+	else if ("receiverName".equals(columnName)) // 用於varchar
+		aCondition = columnName + " like '%" + value + "%'";
+//	else if ("hiredate".equals(columnName))                          // 用於date
+//		aCondition = columnName + "=" + "'"+ value +"'";                          //for 其它DB  的 date
+//	    aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";  //for Oracle 的 date
+	
+	return aCondition + " ";
+}
 }
