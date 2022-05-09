@@ -119,8 +119,8 @@ input:active {
 
 				<table class="showPanel" style="table-layout: fixed; color: black;">
 					<tr align='center' valign="middle">
-						<th style="width: 150px">討論區名稱&emsp;</th>
-						<th style="width: 425px">文章標題&emsp;</th>
+						<th style="width: 125px">討論區名稱&emsp;</th>
+						<th style="width: 400px">文章標題&emsp;</th>
 						<th style="width: 100px">發文者&emsp;</th>
 						<th style="width: 100px">收藏時間&emsp;</th>
 						<th style="width: 50px"></th>
@@ -131,11 +131,11 @@ input:active {
 
 						<tr align='center' valign="middle">
 							<td><div
-									style="width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${forumPostCollectionVO.forumPostVO.forumVO.forumName}</div></td>
+									style="width: 125px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${forumPostCollectionVO.forumPostVO.forumVO.forumName}</div></td>
 							<td><div
-									style="width: 425px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+									style="width: 400px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 									<a
-										href="<%=request.getContextPath()%>/forum/forumPostOneEdit?forumPostNo=${forumPostCollectionVO.forumPostNo}">${forumPostCollectionVO.forumPostVO.forumPostTitle}</a>
+										href="<%=request.getContextPath()%>/forum/selectOnePostAllMsg?forumPostNo=${forumPostCollectionVO.forumPostNo}">${forumPostCollectionVO.forumPostVO.forumPostTitle}</a>
 								</div></td>
 							<td><div
 									style="width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${forumPostCollectionVO.forumPostVO.memVO.memName}</div></td>

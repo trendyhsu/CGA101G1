@@ -208,7 +208,7 @@ pageContext.setAttribute("list", list);
 					<td style="color: orange; font-weight: bold; font-size: 50%;"
 						align="left"><c:if
 							test="${forumPostVO.forumPostFeatured == 0}" var="condition">
-							<c:out value="【一般】" escapeXml="false"></c:out>
+							<c:out value="&emsp;&emsp;&emsp;&emsp;" escapeXml="false"></c:out>
 						</c:if> <c:if test="${forumPostVO.forumPostFeatured == 1}"
 							var="condition">
 							<c:out value="【精選】" escapeXml="false"></c:out>

@@ -13,15 +13,11 @@ List<ForumMsgVO> list = (List<ForumMsgVO>) request.getAttribute("forumMsgVOs");
 ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 ForumMsgVO forumMsgVO = new ForumMsgVO();
 List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribute("forumPostPicVOs");
-//MemVO memVO = (MemVO) request.getSession().getAttribute("memVO");
-MemService memSvc = new MemService();
-MemVO memVO = memSvc.getMemVObyMemNo(11003);
 
 pageContext.setAttribute("list", list);
 pageContext.setAttribute("forumPostVO", forumPostVO);
 pageContext.setAttribute("forumMsgVO", forumMsgVO);
 pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
-pageContext.setAttribute("memVO", memVO);
 %>
 
 <!DOCTYPE html>

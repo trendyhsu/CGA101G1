@@ -186,7 +186,7 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 			<input type="file" name="upfile1" onclick="previewImage()" multiple
 				id="upfile"> <br> <br> <input class="acess"
 				type="submit" value="送出"><input type="hidden" name="forumNo"
-				value="${forumPostVO.forumNo}"><input type="hidden"
+				value="${forumPostVO.forumNo}"> <input type="hidden"
 				name="forumPostNo" value="${forumPostVO.forumPostNo}"><input
 				class="acess" type="reset" value="重設">
 			<div style="display: inline-block;">

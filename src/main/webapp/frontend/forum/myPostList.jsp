@@ -150,7 +150,7 @@ input:active {
 							<td><div
 									style="width: 350px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 									<a
-										href="<%=request.getContextPath()%>/forum/forumPostOneEdit?forumPostNo=${forumPostNo}">${forumPostVO.forumPostTitle}</a>
+										href="<%=request.getContextPath()%>/forum/selectOnePostAllMsg?forumPostNo=${forumPostVO.forumPostNo}">${forumPostVO.forumPostTitle}</a>
 								</div></td>
 
 							<td><c:if test="${forumPostVO.forumPostType == 0}"
