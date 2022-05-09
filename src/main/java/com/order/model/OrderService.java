@@ -1,6 +1,7 @@
 package com.order.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class OrderService {
 	private OrderDAO_interface dao;
@@ -50,6 +51,12 @@ public class OrderService {
 	public List<OrderVO> findAllOrders(){
 		return dao.getAll();
 	}
+	
+	public List<OrderVO> findOrdersBysearch(Map<String, String[]> map){
+		return dao.getOrdersBysearch(map);
+	}
+	
+	
 	
 	public OrderVO findOneOrderByOrderNo(Integer orderNo) {
 		return dao.findByOrderNo(orderNo);

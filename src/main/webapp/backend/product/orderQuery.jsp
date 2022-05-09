@@ -8,9 +8,11 @@
 <%@ page import="com.order.model.*"%>
 <%@ page import="com.orderdetail.model.*"%>
 <%
-OrderService orderService = new OrderService();
-List<OrderVO> list = orderService.findAllOrders();
+
+
+List<OrderVO> list = (List<OrderVO>)(request.getAttribute("CompositeQuery"));
 pageContext.setAttribute("list", list);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -37,11 +39,11 @@ pageContext.setAttribute("list", list);
 		<div class="row" style="width: 100%">
 			<div class="accordion" id="accordionExample">
 				<div class="col-lg-9 main-chart" style="width: 100%">
-					<h1>訂單管理</h1>
+					<h1>訂單查詢結果</h1>
 
 
 					<%@ include file="page1.file"%>
-					<c:forEach var="orderVO" items="${list}" begin="<%=pageIndex%>"
+					<c:forEach var="orderVO" items="${CompositeQuery}" begin="<%=pageIndex%>"
 						end="<%=pageIndex+rowsPerPage-1%>">
 						<table class="table table-striped table-hover">
 							<tr>
@@ -139,19 +141,20 @@ pageContext.setAttribute("list", list);
 					<%@ include file="page2.file"%>
 				</div>
 			</div>
-			<div style="text-align: right;">
-				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch"
-					name="form1">
-					<b><font color=blue>訂單查詢:</font></b> <br> <b>輸入訂單編號:</b> <input
-						type="text" name="orderNo" value="24001"> <br> <br>
-					<b>輸入會員編號:</b> <input type="text" name="memNo" value="11011"><br>
-					<br> <b>輸入收件人姓名:</b> <input type="text" name="receiverName"
-						value="王大明"><br> <br> <input type="submit"
-						value="送出"> <input type="hidden" name="action"
-						value="CompositeQuery">
-				</FORM>
-			</div>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch"
+				name="form1">
+				<b><font color=blue>訂單查詢:</font></b> <br> <b>輸入訂單編號:</b> <input
+					type="text" name="orderNo" value="24001"> <br>
+				<br>
+				<b>輸入會員編號:</b> <input type="text" name="memNo" value="11011"><br>
+				<br>
+				<b>輸入收件人姓名:</b> <input type="text" name="receiverName" value="王大明"><br>
+				<br>
+					
+					<input type="submit" value="送出"> <input
+					type="hidden" name="action" value="listEmps_ByCompositeQuery">
+			</FORM>
+
 
 
 			<!-- /col-lg-9 END SECTION MIDDLE -->
