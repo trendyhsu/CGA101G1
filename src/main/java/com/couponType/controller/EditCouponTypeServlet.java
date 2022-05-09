@@ -3,6 +3,7 @@ package com.couponType.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.couponType.model.CouponTypeService;
 import com.couponType.model.CouponTypeVO;
+import com.memCoupon.model.MemCouponService;
+import com.memCoupon.model.MemCouponVO;
 
 @WebServlet("/couponType/EditCouponTypeServlet")
 public class EditCouponTypeServlet extends HttpServlet {
@@ -75,6 +78,9 @@ public class EditCouponTypeServlet extends HttpServlet {
 		/***************************3.修改完成,準備轉交(Send the Success view)*************/
 		request.setAttribute("CouponTypeVO", couponTypeVO); // 資料庫update成功
 		String url = "/backend/couponType/listAllCouponType.jsp";
+		MemCouponService memCouponService = new MemCouponService();
+		List<MemCouponVO> list = memCouponService.showAllMemCoupon();
+		getServletContext().setAttribute("list", list);
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交
 		successView.forward(request, response);
 	
