@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,7 +11,10 @@ ForumService forumSvc = new ForumService();
 List<ForumVO> list = forumSvc.getAllFrontend();
 pageContext.setAttribute("list", list);
 %>
-
+<%
+MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+System.out.println(memVO.getIsMute());
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -84,6 +88,28 @@ pageContext.setAttribute("list", list);
 	box-shadow: 0 2px #666;
 	transform: translateY(4px);
 }
+
+.acess {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+}
+
+.acess:hover {
+	background-color: #A3C6C4
+}
+
+.acess:active {
+	background-color: #E0E7E9;
+}
 </style>
 </head>
 <body>
@@ -129,9 +155,7 @@ pageContext.setAttribute("list", list);
 
 	<!-- header section ends-->
 
-	<div style="height: 33px"></div>
-
-	<div style="height: 33px"></div>
+	<div style="height: 66px"></div>
 
 	<!-- main 討論區 starts-->
 
@@ -139,8 +163,29 @@ pageContext.setAttribute("list", list);
 
 		<div class="items" id="items">
 
-			<div class="box-container">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/forum/powerSearchAllPost"
+				name="form1" style="display: inline-block; margin-left: 350px">
+				<div style="display: inline-block; width: 350px;" class="col-sm-12">
+					<input type="text" name="forumPostTitle"
+						class="form-control form-control-sm" placeholder="輸入文章標題"
+						style="font-size: 14px; display: inline-block; height: 15px" />
+				</div>
+				<div style="display: inline-block;">
+					<select size="1" name="forumNo"
+						style="padding: 5px; border: thick;">
 
+						<option value="">--選擇討論區--
+							<c:forEach var="forumVO" items="${list}">
+								<option value="${forumVO.forumNo}">${forumVO.forumName}
+							</c:forEach>
+					</select> <input class="acess" type="submit" value="search">
+				</div>
+
+			</FORM>
+			<div style="height: 17px"></div>
+
+			<div class="box-container">
 				<c:forEach var="forumVO" items="${list}">
 
 					<div class="box">
@@ -154,12 +199,19 @@ pageContext.setAttribute("list", list);
 							style="width: 280px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 							<h3 style="color: #2F365F;">${forumVO.forumName}</h3>
 						</div>
+
 						<div>
-							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/forum/selectOneForumAllPost"
-								style="margin-bottom: 0px;" id="forma"></FORM>
-							<button type="submit" form="forma" class="button1" name="forumNo"
-								value="${forumVO.forumNo}">Enter</button>
+							<c:if test="${memVO.isMute != 1}">
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/forum/selectOneForumAllPost"
+									style="margin-bottom: 0px;" id="forma"></FORM>
+								<button type="submit" form="forma" class="button1"
+									name="forumNo" value="${forumVO.forumNo}">Enter</button>
+							</c:if>
+							<c:if test="${memVO.isMute == 1}">
+								<button type="submit" form="forma" class="button1"
+									name="forumNo" value="${forumVO.forumNo}">Close</button>
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>

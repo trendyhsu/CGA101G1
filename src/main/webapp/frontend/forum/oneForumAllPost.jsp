@@ -208,7 +208,9 @@ pageContext.setAttribute("forumVO", forumVO);
 				<button class="button1">版主精選</button>
 			</a>
 		</c:if>
-		<c:if test="${memVO.memNo!=forumVO.memNo}"><div style="width: 77px;display: inline-block;"></div></c:if>
+		<c:if test="${memVO.memNo!=forumVO.memNo}">
+			<div style="width: 77px; display: inline-block;"></div>
+		</c:if>
 	</div>
 
 	<jsp:useBean id="forumSvc" scope="page"
@@ -216,20 +218,16 @@ pageContext.setAttribute("forumVO", forumVO);
 
 	<FORM METHOD="post"
 		ACTION="<%=request.getContextPath()%>/forum/powerSearchAllPost"
-		name="form1" style="display: inline-block; margin-left: 240px">
+		name="form1" style="display: inline-block; margin-left: 355px">
 		<div style="display: inline-block; width: 350px;" class="col-sm-12">
 			<input type="text" name="forumPostTitle"
 				class="form-control form-control-sm" placeholder="輸入文章標題"
 				style="font-size: 14px; display: inline-block; height: 15px" />
 		</div>
+		&ensp;
 		<div style="display: inline-block;">
-			<select size="1" name="forumNo" style="padding: 5px; border: thick;">
-
-				<option value="">--選擇討論區--
-					<c:forEach var="forumVO" items="${forumSvc.getAllFrontend()}">
-						<option value="${forumVO.forumNo}">${forumVO.forumName}
-					</c:forEach>
-			</select> <input class="acess" type="submit" value="search">
+			<input type="hidden" name="forumNo" value="${forumVO.forumNo}">
+			<input class="acess" type="submit" value="search">
 		</div>
 
 	</FORM>
