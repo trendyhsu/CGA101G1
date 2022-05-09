@@ -88,20 +88,20 @@ h3.funcTitle02 {
 }
 
 .Service-chatroom .chatroom .chat-content {
-    /* border: 2px solid orange; */
+/*     border: 2px solid orange; */
     height: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     overflow: auto;
 }
 
-.Service-chatroom .chatroom .chat-content .messageLine {
+.messageLine {
     /* border: 2px solid red; */
     width: 100%;
     /* height: fit-content; */
 }
 
-.Service-chatroom .chatroom .chat-content .messageLine .oneMessage {
+.messageLine .oneMessage {
     font-size: 18px;
     background: #bbb;
     margin: 5px 10px;
@@ -112,9 +112,10 @@ h3.funcTitle02 {
     word-wrap: break-word;
     overflow: hidden;
     display: none;
+    display:none;
 }
 
-.Service-chatroom .chatroom .chat-content .messageLine .oneAnswer {
+.messageLine .oneAnswer {
     font-size: 18px;
     background: rgb(154, 180, 204);
     float: right;

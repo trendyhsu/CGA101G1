@@ -136,12 +136,22 @@ h3.funcTitle02 i {
 }
 
 /*----------------------KeyWord回傳結果------------------*/
+.content-panel div{
+	display:flex;
+	justify-content: space-between;
+	margin:1rem;
+}
+.content-panel hr{
+	margin:0;
+}
 h4.funcTitle02 {
     font-size: 1.8rem;
     font-weight: bold;
-    /* border: 2px solid red; */
+    width:fit-content;
+    margin:0;
+    margin-right:2rem;
+    margin-left:1rem;
 }
-
 #KeyWordTable th,
 #KeyWordTable td {
     font-size: 1.6rem;
@@ -149,23 +159,26 @@ h4.funcTitle02 {
 
 
 }
-
+#KeyWordTable > thead > tr > th:nth-child(3),
+#KeyWordTable > thead > tr > td:nth-child(3){
+	width:700px;
+}
+#KeyWordTable th{
+	white-space:nowrap;
+}
 #KeyWordTable tr td:first-of-type,
 #KeyWordTable tr th:first-of-type {
-    /* border: 2px solid blue; */
-    width: 200px;
+/*     border: 2px solid blue; */
+    width: 120px;
 }
 
 
 #KeyWordTable tbody tr td:last-of-type {
     /* border: 2px solid red; */
     white-space: nowrap;
-    width: 150px;
 }
 
-#KeyWordTable td[contenteditable='true'] {
-    outline: none;
-}
+
 
 #KeyWordTable td:focus {
     background: #ccc;

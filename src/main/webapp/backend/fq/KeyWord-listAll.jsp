@@ -38,12 +38,20 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content-panel">
-						<table class="table table-striped table-advance table-hover"
-							id="KeyWordTable">
+						<div>
 							<h4 class="funcTitle02">
 								<i class="fa fa-angle-right"></i> 查詢結果
 							</h4>
-							<hr>
+							<h4 class="funcTitle02">
+								<a
+									href="<%=request.getContextPath()%>/backend/fq/KeyWord-final.jsp"><i
+									class="fa-solid fa-circle-chevron-left">返回</i></a>
+							</h4>
+						</div>
+							
+						<hr>
+						<table class="table table-striped table-advance table-hover"
+							id="KeyWordTable">
 							<thead>
 								<tr>
 									<th><i class="fa fa-solid fa-hashtag"></i> 編號</th>
@@ -54,7 +62,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="keyWord" items="${list}">
+							<%@ include file="page1.file"%>
+								<c:forEach var="keyWord" items="${list}" begin="<%=pageIndex%>"
+									end="<%=pageIndex+rowsPerPage-1%>">
 								<tr>
 										<td>${keyWord.fqKeyWordNo}</td>
 										<td>${keyWord.fqKeyWordContent}</td>
@@ -90,8 +100,11 @@
 						</c:forEach>
 
 							</tbody>
+							
 						</table>
+						
 					</div>
+					<%@ include file="page2.file"%>
 					<!-- /content-panel -->
 				</div>
 				<!-- /col-md-12 -->
