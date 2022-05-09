@@ -11,34 +11,67 @@
 <body>
 
     <div id="app1">
-        <input type="text" v-model="message">
+        <input type="text" :id="message" v-model="message">
         <input type="text" v-model="message">
         {{ message }} ????
         price: {{ price }},
         quantity {{ quantity }},
-        total: {{ price * quantity }} 元
+        total: {{ getTotalComputed }} 元
+        <div>台幣 <input type="text" v-model="twd"></div>
+        <div>日幣 <input type="text" v-model="jpy"></div>
+
+
+
     </div>
 
-    <div id="app2"> {{ message }}</div>
+    <div id="app2"></div>
+    <div id="app3"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
     <script>
         const vueObject = {
             message: 'Hello World',
             price: 100,
-            quantity: 10
+            quantity: 10,
+            twd: 1,
+            // jpy: 1,
+
         }
         const vm1 = Vue.createApp({
             data() {
                 return vueObject
+            },
+            methods: {
+                getTotalMethods() {
+                    return this.price * this.quantity;
+                },
+                twd2jpy() {
+                    this.jpy = Number.parseFloat(Number(this.twd) / 0.278).toFixed(3);
+                },
+                jpy2twd() {
+                    this.twd = Number.parseFloat(Number(this.jpy) * 0.278).toFixed(3);
+                }
+            },
+            computed: {
+                getTotalComputed() {
+                    return this.price * this.quantity;
+                },
+                jpy: {
+                    get() {
+                        return Number.parseFloat(Number(this.twd) / 0.278).toFixed(3);
+                    },
+                    set(val) {
+                        this.twd = Number.parseFloat(Number(val) * 0.278).toFixed(3);
+                    }
+                }
             }
         }).mount('#app1');
 
-        const vm2 = Vue.createApp({
-            data() {
-                return vueObject
-            }
-        }).mount('#app2');
+        // const vm2 = Vue.createApp({
+        //     data() {
+        //         return vueObject
+        //     }
+        // }).mount('#app2');
     </script>
 
 

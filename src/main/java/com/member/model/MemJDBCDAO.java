@@ -839,6 +839,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 					memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
 					memVO.setUserStatus(rs.getInt("userStatus"));
 					memVO.setMyPic(rs.getBytes("myPic"));
+					memVO.setIsMute(rs.getInt("isMute"));
 					return memVO;
 				}
 			}
