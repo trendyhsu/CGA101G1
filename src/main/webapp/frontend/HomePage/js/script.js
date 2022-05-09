@@ -156,7 +156,6 @@ function showNews(data) {
 //window.onload = fadeOut;
 
 
-
 /*-------------------------Top9Items------------------------*/
 $.ajax({
 	url: `/CGA101G1/product/showTop9Product`  ,

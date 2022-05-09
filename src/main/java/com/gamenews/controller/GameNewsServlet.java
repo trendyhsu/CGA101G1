@@ -139,9 +139,8 @@ public class GameNewsServlet extends HttpServlet {
 			String gameNewsContent = req.getParameter("gameNewsContent");
 			if (gameNewsContent == null || gameNewsContent.trim().length() == 0) {
 				errorMsgs.put("gameNewsContent","【內容】請勿空白");
-				System.out.println(gameNewsContent);
 			}
-			System.out.println(gameNewsContent);
+
 			
 			// 圖片
 			byte[] gameNewsPic = null;
