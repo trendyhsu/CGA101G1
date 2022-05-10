@@ -12,16 +12,15 @@
 <%
 GameCompanyService gameCompanyService = new GameCompanyService();
 List<GameCompanyVO> gameCompanyList = gameCompanyService.getAll();
-pageContext.setAttribute("gameCompanyList",gameCompanyList);
+pageContext.setAttribute("gameCompanyList", gameCompanyList);
 
 GameTypeService gameTypeService = new GameTypeService();
 List<GameTypeVO> gameTypeList = gameTypeService.getAll();
-pageContext.setAttribute("gameTypeList",gameTypeList);
+pageContext.setAttribute("gameTypeList", gameTypeList);
 
 GamePlatformTypeService gamePlatformTypeService = new GamePlatformTypeService();
 List<GamePlatformTypeVO> gamePlatformTypeList = gamePlatformTypeService.getAll();
-pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
-
+pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +35,15 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 
 <title>修改商品內容</title>
 
-
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+	crossorigin="anonymous">
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
@@ -75,26 +82,34 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 				<div class="col-lg-12">
 					<div id="app">
 
-                            <div style="width:30%">
-                                <input class="form-control" type="text" name="keysearch" id=""
-                                    @change="keysearch($event)" placeholder="搜尋遊戲名稱">
-                            </div>
-                            <div v-if="(this.search.length == 0)" style="color:red ">
-                                查無資料
-                            </div>
-                            <div v-else>
-                                目前總共<span style="color:blue ">{{this.search.length}}</span>筆資料
-                            </div>
+						<div style="width: 30%">
+							<input class="form-control" type="text" name="keysearch" id=""
+								@change="keysearch($event)" placeholder="搜尋遊戲名稱">
+						</div>
+						<div v-show="this.search.length !=0">
+							目前總共<span style="color: blue">{{this.search.length}}</span>筆資料
+						</div>
+						<div v-if="this.search.length ==0">
+							<div style="margin-left: 47%; margin-top: 20%">
+								<h3>資料讀取中......</h3>
+							</div>
 
-						<card-template :read-data="renderData" :now-page="nowPage"
-							v-on:emitedit="edit"> </card-template>
-						<nav class="d-flex justify-content-center">
-							<pagination-list :pages="renderData" :now-page="nowPage"
-								:total-page="totalPage" @skip-page="skipPage"
-								@previous-page="previousPage" @next-page="nextPage">
-							</pagination-list>
-						</nav>
+							<div class="spinner-border text-info"
+								style="margin-left: 50%; margin-top: 2%" role="status">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</div>
 
+						<div v-show="this.search.length !=0">
+							<card-template :read-data="renderData" :now-page="nowPage"
+								v-on:emitedit="edit"> </card-template>
+							<nav class="d-flex justify-content-center">
+								<pagination-list :pages="renderData" :now-page="nowPage"
+									:total-page="totalPage" @skip-page="skipPage"
+									@previous-page="previousPage" @next-page="nextPage">
+								</pagination-list>
+							</nav>
+						</div>
 						<!--   form內容要進去資料庫  -->
 						<div style="width: 30%;">
 							<form v-if="isNew || temp.productNo" method="post"
@@ -138,8 +153,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 									<label for="gameTypeNo" class="form-label">遊戲種類</label> <select
 										name="GameTypeNo" id="gameTypeNo" v-model="temp.gameTypeNo"
 										required>
-										<c:forEach var="gameTypeVO"
-											items="${gameTypeList}">
+										<c:forEach var="gameTypeVO" items="${gameTypeList}">
 											<option value="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</option>
 										</c:forEach>
 									</select>
@@ -155,12 +169,10 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 									</select>
 								</div>
 								<div>
-									<label for="gameCompanyNo" class="form-label">遊戲公司</label> 
-									<select
+									<label for="gameCompanyNo" class="form-label">遊戲公司</label> <select
 										name="GameCompanyNo" id="gameCompanyNo"
 										v-model="temp.gameCompanyNo" required>
-										<c:forEach var="gameCompanyVO"
-											items="${gameCompanyList}">
+										<c:forEach var="gameCompanyVO" items="${gameCompanyList}">
 											<option value="${gameCompanyVO.gameCompanyNo}">${gameCompanyVO.gameCompanyName}</option>
 										</c:forEach>
 									</select>
@@ -177,7 +189,10 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 								<div>
 									<label for="itemProdDescription" class="form-label">遊戲描述</label>
 									<textarea name="ItemProdDescription" id="itemProdDescription"
-										cols="55" rows="20" required>{{temp.itemProdDescription}}</textarea>
+										cols="55" rows="20" @change="descriptCheck($event)" required>{{temp.itemProdDescription}}</textarea>
+									<div style="color: red;"
+										:style="{visibility: descriptInput ? 'visible' : 'hidden'}">
+										請填入遊戲描述 !!</div>
 								</div>
 
 
@@ -210,10 +225,10 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 								</div>
 
 								<div>
-									<label v-if="url3" class="form-label">產品圖片3編號</label> <input
+									<label v-if="url3" class="form-label" hidden>產品圖片3編號</label> <input
 										v-if="url3" type="text" name="productImage3NO"
 										class="form-control" v-model="temp.picList[2].productPicNo"
-										readonly>
+										readonly  hidden>
 								</div>
 								<div>
 									<label for="productImage3" class="form-label">產品圖片3</label> <img
@@ -302,6 +317,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                             nameInput: false,
                             priceInput: false,
                             upcNumInput: false,
+                            descriptInput:false,
 
                             btn: false,
 
@@ -504,7 +520,16 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                             } else {
                                 this.btn = false;
                             }
-                        }
+                        },
+                        descriptCheck(e) {
+                            this.descriptInput = false;
+                            if ((e.target.value).trim().length ==0) {
+                                this.descriptInput = true;
+                                this.btn = true;
+                            } else {
+                                this.btn = false;
+                            }
+                        },
 
 
                     },
@@ -541,7 +566,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                                         <th>價格</th>
                                         <th>封面</th>
                                         <th>遊戲種類</th>
-                                        <th>遊戲平台種類</th>
+                                        <th>平台種類</th>
                                         <th>遊戲公司</th>
                                         <th>銷售狀態</th>
                                         <th>產品描述</th>
@@ -561,9 +586,8 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                                             <img :src="item.picList[0].imageUrl" alt="" height="100">
                                         </td>
                                         <td>{{item.gameTypeName}}</td>
-                                        <!-- 要改成中文 -->
                                         <td>{{item.gamePlatformName}}</td>
-                                        <td>{{item.gameCompanyNo}}</td>
+                                        <td>{{item.gameCompanyName}}</td>
                                         <td>{{item.StatusName}}</td>
                                         <td class="descriptionArea" style="width: 100px;">
                                         <div style="width: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4;-webkit-box-orient: vertical;">{{item.itemProdDescription}}</div>
@@ -575,7 +599,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
                                         <td>
                                             <img :src="item.picList[2].imageUrl" alt="" height="100">
                                         </td>
-                                        <td><button type="button" class="btn btn-outline-primary"
+                                        <td><button type="button" class="btn btn-secondary"
                                                 @click="webcamSendRequestButton(item)">編輯</button></td>
                                     </tr>
                                 </tbody>

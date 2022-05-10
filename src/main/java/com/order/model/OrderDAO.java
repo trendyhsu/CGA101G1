@@ -10,80 +10,55 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class OrderDAO implements OrderDAO_interface{
+public class OrderDAO implements OrderDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://35.194.146.30:3306/cga101g1?serverTimezone=Asia/Taipei";
 	String userid = "tibame";
 	String passwd = "tibame";
 
 //                                  新增訂單-沒使用優惠券	
-		private static final String NewOrderWithoutCoupon = 
-			"INSERT INTO cga101g1.order (MemNo,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,ReceiverName,ReceiverAddress,ReceiverPhone) VALUES (?,?,0,?,?,?,?,?);";
-	                                  //    1        2                          3           4            5           6           7                          
+	private static final String NewOrderWithoutCoupon = "INSERT INTO cga101g1.order (MemNo,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,ReceiverName,ReceiverAddress,ReceiverPhone) VALUES (?,?,0,?,?,?,?,?);";
+	// 1 2 3 4 5 6 7
 
 //                                  新增訂單-使用優惠券	
-		private static final String NewOrderWithCoupon = 
-				"INSERT INTO cga101g1.order (MemNo,MemCouponNo,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,ReceiverName,ReceiverAddress,ReceiverPhone) VALUES (?,?,?,0,?,?,?,?,?)";
-		                                  //    1        2         3                            4            5           6           7             8                   
-		
-		
-		
-		//查某個人最新的訂單
-		private static final String FindNewetOrderByMem=
-				"Select max(orderNo),MemNo FROM cga101g1.order where MemNo = ? ;";
-		              //     1          2                                   
+	private static final String NewOrderWithCoupon = "INSERT INTO cga101g1.order (MemNo,MemCouponNo,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,ReceiverName,ReceiverAddress,ReceiverPhone) VALUES (?,?,?,0,?,?,?,?,?)";
+	// 1 2 3 4 5 6 7 8
 
-		
-		
-		private static final String FindByMemNo = 
+	// 查某個人最新的訂單
+	private static final String FindNewetOrderByMem = "Select max(orderNo),MemNo FROM cga101g1.order where MemNo = ? ;";
+	// 1 2
+
+	private static final String FindByMemNo =
 //				"SELECT OrderNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where MemNo = ? order by TranTime desc";
-				"SELECT OrderNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where MemNo = ? order by TranTime desc";
+			"SELECT OrderNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where MemNo = ? order by TranTime desc";
 //		                  1           2            3             4         5              6          7               8         9              10             11                                12
 
-		
-		//		                    訂單修改
-		private static final String UPDATE = 
-				"UPDATE cga101g1.order SET OrderTotalPrice = ?, OrderState = ?, PickupMethod = ?, ShippingFee = ?, ReceiverName = ?, ReceiverAddress = ? ,ReceiverPhone= ? WHERE OrderNo = ?;";
-		//                                     1                   2               3             4                      5                 6                7                       8             
-		
+	// 訂單修改
+	private static final String UPDATE = "UPDATE cga101g1.order SET OrderTotalPrice = ?, OrderState = ?, PickupMethod = ?, ShippingFee = ?, ReceiverName = ?, ReceiverAddress = ? ,ReceiverPhone= ? WHERE OrderNo = ?;";
+	// 1 2 3 4 5 6 7 8
 
-		private static final String FindByOrderNo = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderNo = ? order by TranTime desc";
+	private static final String FindByOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderNo = ? order by TranTime desc";
 //		                  1       2           3       4             5           6          7            8            9            10               11         12                         13
 
-		private static final String FindMemNoByOrderNo =
-		"SELECT OrderNo,MemNo FROM cga101g1.order where OrderNo = ?;";
-		
-		
-		private static final String FindByTrashOrderNo = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 4 order by TranTime desc";
+	private static final String FindMemNoByOrderNo = "SELECT OrderNo,MemNo FROM cga101g1.order where OrderNo = ?;";
+
+	private static final String FindByTrashOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 4 order by TranTime desc";
 //	                  1       2       3           4             5           6          7            8            9            10               11                                     
 
-		
-		private static final String FindByFinishedOrderNo = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 2 order by TranTime desc";
+	private static final String FindByFinishedOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 2 order by TranTime desc";
 //	                     1       2       3           4             5           6          7            8            9            10               11                                    
 
-		
-		private static final String FindByReturnedOrderNo = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 3 order by TranTime desc";
+	private static final String FindByReturnedOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 3 order by TranTime desc";
 //	                  1       2       3           4             5           6          7            8            9            10               11                                     
 
-		
-		private static final String FindByUnPulledOrderNo = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 0 order by TranTime desc";
+	private static final String FindByUnPulledOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 0 order by TranTime desc";
 //	                  1       2       3           4             5           6          7            8            9            10               11                                   
 
-	
-		private static final String FindByPulledOrderNo = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 1 order by TranTime desc";
+	private static final String FindByPulledOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderState = 1 order by TranTime desc";
 //	                  1       2       3           4             5           6          7            8            9            10               11          12                             
 
-
-		private static final String GET_AllOrder = 
-				"SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order order by TranTime desc";
-		             //    1     2       3           4            5           6            7             8         9           10            11             12         
-	
+	private static final String GET_AllOrder = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order order by TranTime desc";
+	// 1 2 3 4 5 6 7 8 9 10 11 12
 
 	@Override
 	public void newOrderWithC(OrderVO orderVO) {
@@ -110,12 +85,10 @@ public class OrderDAO implements OrderDAO_interface{
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -133,7 +106,7 @@ public class OrderDAO implements OrderDAO_interface{
 				}
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -158,12 +131,10 @@ public class OrderDAO implements OrderDAO_interface{
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -181,12 +152,12 @@ public class OrderDAO implements OrderDAO_interface{
 				}
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void update(OrderVO orderVO) {
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -199,13 +170,12 @@ public class OrderDAO implements OrderDAO_interface{
 			pstmt.setInt(1, orderVO.getOrderTotalPrice());
 			pstmt.setInt(2, orderVO.getOrderState());
 			pstmt.setInt(3, orderVO.getPickupMethod());
-			if(orderVO.getPickupMethod()==0) {
-				pstmt.setInt(4, 0);			
-			}else {
+			if (orderVO.getPickupMethod() == 0) {
+				pstmt.setInt(4, 0);
+			} else {
 				pstmt.setInt(4, 1);
 			}
-			
-			
+
 			pstmt.setString(5, orderVO.getReceiverName());
 			pstmt.setString(6, orderVO.getReceiverAddress());
 			pstmt.setString(7, orderVO.getReceiverPhone());
@@ -215,12 +185,10 @@ public class OrderDAO implements OrderDAO_interface{
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -239,11 +207,10 @@ public class OrderDAO implements OrderDAO_interface{
 			}
 		}
 	}
-	
-	
+
 	@Override
 	public List<OrderVO> findByMemNo(Integer memNo) {
-		
+
 		List<OrderVO> list = new ArrayList<>();
 		OrderVO orderVO = null;
 		Connection con = null;
@@ -274,17 +241,15 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
 				list.add(orderVO);
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -343,17 +308,15 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
 				list.add(orderVO);
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -412,17 +375,15 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverName(rs.getString("ReceiverName"));
 				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -481,17 +442,15 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
 				list.add(orderVO);
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -554,12 +513,10 @@ public class OrderDAO implements OrderDAO_interface{
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -618,17 +575,15 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
 				list.add(orderVO);
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -687,17 +642,15 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverAddress(rs.getString("ReceiverAddress"));
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
 				list.add(orderVO);
-				
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -758,12 +711,10 @@ public class OrderDAO implements OrderDAO_interface{
 			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -808,20 +759,18 @@ public class OrderDAO implements OrderDAO_interface{
 
 			while (rs.next()) {
 				// productVO 也稱為 Domain objects
-				orderVO = new OrderVO();				
+				orderVO = new OrderVO();
 				orderVO.setMemNo(rs.getInt("MemNo"));
 				orderVO.setOrderNo(rs.getInt("max(orderNo)"));
-			
+
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -868,17 +817,15 @@ public class OrderDAO implements OrderDAO_interface{
 				// productVO 也稱為 Domain objects
 				orderVO = new OrderVO();
 				orderVO.setOrderNo(rs.getInt("OrderNo"));
-				orderVO.setMemNo(rs.getInt("MemNo"));				
+				orderVO.setMemNo(rs.getInt("MemNo"));
 			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -908,44 +855,44 @@ public class OrderDAO implements OrderDAO_interface{
 
 	@Override
 	public List<OrderVO> getOrdersBysearch(Map<String, String[]> map) {
-		
+
 		List<OrderVO> list = new ArrayList<OrderVO>();
 		OrderVO orderVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		
-		/***  針對關鍵字集做處理  **/
+
+		/*** 針對關鍵字集做處理 **/
 		StringBuffer whereCondition = new StringBuffer();
 		int count = 0;
-		Set<String> valueSet = map.keySet();	
-		for(String value : valueSet) {
+		Set<String> valueSet = map.keySet();
+		for (String value : valueSet) {
 			String keyValue = map.get(value)[0];
-			if (keyValue != null && keyValue.trim().length() != 0	&& !"action".equals(value)) {
+			if (keyValue != null && keyValue.trim().length() != 0 && !"action".equals(value)) {
 				count++;
-				String aCondition = get_aCondition_For_myDB(value, keyValue.trim());
+				if (!value.equals("memName")) {
+					String aCondition = get_aCondition_For_myDB(value, keyValue.trim());
 
-				if (count == 1)
-					whereCondition.append(" where " + aCondition);
-				else
-					whereCondition.append(" and " + aCondition);
+					if (count == 1) {
+						whereCondition.append(" where " + aCondition);
+					} else {
+						whereCondition.append(" and " + aCondition);
+					}
 
-				System.out.println("有送出查詢資料的欄位數count = " + count);
+//					System.out.println("有送出查詢資料的欄位數count = " + count);
+				}
 			}
 		}
-		
-		/***sql語句**/
-		String finalSQL = "select * from cga101g1.order "
-		          + whereCondition
-		          + "order by OrderNo";				
+
+		/*** sql語句 **/
+		String finalSQL = "select * from cga101g1.order " + whereCondition + "order by OrderNo";
 		try {
-			
+
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(finalSQL);
-			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+//			System.out.println("●●finalSQL(by DAO) = " + finalSQL);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				orderVO = new OrderVO();
 				orderVO.setOrderNo(rs.getInt("OrderNo"));
@@ -962,31 +909,30 @@ public class OrderDAO implements OrderDAO_interface{
 				orderVO.setReceiverPhone(rs.getString("ReceiverPhone"));
 				list.add(orderVO); // Store the row in the List
 			}
-			
+
 			return list;
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
+	public static String get_aCondition_For_myDB(String columnName, String value) {
 
-public static String get_aCondition_For_myDB(String columnName, String value) {
+		String aCondition = null;
 
-	String aCondition = null;
+		if ("orderNo".equals(columnName) || "memNo".equals(columnName)) // 用於其他
+			aCondition = columnName + "=" + value;
+		else if ("receiverName".equals(columnName)) // 用於varchar
+			aCondition = columnName + " like '%" + value + "%'";
 
-	if ("orderNo".equals(columnName) || "memNo".equals(columnName)) // 用於其他
-		aCondition = columnName + "=" + value;
-	else if ("receiverName".equals(columnName)) // 用於varchar
-		aCondition = columnName + " like '%" + value + "%'";
 //	else if ("hiredate".equals(columnName))                          // 用於date
 //		aCondition = columnName + "=" + "'"+ value +"'";                          //for 其它DB  的 date
 //	    aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";  //for Oracle 的 date
-	
-	return aCondition + " ";
-}
+
+		return aCondition + " ";
+	}
 }

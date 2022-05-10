@@ -16,9 +16,11 @@ public interface ProductDAO_interface {
 	
 	public ProductVO findNameByPrimaryKey(Integer productNo);
 	
-	public List<ProductVO> findByTop3MaxPrimaryKey();
+	public List<Object> findByTop3MaxPrimaryKey();
 
 	public List<ProductVO> getAll();
+	
+	public List<Object> getAllInMap();
 
 	public List<Object> getAllByWord(Integer page,String keyword);
 	

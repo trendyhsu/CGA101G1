@@ -119,7 +119,7 @@ public class ProductService {
 	}
 	
 	//查最新新增的商品
-	public List<ProductVO> GetNewestOne() {
+	public List<Object> GetNewestOne() {
 		return dao.findByTop3MaxPrimaryKey();
 	}
 	

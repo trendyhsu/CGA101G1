@@ -14,16 +14,15 @@
 ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServlet.java (Concroller) 存入req的orderVO物件 (包括幫忙取出的orderVO, 也包括輸入資料錯誤時的orderVO物件)
 GameCompanyService gameCompanyService = new GameCompanyService();
 List<GameCompanyVO> gameCompanyList = gameCompanyService.getAll();
-pageContext.setAttribute("gameCompanyList",gameCompanyList);
+pageContext.setAttribute("gameCompanyList", gameCompanyList);
 
 GameTypeService gameTypeService = new GameTypeService();
 List<GameTypeVO> gameTypeList = gameTypeService.getAll();
-pageContext.setAttribute("gameTypeList",gameTypeList);
+pageContext.setAttribute("gameTypeList", gameTypeList);
 
 GamePlatformTypeService gamePlatformTypeService = new GamePlatformTypeService();
 List<GamePlatformTypeVO> gamePlatformTypeList = gamePlatformTypeService.getAll();
-pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
-
+pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +37,15 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 
 <title>新增商城產品內容</title>
 
-
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+	crossorigin="anonymous">
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
@@ -78,45 +85,59 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 						<h3>
 							<i class="fa fa-angle-right"></i> 最近新增前三筆
 						</h3>
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>產品編號</th>
-									<th>產品名稱</th>
-									<th>價格</th>
-									<th>封面</th>
-									<th>遊戲種類</th>
-									<th>遊戲平台種類</th>
-									<th>遊戲公司</th>
-									<th>銷售狀態</th>
-									<th>產品描述</th>
-									<th>UpcNum</th>
-									<th>產品圖片2</th>
-									<th>產品圖片3</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="item in datastore" :key="item.ProductNo"
-									v-bind:class="{'table-success':item.onStock}">
-									<td>{{item.productNo}}</td>
-									<td>{{item.productName}}</td>
-									<td>{{item.productPrice}}</td>
-									<td><img :src="item.picList[0].imageUrl" alt=""
-										height="100"></td>
-									<td>{{item.gameTypeNo}}</td>
-									<!-- 要改成中文 -->
-									<td>{{item.gamePlatformNo}}</td>
-									<td>{{item.gameCompanyNo}}</td>
-									<td>{{item.productState}}</td>
-									<td>{{item.itemProdDescription}}</td>
-									<td>{{item.upcNum}}</td>
-									<td><img :src="item.picList[1].imageUrl" alt=""
-										height="100"></td>
-									<td><img :src="item.picList[2].imageUrl" alt=""
-										height="100"></td>
-								</tr>
-							</tbody>
-						</table>
+						<div v-if="this.datastore.length ==0">
+							<div style="margin-left: 43%; margin-top: 10%">
+								<h3>最近新增前三筆資料讀取中......</h3>
+							</div>
+
+							<div class="spinner-border text-info"
+								style="margin-left: 50%; margin-top: 2%" role="status">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</div>
+						<div v-show="this.datastore.length !=0">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>產品編號</th>
+										<th>產品名稱</th>
+										<th>價格</th>
+										<th>封面</th>
+										<th>遊戲種類</th>
+										<th>平台種類</th>
+										<th>遊戲公司</th>
+										<th>銷售狀態</th>
+										<th>產品描述</th>
+										<th>UpcNum</th>
+										<th>產品圖片2</th>
+										<th>產品圖片3</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in datastore" :key="item.ProductNo"
+										v-bind:class="{'table-success':item.onStock}">
+										<td>{{item.productNo}}</td>
+										<td>{{item.productName}}</td>
+										<td>{{item.productPrice}}</td>
+										<td><img :src="item.picList[0].imageUrl" alt=""
+											height="100"></td>
+										<td>{{item.gameTypeName}}</td>
+										<td>{{item.gamePlatformName}}</td>
+										<td>{{item.gameCompanyName}}</td>
+										<td>{{item.productStateStr}}</td>
+										<td><div
+												style="width: 110px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{item.itemProdDescription}}</div>
+										</td>
+										<td>{{item.upcNum}}</td>
+										<td><img :src="item.picList[1].imageUrl" alt=""
+											height="100"></td>
+										<td><img :src="item.picList[2].imageUrl" alt=""
+											height="100"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 						<!--   v-if="isNew" 判斷要不要打開編輯的表單  -->
 						<!--   form內容要進去資料庫  -->
 						<div style="width: 30%;">
@@ -154,8 +175,7 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 									<label for="gameTypeNo" class="form-label">遊戲種類</label> <select
 										name="GameTypeNo" id="gameTypeNo"
 										value="${productVO.gameTypeNo}" required>
-										<c:forEach var="gameTypeVO"
-											items="${gameTypeList}">
+										<c:forEach var="gameTypeVO" items="${gameTypeList}">
 											<option value="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</option>
 										</c:forEach>
 									</select>
@@ -175,12 +195,10 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 
 								</div>
 								<div>
-									<label for="gameCompanyNo" class="form-label">遊戲公司</label> 
-									<select
+									<label for="gameCompanyNo" class="form-label">遊戲公司</label> <select
 										name="GameCompanyNo" id="gameCompanyNo"
 										value="${productVO.gameCompanyNo}" required>
-										<c:forEach var="gameCompanyVO"
-											items="${gameCompanyList}">
+										<c:forEach var="gameCompanyVO" items="${gameCompanyList}">
 											<option value="${gameCompanyVO.gameCompanyNo}">${gameCompanyVO.gameCompanyName}</option>
 										</c:forEach>
 									</select>
@@ -188,11 +206,14 @@ pageContext.setAttribute("gamePlatformTypeList",gamePlatformTypeList);
 								</div>
 								<div>
 									<label for="upcNum" class="form-label">UpcNum</label> <input
-										type="text" id="upcNum" name="UpcNum" class="form-control"
+										type="number" id="upcNum" name="UpcNum" class="form-control"
 										value="${productVO.upcNum}">
 								</div>
 								<div>
 									<label for="itemProdDescription" class="form-label">遊戲描述</label>
+
+								</div>
+								<div>
 									<textarea name="ItemProdDescription" id="itemProdDescription"
 										cols="55" rows="20" value="${productVO.itemProdDescription}"></textarea>
 								</div>

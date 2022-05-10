@@ -320,6 +320,7 @@
                                             </td>
                                             
                                             <td class="p-3">
+                                            
                                                 <a v-show="(item.orderState == 2 && orderDetails.CommentStar == 0 ? true:false)" :href="`+ "`" + `/CGA101G1/frontend/Product/postComment.html?ProductNo=` + "`" + "+" + "orderDetails.productNo" + "+" + "`" + `&OrderNo=` + "`" + "+" + "orderDetails.orderNo" + `">我要發表遊戲評論</a>
     
                                             </td>
