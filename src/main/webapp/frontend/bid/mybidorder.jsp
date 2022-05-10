@@ -116,7 +116,7 @@ float: right;
 						</c:if>
 					</td>
 					<td>
-						<c:if test="${bidProductVO.orderState == 0}">
+						<c:if test="${bidProductVO.orderState == 0 && bidProductVO.bidState == 1}">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/frontend/bid/bidcheckout.jsp">
 							<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="結帳">

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bidproduct.model.BidProductService;
+import com.bidproduct.model.BidProductVO;
+import com.member.model.MemService;
+import com.member.model.MemVO;
 
 @WebServlet("/bid/bidProductPay")
 public class BidProductPayServlet extends HttpServlet {
@@ -35,9 +38,13 @@ public class BidProductPayServlet extends HttpServlet {
 		Integer orderState = new Integer(6);
 		BidProductService bidProductSvc = new BidProductService();
 		bidProductSvc.updateOrderState(orderState, bidProductNo);
+		
+		BidProductVO bidProductVO = bidProductSvc.getOneBid(bidProductNo);
+		MemService memService = new MemService();
+		MemVO memVO = memService.getMemVObyMemNo(bidProductVO.getSellerNo());
 
 		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-		request.setAttribute("successMsg", "編號 " + bidProductNo + " 商品已完成撥款！");
+		request.setAttribute("successMsg", "編號 " + bidProductNo + " 商品已撥款至賣方 " + memVO.getMemName() + " 帳戶中！ ");
 		String url = "/backend/bid/listAllBidOrder.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交listAllBidOrder.jsp
 		successView.forward(request, response);

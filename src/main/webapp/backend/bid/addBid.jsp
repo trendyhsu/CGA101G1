@@ -134,12 +134,10 @@ border-radius: 10px;
 					<td>一般商品編號</td>
 					<td>
 						<select size="1" name="productNo" style="width:180px">
+					    			<option value="0" ${(productVO.upcNum != bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} >無對應遊戲
   								<c:forEach var="product" items="${productList}">
-						    		<c:if test="${(bidApplyListVO.upcNum == product.upcNum)}">
-										<option value="${product.productNo}" ${(bidApplyListVO.upcNum==product.upcNum)? 'selected':'' } >${product.productName}
-									</c:if>
+									<option value="${product.productNo}" ${(bidApplyListVO.upcNum==product.upcNum)? 'selected':'' } >${product.productName}
 								</c:forEach>
-					    			<option value="0">無對應遊戲
 						</select>
 					</td>
 				</tr>

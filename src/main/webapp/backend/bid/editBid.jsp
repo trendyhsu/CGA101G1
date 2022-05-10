@@ -298,7 +298,7 @@ color: #547492;
 					<input type="hidden"name="receiverName" value="${bidProductVO.receiverName}">
 					<input type="hidden" name="receiverAddress"value="${bidProductVO.receiverAddress}">
 					<input type="hidden" name="receiverPhone"value="${bidProductVO.receiverPhone}">
-					<input class="btn btn-primary" type="submit" value="上傳圖片" class="button" style="margin: 0 0 27px 10px">
+					<input class="button btn btn-primary" type="submit" value="上傳圖片" style="margin: 0 0 27px 10px">
 		</form>
 		<div id="picPreview" style="position: absolute ;top: 80px ; display: flex; flex-wrap: wrap; width: 450px "></div>
 	</div>
