@@ -228,6 +228,12 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>
+                            <div class="d-flex justify-content-center" id="productBox">
+                                <div v-show="((this.pages == 0)&&(!loading))" style="font-size:50px ;">
+                                    <i class="far fa-grin-beam-sweat"></i>
+                                    <span> 查無資訊 </span><i class="far fa-grin-beam-sweat"></i>
+                                </div>
+                            </div>
                             <div class="col-sm-6 col-lg-4" v-for="(item, index) in ((temp.length==0)?jsonData:temp)"
                                 :key="index" style="height:60em">
                                 <div class="product-card-1" style="height:90%">
@@ -284,7 +290,7 @@
                             </div>
 
                             <!-- 頁數區 -->
-                            <div class="ms-auto" style="padding-left: 40%;">
+                            <div class="ms-auto" style="padding-left: 40%;" v-show="(this.pages != 0)">
                                 <ul class="pagination" id="pageid">
 
                                     <!-- <li class="page-item" v-if="nowPage > 0" @click.prevent="previousPage"><a class="page-link" href="#">Previous</a></li> -->

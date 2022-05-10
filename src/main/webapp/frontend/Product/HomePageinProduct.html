@@ -197,21 +197,6 @@
                                     <label class="m-0 text-dark">遊戲公司:</label>
                                     <a>{{jsonData.gameCompanyName}}</a>
                                 </p>
-                                <p class="theme-link m-0">
-                                    <label class="m-0 text-dark">Share:</label>
-                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
-                                        <i class="bi bi-facebook"></i>
-                                    </a>
-                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
-                                        <i class="bi bi-twitter"></i>
-                                    </a>
-                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
-                                        <i class="bi bi-instagram"></i>
-                                    </a>
-                                    <a class="icon icon-sm icon-secondary me-2" href="javascript:void(0);">
-                                        <i class="bi bi-linkedin"></i>
-                                    </a>
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -291,7 +276,7 @@
 
         <!-- 商品詳情over -->
         <!-- 跳出加入購物車的視窗 -->
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <!-- <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
@@ -303,6 +288,18 @@
                     <h6 style="color: aliceblue;">商品成功加入購物車!!</h6>
                 </div>
             </div>
+        </div> -->
+        <div class="shoppingCartimg" style="position: fixed
+        ;bottom: 30%; left: 95%;">
+            <a href="/CGA101G1/frontend/Product/shopping-cart.html">
+                <div style="position:relative;top:18px;left:4px">
+                    <p style="margin-bottom: 0;padding-left:5px;"><span
+                            style="color: #CC6D3D;font-weight: 1000; font-size: 2em;">{{this.totalItemOfCart}}</span>
+                    </p>
+                </div>
+                <img src="../mainCss/assets/img/shoppingCart2.png" style="width: 50%; height: 50%;" alt="">
+                <p>${{this.totalPriceOfCart}}</p>
+            </a>
         </div>
         <!-- 跳出需先加入會員的視窗 -->
         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -475,6 +472,9 @@
                     CaledCommentsData: [],
                     reviewShow: false,
 
+                    totalItemOfCart: 0,
+                    totalPriceOfCart: 0,
+
                     //分頁用
                     renderData: [], // 建立每頁顯示資料
                     pageBaseNum: 5,  // 每頁顯示資料數量
@@ -483,6 +483,17 @@
                 }
             },
             methods: {
+                showShoppingCartSatus() {
+                    const apiUrl = '/CGA101G1/product/showCart';
+                    axios.get(apiUrl)
+                        .then((response) => {
+                            console.log(response.data);
+                            for (item of response.data) {
+                                this.totalItemOfCart = this.totalItemOfCart + item.productSales;
+                                this.totalPriceOfCart = this.totalPriceOfCart + item.productTotalPrice;
+                            }
+                        });
+                },
                 getProductData() {
                     let getUrlString = location.href;
                     let url = new URL(getUrlString);
@@ -578,6 +589,8 @@
 
                 },
                 sendData() {
+                    this.totalItemOfCart = 0;
+                    this.totalPriceOfCart = 0;
 
                     let toastLiveExample1 = document.getElementById('liveToast1');
 
@@ -593,8 +606,11 @@
                     })
                         .then((response) => {
                             console.log(response);
-                            let toast = new bootstrap.Toast(toastLiveExample1)
-                            toast.show();
+                            for (item of response.data) {
+                                this.totalItemOfCart = this.totalItemOfCart + item.productSales;
+                                this.totalPriceOfCart = this.totalPriceOfCart + item.productTotalPrice;
+                            }
+
                         })
                 },
 
@@ -662,6 +678,7 @@
                 this.getProductData();
                 this.getCommentsData();
                 this.getCaledCommentsData();
+                this.showShoppingCartSatus();
             }
         })
 

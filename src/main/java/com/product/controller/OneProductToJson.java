@@ -36,9 +36,9 @@ public class OneProductToJson extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		
-		List<ProductVO> productsList = new ArrayList<ProductVO>();
+		List<Object> productsList = new ArrayList<Object>();
 		ProductDAO_interface dao = new ProductDAO();
-		productsList = dao.getAll();
+		productsList = dao.getAllInMap();
 		Gson gson = new Gson();
 		String json = gson.toJson(productsList);
 		out.write(json);		

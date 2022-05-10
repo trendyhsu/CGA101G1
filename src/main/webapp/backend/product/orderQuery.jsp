@@ -48,7 +48,7 @@ pageContext.setAttribute("list", list);
 						<table class="table table-striped table-hover">
 							<tr>
 								<th style="width: 6%">訂單編號</th>
-								<th style="width: 6%">會員編號</th>
+								<th style="width: 6%">會員姓名</th>
 								<th style="width: 10%">會員優惠券編號</th>
 								<th  style="width: 6%">總價</th>
 								<th style="width: 15%">下單日期時間</th>
@@ -62,7 +62,7 @@ pageContext.setAttribute("list", list);
 
 							<tr>
 								<td>${orderVO.orderNo}</td>
-								<td>${orderVO.memNo}</td>
+								<td>${orderVO.getMemVObyMemNo().memName}</td>
 								<td>${orderVO.memCouponNo == 0 ? '沒有使用優惠券' : orderVO.memCouponNo}</td>
 								<td><span class="badge bg-info m-0">${orderVO.orderTotalPrice}</td>
 								<td><fmt:formatDate value="${(orderVO.tranTime)}"
@@ -141,19 +141,6 @@ pageContext.setAttribute("list", list);
 					<%@ include file="page2.file"%>
 				</div>
 			</div>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch"
-				name="form1">
-				<b><font color=blue>訂單查詢:</font></b> <br> <b>輸入訂單編號:</b> <input
-					type="text" name="orderNo" value="24001"> <br>
-				<br>
-				<b>輸入會員編號:</b> <input type="text" name="memNo" value="11011"><br>
-				<br>
-				<b>輸入收件人姓名:</b> <input type="text" name="receiverName" value="王大明"><br>
-				<br>
-					
-					<input type="submit" value="送出"> <input
-					type="hidden" name="action" value="listEmps_ByCompositeQuery">
-			</FORM>
 
 
 

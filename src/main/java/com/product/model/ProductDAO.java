@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.w3c.dom.ls.LSException;
 
+import com.gamecompany.model.GameCompanyVO;
 import com.gameplatformtype.model.GamePlatformTypeVO;
 import com.gametype.model.GameTypeService;
 import com.gametype.model.GameTypeVO;
@@ -620,10 +621,10 @@ public class ProductDAO implements ProductDAO_interface{
 	}
 
 	@Override
-	public List<ProductVO> findByTop3MaxPrimaryKey() {
+	public List<Object> findByTop3MaxPrimaryKey() {
 		
 		
-		List<ProductVO> list = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		ProductVO productVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -638,18 +639,38 @@ public class ProductDAO implements ProductDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// productVO 也稱為 Domain objects
+				
+				Map<String, Object> map =new HashMap<String, Object>();
 				productVO = new ProductVO();
-				productVO.setProductNo(rs.getInt("ProductNo"));
-				productVO.setGameTypeNo(rs.getInt("GameTypeNo"));
-				productVO.setGamePlatformNo(rs.getInt("GamePlatformNo"));
-				productVO.setGameCompanyNo(rs.getInt("GameCompanyNo"));
-				productVO.setProductName(rs.getString("ProductName"));
-				productVO.setProductPrice(rs.getInt("ProductPrice"));
-				productVO.setProductState(rs.getInt("ProductState"));
-				productVO.setItemProdDescription(rs.getString("ItemProdDescription"));
-				productVO.setUpcNum(rs.getString("UpcNum"));
-				list.add(productVO);
+				map.put("productNo", rs.getInt("ProductNo"));
+				
+				Integer gameTypeNo= rs.getInt("GameTypeNo");
+				GameTypeVO gameTypeVO= productVO.getOneGameType(gameTypeNo);				
+				map.put("gameTypeNo", gameTypeNo);
+				map.put("gameTypeName", gameTypeVO.getGameTypeName());
+				
+				Integer gameCompanyNo= rs.getInt("GameCompanyNo");
+				GameCompanyVO gameCompanyVO= productVO.getOneGameCompanyVO(gameCompanyNo);					
+				map.put("gameCompanyNo", gameCompanyNo);
+				map.put("gameCompanyName", gameCompanyVO.getGameCompanyName());
+				
+				
+				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
+				GamePlatformTypeVO gamePlatformTypeVO= productVO.getOneGamePlatformType(gamePlatformNo);	
+				map.put("gamePlatformNo",gamePlatformNo);
+				map.put("gamePlatformName",gamePlatformTypeVO.getGamePlatformName());
+				
+				
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getInt("ProductPrice"));
+				map.put("productState", rs.getInt("ProductState"));
+				map.put("productStateStr", (rs.getInt("ProductState") ==0?"未開賣":"已上架"));
+				map.put("productState", rs.getInt("ProductState"));
+				map.put("itemProdDescription", rs.getString("ItemProdDescription"));
+				map.put("upcNum", rs.getString("UpcNum"));
+
+
+				list.add(map);
 			}
 
 			// Handle any driver errors
@@ -1629,6 +1650,83 @@ public class ProductDAO implements ProductDAO_interface{
 			}
 		}
 		return count;
+	}
+
+	
+	
+	
+	@Override
+	public List<Object> getAllInMap() {
+		List<Object> list = new ArrayList<>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+			
+				Map<String, Object> map =new HashMap<String, Object>();
+				productVO = new ProductVO();
+				map.put("productNo", rs.getInt("ProductNo"));				
+				Integer gameTypeNo= rs.getInt("GameTypeNo");
+				map.put("gameTypeNo", gameTypeNo);
+
+				
+				Integer gameCompanyNo= rs.getInt("GameCompanyNo");
+				GameCompanyVO gameCompanyVO= productVO.getOneGameCompanyVO(gameCompanyNo);					
+				map.put("gameCompanyNo", gameCompanyNo);
+				map.put("gameCompanyName", gameCompanyVO.getGameCompanyName());			
+				Integer gamePlatformNo= rs.getInt("GamePlatformNo");
+				map.put("gamePlatformNo",gamePlatformNo);			
+				map.put("productName", rs.getString("ProductName"));
+				map.put("productPrice", rs.getInt("ProductPrice"));
+				map.put("productState", rs.getInt("ProductState"));
+				map.put("itemProdDescription", rs.getString("ItemProdDescription"));
+				map.put("upcNum", rs.getString("UpcNum"));
+
+
+				list.add(map);
+			}
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 	
 }

@@ -58,8 +58,9 @@ public class AddCommit extends HttpServlet {
 		
 		
 		/*********重導回訂單頁面*************/
-		response.sendRedirect("/CGA101G1/frontend/Product/account-order.html");
-		
+//		response.sendRedirect("/CGA101G1/frontend/Product/account-order.jsp");
+		String url="/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo="+productNo;
+		response.sendRedirect(url);
 		
 		
 		

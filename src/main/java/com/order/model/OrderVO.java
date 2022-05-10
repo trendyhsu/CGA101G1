@@ -108,9 +108,20 @@ public class OrderVO implements java.io.Serializable{
 		OrderDetailDAO_interface dao = new OrderDetailDAO();	
 		return dao.findAllDetailByOrderNo(orderNo);
 	}
+	public MemVO getMemVObyMemNo() {
+		MemJDBCDAO dao = new MemJDBCDAO();
+		MemVO memVO=dao.getOneByMemNo(memNo);
+		return memVO;
+	}
 	public MemVO getMemVObyMemNo(Integer memNo) {
 		MemJDBCDAO dao = new MemJDBCDAO();
 		MemVO memVO=dao.getOneByMemNo(memNo);
+		return memVO;
+	}
+	
+	public MemVO getByMemName(String memName) {
+		MemJDBCDAO dao = new MemJDBCDAO();
+		MemVO memVO=dao.selectMemEname(memName);
 		return memVO;
 	}
 	
