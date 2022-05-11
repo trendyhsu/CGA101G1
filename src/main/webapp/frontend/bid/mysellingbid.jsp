@@ -123,8 +123,8 @@ float: right;
 							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductGetBack"
-									style="margin-bottom: 0px;" id="getBackForm">
-									<input class="btn btn-success btn-sm" style="margin: 0" type="button" value="取回" id="getBackBtn">
+									style="margin-bottom: 0px;" id="getBackForm${bidProductVO.bidProductNo}">
+									<input class="btn btn-success btn-sm getBackBtn" style="margin: 0" type="button" value="取回" id="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 								</FORM>
@@ -135,9 +135,9 @@ float: right;
 						<c:if test="${bidProductVO.bidState == 2 || bidProductVO.bidState == 3}" var="condition">
 							<c:if test="${bidProductVO.orderState != 3 && bidProductVO.orderState != 4}" var="condition">
 								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/bid/bidProductRelist" id="reListForm"
+									ACTION="<%=request.getContextPath()%>/bid/bidProductRelist" id="reListForm${bidProductVO.bidProductNo}"
 									>
-									<input class="btn btn-success btn-sm" style="margin: 0" type="submit" value="重新上架" id="reListBtn">
+									<input class="btn btn-success btn-sm reListBtn" style="margin: 0" type="submit" value="重新上架" id="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 								</FORM>
@@ -162,11 +162,14 @@ float: right;
     <!-- End Main -->
     
 <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
 <script>
 	// 取回
-let returnBtn = document.querySelector("#getBackBtn");
+let returnBtn = $(".getBackBtn");
+var targetNum = 0;
 if(returnBtn){
-	returnBtn.addEventListener("click",function(){
+	returnBtn.click(function(e){
+		targetNum = e.target.id;
 		swal({ 
 			  title: "確定取回嗎？", 
 			  text: "", 
@@ -184,7 +187,8 @@ if(returnBtn){
 			    .then(() => {
 				setTimeout(returnGame, 100);
 				function returnGame(){
-					document.querySelector("#getBackForm").submit();
+					let getBackFormName = "#getBackForm"+targetNum;
+					document.querySelector(getBackFormName).submit();
 				}
 			 }); 
 			  } else { 

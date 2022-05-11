@@ -166,6 +166,7 @@ textarea {
 				</tr>
 				<tr>
 					<td>
+			<input name="bidApplyListNo" id="bidApplyListNo" type="hidden" value="${param.bidApplyListNo}">
 			<input type="submit" value="新增">
 			<input type="reset" value="重設">
 					</td>

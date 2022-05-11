@@ -46,15 +46,16 @@ public class BidProductRelistServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 			/*************************** 2.開始修改資料 *****************************************/
-			orderState = new Integer(4);
+//			orderState = new Integer(4);
 			BidProductService bidProductSvc = new BidProductService();
-			bidProductSvc.updateOrderState(orderState, bidProductNo);
+//			bidProductSvc.updateOrderState(orderState, bidProductNo);
 			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			BidProductVO bidProductVO = bidProductSvc.getOneBid(bidProductNo);			
 			BidApplyListVO bidApplyListVO = bidProductVO.getBidApplyListVO();
 			
-			String param = "?bidName="+ bidApplyListVO.getBidName()+
+			String param = "?bidApplyListNo="+ bidApplyListVO.getBidApplyListNo()+
+						"&bidName="+ bidApplyListVO.getBidName()+
 						"&bidProdDescription="+ bidApplyListVO.getBidProdDescription()+
 						"&bidPriceIncrement="+ bidApplyListVO.getBidPriceIncrement()+
 						"&bidLaunchedTime="+ bidApplyListVO.getBidLaunchedTime()+

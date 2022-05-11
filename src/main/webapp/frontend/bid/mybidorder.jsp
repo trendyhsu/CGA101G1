@@ -128,8 +128,8 @@ float: right;
 						<c:if test="${bidProductVO.orderState == 2}">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidProductReceive" 
-							id="receiveForm">
-							<input class="btn btn-success btn-sm" style="margin: 0" type="button" value="領收" id="receiveBtn">
+							id="receiveForm${bidProductVO.bidProductNo}">
+							<input class="btn btn-success btn-sm receiveBtn" style="margin: 0" type="button" value="領收" id="${bidProductVO.bidProductNo}">
 							<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 						</FORM>
 						</c:if>
@@ -151,12 +151,14 @@ float: right;
     </main>
     <!-- End Main -->
 	<script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
+	<script src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
 	<script>
 	// 收貨
-	let receiveBtn = document.querySelector("#receiveBtn");
+	let receiveBtn = $(".receiveBtn");
+	var targetNum = 0;
 	if(receiveBtn){
-		receiveBtn.addEventListener("click",function(){
+		receiveBtn.click(function(e){
+			targetNum = e.target.id;
 			swal({ 
 				  title: "確定收貨嗎？", 
 				  text: "", 
@@ -174,7 +176,8 @@ float: right;
 				    .then(() => {
 					setTimeout(returnGame, 100);
 					function returnGame(){
-						document.querySelector("#receiveForm").submit();
+						let receiveFormName = "#receiveForm"+targetNum;
+						document.querySelector(receiveFormName).submit();
 					}
 				 }); 
 				  } else { 
