@@ -100,6 +100,7 @@ h3 {
 					
 <jsp:useBean id="managerAuthSvc" scope="page" class="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionService" />
 							<tr>
+							
 								<c:forEach var="map" items="${map}">
 								<td class="hidden-phone" style="line-height:100px;">
 									${managerAuthSvc.getOneManagerAuthrizationFunction(map.key).managerAuthrizationFunction}
@@ -107,9 +108,10 @@ h3 {
 								<td>
 								
     								<input type="checkbox" class="cktoggle_checkbox" name="authName" value="${map.key}" ${(map.value == 1) ? "checked" : ""}>
-    			
+    								
 								</td>
 								</c:forEach>
+							
 							</tr>
 
 							<tr>
