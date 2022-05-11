@@ -30,7 +30,7 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-<!-- 	如果未登入，要求該使用者登入 -->
+<!-- 	會員如果未登入，要求該使用者登入 -->
 	<filter>
 		<filter-name>MemberLoginFilter</filter-name>
 		<filter-class>com.filters.MemberLoginFilter</filter-class>
@@ -49,12 +49,55 @@
 		<url-pattern>/frontend/Product/postComment.html</url-pattern>
 		<url-pattern>/frontend/Product/HomePageinProduct-wishlist.jsp</url-pattern>
 		<url-pattern>/frontend/Product/account-order.jsp</url-pattern>
+		<url-pattern>/forum/forumPostInsert</url-pattern>
+		<url-pattern>/forum/forumPostCollectionInsert</url-pattern>
+		<url-pattern>/frontend/forum/editForumPostReport.jsp</url-pattern>
+		<url-pattern>/forum/forumMsgInsert</url-pattern>
+		<url-pattern>/frontend/forum/editForumMsgReport.jsp</url-pattern>
+		<url-pattern>/frontend/bid/addbidapplylist.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+	<!-- 	管理員如果未登入，要求該使用者登入 -->
+	<filter>
+		<filter-name>ManagerLoginFilter</filter-name>
+		<filter-class>com.filters.ManagerLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	<filter-name>ManagerLoginFilter</filter-name>
+	<url-pattern>/backend/manager/getAllManager.jsp</url-pattern>
+	<url-pattern>/backend/managerauth/getAllManagerAuth.jsp</url-pattern>
+	<url-pattern>/backend/product/productAdd.jsp</url-pattern>
+	<url-pattern>/backend/bid/listAllBidApplyList.jsp</url-pattern>
+	<url-pattern>/backend/bid/listAllBid.jsp</url-pattern>
+	<url-pattern>/backend/bid/listAllBidOrder.jsp</url-pattern>
+	<url-pattern>/backend/mem/listAllMem.jsp</url-pattern>
+	<url-pattern>/backend/forum/selectReportHome.jsp</url-pattern>
+	<url-pattern>/backend/forum/listAllForum.jsp</url-pattern>
+	<url-pattern>/backend/forum/listAllForumMasterPost.jsp</url-pattern>
+	<url-pattern>/backend/servicechatroom/ServiceChatroom.jsp</url-pattern>
+	<url-pattern>/backend/fq/KeyWord-final.jsp</url-pattern>
+	<url-pattern>/backend/gameplatformtype/GetAllGamePlatformType.jsp</url-pattern>
+	<url-pattern>/backend/gametype/GetAllGameType.jsp</url-pattern>
+	<url-pattern>/backend/gamecompany/GetAllGameCompany.jsp</url-pattern>
+	<url-pattern>/backend/news/GameNews-final.jsp</url-pattern>
+	<url-pattern>/backend/couponType/listAllCouponType.jsp</url-pattern>
+	<url-pattern>/backend/couponType/addCouponType.jsp</url-pattern>
+	<url-pattern>/backend/memCoupon/showMemCoupon.jsp</url-pattern>
+	<url-pattern>/backend/memCoupon/sendMemCoupon.jsp</url-pattern>
+	
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	
+	
 	
 	<!-- 討論區管理權限  -->
 		
