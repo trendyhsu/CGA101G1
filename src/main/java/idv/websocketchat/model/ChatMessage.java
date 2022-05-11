@@ -6,12 +6,14 @@ public class ChatMessage {
 	private String receiver;
 	private String message;
 
+
 	public ChatMessage(String type, String sender, String receiver, String message) {
 		this.type = type;
 		this.sender = sender;
 		this.receiver = receiver;
 		this.message = message;
 	}
+
 
 	public String getSender() {
 		return sender;

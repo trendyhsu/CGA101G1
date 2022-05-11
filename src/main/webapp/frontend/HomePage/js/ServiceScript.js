@@ -163,12 +163,22 @@ function connect() {
 
 			chatContent.scrollTop = chatContent.scrollHeight;
 		}
+
+		if ("picture" === jsonObj.type && jsonObj.sender !== self) {
+			//			let newAnswer = document.querySelector('#service .OneService').cloneNode(true);
+			//			let messageLine = document.createElement('div');
+			//			messageLine.classList.add('messageLine');
+			//			newAnswer.style.display = 'flex';
+			//			newAnswer.firstChild.nextSibling.textContent = answer;
+			//			messageLine.append(newAnswer);
+			//			chatContent.append(messageLine);
+		}
 	};
 	webSocket.onclose = function(event) {
 		console.log("Disconnected!");
 		$('#service .content').on('DOMSubtreeModified', robotApa);
 		serviceMenu.classList.remove('fa-times');
-		serviceMenu.addEventListener('click',serviceTog);
+		serviceMenu.addEventListener('click', serviceTog);
 	};
 }
 
@@ -328,3 +338,25 @@ function robotMessage(answer) {
 //     console.log("box.scrollHeight= " + box.scrollHeight);
 //     console.log("-----------------------")
 // }, 1000)
+/*-----------------------機器人視窗圖片-----------------------*/
+function chooseFile() {
+	let files = document.querySelector('.chat input[type="file"]').files;
+	if (files.length > 0) {
+		let fileReader = new FileReader();
+		fileReader.readAsDataURL(files[0]);
+		fileReader.onload = function(e) {
+			if (webSocket !== null) {
+				console.log(e.target.result);
+//				e.target.result.replace(replacements);
+				let jsonObj = {
+					"type": "picture",
+					"sender": self,
+					"receiver": "manager",
+					"message": e.target.result,
+				};
+				webSocket.send(JSON.stringify(jsonObj));
+			}
+		}
+	}
+}
+

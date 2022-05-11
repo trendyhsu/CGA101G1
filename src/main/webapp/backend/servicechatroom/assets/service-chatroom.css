@@ -90,11 +90,20 @@ h3.funcTitle02 {
 .Service-chatroom .chatroom .chat-content {
 /*     border: 2px solid orange; */
     height: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
     overflow: auto;
 }
-
+.img-messageLine{
+/* 	border:2px solid red; */
+	width:100%;
+	height:130px;
+}
+.img-messageLine img{
+	margin: 5px 10px;
+	max-width:50%;
+	max-height:100%;
+}
 .messageLine {
     /* border: 2px solid red; */
     width: 100%;
