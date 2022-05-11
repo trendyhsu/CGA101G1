@@ -196,6 +196,13 @@
                                         checked />
                                     <label class="form-check-label" for="form2Example3"> 記住帳號 </label>
                                 </div> -->
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="agree" id="agree" />
+                                    <label class="form-check-label" for="form2Example3"> <span
+                                            class="col ms-auto small text-end"><a
+                                                href="/CGA101G1/frontend/mem/agree.html">
+                                                我同意條款內文 </a></span> </label>
+                                </div>
                                 <div class="form-group text-center">
                                     <button type="button" class="btn btn-primary w-100" id="btn1">
                                         註冊
@@ -441,8 +448,9 @@
                     }
                 })
             })
-        $("#btn1").click(
-            () => {
+                    
+        $("#btn1").click(() => {
+        	if ($("#agree").prop('checked')) {
                 if ($('#memAccount').val().length === 0 ||
                     $('#memPassword').val().length === 0 ||
                     $('#confirmPassword').val().length === 0 ||
@@ -513,16 +521,13 @@
                                 .then(function () {
 
                                 })
-
-
-
-
                         }
                     })
                 }
-
+        	}else{
+            	swal("請點擊我同意條款內文，並詳閱，確認後勾選方框!", "", "error")
+            }
             })
-
 
 
     </script>
