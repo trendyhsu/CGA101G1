@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POP.Game</title>
 
+	
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -93,7 +94,7 @@
         </div>
         <!-- End Breadcrumb -->
         <!-- login page -->
-        <div class="section">
+        <div class="section" id="app">
             <div class="container">
                 <div class="justify-content-center row">
                     <div class="col-lg-5 col-xxl-4">
@@ -101,12 +102,53 @@
                             <div class="card-header bg-transparent py-3">
                                 <h3 class="h4 mb-0" style="text-align: center; color: cadetblue;">登入會員</h3>
                             </div>
+                            
+                            
+                           <label for="choose" class="form-label"> 選擇登入方式:<span
+                                            class="text-danger"></span></label>
+                                            <div style="margin: 0 0 0 10; display: flex; ">
+        <input type="radio" value="username" v-model="loginType" >帳號
+        <input type="radio" value="email" v-model="loginType" >信箱
+                            </div>
+                            
+                            
+                            <template v-if="loginType==='username'">
                             <div class="card-body">
-
                                 <div class="form-group mb-3">
                                     <label for="memAccount" class="form-label">帳號:<span
+                                            class="text-danger">*</span></label> <input style="text-transform: none;" v-model="memAccount" 
+                                        type="text" id="memAccount" class="form-control" placeholder="輸入帳號"  key="username"> 
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div class="row align-items-center">
+                                        <label class="form-label col" for="memPassword">密碼:<span
+                                                class="text-danger">*</span></label>
+                                    </div>
+                                    <input type="password" class="form-control" id="memPassword" placeholder="輸入密碼" v-model="memPassword1"
+                                        style="text-transform: none;"  key="upassword"> <span class="col ms-auto small text-end">
+                                        <a href="/CGA101G1/frontend/mem/EmailForChangePassword.jsp">
+                                            忘記密碼?</a></span>
+                                </div>
+
+                                <!-- Checkbox -->
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="remember1" id="remember1" v-model="isChecked1" />
+                                    <label class="form-check-label" for="form2Example3"> 記住帳號   {{ isChecked1 }}</label>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn btn-primary w-100" id="btn1" @click="checkAccount" key="b1">
+                                        登入</button>
+                                </div>
+                                <div id="errMsg" class="error" style="color: red; font-size: 15;" v-if="isShow"> {{ errMsg1 }}</div>
+                                
+                                </template>
+                                
+                                <template v-if="loginType==='email'">
+                            <div class="card-body">
+                                <div class="form-group mb-3">
+                                    <label for="memAccount" class="form-label">信箱:<span
                                             class="text-danger">*</span></label> <input style="text-transform: none;"
-                                        type="text" id="memAccount" class="form-control" placeholder="輸入帳號">
+                                        type="text" id="memAccount" class="form-control" placeholder="輸入信箱" key="email" v-model="email">
                                 </div>
                                 <div class="form-group mb-3">
                                     <div class="row align-items-center">
@@ -114,23 +156,24 @@
                                                 class="text-danger">*</span></label>
                                     </div>
                                     <input type="password" class="form-control" id="memPassword" placeholder="輸入密碼"
-                                        style="text-transform: none;"> <span class="col ms-auto small text-end"><a
+                                        style="text-transform: none;" key="epassword" v-model="memPassword2"> <span class="col ms-auto small text-end"><a
                                             href="/CGA101G1/frontend/mem/EmailForChangePassword.jsp">
                                             忘記密碼?</a></span>
                                 </div>
 
-
-
                                 <!-- Checkbox -->
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="remember" />
-                                    <label class="form-check-label" for="form2Example3"> 記住帳號 </label>
+                                    <input class="form-check-input" type="checkbox" value="remember2" id="remember2" v-model="isChecked2"/>
+                                    <label class="form-check-label" for="form2Example3"> 記住信箱  {{ isChecked2 }}</label>
                                 </div>
                                 <div class="form-group text-center">
-                                    <button type="button" class="btn btn-primary w-100" id="btn1">
+                                    <button type="button" class="btn btn-primary w-100" id="btn2" @click="checkEmail" key="b2">
                                         登入</button>
                                 </div>
-                                <div id="errMsg" class="error" style="color: red; font-size: 15;"></div>
+                                <div id="errMsg" class="error" style="color: red; font-size: 15;" v-if="isShow">{{ errMsg2 }}</div>
+                                
+                                </template>
+                                
                                 <!-- <div class="text-center pt-4 pb-5">
                                     <span class="px-3 bg-white d-inline-block align-top lh-sm">OR</span>
                                     <div class="border-bottom mt-n3"></div>
@@ -224,54 +267,51 @@
     <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js"
-        type="text/javascript"></script> -->
+ 	<script src="https://unpkg.com/vue@3"></script>
 
     <script>
-        $(document).ready(() => {
-            if (localStorage.getItem("memAccount") !== null) {
-                $("#memAccount").val(localStorage.getItem("memAccount"));
-                $("#remember").attr("checked", "checked");
+    
+    
+    const vm = Vue.createApp({
+        data() {
+            return {
+                memAccount: '',
+                memPassword1: '',
+                memPassword2: '',
+                email: '',
+                loginType: 'username',
+                isShow: false,
+                errMsg1: '',
+                errMsg2: '',
+                isChecked1: false,
+                isChecked2: false,
             }
-        })
+        },
+        methods: {
+            checkAccount() {
+            	if (this.isChecked1) {
+                 localStorage.setItem("memAccount", this.memAccount);
+             } else {
+                 localStorage.removeItem("memAccount");
+             }
 
-        $("#remember").change(function () {
-
-            if ($("#remember").prop('checked')) {
-                $("#remember").attr("checked", "checked");
-            } else
-                $("#remember").removeAttr("checked");
-        })
-
-        $("#btn1").click(() => {
-            if (document.getElementById("remember").chceked) {
-                localStorage.setItem("memAccount", $("#memAccount").val());
-            } else {
-                localStorage.removeItem("memAccount");
-            }
-
-            if ($("#remember").prop('checked')) {
-                localStorage.setItem("memAccount", $("#memAccount").val());
-            } else {
-                localStorage.removeItem("memAccount");
-            }
-            $.ajax({
-                type: 'POST',
-                url: "/CGA101G1/mem/LoginServlet",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    memAccount: memAccount.value,
-                    memPassword: memPassword.value
-                }),
-                success: data => {
-                    const { successful, message, initlocation } = data;
-                    if (successful) {
-                        let { memNo, memName, memStatus, memVrfed, memAccount } = data;
-                        sessionStorage.setItem("memNo", memNo);
-                        sessionStorage.setItem("memName", memName);
-                        sessionStorage.setItem("memStatus", memStatus);
-                        sessionStorage.setItem("memVrfed", memVrfed);
-                        swal("歡迎光臨買鳳(ﾉ>ω<)ﾉ", "", "success")
+                $.ajax({
+                    type: 'POST',
+                    url: "/CGA101G1/mem/LoginServlet",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        memAccount: this.memAccount,
+                        memPassword: this.memPassword1
+                    }),
+                    success: data => {
+                        const { successful, message, initlocation } = data;
+                        if (successful) {
+                            let { memNo, memName, memStatus, memVrfed } = data;
+                            sessionStorage.setItem("memNo", memNo);
+                            sessionStorage.setItem("memName", memName);
+                            sessionStorage.setItem("memStatus", memStatus);
+                            sessionStorage.setItem("memVrfed", memVrfed);
+                            swal("歡迎光臨買鳳(ﾉ>ω<)ﾉ", "", "success")
                             .then(function () {
                                 if (initlocation !== undefined) {
                                     location = initlocation;
@@ -279,13 +319,167 @@
                                     location = "/CGA101G1/frontend/HomePage/HomePage.html";
                                 }
                             })
-                    } else {
-                        $("#errMsg").html(message);
-                    }
-                },
+                        } else {
+                            this.isShow = !this.isShow;
+                            this.errMsg1 = message;
+                        }
+                    },
 
-            });
-        });
+                });
+            },
+            checkEmail() {
+            	if (this.isChecked2) {
+                 localStorage.setItem("memEmail", this.email);
+             } else {
+                 localStorage.removeItem("memEmail");
+             }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/CGA101G1/mem/EamilLoginServlet",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        memEmail: this.email,
+                        memPassword: this.memPassword2
+                    }),
+                    success: data => {
+                        const { successful, message, initlocation } = data;
+                        if (successful) {
+                            let { memNo, memName, memStatus, memVrfed } = data;
+                            sessionStorage.setItem("memNo", memNo);
+                            sessionStorage.setItem("memName", memName);
+                            sessionStorage.setItem("memStatus", memStatus);
+                            sessionStorage.setItem("memVrfed", memVrfed);
+                            swal("歡迎光臨買鳳(ﾉ>ω<)ﾉ", "", "success")
+                            .then(function () {
+                                if (initlocation !== undefined) {
+                                    location = initlocation;
+                                } else {
+                                    location = "/CGA101G1/frontend/HomePage/HomePage.html";
+                                }
+                            })
+                        } else {
+                            this.isShow = !this.isShow;
+                            this.errMsg2 = message;
+                        }
+                    },
+
+                });
+            },
+            first() {
+          	  this.$nextTick(function () {
+          	    // Code that will run only after the
+          	    // entire view has been rendered
+          	    if (localStorage.getItem("memEmail") !== null) {
+          	    	this.email=localStorage.getItem("memEmail");
+          	    	this.isChecked2=!this.isChecked2;
+         			}
+          	    if(localStorage.getItem("memAccount") !== null){
+          	    	this.memAccount=localStorage.getItem("memAccount");
+          	    	this.isChecked1=!this.isChecked1;
+          	    }
+          	  })    	  
+          	},
+       
+        },
+        created(){
+        	this.first();
+        }
+    });
+    vm.mount("#app");
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//         $(document).ready(() => {
+//             if (localStorage.getItem("memAccount") !== null) {
+//                 $("#memAccount").val(localStorage.getItem("memAccount"));
+//                 $("#remember").attr("checked", "checked");
+//             }
+//         })
+
+//         $("#remember").change(function () {
+
+//             if ($("#remember").prop('checked')) {
+//                 $("#remember").attr("checked", "checked");
+//             } else
+//                 $("#remember").removeAttr("checked");
+//         })
+
+//         $("#btn1").click(() => {
+//             if (document.getElementById("remember").chceked) {
+//                 localStorage.setItem("memAccount", $("#memAccount").val());
+//             } else {
+//                 localStorage.removeItem("memAccount");
+//             }
+
+//             if ($("#remember").prop('checked')) {
+//                 localStorage.setItem("memAccount", $("#memAccount").val());
+//             } else {
+//                 localStorage.removeItem("memAccount");
+//             }
+//             $.ajax({
+//                 type: 'POST',
+//                 url: "/CGA101G1/mem/LoginServlet",
+//                 contentType: "application/json",
+//                 data: JSON.stringify({
+//                     memAccount: memAccount.value,
+//                     memPassword: memPassword.value
+//                 }),
+//                 success: data => {
+//                     const { successful, message, initlocation } = data;
+//                     if (successful) {
+//                         let { memNo, memName, memStatus, memVrfed, memAccount } = data;
+//                         sessionStorage.setItem("memNo", memNo);
+//                         sessionStorage.setItem("memName", memName);
+//                         sessionStorage.setItem("memStatus", memStatus);
+//                         sessionStorage.setItem("memVrfed", memVrfed);
+//                         swal("歡迎光臨買鳳(ﾉ>ω<)ﾉ", "", "success")
+//                             .then(function () {
+//                                 if (initlocation !== undefined) {
+//                                     location = initlocation;
+//                                 } else {
+//                                     location = "/CGA101G1/frontend/HomePage/HomePage.html";
+//                                 }
+//                             })
+//                     } else {
+//                         $("#errMsg").html(message);
+//                     }
+//                 },
+
+//             });
+//         });
 
     </script>
 
