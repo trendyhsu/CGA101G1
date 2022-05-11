@@ -33,6 +33,8 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	private static final String SELECT_FOR_LOGIN = "SELECT * FROM mem WHERE memAccount= ? and memPassword= ? ";
 
+	private static final String EMAIL_FOR_LOGIN = "SELECT * FROM mem WHERE memEmail= ? and memPassword= ? ";
+	
 	private static final String SELECT_MEM_ACCOUNT = "SELECT memAccount FROM mem WHERE memAccount=?";
 
 	private static final String SELECT_MEM_EMAIL = "SELECT memEmail FROM mem WHERE memEmail=?";
@@ -849,6 +851,56 @@ public class MemJDBCDAO implements MemDAO_interface {
 		}
 		return null;
 	}
+	
+	public MemVO EmailForLogin(String memEmail, String memPassword) {
+		MemVO memVO = null;
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement ps = con.prepareStatement(EMAIL_FOR_LOGIN)) {
+
+			ps.setString(1, memEmail);
+			ps.setString(2, memPassword);
+
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs.next()) {
+					memVO = new MemVO();
+					memVO.setMemNo(rs.getInt("memNo"));
+					memVO.setMemAccount(rs.getString("memAccount"));
+					memVO.setMemPassword(rs.getString("memPassword"));
+					memVO.setMemStatus(rs.getInt("memStatus"));
+					memVO.setMemVrfed(rs.getInt("memVrfed"));
+					memVO.setMemNoVrftime(rs.getDate("memNoVrftime"));
+					memVO.setMemName(rs.getString("memName"));
+					memVO.setMemMobile(rs.getString("memMobile"));
+					memVO.setMemCity(rs.getString("memCity"));
+					memVO.setMemDist(rs.getString("memDist"));
+					memVO.setMemAdd(rs.getString("memAdd"));
+					memVO.setMemEmail(rs.getString("memEmail"));
+					memVO.setMemBirth(rs.getDate("memBirth"));
+					memVO.setMemJoinTime(rs.getDate("memJoinTime"));
+					memVO.setCreditcardNo(rs.getString("creditcardNo"));
+					memVO.setCreditcardDate(rs.getString("creditcardDate"));
+					memVO.setCreditcardSecurityNo(rs.getString("creditcardSecurityNo"));
+					memVO.setBankAccount(rs.getString("bankAccount"));
+					memVO.setBankAccountOwner(rs.getString("bankAccountOwner"));
+					memVO.setUserStatus(rs.getInt("userStatus"));
+					memVO.setMyPic(rs.getBytes("myPic"));
+					memVO.setIsMute(rs.getInt("isMute"));
+					return memVO;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+	
 	
 	public MemVO getOneByMemNo(Integer memNo) {
 		MemVO memVO = null;
