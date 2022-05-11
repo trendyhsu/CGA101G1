@@ -1,5 +1,6 @@
 package idv.servicechat.controller;
 
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,6 @@ public class ServiceWS {
 			userName = "guest"+userName	;	
 		}
 		sessionsMap.put(userName, userSession);			
-		System.out.println("----------------------------"+userName);
 		/* Sends all the connected users to the new user */
 		Set<String> userNames = sessionsMap.keySet();
 		State stateMessage = new State("open", userName, userNames);
@@ -50,10 +50,11 @@ public class ServiceWS {
 
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
+		
 		ChatMessage chatMessage = gson.fromJson(message, ChatMessage.class);		
 		String sender = chatMessage.getSender();
 		String receiver = chatMessage.getReceiver();
-		
+
 		if ("history".equals(chatMessage.getType())) {
 			List<String> historyData = JedisHandleMessage.getHistoryMsg(sender, receiver);
 			String historyMsg = gson.toJson(historyData);
@@ -65,6 +66,13 @@ public class ServiceWS {
 			}
 		}
 		
+//		if("picture".equals(chatMessage.getType())) {
+//			System.out.println("I got a picture from frontend!");
+////			final Base64.Decoder decoder = Base64.getDecoder();
+////			byte[] b = decoder.decode(chatMessage.getMessage());
+//			
+//		}
+		
 
 		Session receiverSession = sessionsMap.get(receiver);
 		if (receiverSession != null && receiverSession.isOpen()) {
@@ -72,7 +80,7 @@ public class ServiceWS {
 			userSession.getAsyncRemote().sendText(message);
 			JedisHandleMessage.saveChatMessage(sender, receiver, message);
 		}
-
+	
 	}
 
 	@OnError

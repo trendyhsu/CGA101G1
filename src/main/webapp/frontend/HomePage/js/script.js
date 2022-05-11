@@ -186,7 +186,7 @@ function showTop9Items(data){
                     	</div>
                         <p>銷售量：${item.productSales}萬</p>
                         <div class="buttons">
-                            <a href="#" class="btn btn-3">Order Now</a>
+                            <button class="btn btn-3" productno="${item.productNo}" productname="${item.productName}" productPrice="${item.productPrice}">加入購物車</button>
                         </div>
                     </div>
                     <a class="image"  href="${item.productDetailPageURL}">
@@ -209,7 +209,7 @@ function showTop9Items(data){
                     </div>
                     <span>$${item.productPrice}</span>
                     <div class="buttons">
-                        <a href="#" class="btn btn-3">add to cart</a>
+                        <button class="btn btn-3" productno="${item.productNo}" productname="${item.productName}" productPrice="${item.productPrice}">加入購物車</button>
                     </div>
                 </div>`;
 			
@@ -217,7 +217,23 @@ function showTop9Items(data){
 		count++;
 	}
 	boxContainer.innerHTML = str;
+	let top9btns = document.querySelectorAll('button.btn-3');
+	top9btns.forEach(function(btn){
+		btn.addEventListener('click',(e)=>{
+			let productNo = e.target.getAttribute('productno');
+			let productName = e.target.getAttribute('productname');
+			let productPrice = e.target.getAttribute('productprice');
+			$.ajax({
+				url:`/CGA101G1/product/add2ShoppingCart?ProductNo=${productNo}&ProductName=${productName}&ProductTotalPrice=${productPrice}&ProductSales=1`,
+				type:'post',
+			})
+			document.querySelector('#cart').click();
+			setTimeout(()=>{document.querySelector('#shopping-cart').classList.remove('active');},2000);
+		})
+	})
 }
+
+
 
 function showStar(stars, count){
 	let starAvg = (stars/count).toFixed(1);

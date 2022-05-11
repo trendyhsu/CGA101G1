@@ -88,6 +88,14 @@ function connect() {
 			updateGuestName('');
 			chatContent.innerHTML = '';
 			chatContent.style.display = 'none';
+		} else if ("picture" === jsonObj.type && jsonObj.sender !== self){
+			let div = document.createElement('div');
+			div.classList.add('.img-messageLine');
+			let img = document.createElement('img');
+			img.setAttribute('src', jsonObj.message);
+			div.append(img);
+			chatContent.append(div);
+			chatContent.scrollTop = chatContent.scrollHeight;
 		}
 	};
 

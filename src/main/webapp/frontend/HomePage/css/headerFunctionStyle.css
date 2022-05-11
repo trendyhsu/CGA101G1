@@ -1,7 +1,8 @@
 /*-------------------ShoppingCart----------------------*/
 
 #shopping-cart {
-    width: 28rem;
+    width: 24rem;
+    max-height:415px;
     position: fixed;
     top: 12%;
     right: -100%;
@@ -13,70 +14,78 @@
 }
 
 #shopping-cart.active {
-    right: 0;
+    right: 5;
     transition: .3s linear;
 }
 
-#shopping-cart .box {
+#shopping-cart .box-group{
+	max-height:332px;
+	overflow:auto;
+}
+
+#shopping-cart .box-group .box {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 1rem;
     position: relative;
-    margin: 1.5rem 0;
+    padding: .5rem 0;
+    border-bottom:1px solid #fff;
+}
+#shopping-cart .box-group .box:last-child{
+	border-bottom:none;
 }
 
-#shopping-cart .box img {
+#shopping-cart .box-group .box img {
     height: 10rem;
 }
 
-#shopping-cart .box .fa-trash {
-    font-size: 2rem;
+#shopping-cart .box-group .box .fa-trash {
+    font-size: 1.5rem;
     position: absolute;
-    top: 50%;
+    top: 65%;
     right: 2rem;
     cursor: pointer;
     color: var(--black);
     transform: translateY(-50%);
 }
 
-#shopping-cart .box .fa-trash:hover {
+#shopping-cart .box-group .box .fa-trash:hover {
     color: #fff;
 }
 
-#shopping-cart .box .content h3 {
+#shopping-cart .box-group .box .content h3 {
     color: #fff;
     font-size: 1.7rem;
     padding-bottom: 1rem;
 }
 
-#shopping-cart .box .content span {
+#shopping-cart .box-group .box .content span {
     color: #fff;
     font-size: 1.6rem;
 }
 
-#shopping-cart .box .content .quantity {
+#shopping-cart .box-group .box .content .quantity {
     padding-left: 1rem;
 }
 
 #shopping-cart .total {
-    font-size: 2.5rem;
-    padding: 1rem 0;
+    font-size: 2rem;
+/*     padding: 1rem 0; */
     text-align: center;
     color: #fff;
 }
 
 #shopping-cart .btn {
-    margin-top: 1rem;
     display: block;
-    padding: .8rem 3rem;
-    font-size: 1.7rem;
+    padding: .6rem 3rem;
+    font-size: 1.2rem;
     border-radius: .5rem;
     border: .2rem solid #fff;
     color: #fff;
     cursor: pointer;
     text-align: center;
-    margin: 1rem;
+/*     margin: 1rem; */
     background: var(--darkBlue);
     transition: .5s;
 }
