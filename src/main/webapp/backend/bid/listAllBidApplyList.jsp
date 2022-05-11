@@ -135,8 +135,8 @@ font-weight: bold;
 						<c:if test="${bidApplyListVO.applyState == 0}" var="condition">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/bid/bidApplyListReturn"
-							style="margin-bottom: 0px;" id="returnForm">
-							<input class="btn btn-primary btn-sm" type="button" value="退貨" id="returnBtn">
+							style="margin-bottom: 0px;" id="returnForm${bidApplyListVO.bidApplyListNo}">
+							<input class="btn btn-primary btn-sm returnBtn" type="button" value="退貨" id="${bidApplyListVO.bidApplyListNo}">
 							<input type="hidden" name="bidApplyListNo" value="${bidApplyListVO.bidApplyListNo}">
 						</FORM>
 						</c:if>
@@ -154,9 +154,11 @@ font-weight: bold;
 <script src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
 	// 退貨
-let returnBtn = document.querySelector("#returnBtn");
+let returnBtn = $(".returnBtn");
+var targetNum = 0;
 if(returnBtn){
-	returnBtn.addEventListener("click",function(){
+	returnBtn.click(function(e){
+		targetNum = e.target.id;
 		swal({ 
 			  title: "確定退貨嗎？", 
 			  text: "", 
@@ -174,7 +176,8 @@ if(returnBtn){
 			    .then(() => {
 				setTimeout(returnGame, 100);
 				function returnGame(){
-					document.querySelector("#returnForm").submit();
+					let returnFormName = "#returnForm"+targetNum;
+					document.querySelector(returnFormName).submit();
 				}
 			 }); 
 			  } else { 

@@ -143,8 +143,8 @@ font-weight: bold;
 							<c:if test="${bidProductVO.orderState == 1}">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductShipping"
-									style="margin-bottom: 0px;" id="shippingForm">
-									<input class="btn btn-primary btn-sm" type="button" value="出貨" id="shippingBtn">
+									style="margin-bottom: 0px;" id="shippingForm${bidProductVO.bidProductNo}">
+									<input class="btn btn-primary btn-sm shippingBtn" type="button" value="出貨" id="${bidProductVO.bidProductNo}">
 									<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
 								</FORM>
 							</c:if>
@@ -153,8 +153,8 @@ font-weight: bold;
 							<c:if test="${bidProductVO.orderState == 5}">
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/bid/bidProductPay"
-									style="margin-bottom: 0px;" id="payForm">
-									<input class="btn btn-primary btn-sm" type="button" value="撥付" id="pay">
+									style="margin-bottom: 0px;" id="payForm${bidProductVO.bidProductNo}"">
+									<input class="btn btn-primary btn-sm pay" type="button" value="撥付" id="${bidProductVO.bidProductNo}">
 									<input type="hidden" name="bidProductNo" value="${bidProductVO.bidProductNo}">
 								</FORM>
 							</c:if>
@@ -175,9 +175,11 @@ font-weight: bold;
 <script type="text/javascript">
 
 	// 代收金撥付
-let pay = document.querySelector("#pay");
+let pay = $(".pay");
+var targetNum = 0;
 if(pay){
-	pay.addEventListener("click",function(){
+	pay.click(function(e){
+		targetNum = e.target.id;
 		swal({ 
 			  title: "確定撥付嗎？", 
 			  text: "", 
@@ -195,7 +197,8 @@ if(pay){
 			    .then(() => {
 				setTimeout(returnGame, 100);
 				function returnGame(){
-					document.querySelector("#payForm").submit();
+					let payFormName = "#payForm"+targetNum;
+					document.querySelector(payFormName).submit();
 				}
 			 }); 
 			  } else { 
@@ -207,9 +210,10 @@ if(pay){
 }
 
 	// 出貨
-let shippingBtn = document.querySelector("#shippingBtn");
+let shippingBtn = $(".shippingBtn");
 if(shippingBtn){
-	shippingBtn.addEventListener("click",function(){
+	shippingBtn.click(function(e){
+		targetNum = e.target.id;
 		swal({ 
 			  title: "確定出貨嗎？", 
 			  text: "", 
@@ -227,7 +231,8 @@ if(shippingBtn){
 			    .then(() => {
 				setTimeout(returnGame, 100);
 				function returnGame(){
-					document.querySelector("#shippingForm").submit();
+					let shippingFormName = "#shippingForm"+targetNum;
+					document.querySelector(shippingFormName).submit();
 				}
 			 }); 
 			  } else { 

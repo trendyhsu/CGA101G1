@@ -161,6 +161,23 @@ public class BidApplyListInsertServlet extends HttpServlet {
 				failureView.forward(request, response);
 				return;//程式中斷
 			}
+			
+			// 如果有bidApplyListNo 則改變該bidApplyListNo狀態為已重新申請
+			Integer bidApplyListNo = null;
+			try {
+				bidApplyListNo = Integer.parseInt(request.getParameter("bidApplyListNo").trim());
+				// 取得bidProductNo
+				BidProductService bidProductSvc = new BidProductService();
+				BidProductVO bidProductVO = bidProductSvc.getByBidApplyListNo(bidApplyListNo);
+				
+				// 更改狀態
+				Integer orderState = new Integer(4);
+				bidProductSvc.updateOrderState(orderState, bidProductVO.getBidProductNo());
+				
+			} catch (NumberFormatException e) {
+				bidApplyListNo = 0;
+			}
+			
 
 			/*************************** 2.開始新增資料 ***************************************/
 			// 開始新增競標申請單
