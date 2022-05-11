@@ -39,6 +39,34 @@ public class MemService {
 		memVO.setSuccessful(true);
 		return memVO;
 	}
+	
+	//信箱登入
+	public MemVO emailLogin(MemVO memVO) {
+		final String memEmail = memVO.getMemEmail();
+		final String memPassword = memVO.getMemPassword();
+		if (memEmail == null) {
+			memVO.setMessage("信箱未輸入");
+			memVO.setSuccessful(false);
+			return memVO;
+		}
+
+		if (memPassword == null) {
+			memVO.setMessage("密碼未輸入");
+			memVO.setSuccessful(false);
+			return memVO;
+		}
+
+		memVO = dao.EmailForLogin(memEmail, memPassword);
+		if (memVO == null) {
+			memVO = new MemVO();
+			memVO.setMessage("信箱或密碼錯誤");
+			memVO.setSuccessful(false);
+			return memVO;
+		}
+		memVO.setMessage("登入成功");
+		memVO.setSuccessful(true);
+		return memVO;
+	}
 
 	// 註冊
 	public MemVO register(MemVO memVo) {
