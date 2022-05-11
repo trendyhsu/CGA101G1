@@ -34,7 +34,7 @@
 </head>
 
 <body>
-   
+
     <!-- header section starts-->
 
     <header>
@@ -56,7 +56,8 @@
         <div class="icons">
             <!--右上方小icon區-->
             <i class="fas fa-bars" id="menu-bars"></i>
-            <a href="/CGA101G1/frontend/mem/updateMemberData.html" class="fas fa-solid fa-user-astronaut" id="login-icon"></a>
+            <a href="/CGA101G1/frontend/mem/updateMemberData.html" class="fas fa-solid fa-user-astronaut"
+                id="login-icon"></a>
             <a href="/CGA101G1/frontend/Product/HomePageinProduct-wishlist.jsp" class="fas fa-heart"></a>
             <a href="/CGA101G1/frontend/Product/shopping-cart.html" class="fas fa-shopping-cart" id="cart"></a>
         </div>
@@ -246,14 +247,14 @@
                                                         <div class="form-group mb-3">
                                                             <label for="memAccount" class="form-label">*帳號:
                                                             </label>
-<!--                                                             <span class="text-danger">*</span> -->
+                                                            <!--                                                             <span class="text-danger">*</span> -->
                                                             <label id="l1"
                                                                 style="color: darkkhaki; font-size: 20;  text-transform: none;"
                                                                 class="form-control"></label>
                                                         </div>
                                                         <div>
                                                             <label for="memPassword" class="form-label">密碼: </label>
-                                                            <a href="passwordChange.jsp" id="a1"
+                                                            <a href="/CGA101G1/frontend/mem/passwordChange.jsp" id="a1"
                                                                 style="color: blue; font-size: 20; "
                                                                 class="form-control">更改密碼</a>
                                                             <label id="l2"></label>
@@ -302,14 +303,21 @@
                                                     </div>
                                                     <!-- 更新區2 -->
                                                     <div class="up2 col-md-6">
-
-                                                        <div>
+                                                        <div class="form-group mb-3">
                                                             <label for="memEmail" class="form-label">*E-mail:
                                                             </label>
-                                                            <input type="text" name="memEmail" id="memEmail"
-                                                                class="form-control" style="text-transform: none;">
-                                                            <label id="l7" style="color: red; font-size: 15;"></label>
+                                                            <!--                                                             <span class="text-danger">*</span> -->
+                                                            <label id="l7"
+                                                                style="color: darkkhaki; font-size: 20;  text-transform: none;"
+                                                                class="form-control"></label>
                                                         </div>
+                                                        <!--                                                         <div> -->
+                                                        <!--                                                             <label for="memEmail" class="form-label">*E-mail: -->
+                                                        <!--                                                             </label> -->
+                                                        <!--                                                             <input type="text" name="memEmail" id="memEmail" -->
+                                                        <!--                                                                 class="form-control" style="text-transform: none;"> -->
+                                                        <!--                                                             <label id="l7" style="color: red; font-size: 15;"></label> -->
+                                                        <!--                                                         </div> -->
                                                         <div>
                                                             <label for="memBirth" class="form-label">出生年月日:
                                                             </label>
@@ -417,340 +425,350 @@
                                                     <label id="l8" style="color: red; font-size: 15;"></label>
 
                                                 </div>
-                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-                                <!-- end login -->
-           
-                      <!-- Footer -->
-    <footer class="bg-white footer">
-        <div class="footer-top py-6">
-            <div class="container">
-                <div class="row">
-                    <section class="footer">
-                        <div class="box-container">
-                            <div class="box">
-                                <h3>會員專區</h3>
-                                <a href="#">會員登入</a>
-                                <a href="#">會員註冊</a>
-                                <a href="#">訂單管理</a>
-                                <a href="#">二手遊戲申請上架單管理</a>
-                            </div>
-                
-                            <div class="box">
-                                <h3>快速連結</h3>
-                                <a href="#">首頁</a>
-                                <a href="#">遊戲商城</a>
-                                <a href="#">二手競標商城</a>
-                                <a href="#">遊戲討論區</a>
-                            </div>
-                
-                            <div class="box">
-                                <h3>聯絡我們</h3>
-                                <a href="#">02-3456-7890</a>
-                                <a href="#">03-1111-2222</a>
-                                <a href="#">CGA101G1@gmail.com</a>
-                                <a href="#">anasbhai@gmail.com</a>
-                            </div>
-                
-                            <div class="box">
-                                <h3>關於我們</h3>
-                                <a href="#">管理團隊</a>
-                                <a href="#">創始理念</a>
-                                <a href="#">insuagram</a>
-                                <a href="#">linkedin</a>
                             </div>
                         </div>
-                
-                        <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
-                
-                    </section>
-                </div>
-            </div>
-        </div>
+                    </div>
+                    <!-- end login -->
 
-    </footer>
-    <!-- End Footer -->
- 
-                        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+                    <!-- Footer -->
+                    <footer class="bg-white footer">
+                        <div class="footer-top py-6">
+                            <div class="container">
+                                <div class="row">
+                                    <section class="footer">
+                                        <div class="box-container">
+                                            <div class="box">
+                                                <h3>會員專區</h3>
+                                                <a href="#">會員登入</a>
+                                                <a href="#">會員註冊</a>
+                                                <a href="#">訂單管理</a>
+                                                <a href="#">二手遊戲申請上架單管理</a>
+                                            </div>
 
-                        <!-- appear -->
-                        <script src="/CGA101G1/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script>
-                        <!--bootstrap-->
-                        <script
-                            src="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                        <!-- owl-carousel -->
-                        <script src="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.min.js"></script>
-                        <!-- magnific -->
-                        <script
-                            src="/CGA101G1/frontend/mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
-                        <!-- isotope -->
-                        <script src="/CGA101G1/frontend/mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
-                        <!-- count-down -->
-                        <script
-                            src="/CGA101G1/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
-                        <!-- Theme Js -->
-                        <script src="/CGA101G1/frontend/mainCss/assets/js/custom.js"></script>
+                                            <div class="box">
+                                                <h3>快速連結</h3>
+                                                <a href="#">首頁</a>
+                                                <a href="#">遊戲商城</a>
+                                                <a href="#">二手競標商城</a>
+                                                <a href="#">遊戲討論區</a>
+                                            </div>
 
-                        <!-- custom js file link-->
-                        <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
+                                            <div class="box">
+                                                <h3>聯絡我們</h3>
+                                                <a href="#">02-3456-7890</a>
+                                                <a href="#">03-1111-2222</a>
+                                                <a href="#">CGA101G1@gmail.com</a>
+                                                <a href="#">anasbhai@gmail.com</a>
+                                            </div>
 
-                        <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
+                                            <div class="box">
+                                                <h3>關於我們</h3>
+                                                <a href="#">管理團隊</a>
+                                                <a href="#">創始理念</a>
+                                                <a href="#">insuagram</a>
+                                                <a href="#">linkedin</a>
+                                            </div>
+                                        </div>
 
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-                        <!-- 外來區 -->
-                        <!-- jquery -->
-                        <script src="/CGA101G1/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
-                        <!-- 外來區over -->
+                                        <div class="credit">copyright@2022 by <span>CGA101G1</span></div>
+
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+
+                    </footer>
+                    <!-- End Footer -->
+
+                    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+                    <!-- appear -->
+                    <script src="/CGA101G1/frontend/mainCss/assets/vendor/appear/jquery.appear.js"></script>
+                    <!--bootstrap-->
+                    <script
+                        src="/CGA101G1/frontend/mainCss/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    <!-- owl-carousel -->
+                    <script src="/CGA101G1/frontend/mainCss/assets/vendor/slick/slick.min.js"></script>
+                    <!-- magnific -->
+                    <script
+                        src="/CGA101G1/frontend/mainCss/assets/vendor/magnific/jquery.magnific-popup.min.js"></script>
+                    <!-- isotope -->
+                    <script src="/CGA101G1/frontend/mainCss/assets/vendor/isotope/isotope.pkgd.min.js"></script>
+                    <!-- count-down -->
+                    <script src="/CGA101G1/frontend/mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
+                    <!-- Theme Js -->
+                    <script src="/CGA101G1/frontend/mainCss/assets/js/custom.js"></script>
+
+                    <!-- custom js file link-->
+                    <script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
+
+                    <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
+
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+                    <!-- 外來區 -->
+                    <!-- jquery -->
+                    <script src="/CGA101G1/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
+                    <!-- 外來區over -->
 
 
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-                        <script
-                            src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
-                        <link rel="stylesheet" type="text/css"
-                            href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
-                        <script src="/CGA101G1/datetimepicker/jquery.js"></script>
-                        <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
-                        <script>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                    <script
+                        src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
+                    <link rel="stylesheet" type="text/css" href="/CGA101G1/datetimepicker/jquery.datetimepicker.css" />
+                    <script src="/CGA101G1/datetimepicker/jquery.js"></script>
+                    <script src="/CGA101G1/datetimepicker/jquery.datetimepicker.full.js"></script>
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script>
 
-                            $(document).ready(function init() {
+                        $(document).ready(function init() {
 
-                                //信用卡卡號
-                                $('#creditcardNo1').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardNo1').val())) {
-                                        $('#lup2').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup2').text(``);
-                                    }
+                            //信用卡卡號
+                            $('#creditcardNo1').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardNo1').val())) {
+                                    $('#lup2').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup2').text(``);
+                                }
+                            })
+                            $('#creditcardNo2').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardNo2').val())) {
+                                    $('#lup2').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup2').text(``);
+                                }
+                            })
+                            $('#creditcardNo3').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardNo3').val())) {
+                                    $('#lup2').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup2').text(``);
+                                }
+                            })
+                            $('#creditcardNo4').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardNo4').val())) {
+                                    $('#lup2').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup2').text(``);
+                                }
+                            })
+                            //信用卡日期
+                            $('#creditcardDate1').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardDate1').val())) {
+                                    $('#lup3').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup3').text(``);
+                                }
+                            })
+                            $('#creditcardDate2').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardDate2').val())) {
+                                    $('#lup3').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup3').text(``);
+                                }
+                            })
+                            //信用卡安全碼
+                            $('#creditcardSecurityNo').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#creditcardSecurityNo').val())) {
+                                    $('#lup4').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup4').text(``);
+                                }
+                            })
+                            //銀行
+                            $('#bankAccount1').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#bankAccount1').val())) {
+                                    $('#lup5').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup5').text(``);
+                                }
+                            })
+                            $('#bankAccount2').blur(() => {
+                                const r1 = /^\d+$/;
+                                if (!r1.test($('#bankAccount2').val())) {
+                                    $('#lup5').text(`請輸入阿拉伯數字`)
+                                } else {
+                                    $('#lup5').text(``);
+                                }
+                            })
+                            //手機號碼
+                            $('#memMobile').blur(
+                                () => {
+                                    const r1 = /^09\d{8}$/;
+                                    if (r1.test($('#memMobile').val())) {
+                                        $('#l5').text(`輸入完畢`)
+                                    } else if ($('#memMobile').val().length === 0) {
+                                        $('#l5').text(`尚未輸入`);
+                                    } else
+                                        $('#l5').text(`請輸入行動電話為09開頭，共10位數字號碼`);
                                 })
-                                $('#creditcardNo2').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardNo2').val())) {
-                                        $('#lup2').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup2').text(``);
-                                    }
-                                })
-                                $('#creditcardNo3').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardNo3').val())) {
-                                        $('#lup2').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup2').text(``);
-                                    }
-                                })
-                                $('#creditcardNo4').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardNo4').val())) {
-                                        $('#lup2').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup2').text(``);
-                                    }
-                                })
-                                //信用卡日期
-                                $('#creditcardDate1').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardDate1').val())) {
-                                        $('#lup3').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup3').text(``);
-                                    }
-                                })
-                                $('#creditcardDate2').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardDate2').val())) {
-                                        $('#lup3').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup3').text(``);
-                                    }
-                                })
-                                //信用卡安全碼
-                                $('#creditcardSecurityNo').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#creditcardSecurityNo').val())) {
-                                        $('#lup4').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup4').text(``);
-                                    }
-                                })
-                                //銀行
-                                $('#bankAccount1').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#bankAccount1').val())) {
-                                        $('#lup5').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup5').text(``);
-                                    }
-                                })
-                                $('#bankAccount2').blur(() => {
-                                    const r1 = /^\d+$/;
-                                    if (!r1.test($('#bankAccount2').val())) {
-                                        $('#lup5').text(`請輸入阿拉伯數字`)
-                                    } else {
-                                        $('#lup5').text(``);
-                                    }
-                                })
 
-
-                                //秀出所有資料
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "/CGA101G1/mem/MemSelfInfo",
-                                    contentType: "application/json",
-                                    success: data => {
-                                        let { memNo, memAccount, memName, memMobile, memEmail,
-                                            memCity, memDist, memAdd, memBirth, creditcardNo,
-                                            creditcardDate, creditcardSecurityNo, bankAccount,
-                                            bankAccountOwner
-                                        } = data;
-                                        //日期
-                                        $.datetimepicker.setLocale('zh'); // kr ko ja en
-                                        $('#memBirth').datetimepicker({
-                                            theme: '',          //theme: 'dark',
-                                            timepicker: false,   //timepicker: false,
-                                            step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
-                                            format: 'Y-m-d ',
-                                            value: memBirth,
-                                            //disabledDates:    ['2022/06/08','2022/06/09','2022/06/10'], // 去除特定不含
-                                            //startDate:	        '2022/07/10',  // 起始日
-                                            //minDate:           '-1970-01-01', // 去除今日(不含)之前
-                                            //maxDate:           '+1970-01-01'  // 去除今日(不含)之後
-                                        });
-                                        var somedate2 = new Date();
-                                        $('#memBirth').datetimepicker({
-                                            beforeShowDay: function (date) {
-                                                if (date.getYear() > somedate2.getYear() ||
-                                                    (date.getYear() == somedate2.getYear() && date.getMonth() > somedate2.getMonth()) ||
-                                                    (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-                                                ) {
-                                                    return [false, ""]
-                                                }
-                                                return [true, ""];
+                            //秀出所有資料
+                            $.ajax({
+                                type: 'POST',
+                                url: "/CGA101G1/mem/MemSelfInfo",
+                                contentType: "application/json",
+                                success: data => {
+                                    let { memNo, memAccount, memName, memMobile, memEmail,
+                                        memCity, memDist, memAdd, memBirth, creditcardNo,
+                                        creditcardDate, creditcardSecurityNo, bankAccount,
+                                        bankAccountOwner
+                                    } = data;
+                                    //日期
+                                    $.datetimepicker.setLocale('zh'); // kr ko ja en
+                                    $('#memBirth').datetimepicker({
+                                        theme: '',          //theme: 'dark',
+                                        timepicker: false,   //timepicker: false,
+                                        step: 1,            //step: 60 (這是timepicker的預設間隔60分鐘)
+                                        format: 'Y-m-d ',
+                                        value: memBirth,
+                                        //disabledDates:    ['2022/06/08','2022/06/09','2022/06/10'], // 去除特定不含
+                                        //startDate:	        '2022/07/10',  // 起始日
+                                        //minDate:           '-1970-01-01', // 去除今日(不含)之前
+                                        //maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+                                    });
+                                    var somedate2 = new Date();
+                                    $('#memBirth').datetimepicker({
+                                        beforeShowDay: function (date) {
+                                            if (date.getYear() > somedate2.getYear() ||
+                                                (date.getYear() == somedate2.getYear() && date.getMonth() > somedate2.getMonth()) ||
+                                                (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+                                            ) {
+                                                return [false, ""]
                                             }
-                                        });
-                                        //給資料
-                                        $("#l1").html(memAccount);
-                                        $("#memName").val(memName);
-                                        $("#memMobile").val(memMobile);
-                                        $("#memEmail").val(memEmail);
+                                            return [true, ""];
+                                        }
+                                    });
+                                    //給資料
+                                    $("#l1").html(memAccount);
+                                    $("#memName").val(memName);
+                                    $("#memMobile").val(memMobile);
+                                    $("#l7").html(memEmail);
 
-                                        //居住地
-                                        new TwCitySelector({
-                                            el: '.city-selector-set',
-                                            elCounty: '.county',
-                                            countyValue: memCity,
-                                            elDistrict: '.district',
-                                            districtValue: memDist
-                                        });
+                                    //居住地
+                                    new TwCitySelector({
+                                        el: '.city-selector-set',
+                                        elCounty: '.county',
+                                        countyValue: memCity,
+                                        elDistrict: '.district',
+                                        districtValue: memDist
+                                    });
 
-                                        $("#memAdd").val(memAdd);
-                                        $("#memBirth").attr("value", memBirth);
-                                        //左上角
-                                        $("#Ninf").text(memName);
-                                        $("#Pinf").html(`<img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" title="" alt=""
+                                    $("#memAdd").val(memAdd);
+                                    $("#memBirth").attr("value", memBirth);
+                                    //左上角
+                                    $("#Ninf").text(memName);
+                                    $("#Pinf").html(`<img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" title="" alt=""
                                             id="imgPinf">`)
-                                        $("#Einf").text(memEmail);
-                                        //圖片顯示
-                                        $("#divImg").html(
-                                            `<label for="myPic" class="form-label" >會員大頭貼: </label>
+                                    $("#Einf").text(memEmail);
+                                    //圖片顯示
+                                    $("#divImg").html(
+                                        `<label for="myPic" class="form-label" >會員大頭貼: </label>
                                             <img src="/CGA101G1/mem/MemSelfPicServlet?memNo=${memNo}" id="img1" width="50%" height="50%" class="form-control" style="padding: 0; border: 0" />
                                             <input type="file" name="myPic" id="myPic" onchange="pic()">
                                                 <label id="lup7"></label>`);
+                                }
+
+                            });
+
+                        }); // ready
+
+
+                        //上傳新圖片
+                        function pic() {
+                            let imgs = document.querySelector('#img1');
+                            let inputs = document.querySelector('#myPic');
+                            inputs = inputs.files[0];
+
+                            const url = URL.createObjectURL(inputs);
+                            imgs.src = url;
+
+                            let reader = new FileReader();
+                            reader.readAsDataURL(inputs)
+
+                            reader.onloadend = function () {
+                                var arr;
+                                arr = reader.result;
+                                $("#reader").val(arr);
+
+                            }
+                        }
+
+                        $("#btn1").click(() => {
+                            if ($('#reader').val().length !== 0) {
+                                //對base64做切割處理
+                                let imageBase64 = $('#reader').val();
+                                let index = imageBase64.indexOf(',');
+                                index = index + 1
+                                let str1 = imageBase64.substr(0, index);
+                                imageBase64 = imageBase64.replace(str1, "");
+                                //送資料到後端
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "/CGA101G1/mem/MemPicEditServlet",
+                                    contentType: "application/json",
+                                    data: imageBase64
+                                })
+                            }
+                            if ($('#l5').text() === '請輸入行動電話為09開頭，共10位數字號碼' ||
+                                $('#l5').text() === '尚未輸入' || $('#memName').val().length === 0 ||
+                                $('#memMobile').val().length === 0
+                            ) {
+                                $('#l8').text(`尚有欄位未輸入或格式錯誤`);
+                            } else {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "/CGA101G1/mem/MemEditServlet",
+                                    contentType: "application/json",
+                                    data:
+                                        JSON.stringify({
+                                            memAccount: l1.innerText,
+                                            memName: memName.value,
+                                            memMobile: memMobile.value,
+                                            memAdd: memAdd.value,
+                                            memEmail: l7.innerText,
+                                            memBirth: memBirth.value,
+                                            memCity: memCity.value,
+                                            memDist: memDist.value,
+                                            memBirth: memBirth.value,
+                                            creditcardNo: creditcardNo1.value + creditcardNo2.value + creditcardNo3.value + creditcardNo4.value,
+                                            creditcardDate: creditcardDate1.value + creditcardDate2.value,
+                                            creditcardSecurityNo: creditcardSecurityNo.value,
+                                            bankAccount: bankAccount1.value + '-' + bankAccount2.value,
+                                            bankAccountOwner: bankAccountOwner.value,
+                                        }),
+                                    success: data => {
+                                        const { successful, message } = data;
+                                        if (successful) {
+                                            swal(message, "", "success")
+                                                .then(function () {
+                                                    location = "/CGA101G1/frontend/mem/updateMemberData.html";
+                                                })
+                                        } else {
+                                            $("#l8").html(message);
+                                        }
                                     }
+
 
                                 });
 
-                            }); // ready
 
 
-                            //上傳新圖片
-                            function pic() {
-                                let imgs = document.querySelector('#img1');
-                                let inputs = document.querySelector('#myPic');
-                                inputs = inputs.files[0];
-
-                                const url = URL.createObjectURL(inputs);
-                                imgs.src = url;
-
-                                let reader = new FileReader();
-                                reader.readAsDataURL(inputs)
-
-                                reader.onloadend = function () {
-                                    var arr;
-                                    arr = reader.result;
-                                    $("#reader").val(arr);
-
-                                }
                             }
+                        })
 
-                            $("#btn1").click(() => {
-                                if ($('#reader').val().length !== 0) {
-                                    //對base64做切割處理
-                                    let imageBase64 = $('#reader').val();
-                                    let index = imageBase64.indexOf(',');
-                                    index = index + 1
-                                    let str1 = imageBase64.substr(0, index);
-                                    imageBase64 = imageBase64.replace(str1, "");
-                                    //送資料到後端
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "/CGA101G1/mem/MemPicEditServlet",
-                                        contentType: "application/json",
-                                        data: imageBase64
-                                    })
-                                }
-                                if ($('#memName').val().length === 0 ||
-                                    $('#memMobile').val().length === 0 ||
-                                    $('#memEmail').val().length === 0
-                                ) {
-                                    $('#l8').text(`*為必填欄位,尚有欄位未輸入`);
-                                } else {
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "/CGA101G1/mem/MemEditServlet",
-                                        contentType: "application/json",
-                                        data:
-                                            JSON.stringify({
-                                                memAccount: l1.innerText,
-                                                memName: memName.value,
-                                                memMobile: memMobile.value,
-                                                memAdd: memAdd.value,
-                                                memEmail: memEmail.value,
-                                                memBirth: memBirth.value,
-                                                memCity: memCity.value,
-                                                memDist: memDist.value,
-                                                memBirth: memBirth.value,
-                                                creditcardNo: creditcardNo1.value + creditcardNo2.value + creditcardNo3.value + creditcardNo4.value,
-                                                creditcardDate: creditcardDate1.value + creditcardDate2.value,
-                                                creditcardSecurityNo: creditcardSecurityNo.value,
-                                                bankAccount: bankAccount1.value + '-' + bankAccount2.value,
-                                                bankAccountOwner: bankAccountOwner.value,
-                                            }),
-                                        success: data => {
-                                            const { successful, message } = data;
-                                            if (successful) {
-                                                alert(message);
-                                                location = "/CGA101G1/frontend/mem/updateMemberData.html";
-                                            } else {
-                                                $("#l8").html(message);
-                                            }
-                                        }
-
-
-                                    });
-
-
-
-                                }
-                            })
-
-                        </script>
+                    </script>
 
 </body>
 
