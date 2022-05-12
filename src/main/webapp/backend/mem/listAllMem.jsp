@@ -96,7 +96,7 @@ float: right;
 		<th>E-Mail</th>
 		<th>生日</th>
 		<th>加入時間</th>
-		<th>賣家功能</th>
+<!-- 		<th>賣家功能</th> -->
 		<th>修改送出</th>
 	</tr>
 
@@ -115,7 +115,12 @@ float: right;
 				</select>
 			</td>
 			<td>
-				${memVO.memVrfed}
+				<c:if test="${memVO.memVrfed == 1}">
+						已驗證
+				</c:if>
+				<c:if test="${memVO.memVrfed == 0}">
+						未驗證
+				</c:if>
 			</td>
 			<td>${memVO.memNoVrftime}</td>
 			<td>${memVO.memName}</td>
@@ -126,7 +131,7 @@ float: right;
 			<td>${memVO.memEmail}</td>
 			<td>${memVO.memBirth}</td>
 			<td>${memVO.memJoinTime}</td>
-			<td>${memVO.userStatus}</td>
+<%-- 			<td>${memVO.userStatus}</td> --%>
 			<td><input type="submit" value="修改"></td>
 		</tr>
 	</FORM>
