@@ -313,7 +313,7 @@
                                     <tbody v-for="(orderDetails, index) in item.orderDetail" :key="index">
                                         <tr>
                                             
-                                            <td class="p-3">{{orderDetails.productName}}</td>
+                                            <td class="p-3"><a :href="`+ "`" + `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=` + "`" + "+" + "orderDetails.productNo" + `">{{orderDetails.productName}}</a></td>
                                             <td class="p-3">{{orderDetails.productSales}}</td>
                                             <td class="p-3"><span
                                                     class="badge bg-info m-0">{{orderDetails.productTotalPrice}}</span>

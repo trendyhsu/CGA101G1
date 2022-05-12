@@ -34,8 +34,8 @@ public class OrderDAO implements OrderDAO_interface {
 //		                  1           2            3             4         5              6          7               8         9              10             11                                12
 
 	// 訂單修改
-	private static final String UPDATE = "UPDATE cga101g1.order SET OrderTotalPrice = ?, OrderState = ?, PickupMethod = ?, ShippingFee = ?, ReceiverName = ?, ReceiverAddress = ? ,ReceiverPhone= ? WHERE OrderNo = ?;";
-	// 1 2 3 4 5 6 7 8
+	private static final String UPDATE = "UPDATE cga101g1.order SET OrderTotalPrice = ?, OrderState = ?, PickupMethod = ?, ShippingFee = ?, ReceiverName = ?, ReceiverAddress = ? ,ReceiverPhone= ? ,TrackingNum= ? WHERE OrderNo = ?;";
+	//                                                                               1                 2                3               4                 5                      6                7               8                (9)
 
 	private static final String FindByOrderNo = "SELECT OrderNo,MemNo,MemCouponNo,TranTime,OrderTotalPrice,OrderState,PickupMethod,ShippingFee,TrackingNum,ReceiverName,ReceiverAddress,ReceiverPhone FROM cga101g1.order where OrderNo = ? order by TranTime desc";
 //		                  1       2           3       4             5           6          7            8            9            10               11         12                         13
@@ -179,7 +179,8 @@ public class OrderDAO implements OrderDAO_interface {
 			pstmt.setString(5, orderVO.getReceiverName());
 			pstmt.setString(6, orderVO.getReceiverAddress());
 			pstmt.setString(7, orderVO.getReceiverPhone());
-			pstmt.setInt(8, orderVO.getOrderNo());
+			pstmt.setString(8, orderVO.getTrackingNum());
+			pstmt.setInt(9, orderVO.getOrderNo());
 
 			pstmt.executeUpdate();
 
@@ -885,7 +886,7 @@ public class OrderDAO implements OrderDAO_interface {
 		}
 
 		/*** sql語句 **/
-		String finalSQL = "select * from cga101g1.order " + whereCondition + "order by OrderNo";
+		String finalSQL = "select * from cga101g1.order " + whereCondition + "order by tranTime desc";
 		try {
 
 			con = DriverManager.getConnection(url, userid, passwd);

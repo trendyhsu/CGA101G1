@@ -13,7 +13,10 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO"); //EmpServlet.java (
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+	crossorigin="anonymous"></script>
 <title>POP.Game ServerSide</title>
 
 <!-- **********************************************************************************************************************************************************
@@ -45,7 +48,18 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO"); //EmpServlet.java (
 					</tr>
 					<tr>
 						<td>訂單狀態</td>
-						<td>${orderVO.orderState}</td>
+						<td><span class="badge bg-info m-0"><c:if
+									test="${orderVO.orderState == 0}" var="condition">
+									<c:out value="未出貨" escapeXml="false"></c:out>
+								</c:if> <c:if test="${orderVO.orderState == 1}" var="condition">
+									<c:out value="已出貨" escapeXml="false"></c:out>
+								</c:if> <c:if test="${orderVO.orderState == 2}" var="condition">
+									<c:out value="完成訂單" escapeXml="false"></c:out>
+								</c:if> <c:if test="${orderVO.orderState == 3}" var="condition">
+									<c:out value="退貨" escapeXml="false"></c:out>
+								</c:if> <c:if test="${orderVO.orderState == 4}" var="condition">
+									<c:out value="作廢" escapeXml="false"></c:out>
+								</c:if></td>
 					</tr>
 					<tr>
 						<td>收件人姓名:</td>
@@ -74,7 +88,8 @@ OrderVO orderVO = (OrderVO) request.getAttribute("orderVO"); //EmpServlet.java (
 					</tr>
 
 				</table>
-<a href="/CGA101G1/backend/product/order.jsp" class="btn btn-secondary btn-lg" role="button" >繼續修改其他訂單</a>
+				<a href="/CGA101G1/backend/product/order.jsp"
+					class="btn btn-secondary btn-lg" role="button">繼續修改其他訂單</a>
 			</div>
 			<!-- /col-lg-9 END SECTION MIDDLE -->
 

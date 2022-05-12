@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POP.Game</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
@@ -30,9 +39,6 @@
     <link rel="stylesheet" href="../mainCss/assets/vendor/slick/slick.css">
     <!-- Style CSS -->
     <link rel="stylesheet" href="../mainCss/assets/css/style01.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
 
     <style>
         .shoppingCartimg {
@@ -52,7 +58,7 @@
 
         <div class="logo-div">
             <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
-            <a href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
+            <a href="/CGA101G1/frontend/HomePage/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
@@ -126,11 +132,11 @@
                         <!-- 遊戲平台 -->
                         <div class="shop-sidebar-block">
                             <div class="shop-sidebar-title">
-                                <a class="h5" data-bs-toggle="collapse" href="#gamePlatform" role="button"
-                                    aria-expanded="true" aria-controls="gamePlatform">遊戲平台<i
+                                <a class="h5" role="button"
+                                    @click="this.gamePlatformFliter = !this.gamePlatformFliter">遊戲平台<i
                                         class="bi bi-chevron-up"></i></a>
                             </div>
-                            <div class="shop-sidebar-list collapse show" id="gamePlatform">
+                            <div v-show="this.gamePlatformFliter" class="shop-sidebar-list" id="gamePlatform">
                                 <ul>
                                     <li class="custom-radio" v-for="(item, index) in gamePlatformTypeData" :key="index"
                                         style="height: 40px;">
@@ -144,11 +150,10 @@
                         <!-- 遊戲種類 -->
                         <div class="shop-sidebar-block">
                             <div class="shop-sidebar-title">
-                                <a class="h5" data-bs-toggle="collapse" href="#shop_Gender" role="button"
-                                    aria-expanded="true" aria-controls="shop_Gender">遊戲種類 <i
+                                <a class="h5" role="button" @click="this.gametypeFliter = !this.gametypeFliter">遊戲種類 <i
                                         class="bi bi-chevron-up"></i></a>
                             </div>
-                            <div class="shop-sidebar-list collapse show" id="shop_Gender">
+                            <div v-show="this.gametypeFliter" class="shop-sidebar-list" id="shop_Gender">
                                 <ul>
                                     <li class="custom-radio" v-for="(item, index) in gameTypeData" :key="index"
                                         style="height: 40px;">
@@ -161,9 +166,10 @@
                         <!-- 價格篩選 -->
                         <div class="shop-sidebar-block">
                             <div class="shop-sidebar-title">
-                                <a class="h5" href="#shop_price" role="button">價格 <i class="bi bi-chevron-up"></i></a>
+                                <a class="h5" @click="this.moneyFliter = !this.moneyFliter" role="button">價格 <i
+                                        class="bi bi-chevron-up"></i></a>
                             </div>
-                            <div class="shop-sidebar-list collapse show" id="shop_price">
+                            <div v-show="this.moneyFliter" class="shop-sidebar-list" id="shop_price">
                                 <ul>
                                     <li class="custom-checkbox">
                                         <a style="width: 100%;"
@@ -189,12 +195,12 @@
                                 <div class="d-flex align-items-center pt-3">
                                     <!-- Input -->
                                     <input type="number" class="form-control form-control-sm" placeholder="NT0"
-                                        @change="manulPriceLow($event)">
+                                        @change="manulPriceLow($event)" :max="this.manaulPriceH">
                                     <!-- Divider -->
                                     <div class="text-gray-350 mx-2">‒</div>
                                     <!-- Input -->
                                     <input type="number" class="form-control form-control-sm" placeholder="NT2000"
-                                        @change="manulPriceHigh($event)">
+                                        @change="manulPriceHigh($event)" :min="this.manaulPriceL">
 
                                 </div>
                                 <button class="btn btn-outline-dark me-3" style="padding: 0%;border: 0em; height: 0;">
@@ -256,7 +262,7 @@
                                             <div class="product-cart-btn">
                                                 <button @click="webcamSendRequestButton2($event)"
                                                     class="btn btn-primary btn-sm w-100"
-                                                    :value="item.productNo+a+item.productPrice+a+item.productName">
+                                                    :value="item.productNo+a+item.productPrice+a+item.productName+a+item.imgURL">
                                                     <i class="bi bi-cart"></i>
                                                     加入購物車
                                                 </button>
@@ -277,7 +283,9 @@
 
                                         </div>
                                         <h6 class="product-title">
-                                            <a href="shop-fw-without-filtres.html">{{item.productName}}</a>
+                                            <a
+                                                :href="
+                                            `/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo">{{item.productName}}</a>
                                         </h6>
                                         <div class="product-price">
 
@@ -329,7 +337,7 @@
 
         </div>
         <!-- 跳出加入購物車的視窗 -->
-        <!-- <div class="position-fixed top-50 start-50 translate-middle-x" style="z-index: 11">
+        <div style="width: 25em; position: fixed; top:10%;left: 85%;">
             <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <img src="../mainCss/images/logo.png" class="rounded me-2" alt="..."
@@ -338,10 +346,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body" style="background-color: #7d879c;;">
-                    <h6 style="color: aliceblue;">商品成功加入購物車!!</h6>
+                    <h6 style="color: aliceblue;"> {{this.proName}}：成功加入購物車!!</h6>
+                    <div>
+                        <img :src=this.proimgURL alt="" style="width:20% ;"><span
+                            style="color: black; font-size: 1.5em;">${{this.proPrice}}</span><button type="button"
+                            class="btn" @click="deleteItem($event)" style="color: aliceblue ;"><i
+                                class="far fa-trash-alt"></i>
+                            刪除</button>
+                    </div>
                 </div>
+
             </div>
-        </div> -->
+        </div>
         <!-- 跳出需先加入會員的視窗 -->
         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
             <div id="loginToFavMas" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -464,10 +480,10 @@
     <!-- count-down -->
     <script src="../mainCss/assets/vendor/count-down/jquery.countdown.min.js"></script>
     <!-- Theme Js -->
-    <script src="../mainCss/assets/js/custom.js"></script>
+    <!-- <script src="../mainCss/assets/js/custom.js"></script> -->
     <!-- 外來區over -->
     <!-- custom js file link-->
-    <script src=".\\js\\script.js"></script>
+    <!-- <script src=".\\js\\script.js"></script> -->
 
     <script>
         const content = document.getElementById('content');
@@ -492,14 +508,26 @@
                     manaulPriceL: 0,
                     manaulPriceH: 99999,
                     a: ";",
+                    //
+                    gametypeFliter: false,
+                    gamePlatformFliter: false,
+                    moneyFliter: true,
 
                     //shoppingCartStatus
                     totalItemOfCart: 0,
                     totalPriceOfCart: 0,
+
+                    //selectProduct
+                    proNo: "",
+                    proPrice: "",
+                    proName: "",
+                    proimgURL: "",
+
                 }
             },
             methods: {
                 showShoppingCartSatus() {
+                    console.log("開始拿購物車內容");
                     const apiUrl = '/CGA101G1/product/showCart';
                     axios.get(apiUrl)
                         .then((response) => {
@@ -699,13 +727,14 @@
 
                     let toastLiveExample1 = document.getElementById('liveToast1')
                     // 取編號跟錢，分離商品編號跟價錢再傳出去
-                    proNo = e.target.value.split(';')[0];
-                    proPrice = e.target.value.split(';')[1];
-                    proName = e.target.value.split(';')[2];
-
+                    this.proNo = e.target.value.split(';')[0];
+                    this.proPrice = e.target.value.split(';')[1];
+                    this.proName = e.target.value.split(';')[2];
+                    this.proimgURL = e.target.value.split(';')[3];
+                    console.log(this.proimgURL);
                     axios({
                         method: 'post',
-                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${proPrice}` + '&ProductName=' + `${proName}`,
+                        url: '/CGA101G1/product/add2ShoppingCart?ProductNo=' + `${this.proNo}` + '&ProductSales=1' + '&ProductTotalPrice=' + `${this.proPrice}` + '&ProductName=' + `${this.proName}`,
                     })
                         .then((response) => {
                             console.log(response.data);
@@ -713,8 +742,8 @@
                                 this.totalItemOfCart = this.totalItemOfCart + item.productSales;
                                 this.totalPriceOfCart = this.totalPriceOfCart + item.productTotalPrice;
                             }
-                            // let toast = new bootstrap.Toast(toastLiveExample1)
-                            // toast.show()
+                            let toast = new bootstrap.Toast(toastLiveExample1)
+                            toast.show()
                         });
                 },
                 webcamSendRequestButton1(e) {
@@ -751,6 +780,25 @@
 
                         });
                 },
+                deleteItem(e) {
+                    console.log("開始刪除購物車");
+                    sendURL = '/CGA101G1/product/shoppingCartReduce?ProductNo=' + `${this.proNo}` + '&ProductSales=1&ProductTotalPrice=' + `${this.proPrice}` + '&ProductName=' + `${this.proName}`;
+                    console.log(sendURL);
+
+                    axios({
+                        method: 'post',
+                        url: sendURL,
+                    })
+                        .then((response) => {
+
+                            console.log(response.status);
+                            console.log("開始跑取得購物車內容");
+                            this.totalItemOfCart = 0;
+                            this.totalPriceOfCart = 0;
+                            this.showShoppingCartSatus();
+                        });
+
+                },
                 manulPriceLow(e) {
                     if (typeof (e.target.value) === "string") {
                         this.manaulPriceL = e.target.value;
@@ -764,6 +812,9 @@
                 keysearch(e) {
                     this.keyWord = e.target.value;
                 },
+                // openGameTypeFliter() {
+                //     this.gametypeFliter = !this.gametypeFliter;
+                // }
             },
             created() {
                 this.getProductData();

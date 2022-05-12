@@ -81,6 +81,8 @@ public class GetParameter extends HttpServlet {
 			
 			if (!productPrice_String.matches(priceRule)) {
 				errorMsgs.add("商品價錢: 不能低於99元或是超過10萬元");
+			}else if(productPrice==0) {
+				errorMsgs.add("商品價錢: 不能低於99元或是超過10萬元");
 			}
 			out.print("<h1>" + productPrice + "</h1>");
 

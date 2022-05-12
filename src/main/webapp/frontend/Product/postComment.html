@@ -61,7 +61,7 @@
 
         <div class="logo-div">
             <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
-            <a href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
+            <a href="/CGA101G1/frontend/HomePage/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
@@ -111,9 +111,9 @@
         <div class="py-6" id="app">
             <div class="container" style="width:50%;">
                 <form class="card mt-5" action="/CGA101G1/orderDetail/addCommit" method="post">
-                    <div class="card-header py-3">
+                    <div class="card-header py-3" style="text-align:center ;">
                         <h2 class="m-0">發表評論</h2>
-                        <h5 class="m-0">遊戲名稱：{{datastore.productName}}</h5>
+                        <h3>遊戲名稱：{{datastore.productName}}</h3>
                     </div>
                     <div class="card-body">
                         <div class="row g-3" style="padding-left: 30%">
@@ -135,7 +135,7 @@
                                     style="font-size:1.5em;"></textarea>
                             </div>
                             <div style="color: red;" :style="{visibility: postInput ? 'visible' : 'hidden'}">
-                                文章中，不應包含特殊符號+-/^{}#:@$%*&或是只填空格!!</div>
+                                文章中不能包含特殊符號+-/^{}#:@$%*&或是只填空格唷</div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="CommentStar" style="font-size:1.5em;">我要給星星</label>
                                 <input type="range" class="form-range" min="0" max="5" step="1" id="CommentStar"
@@ -152,7 +152,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-12">
+                            <div v-show="!postInput" class="col-12">
                                 <input type="submit" value="送出評論" class="btn btn-primary" readonly>
                             </div>
                         </div>
@@ -249,7 +249,7 @@
 
 
                 //表單驗證用
-                postInput: false,
+                postInput: true,
 
 
 
@@ -284,19 +284,11 @@
             },
 
             postCheck(e) {
-                this.nameInput = false;
+                this.postInput = false;
                 const rules = new RegExp('[+-/^{}#:@$%*&]')
                 console.log(e.target.value);
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.postInput = true;
-                }
-            },
-            RodInputCheck(e) {
-                this.RodInput = false;
-                const rules = new RegExp('[+-/^~{}:@$!%*?&]')
-                console.log(e.target.value);
-                if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
-                    this.RodInput = true;
                 }
             },
             getStar(e) {

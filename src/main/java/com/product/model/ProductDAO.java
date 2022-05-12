@@ -117,12 +117,24 @@ public class ProductDAO implements ProductDAO_interface{
 			"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 and ProductName LIKE ? order by productNo desc limit  ? , 9;";
 		         //    1           2            3             4            5            6           
 
+		
 		//用關鍵字取得正在上市的產品的筆數
 		private static final String ShowInSellCountByKeywrod = 
 				"SELECT count(productNo) FROM product where ProductState = 1 and ProductName LIKE ? ;";
 			         //    1   
 		
 		
+		//用價格區間取得正在上市的產品的筆數
+		private static final String ShowInSellCountByMoney = 
+				"SELECT count(productNo) FROM product where ProductState = 1 and productPrice between ? and ? ;";
+			         //                                                                              1       2   
+
+		
+		//顯示價格區間取得正在上市的產品的分頁查詢				
+		private static final String ShowInSellCountByMoneyInPage = 
+				"SELECT productNo,gameTypeNo,gamePlatformNo,gameCompanyNo,productName,productPrice FROM product where ProductState = 1 and productPrice between ? and ? order by productNo desc limit  ? , 9;";
+			         //    1          2               3             4            5           6       	
+
 		
 		
 		private static final String GetAllName=
@@ -1487,9 +1499,6 @@ public class ProductDAO implements ProductDAO_interface{
 	@Override
 	public List<Object> getPageInSellByMapAndMoney(Integer page, Integer lowPrice, Integer highPrice) {
 	
-		String sql = "SELECT a.productNo,a.gameTypeNo,a.gamePlatformNo,a.productName,a.productPrice,b.sumC,b.CCS FROM product a  "
-				+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
-				+ "where ProductState = 1 and productPrice between ? and ? order by productNo desc limit ? ,9 ;";
 		
 		
 		List<Object>list = new ArrayList<Object>();
@@ -1503,7 +1512,7 @@ public class ProductDAO implements ProductDAO_interface{
 			
 			
 			
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(ShowInSellCountByMoneyInPage);
 			pstmt.setInt(1, lowPrice);
 			pstmt.setInt(2, highPrice);
 			if(page<=0) {
@@ -1527,27 +1536,22 @@ public class ProductDAO implements ProductDAO_interface{
 
 				GamePlatformTypeVO gamePlatformTypeVO = productVO.getOneGamePlatformType(gamePlatformNo);
 				String gamePlatformTypeName = gamePlatformTypeVO.getGamePlatformName();
-				map.put("gamePlatformTypeName", gamePlatformTypeName);
-				
-				
-
+				map.put("gamePlatformTypeName", gamePlatformTypeName);							
 				map.put("productName", rs.getString("ProductName"));
 				map.put("productPrice", rs.getInt("ProductPrice"));
 				map.put("imgURL","/CGA101G1/product/showOneCover?ProductNO="+productNo);
-
 				
 				
+				OrderDetailService orderDetailService = new OrderDetailService();
+				OrderDetailVO orderDetailVO = orderDetailService.showCommentAfterCaled(productNo);
+											
 				/*********** 該商品沒有評論時 orderDetailVO 會是null的處理 ***************/
-//				if (orderDetailVO == null) {
-				if (rs.getInt("sumC") == 0) {
+				if (orderDetailVO == null) {
 					map.put("avgCommentStar", 0);
 					list.add(map);
 				} else {
-					Integer totalStar= Integer.valueOf(rs.getInt("sumC"));
-					Integer commentCounts = Integer.valueOf(rs.getInt("CCS"));
-					
-					Integer avgC = (int) Math.floor((totalStar / commentCounts));
-//					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
+
+					Integer avgC = (int) Math.floor((orderDetailVO.getCommentStar() / orderDetailVO.getProductSales()));
 
 					map.put("avgCommentStar", avgC);
 					list.add(map);
@@ -1593,9 +1597,6 @@ public class ProductDAO implements ProductDAO_interface{
 	@Override
 	public Integer showSellCountByMoney(Integer lowPrice, Integer highPrice) {
 
-	final String sql ="SELECT count(a.productNo) FROM product a  "
-				+ "join (select ProductNo,sum(CommentStar) sumC,count(CommentStar) CCS from cga101g1.orderdetail group by ProductNo having count(CommentStar)>0) b on a.productNo = b.productNo "
-				+ "where ProductState = 1 and productPrice between ? and ? ;";
 		
 
 		Connection con = null;
@@ -1606,14 +1607,14 @@ public class ProductDAO implements ProductDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(ShowInSellCountByMoney);
 			pstmt.setInt(1, lowPrice);
 			pstmt.setInt(2, highPrice);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
-				count = (rs.getInt("count(a.productNo)"));
+				count = (rs.getInt("count(productNo)"));
 
 			}
 

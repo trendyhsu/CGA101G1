@@ -129,6 +129,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 		MailService mailService = new MailService();
 //		String receiverMailAddress=memVO.getMemEmail();
 		String targetName =memVO.getMemName();
+		String memMail = memVO.getMemEmail();
 		String receiverMailAddress = "openthedidi2004@gmail.com";
 		String subject = "親愛的會員："+ targetName+"女士/先生您好，您的訂單成立囉";
 		StringBuffer messageText = new StringBuffer();
@@ -140,6 +141,7 @@ public class AddtoOrderAndOrderlist extends HttpServlet {
 		
 		
 		mailService.sendMail(receiverMailAddress, subject, messageText.toString());
+		mailService.sendMail(memMail, subject, messageText.toString());
 //		System.out.println("寄信完畢");
 		
 		
