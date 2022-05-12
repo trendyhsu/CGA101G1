@@ -131,7 +131,7 @@ border-radius: 10px;
 					<td>申請單編號</td>
 					<td>${bidApplyListVO.bidApplyListNo}</td>
 				<tr>
-					<td>一般商品編號</td>
+					<td>一般商品名稱</td>
 					<td>
 						<select size="1" name="productNo" style="width:180px">
 					    			<option value="0" ${(productVO.upcNum != bidProductVO.bidApplyListVO.upcNum) ? "selected" : ""} >無對應遊戲
