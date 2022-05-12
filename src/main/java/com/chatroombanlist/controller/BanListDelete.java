@@ -47,7 +47,9 @@ public class BanListDelete extends HttpServlet {
 		chatRoomBanListService.deleteOneMemBanList(memNo, memNo_Baned);
 
 		/*************************** 4.新增完成,準備轉交(Send the Success view) ***********/
+		List<ChatRoomBanListVO> chatRoomBanListVOs= chatRoomBanListService.getOneMemBanList(memNo);
 
+		request.setAttribute("chatRoomBanListVOs", chatRoomBanListVOs);
 		String url = "/frontend/chatroom/chatroomignorelist.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);

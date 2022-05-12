@@ -30,7 +30,7 @@ pageContext.setAttribute("list", list);
 		<table id="table-1">
 			<tr>
 				<td>
-			 		<h3>新增遊戲平台</h3>
+			 		<h3>修改遊戲公司</h3>
 				</td>
 			</tr>
 		</table>
