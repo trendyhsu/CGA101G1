@@ -19,18 +19,77 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>我的忽略清單</title>
 <style type="text/css">
-table{
-font-weight: bold;
+table {
+	border-collapse: collapse;
 }
-table tr td,th{
-border-bottom: solid;
+
+th {
+	font-size: larger;
+	margin: 1em auto;
 }
-th{
-background-color: #b2cdcc;
+
+th, td {
+	padding: .65em;
 }
-#pageNumber, #dataNumber, #pageChange{
-float: right;
-font-weight: bold;
+
+th {
+	background: rgb(84,117,147);
+	color: #fff;
+}
+
+th:first-child {
+	border-radius: 9px 0 0 0;
+}
+
+th:last-child {
+	border-radius: 0 9px 0 0;
+}
+
+tr:last-child td:first-child {
+	border-radius: 0 0 0 9px;
+}
+
+tr:last-child td:last-child {
+	border-radius: 0 0 9px 0;
+}
+
+tbody tr:hover {
+	background: linear-gradient(#E0E7E9, #B2CDCC);
+}
+
+#pageNumber, #dataNumber {
+	float: right;
+}
+
+input {
+	background-color: #E0E7E9;
+	border-radius: 5px
+}
+
+input:active {
+	background-color: #fff;
+}
+
+.button1 {
+	display: inline-block;
+	padding: 3px 7px;
+	font-size: 10px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+}
+
+.button1:hover {
+	background-color: #A3C6C4
+}
+
+.button1:active {
+	background-color: #E0E7E9;
 }
 </style>
 </head>
@@ -43,10 +102,10 @@ font-weight: bold;
 
 	<div id="bid-content">
 		
-		<table id="table-1">
+		<table id="table-1" >
 			<tr>
 
-			 		<h3>我的忽略會員清單</h3>
+			 		<h3 >我的忽略會員清單</h3>
 
 			</tr>
 		</table>
@@ -63,17 +122,20 @@ font-weight: bold;
 		<%-- 成功表列 --%>
 		
 		
-			<table class="showPanel" style="table-layout: fixed; color: black;">
+			<table class="showPanel" style="table-layout: fixed; color: black; margin-left:auto; 
+margin-right:auto;">
 					<tr align='center' valign="middle">
 						<th style="width: 125px">忽略編號&emsp;</th>
 						<th style="width: 400px">已忽略會員&emsp;</th>
 						<th></th>
-						<th style="width: 50px"></th>
+						
 					</tr>
+
 					<%@ include file="page3.file"%>
+
 					<c:forEach var="ChatRoomBanListVO" items="${list}"
 						begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-
+					<div style="margin-top:20px;"></div>
 						<tr align='center' valign="middle">
 							<td><div
 									style="width: 125px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${ChatRoomBanListVO.banListNo}</div></td>

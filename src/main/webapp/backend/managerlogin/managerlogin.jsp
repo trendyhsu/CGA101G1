@@ -60,7 +60,8 @@
                 <div class="input-div">
                     <div class="icon-div"><i class="fas fa-solid fa-user-astronaut"></i></div>
 
-                    <input id="registerAccount" type="text" class="input-field" placeholder="Account" required>
+                    <input id="registerAccount" for="managerAccount" type="text" class="input-field" placeholder="Account" required>
+                    <label id="l1" style="color: red; font-size: 15;"></label>
                 </div>
                 <div class="input-div">
                     <div class="icon-div"><i class="fas fa-solid fa-lock"></i></div>
@@ -90,6 +91,7 @@
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/backend/assets/weiwei/js/loginScript.js"></script>
     <script>
+    
     $("#btn1").click(() => {
     
             $.ajax({

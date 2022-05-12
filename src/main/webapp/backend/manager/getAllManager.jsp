@@ -65,18 +65,22 @@ h3 {
 					<table class="table table-striped">
 						<h4>
 							<i class="fa fa-angle-right"></i> 管理員列表
-							<div style="float:right;">
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/backend/manager/addManager.jsp">
-									<input type="submit" value="新增" style="background-color:lightgreen; color:black;"> 
-									<input type="hidden"
-										name="managerNo" value="${managerVO.managerNo}">
-								</FORM>
-							</div>
+							
 						</h4>
 
 						<hr>
 						<thead>
+						
+							<td>
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/backend/manager/addManager.jsp">
+									<input type="submit" value="新增" class="btn btn-success btn-beside"
+									> 
+									<input type="hidden"
+										name="managerNo" value="${managerVO.managerNo}">
+								</FORM>
+							</td>
+						
 							<tr>
 								<th><i class="fa fa-camera"></i>照片</th>
 								<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
@@ -105,6 +109,7 @@ h3 {
 									</td>
 								
 									<td>
+										<div sytle="float:left">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/manager/managerEdit"
 											style="margin-top: 40px;">
@@ -112,12 +117,15 @@ h3 {
 											<input type="hidden"
 												name="managerNo" value="${managerVO.managerNo}">
 										</FORM>
+										</div>
+										<div sytle="float:right">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/managerauth/managerEditAuth"
 											style="margin-top: 40px;">
-											<input class="btn btn-primary btn-sm" type="submit" value="權限"> 
+											<input class="btn btn-primary btn-sm" type="submit" value="權限" sytle=""> 
 											<input type="hidden"
 												name="managerNo" value="${managerVO.managerNo}">
+										</div>
 									</td>
 								
 								</tr>
