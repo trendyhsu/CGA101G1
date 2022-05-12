@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -208,7 +209,7 @@ public class BidPicInsertMultiServlet extends HttpServlet {
 			// 開始執行上傳檔案
 			BidPicVO bidPicVO = new BidPicVO();
 			Collection<Part> list = request.getParts();
-
+			List<byte[]> picList = new ArrayList<byte[]>();
 			BufferedInputStream bis = null;
 			byte[] bidProdPicContent = null;
 
@@ -219,8 +220,29 @@ public class BidPicInsertMultiServlet extends HttpServlet {
 				if (bis.available() > 1024) {
 					bidProdPicContent = new byte[bis.available()];
 					bis.read(bidProdPicContent);
-					bidPicVO = bidPicSvc.addBidPic(bidProductNo, bidProdPicContent);
+					picList.add(bidProdPicContent);
 				}
+			}
+			
+			if(picList.size()==0) {
+				errorMsgs.add("請選擇要上傳的圖片！");
+			}
+			
+			if (!errorMsgs.isEmpty()) {
+				// 從資料庫讀取 bidPicVOs 存入 list 中
+				List<BidPicVO> list2 = bidPicSvc.getAllBidPicByBidProductNo(bidProductNo);
+				request.setAttribute("list", list2);
+
+				request.setAttribute("bidProductVO", bidProductVO);
+				
+				RequestDispatcher failureView = request.getRequestDispatcher("/backend/bid/editBid.jsp");
+				failureView.forward(request, response);
+				return;
+			}
+			
+			// 新增圖片資料
+			for (int i = 0; i < picList.size(); i++) {
+				bidPicSvc.addBidPic(bidProductNo, picList.get(i));
 			}
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/

@@ -195,6 +195,20 @@ public class BidPicDeleteServlet extends HttpServlet {
 			// 取得多選圖片的陣列 用 for 迴圈取得bidProPicNo 刪除
 			BidPicService bidPicSvc = new BidPicService();
 			String[] bidProdPicNos = request.getParameterValues("bidProdPicNos");
+			
+			if(bidProdPicNos == null) {
+				errorMsgs.add("請選擇要刪除的圖片!");
+			}
+			
+			if (!errorMsgs.isEmpty()) {
+				List<BidPicVO> list = bidPicSvc.getAllBidPicByBidProductNo(bidProductVO.getBidProductNo());
+				request.setAttribute("list",list);
+				request.setAttribute("bidProductVO", bidProductVO);
+				RequestDispatcher failureView = request.getRequestDispatcher("/backend/bid/editBid.jsp");
+				failureView.forward(request, response);
+				return; // 程式中斷
+			}
+			
 			if (bidProdPicNos != null) {
 				for (String bidProdPicNo : bidProdPicNos) {
 					bidPicSvc.deleteBidPic(new Integer(bidProdPicNo));

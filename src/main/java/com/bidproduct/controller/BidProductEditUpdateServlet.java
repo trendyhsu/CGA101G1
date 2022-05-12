@@ -191,6 +191,11 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 			// 回傳錯誤訊息
 			if (!errorMsgs.isEmpty()) {
 				request.setAttribute("bidProductVO", bidProductVO);
+				// 從資料庫讀取 bidPicVOs 存入 list 中
+				BidPicService bidPicSvc = new BidPicService();
+				List<BidPicVO> list2 = bidPicSvc.getAllBidPicByBidProductNo(bidProductNo);
+				request.setAttribute("list", list2);
+				
 				RequestDispatcher failureView = request.getRequestDispatcher("/backend/bid/editBid.jsp");
 				failureView.forward(request, response);
 				return; // 程式中斷
