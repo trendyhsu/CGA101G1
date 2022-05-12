@@ -72,7 +72,7 @@ float: right;
 		<td>發放優惠券種類:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="couponTypeNo">
 			<c:forEach var="couponTypeVO" items="${couponTypeService.showAllCouponType()}">
-				<option value="${couponTypeVO.couponTypeNo}" ${(param.couponTypeNo==couponTypeVO.couponTypeNo)? 'selected':'' } >${couponTypeVO.couponName}
+				<option value="${couponTypeVO.couponTypeNo}" ${(param.couponTypeNo==couponTypeVO.couponTypeNo)? 'selected':'' } >${couponTypeVO.couponTypeNo}${couponTypeVO.couponName}
 			</c:forEach>
 		</select></td>
 	</tr>

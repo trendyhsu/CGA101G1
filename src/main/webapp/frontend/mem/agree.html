@@ -13,6 +13,7 @@
             display: flex;
             width: 100%;
             color: sandybrown;
+
         }
 
         body {
@@ -27,6 +28,11 @@
             width: 100%;
         }
 
+        #back {
+            position: fixed;
+            font-size: 40px;
+        }
+
         img {
             width: 100%;
             display: flex;
@@ -35,15 +41,40 @@
 </head>
 
 <body>
-    <div id="title">
-        POP.Game會員注意事項
+    <div id="app">
+        <div><label @click="back"><i id="back" class="fa fa-times" aria-hidden="true"></label></i></div>
+        <div id="title">
+            POP.Game會員注意事項
+        </div>
+        <div id="content">
+            購物一定有風險，買賣投資有賺有賠，申購前應詳閱公開說明書。
+        </div>
+        <div>
+            <img src="/CGA101G1/frontend/mainCss/images/alien.gif" alt="">
+        </div>
     </div>
-    <div id="content">
-        購物一定有風險，買賣投資有賺有賠，申購前應詳閱公開說明書。
-    </div>
-    <div>
-        <img src="/CGA101G1/frontend/mainCss/images/alien.gif" alt="">
-    </div>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+        integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    loc: '',
+                }
+            },
+            methods: {
+                back() {
+                    // window.history.back();
+                    history.go(-1);
+                }
+            }
+        })
+        vm.mount('#app');
+    </script>
 </body>
 
 </html>

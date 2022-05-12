@@ -81,7 +81,17 @@ float: right;
 			<td>${memCouponVO.couponTypeVO.discountPrice}</td>
 			<td>${memCouponVO.memNo}</td>
 			<td>${memCouponVO.memVO.memName}</td>
-			<td>${memCouponVO.couponState}</td>
+			<td>
+			<c:if test="${memCouponVO.couponState == 0}">
+			未使用
+			</c:if>
+			<c:if test="${memCouponVO.couponState == 1}">
+			已使用
+			</c:if>
+			<c:if test="${memCouponVO.couponState == 2}">
+			已過期
+			</c:if>
+			</td>
 			<td>${memCouponVO.couponTypeVO.couponDeadline}</td>
 <!-- 			<td> -->
 <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/couponType/DeleteCouponTypeServlet" style="margin-bottom: 0px;"> --%>

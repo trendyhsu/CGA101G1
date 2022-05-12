@@ -67,7 +67,7 @@ public class EditCouponTypeServlet extends HttpServlet {
 		Integer couponTypeNo = Integer.valueOf(request.getParameter("couponTypeNo"));
 		if (!errorMsgs.isEmpty()) {
 			RequestDispatcher failureView = request
-					.getRequestDispatcher("/couponType/GetWhichOneUpdate");
+					.getRequestDispatcher("/backend/couponType/editCouponType.jsp");
 			failureView.forward(request, response);
 			return; //程式中斷
 		}
