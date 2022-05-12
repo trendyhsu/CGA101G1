@@ -131,6 +131,7 @@ float: right;
 							id="receiveForm${bidProductVO.bidProductNo}">
 							<input class="btn btn-success btn-sm receiveBtn" style="margin: 0" type="button" value="領收" id="${bidProductVO.bidProductNo}">
 							<input type="hidden"name="bidProductNo" value="${bidProductVO.bidProductNo}">
+							<input type="hidden"name="orderState" value="${bidProductVO.orderState}">
 						</FORM>
 						</c:if>
 					</td>

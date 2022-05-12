@@ -115,7 +115,7 @@
 					</a>
 						<ul class="sub">
 							<li><a href="<%=request.getContextPath()%>/backend/manager/getAllManager.jsp">管理員資料管理</a></li>
-							<li><a href="<%=request.getContextPath()%>/backend/managerauth/getAllManagerAuth.jsp">管理員權限管理</a></li>
+							<li><a href="<%=request.getContextPath()%>/backend/managerauth/getAllManagerAuthrizationFunction.jsp">管理員權限管理</a></li>
 						</ul></li>
 
 					<li class="sub-menu"><a href="javascript:;"> 

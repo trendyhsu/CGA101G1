@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bidproduct.model.BidProductService;
+import com.bidproduct.model.BidProductVO;
 
 @WebServlet("/bid/bidProductReceive")
 public class BidProductReceiveServlet extends HttpServlet {
@@ -30,10 +31,22 @@ public class BidProductReceiveServlet extends HttpServlet {
 		// 取得商品編號
 		Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo").trim());
 		
+		// 判斷該商品狀態orderState
+		BidProductService bidProductSvc = new BidProductService();
+		BidProductVO bidProductVO = bidProductSvc.getOneBid(bidProductNo);
+		if (bidProductVO.getOrderState() == 5) {
+			errorMsgs.put("商品狀態","已領收，無法重複領收!");
+		}
+
+		if (!errorMsgs.isEmpty()) {
+			RequestDispatcher failureView = request.getRequestDispatcher("/bid/bidProductWonByMemNo");
+			failureView.forward(request, response);
+			return; // 程式中斷
+		}
+		
 		/*************************** 2.開始新增資料 ***************************************/
 		// 開始修改競標訂單狀態 5 已領收
 		Integer orderState = new Integer(5);
-		BidProductService bidProductSvc = new BidProductService();
 		bidProductSvc.updateOrderState(orderState, bidProductNo);
 
 		/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/

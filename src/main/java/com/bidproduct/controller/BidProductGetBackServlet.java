@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bidproduct.model.BidProductService;
+import com.bidproduct.model.BidProductVO;
 
 @WebServlet("/bid/bidProductGetBack")
 public class BidProductGetBackServlet extends HttpServlet {
@@ -32,9 +33,10 @@ public class BidProductGetBackServlet extends HttpServlet {
 			Integer bidProductNo = Integer.valueOf(request.getParameter("bidProductNo").trim());
 
 			// 判斷該商品狀態orderState
-			Integer orderState = Integer.valueOf(request.getParameter("orderState").trim());
-			if (orderState == 3) {
-				errorMsgs.put("orderState","商品狀態為取回處理中，無法重複取回!");
+			BidProductService bidProductSvc = new BidProductService();
+			BidProductVO bidProductVO = bidProductSvc.getOneBid(bidProductNo);
+			if (bidProductVO.getOrderState() == 3) {
+				errorMsgs.put("商品狀態","取回處理中，無法重複取回");
 			}
 
 			if (!errorMsgs.isEmpty()) {
@@ -44,8 +46,7 @@ public class BidProductGetBackServlet extends HttpServlet {
 			}
 			/*************************** 2.開始修改資料 *****************************************/
 			// 開始修改競標訂單狀態 3 取回處理中
-			orderState = new Integer(3);
-			BidProductService bidProductSvc = new BidProductService();
+			Integer orderState = new Integer(3);
 			bidProductSvc.updateOrderState(orderState, bidProductNo);
 			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
