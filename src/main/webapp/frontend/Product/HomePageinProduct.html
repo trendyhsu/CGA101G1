@@ -49,7 +49,7 @@
 
         <div class="logo-div">
             <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
-            <a href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
+            <a href="/CGA101G1/frontend/HomePage/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
@@ -165,6 +165,11 @@
                                         <i class="bi bi-cart"></i>
                                         加入購物車
                                     </a>
+                                    <a @click="sendData()" href="/CGA101G1/frontend/Product/shopping-cart.html"
+                                        class="btn btn-dark me-3">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                        立即購買
+                                    </a>
                                     <!-- 原本是jsonData[0].productNo -->
                                     <button @click="webcamSendRequestButton1($event)" :value="jsonData.productNo"
                                         class="btn btn-outline-dark me-3">
@@ -239,13 +244,26 @@
         <section name="pd_information" id="pd_review" v-show="reviewShow">
             <div class="idpostion"></div>
             <div class="pd-collapse-row">
-                <h1 class="sub-heading"> 會員評鑑 </h1>
 
+
+
+                <div class="rating-star small" style="padding-left: 25%;">
+                    <h1 class="sub-heading"> <span style="color:black ;">會員評鑑 ： </span>
+                        <i class="bi small bi-star-fill active"
+                            v-for="(item, index) in CaledCommentsData.avgCommentStar" :key="index"></i>
+
+                        <i class="bi small bi-star" v-for="(item, index) in (5-CaledCommentsData.avgCommentStar)"
+                            :key="index"></i>
+                        <span>{{(CaledCommentsData.sumCommentStar/CaledCommentsData.countComment).toFixed(2)}}/5
+                            ({{CaledCommentsData.countComment}} 人已評論)</span>
+                </div>
+
+                </h1>
                 <!-- <a class="pd-collapse-h5" data-bs-toggle="collapse" role="button" aria-expanded="false"
                             aria-controls="pd_review">評論區 <i class="bi bi-chevron-up"></i></a> -->
                 <div class="collapse show">
                     <div class="pd-collapse-box">
-                        <div class="row align-items-end">
+                        <!-- <div class="row align-items-end">
                             <div class="col-sm-6">
                                 <div class="rating-star small">
                                     <i class="bi small bi-star-fill active"
@@ -257,7 +275,7 @@
                                         ({{CaledCommentsData.countComment}} Comments)</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <section class="row" id="content" name="content">
                             <card-template :read-data="renderData" :now-page="nowPage"></card-template>
                         </section>

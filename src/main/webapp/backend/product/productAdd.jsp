@@ -68,20 +68,9 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 	<!--main content start-->
 	<section id="main-content">
 		<section class="wrapper site-min-height">
-			<h3>
-				<i class="fa fa-angle-right"></i> 商品新增
-			</h3>
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div id="app">
-						<c:if test="${not empty errorMsgs}">
-							<font style="color: red">剛剛輸入有誤，請修正以下錯誤:</font>
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color: red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
 						<h3>
 							<i class="fa fa-angle-right"></i> 最近新增前三筆
 						</h3>
@@ -140,71 +129,89 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 
 						<!--   v-if="isNew" 判斷要不要打開編輯的表單  -->
 						<!--   form內容要進去資料庫  -->
-						<div style="width: 30%;">
-							<!-- 							<form v-show="isNew" method="post" -->
+						<h3>
+							<i class="fa fa-angle-right"></i> 商品新增<br>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">剛剛輸入有誤，請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</h3>
+						<div style="width: 50%; font-size: 1.5em;" class="container">
+
 							<form method="post" action="/CGA101G1/product/GetParameter"
 								enctype="multipart/form-data" required>
 								<!-- <form method="post" action="GetParameter" enctype="multipart/form-data"> -->
-								<div>
-									<label for="productNo" class="form-label">產品編號</label> <input
+
+								<div class="col">
+									<label for="productNo" class="form-label" hidden>產品編號</label> <input
 										type="text" id="productNo" name="ProductNo"
-										class="form-control" v-model="temp.productNo" readonly>
+										class="form-control" v-model="temp.productNo" readonly hidden>
 								</div>
-								<div>
-									<label for="productName" class="form-label">產品名稱</label> <input
-										type="text" id="productName" name="ProductName"
-										class="form-control" value="${productVO.productName}"
-										@change="checkdata($event)">
-								</div>
-								<div>
-									<label for="productPrice" class="form-label">價格</label> <input
-										type="number" id="productPrice" name="ProductPrice"
-										class="form-control" value="${productVO.productPrice}">
+								<div class="row">
+									<div class="col">
+										<label for="productName" class="form-label">產品名稱</label> <input
+											type="text" id="productName" name="ProductName"
+											class="form-control" value="${productVO.productName}"
+											@change="checkdata($event)">
+									</div>
+									<div class="col">
+										<label for="productPrice" class="form-label">價格</label> <input
+											type="number" id="productPrice" name="ProductPrice"
+											class="form-control" value="${productVO.productPrice}">
+									</div>
 								</div>
 								<!-- 要改 -->
-								<div>
-									<label for="productState" class="form-label">銷售狀態</label> <input
-										type="radio" id="productStateUn" name="ProductState"
-										v-model="temp.productStateUn" value="0" checked> <label
-										for="productStateUn" class="form-label">未上架</label> <input
-										type="radio" id="productStateS" name="ProductState"
-										v-model="temp.productStateS" value="1"> <label
-										for="productStateS" class="form-label">已上架</label>
-								</div>
-								<div>
-									<label for="gameTypeNo" class="form-label">遊戲種類</label> <select
-										name="GameTypeNo" id="gameTypeNo"
-										value="${productVO.gameTypeNo}" required>
-										<c:forEach var="gameTypeVO" items="${gameTypeList}">
-											<option value="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</option>
-										</c:forEach>
-									</select>
-									<!-- 
+								<div class="row">
+									<div class="col">
+										<label for="productState" class="form-label">銷售狀態</label> <input
+											type="radio" id="productStateUn" name="ProductState"
+											v-model="temp.productStateUn" value="0" checked> <label
+											for="productStateUn" class="form-label">未上架</label> <input
+											type="radio" id="productStateS" name="ProductState"
+											v-model="temp.productStateS" value="1"> <label
+											for="productStateS" class="form-label">上架</label>
+									</div>
+									<div class="col">
+										<label for="gameTypeNo" class="form-label">遊戲種類</label> <select
+											name="GameTypeNo" id="gameTypeNo"
+											value="${productVO.gameTypeNo}" required>
+											<c:forEach var="gameTypeVO" items="${gameTypeList}">
+												<option value="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</option>
+											</c:forEach>
+										</select>
+										<!-- 
                                             <input type="number" id="gameTypeNo" name="GameTypeNo" class="form-control"
                                                 v-model="temp.gameTypeNo"> -->
+									</div>
 								</div>
-								<div>
-									<label for="gamePlatformNo" class="form-label">遊戲平台種類</label> <select
-										name="GamePlatformNo" id="gamePlatformNo"
-										value="${productVO.gamePlatformNo}" required>
-										<c:forEach var="gamePlatformTypeVO"
-											items="${gamePlatformTypeList}">
-											<option value="${gamePlatformTypeVO.gamePlatformNo}">${gamePlatformTypeVO.gamePlatformName}</option>
-										</c:forEach>
-									</select>
+								<div class="row">
+									<div class="col">
+										<label for="gamePlatformNo" class="form-label">遊戲平台種類</label>
+										<select name="GamePlatformNo" id="gamePlatformNo"
+											value="${productVO.gamePlatformNo}" required>
+											<c:forEach var="gamePlatformTypeVO"
+												items="${gamePlatformTypeList}">
+												<option value="${gamePlatformTypeVO.gamePlatformNo}">${gamePlatformTypeVO.gamePlatformName}</option>
+											</c:forEach>
+										</select>
 
-								</div>
-								<div>
-									<label for="gameCompanyNo" class="form-label">遊戲公司</label> <select
-										name="GameCompanyNo" id="gameCompanyNo"
-										value="${productVO.gameCompanyNo}" required>
-										<c:forEach var="gameCompanyVO" items="${gameCompanyList}">
-											<option value="${gameCompanyVO.gameCompanyNo}">${gameCompanyVO.gameCompanyName}</option>
-										</c:forEach>
-									</select>
+									</div>
+									<div class="col">
+										<label for="gameCompanyNo" class="form-label">遊戲公司</label> <select
+											name="GameCompanyNo" id="gameCompanyNo"
+											value="${productVO.gameCompanyNo}" required>
+											<c:forEach var="gameCompanyVO" items="${gameCompanyList}">
+												<option value="${gameCompanyVO.gameCompanyNo}">${gameCompanyVO.gameCompanyName}</option>
+											</c:forEach>
+										</select>
 
+									</div>
 								</div>
-								<div>
+								<div class="col">
 									<label for="upcNum" class="form-label">UpcNum</label> <input
 										type="number" id="upcNum" name="UpcNum" class="form-control"
 										value="${productVO.upcNum}">
@@ -215,32 +222,41 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 								</div>
 								<div>
 									<textarea name="ItemProdDescription" id="itemProdDescription"
-										cols="55" rows="20" value="${productVO.itemProdDescription}"></textarea>
+										cols="81" rows="10" value="${productVO.itemProdDescription}"></textarea>
 								</div>
-
-								<div>
-									<label for="productImage1" class="form-label">封面照片</label> <img
-										v-if="url" :src="url" class="img-fluid d-block" alt=""
-										width="100"> <input type="file" id="productImage1"
-										name="productImage1" class="form-control"
-										v-on:change="onFileChange">
+								<div class="row">
+									<div class="col">
+										<label for="productImage1" class="form-label">封面照片</label> <input
+											type="file" id="productImage1" name="productImage1"
+											class="form-control" v-on:change="onFileChange">
+									</div>
+									<div class="col">
+										<img v-if="url" :src="url" class="img-fluid d-block" alt=""
+											width="100">
+									</div>
 								</div>
-								<div>
-									<label for="productImage2" class="form-label">產品圖片2</label> <img
-										v-if="url2" :src="url2" class="img-fluid d-block" alt=""
-										width="100"> <input type="file" id="productImage2"
-										name="productImage2" class="form-control"
-										v-on:change="onFileChange2">
+								<div class="row">
+									<div class="col">
+										<label for="productImage2" class="form-label">產品圖片2</label> <input
+											type="file" id="productImage2" name="productImage2"
+											class="form-control" v-on:change="onFileChange2">
+									</div>
+									<div class="col">
+										<img v-if="url2" :src="url2" class="img-fluid d-block" alt=""
+											width="100">
+									</div>
 								</div>
-								<div>
-									<label for="productImage3" class="form-label">產品圖片3</label> <img
-										v-if="url3" :src="url3" class="img-fluid d-block" alt=""
-										width="100"> <input type="file" id="productImage3"
-										name="productImage3" class="form-control"
-										v-on:change="onFileChange3">
-
+								<div class="row">
+									<div class="col">
+										<label for="productImage3" class="form-label">產品圖片3</label> <input
+											type="file" id="productImage3" name="productImage3"
+											class="form-control" v-on:change="onFileChange3">
+									</div>
+									<div class="col">
+										<img v-if="url3" :src="url3" class="img-fluid d-block" alt=""
+											width="100">
+									</div>
 								</div>
-
 								<input type="SUBMIT" v-on:click="confirmEdit">
 							</form>
 						</div>

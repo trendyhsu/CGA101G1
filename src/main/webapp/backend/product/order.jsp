@@ -81,7 +81,7 @@ pageContext.setAttribute("list", list);
 								<td>${orderVO.receiverName}</td>
 								<td>${orderVO.receiverAddress}</td>
 								<td>${orderVO.receiverPhone}</td>
-								<td><c:if test="${orderVO.orderState != 2}" var="condition">
+								<td><c:if test="${orderVO.orderState != 2 && orderVO.orderState != 4}" var="condition">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/product/turnModOrder"
 											style="margin-bottom: 0px;">
@@ -118,7 +118,7 @@ pageContext.setAttribute("list", list);
 									</thead>
 									<c:forEach var="orderDetailVO"
 										items="${orderVO.getAllDetailByOrderNo(orderVO.getOrderNo())}"
-										begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+										>
 										<tbody>
 											<tr>
 												<td class="p-3">${orderDetailVO.productNo}</td>

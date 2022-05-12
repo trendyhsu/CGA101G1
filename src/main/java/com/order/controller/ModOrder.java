@@ -75,7 +75,7 @@ public class ModOrder extends HttpServlet {
 		if (receiverPhone.trim().length() == 0 || receiverPhone == null) {
 			errorMsgs.add("收件人電話: 不能空白");
 		} else if (!receiverPhone.trim().matches(phoneRule)) {
-			errorMsgs.add("收件人電話: 長度須在8到15之間");
+			errorMsgs.add("收件人電話: 不符合電話格式");
 		}
 		checkedOrderVO.setReceiverPhone(receiverPhone);
 		System.out.print("收件人電話:" + receiverPhone);
@@ -85,6 +85,13 @@ public class ModOrder extends HttpServlet {
 //		System.out.println(orderNo_Str);
 		Integer orderNo = Integer.valueOf(orderNo_Str);
 		checkedOrderVO.setOrderNo(orderNo);
+		
+		
+		/****** memNo **********/
+		String memNo_Str = request.getParameter("MemNo");
+//		System.out.println(orderNo_Str);
+		Integer memNo = Integer.valueOf(memNo_Str);
+		checkedOrderVO.setMemNo(memNo);
 
 		/****** OrderTotalPrice **********/
 		String orderTotalPrice_Str = request.getParameter("OrderTotalPrice");
@@ -155,7 +162,7 @@ public class ModOrder extends HttpServlet {
 
 		/** 如果是完成訂單要寄信給訂購人 ***/
 
-		Integer memNo = Integer.valueOf(request.getParameter("MemNo"));
+//		Integer memNo = Integer.valueOf(request.getParameter("MemNo"));
 		
 		if (orderState == 2) {
 //			System.out.println("因為完成訂單了所以開始寄信");
@@ -165,6 +172,7 @@ public class ModOrder extends HttpServlet {
 			MailService mailService = new MailService();
 //		String receiverMailAddress=memVO.getMemEmail();
 			String targetName = memVO.getMemName();
+			String memMail = memVO.getMemEmail();
 			String receiverMailAddress = "openthedidi2004@gmail.com";
 			String subject = "親愛的會員：" + targetName + "女士/先生您好，您的訂單已經完成囉";
 			StringBuffer messageText = new StringBuffer();
@@ -176,6 +184,28 @@ public class ModOrder extends HttpServlet {
 			
 			
 			mailService.sendMail(receiverMailAddress, subject, messageText.toString());
+			mailService.sendMail(memMail, subject, messageText.toString());
+//			System.out.println("寄信完畢");
+		}else if(orderState == 1){
+//			System.out.println("因為完成訂單了所以開始寄信");
+//			System.out.println("完成訂單的編號："+orderNo);
+			MemVO memVO = checkedOrderVO.getMemVObyMemNo(memNo);
+			
+			MailService mailService = new MailService();
+//		String receiverMailAddress=memVO.getMemEmail();
+			String targetName = memVO.getMemName();
+			String memMail = memVO.getMemEmail();
+			String receiverMailAddress = "openthedidi2004@gmail.com";
+			String subject = "親愛的會員：" + targetName + "女士/先生您好，您的訂單已經出貨囉";
+			StringBuffer messageText = new StringBuffer();
+			messageText.append("本次訂單編號為" + orderNo);
+			messageText.append(System.getProperty("line.separator"));
+			messageText.append("金額為" + orderTotalPrice);
+			messageText.append(System.getProperty("line.separator"));
+			
+			
+			mailService.sendMail(receiverMailAddress, subject, messageText.toString());
+			mailService.sendMail(memMail, subject, messageText.toString());
 //			System.out.println("寄信完畢");
 		}
 
