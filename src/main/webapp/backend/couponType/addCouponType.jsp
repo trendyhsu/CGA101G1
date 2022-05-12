@@ -89,8 +89,7 @@ float: right;
 	</tr>
 		<tr>
 		<td>優惠券描述:</td>
-		<td><textarea  name="couponDescription" style="min-height:100px;min-width:300px;max-height:50px;max-width:70px;">>
-			 </textarea></td><td ">${errorMsgs.comm}</td>
+		<td><textarea  name="couponDescription" style="min-height:100px;min-width:300px;max-height:50px;max-width:70px;"></textarea></td><td ">${errorMsgs.comm}</td>
 	</tr>
 
 </table>

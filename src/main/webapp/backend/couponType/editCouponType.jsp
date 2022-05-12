@@ -8,8 +8,6 @@
 CouponTypeVO couponTypeVO = (CouponTypeVO) request.getAttribute("couponTypeVO");//存入req的物件
 %>
 
-<%@include file="/backend/share.jsp"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,8 +105,7 @@ float: right;
 			<tr>
 				<td>優惠券描述:</td>
 				<td><textarea name="couponDescription"
-						style="min-height: 100px; min-width: 300px; max-height: 50px; max-width: 70px;">>
-			 </textarea></td>
+						style="min-height: 100px; min-width: 300px; max-height: 50px; max-width: 70px;"></textarea></td>
 				<td>${errorMsgs.comm}</td>
 			</tr>
 
@@ -163,18 +160,17 @@ try {
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
-//         2.以下為某一天之後的日期無法選擇
-             var somedate2 = new Date();
-             $('#couponDeadline').datetimepicker({
-                 beforeShowDay: function(date) {
-               	  if (  date.getYear() >  somedate2.getYear() || 
-        		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-                     ) {
-                          return [false, ""]
-                     }
-                     return [true, ""];
-             }});
-
+//         1.以下為某一天之前的日期無法選擇
+          var somedate1 = new Date();
+                  $('#couponDeadline').datetimepicker({
+                      beforeShowDay: function(date) {
+                    	  if (  date.getYear() <  somedate1.getYear() || 
+             		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+             		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+                          ) {
+                               return [false, ""]
+                          }
+                          return [true, ""];
+                  }});
         </script>
 </html>
