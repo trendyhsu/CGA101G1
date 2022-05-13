@@ -57,23 +57,34 @@ function connect() {
 					messageLine.append(newInput);
 					chatContent.append(messageLine);
 				} else {
-					let newInput = document.querySelector('.oneMessage').cloneNode(true);
-					newInput.style.display = 'block';
-					newInput.textContent = showMsg;
-					let messageLine = document.createElement('div');
-					messageLine.classList.add('messageLine');
-					messageLine.append(newInput);
-					chatContent.append(messageLine);
+					if (showMsg.includes('base64') || showMsg.includes('data:image')) {
+						let div = document.createElement('div');
+						div.classList.add('img-messageLine');
+						let img = document.createElement('img');
+						img.setAttribute('src', showMsg);
+						div.append(img);
+						chatContent.append(div);
+						chatContent.scrollTop = chatContent.scrollHeight;
+					} else {
+						let newInput = document.querySelector('.oneMessage').cloneNode(true);
+						newInput.style.display = 'block';
+						newInput.textContent = showMsg;
+						let messageLine = document.createElement('div');
+						messageLine.classList.add('messageLine');
+						messageLine.append(newInput);
+						chatContent.append(messageLine);
+					}
+
 				}
 			}
 			chatContent.scrollTop = chatContent.scrollHeight;
 		} else if ("chat" === jsonObj.type) {
 
 			if (jsonObj.sender !== self) {
-			
+
 				updateGuestName(jsonObj.sender);
 				document.getElementById(jsonObj.sender).click();
-			
+
 				let newAnswer = document.querySelector('.oneMessage').cloneNode(true);
 				newAnswer.style.display = 'block';
 				newAnswer.textContent = jsonObj.message;
@@ -88,9 +99,9 @@ function connect() {
 			updateGuestName('');
 			chatContent.innerHTML = '';
 			chatContent.style.display = 'none';
-		} else if ("picture" === jsonObj.type && jsonObj.sender !== self){
+		} else if ("picture" === jsonObj.type && jsonObj.sender !== self) {
 			let div = document.createElement('div');
-			div.classList.add('.img-messageLine');
+			div.classList.add('img-messageLine');
 			let img = document.createElement('img');
 			img.setAttribute('src', jsonObj.message);
 			div.append(img);
@@ -142,27 +153,34 @@ function refreshGuestList(jsonObj) {
 		userList.innerHTML += `<li id="${guests[i]}"><i class="fa-solid fa-user"></i>${guests[i]}</li>`;
 	}
 	addListener();
+	if (guests.length == 1) {
+		chatInput.setAttribute('disabled', '');
+		chatInput.setAttribute('placeholder', '請選擇欲傳送訊息的對象');
+	}
 }
 
 //點擊目標人物，會產生與對方的歷史訊息
 function addListener() {
 	let userList = document.querySelector('.userList ul');
 	userList.addEventListener("click", function(e) {
-		chatContent.innerHTML = '';
-		chatContent.style.display = 'flex';
-		chatInput.removeAttribute('disabled');
-		chatInput.removeAttribute('placeholder');
+		if (e.target !== userList) {
+			chatContent.innerHTML = '';
+			chatContent.style.display = 'flex';
+			chatInput.removeAttribute('disabled');
+			chatInput.removeAttribute('placeholder');
 
-		let guest = e.target.textContent;
-		updateGuestName(guest);
+			let guest = e.target.textContent;
+			updateGuestName(guest);
 
-		var jsonObj = {
-			"type": "history",
-			"sender": self,
-			"receiver": guest,
-			"message": ""
-		};
-		webSocket.send(JSON.stringify(jsonObj));
+			var jsonObj = {
+				"type": "history",
+				"sender": self,
+				"receiver": guest,
+				"message": ""
+			};
+			webSocket.send(JSON.stringify(jsonObj));
+		}
+
 	});
 }
 //目前所處的聊天室

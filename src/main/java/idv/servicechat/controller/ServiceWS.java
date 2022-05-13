@@ -66,6 +66,8 @@ public class ServiceWS {
 			}
 		}
 		
+	
+		
 //		if("picture".equals(chatMessage.getType())) {
 //			System.out.println("I got a picture from frontend!");
 ////			final Base64.Decoder decoder = Base64.getDecoder();

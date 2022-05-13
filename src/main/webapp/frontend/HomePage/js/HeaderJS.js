@@ -66,7 +66,7 @@ function showCart(data) {
 		let productTotalPrice = e.target.getAttribute('producttotalprice');
 
 		$.ajax({
-			url:`/CGA101G1/product/shoppingCartRemoveAll?ProductNo=${productNo}&ProductSales=${productSales}&ProductTotalPrice=${productTotalPrice}&ProductName=${productName}`,
+			url:`/CGA101G1/product/shoppingCartReduce?ProductNo=${productNo}&ProductSales=1&ProductTotalPrice=${productTotalPrice/productSales}&ProductName=${productName}`,
 			type:`post`,
 		});
 		$.ajax({

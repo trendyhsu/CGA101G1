@@ -12,6 +12,10 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	  <context-param>
+    	<param-name>org.apache.tomcat.websocket.textBufferSize</param-name>
+   		<param-value>30720000</param-value>
+  	  </context-param>
 	<!-- 設定所有的Servlet都是UTF-8 -->
 	<filter>
 		<filter-name>setCharacterEncoding</filter-name>

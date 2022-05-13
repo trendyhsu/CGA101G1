@@ -57,8 +57,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								
-								<c:forEach var="gameNews" items="${AllQuery}">
+
+								<c:forEach var="gameNews" items="${list}">
 									<tr>
 
 										<td>${gameNews.gameNewsNo}</td>
@@ -107,7 +107,6 @@
 					</div>
 					<!-- /content-panel -->
 				</div>
-				<!-- /col-md-12 -->
 			</div>
 			<!-- /row -->
 		</section>

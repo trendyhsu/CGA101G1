@@ -51,7 +51,7 @@ public class GameNewsServlet extends HttpServlet {
 			GameNewsService gnSvc = new GameNewsService();
 			List<GameNewsVO> list = gnSvc.getAll(map);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("AllQuery", list);
+			req.setAttribute("list", list);
 			RequestDispatcher successView = req.getRequestDispatcher("/backend/news/GameNews-table.jsp");
 			successView.forward(req, resp);
 		}
@@ -129,16 +129,28 @@ public class GameNewsServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*--------------------1.取得參數-------------------*/
 			Integer gameNewsNo = Integer.valueOf(req.getParameter("gameNewsNo"));
-			Integer gamePlatformNo = Integer.valueOf(req.getParameter("gamePlatformNo"));
-			Integer managerNo = Integer.valueOf(req.getParameter("managerNo"));
+			Integer gamePlatformNo = null;
+			if(req.getParameter("gamePlatformNo").trim().length() == 0 || req.getParameter("gamePlatformNo") == null) {
+				errorMsgs.put("gamePlatformNo", "【遊戲平台】未選擇");
+			}else {
+				gamePlatformNo = Integer.valueOf(req.getParameter("gamePlatformNo"));
+			}
+			
+			Integer managerNo = null;
+			if(req.getParameter("managerNo").trim().length() == 0 || req.getParameter("managerNo") == null) {
+				errorMsgs.put("managerNo", "【編輯者】未選擇");
+			}else {
+				managerNo =  Integer.valueOf(req.getParameter("managerNo"));
+			}
+
 			String gameNewsTitle = req.getParameter("gameNewsTitle");
 			if ( gameNewsTitle == null ||  gameNewsTitle.trim().length() == 0) {
-				errorMsgs.put("gameNewsTitle","【標題】請勿空白");
+				errorMsgs.put("gameNewsTitle","【新聞標題】請勿空白");
 			} 
 			
 			String gameNewsContent = req.getParameter("gameNewsContent");
 			if (gameNewsContent == null || gameNewsContent.trim().length() == 0) {
-				errorMsgs.put("gameNewsContent","【內容】請勿空白");
+				errorMsgs.put("gameNewsContent","【新聞內容】請勿空白");
 			}
 
 			
@@ -149,8 +161,16 @@ public class GameNewsServlet extends HttpServlet {
 
 			
 			if (!errorMsgs.isEmpty()) {
+				GameNewsVO gameNewsVO = new GameNewsVO();
+				gameNewsVO.setGameNewsNo(gameNewsNo);
+				gameNewsVO.setGamePlatformNo(gamePlatformNo);
+				gameNewsVO.setManagerNo(managerNo);
+				gameNewsVO.setGameNewsTitle(gameNewsTitle);
+				gameNewsVO.setGameNewsContent(gameNewsContent);
+				gameNewsVO.setGameNewsPic(gameNewsPic);
+				req.setAttribute("gameNewsVO", gameNewsVO);
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("backend/news/GameNews-update.jsp");
+						.getRequestDispatcher("/backend/news/GameNews-update.jsp");
 				failureView.forward(req, resp);
 				return; //程式中斷
 			}
