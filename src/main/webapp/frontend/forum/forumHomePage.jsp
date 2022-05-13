@@ -11,10 +11,6 @@ ForumService forumSvc = new ForumService();
 List<ForumVO> list = forumSvc.getAllFrontend();
 pageContext.setAttribute("list", list);
 %>
-<%
-MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
-System.out.println(memVO.getIsMute());
-%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -110,6 +106,35 @@ System.out.println(memVO.getIsMute());
 .acess:active {
 	background-color: #E0E7E9;
 }
+
+.button2 {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #6C7A89;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 5px #999;
+}
+
+.acess1 {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #6C7A89;
+	border: none;
+	border-radius: 7px;
+}
 </style>
 </head>
 <body>
@@ -163,6 +188,11 @@ System.out.println(memVO.getIsMute());
 
 		<div class="items" id="items">
 
+			<c:if test="${memVO.isMute == 1}">
+				<div
+					style="color: #FF7878; font-weight: bolder; font-size: 37px; text-align: center;">您已被禁止使用討論區功能!</div>
+			</c:if>
+
 			<FORM METHOD="post"
 				ACTION="<%=request.getContextPath()%>/forum/powerSearchAllPost"
 				name="form1" style="display: inline-block; margin-left: 350px">
@@ -179,7 +209,14 @@ System.out.println(memVO.getIsMute());
 							<c:forEach var="forumVO" items="${list}">
 								<option value="${forumVO.forumNo}">${forumVO.forumName}
 							</c:forEach>
-					</select> <input class="acess" type="submit" value="search">
+					</select>
+					<c:if test="${memVO.isMute != 1}">
+						<input class="acess" type="submit" value="search">
+					</c:if>
+					<c:if test="${memVO.isMute == 1}">
+						<input class="acess1" type="submit" disabled="disabled"
+							value="search">
+					</c:if>
 				</div>
 
 			</FORM>
@@ -209,8 +246,7 @@ System.out.println(memVO.getIsMute());
 									name="forumNo" value="${forumVO.forumNo}">Enter</button>
 							</c:if>
 							<c:if test="${memVO.isMute == 1}">
-								<button type="submit" form="forma" class="button1"
-									name="forumNo" value="${forumVO.forumNo}">Close</button>
+								<button type="submit" class="button2" disabled="disabled">Close</button>
 							</c:if>
 						</div>
 					</div>

@@ -144,7 +144,7 @@ ForumMsgReportVO forumMsgReportVO = new ForumMsgReportVO();
 	<section name="pd_information" id="pd_description">
 		<FORM method="post"
 			action="<%=request.getContextPath()%>/forum/forumMemMsgReportInsert"
-			name="form1">
+			name="form1" id="form1">
 			<div>
 				<div>
 
@@ -159,10 +159,11 @@ ForumMsgReportVO forumMsgReportVO = new ForumMsgReportVO();
 			</div>
 			<div style="height: 8px;"></div>
 			<input type="hidden" name="forumMsgReportType" value="0"> <input
-				class="acess" type="submit" value="送出"><input type="hidden"
-				name="forumPostNo" value="${forumPostVO.forumPostNo}"> <input
-				type="hidden" name="forumMsgNo" value="${forumMsgVO.forumMsgNo}">
-			<input class="acess" type="reset" value="重設">
+				class="acess" type="button" value="送出" id="submit1"><input
+				type="hidden" name="forumPostNo" value="${forumPostVO.forumPostNo}">
+			<input type="hidden" name="forumMsgNo"
+				value="${forumMsgVO.forumMsgNo}"> <input class="acess"
+				type="reset" value="重設">
 			<div style="display: inline-block;">
 				<a
 					href="
@@ -213,5 +214,25 @@ ForumMsgReportVO forumMsgReportVO = new ForumMsgReportVO();
 	<!-- 外來區over -->
 	<!-- custom js file link-->
 	<script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		let submit1 = document.querySelector("#submit1");
+		submit1.addEventListener("click", function() {
+			if (form1.forumMsgReportWhy.value != "") {
+
+				swal("已收到您的留言檢舉！", "我們會盡快處理", "success");
+				setTimeout(returnPost, 3000);
+				function returnPost() {
+					document.querySelector("#form1").submit();
+				}
+
+			} else {
+
+				swal("檢舉內容空白！", "", "warning");
+				setTimeout(3000);
+			}
+		});
+	</script>
 </body>
 </html>

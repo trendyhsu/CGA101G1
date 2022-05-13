@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.swing.plaf.metal.MetalBorders.Flush3DBorder;
 
 import com.forum.model.ForumService;
 import com.forum.model.ForumVO;
@@ -105,7 +106,7 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 		// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
 		for (Part part : list) {
 			bis = new BufferedInputStream(part.getInputStream());
-			if (bis.available() > 1024) {
+			if (bis.available() > 10240) {
 				forumPostImgs = new byte[bis.available()];
 				bis.read(forumPostImgs);
 				forumPostPicSvc.addForumPostPic(forumPostNo, forumPostImgs);

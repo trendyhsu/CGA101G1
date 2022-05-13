@@ -188,9 +188,9 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 					<c:if test="${memVO.memNo==forumPostVO.memNo}">
 						<FORM METHOD="post"
 							ACTION="<%=request.getContextPath()%>/forum/myPostDelete"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="刪除文章" class="page"> <input
-								type="hidden" name="forumPostNo"
+							style="margin-bottom: 0px;" id="formA">
+							<input type="button" value="刪除文章" class="page" id="submitA">
+							<input type="hidden" name="forumPostNo"
 								value="${forumPostVO.forumPostNo}"> <input type="hidden"
 								name="memNo" value="${memVO.memNo}">
 						</FORM>
@@ -219,7 +219,7 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 
 		</div>
 
-		<div>
+		<div style="padding-top: 30px; padding-left: 20px;">
 			<c:if test="${forumPostPicVOs.size() != 0}">
 				<c:forEach var="forumPostPicVO" items="${forumPostPicVOs}">
 					<img
@@ -236,11 +236,16 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 		<div></div>
 		<div
 			style="display: inline-block; padding-top: 15px; padding-left: 15px;">
-			<a
-				href="
-			<%=request.getContextPath()%>/forum/forumPostCollectionInsert?forumPostNo=${forumPostVO.forumPostNo}">
-				<button class="button1">❤加入我的收藏</button>
-			</a>
+
+
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/forum/forumPostCollectionInsert"
+				style="margin-bottom: 0px;" id="formLove">
+				<input type="hidden" name="forumPostNo"
+					value="${forumPostVO.forumPostNo}">
+				<button class="button1" id="favouritePost" type="button">❤加入我的收藏</button>
+
+			</FORM>
 		</div>
 		<div style="display: inline-block;">
 			<c:if test="${memVO.memNo!=forumPostVO.memNo}">
@@ -286,16 +291,17 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 							<div class="my-4 p-3 bg-gray-100 border">
 								<form method="post"
 									action="<%=request.getContextPath()%>/forum/forumMsgInsert"
-									name="form1" id="forumA">
+									name="msgform" id="forumMsgForm">
 									<div class="row g-2">
 										<div class="col-sm-12">
 											<label class="form-label">寫下你的留言${errorMsgs.forumMsg}</label>
 											<textarea rows="5" class="form-control" name="forumMsg">${forumMsgVO.forumMsg}</textarea>
 										</div>
-
+										<input type="hidden" name="forumPostNo"
+											value="${forumPostVO.forumPostNo}">
 										<div class="col-sm-12 pt-2">
-											<button class="button1" form="forumA" type="submit"
-												name="forumPostNo" value="${forumPostVO.forumPostNo}">送出</button>
+											<button class="button1" form="forumA" type="button"
+												id="msgSubmit">送出</button>
 										</div>
 									</div>
 								</form>
@@ -390,6 +396,79 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 	<!-- 外來區over -->
 	<!-- custom js file link-->
 	<script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
+	
+	
+	let submitA = document.querySelector("#submitA");
+	if(submitA){
+		submitA.addEventListener("click",function(){
+			swal({ 
+				title: "刪除文章?",
+				  text: "",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "刪除",
+				  cancelButtonText: "取消",
+				  closeOnConfirm: false,
+				  showLoaderOnConfirm: true,
+				  closeOnCancel: true,
+				  allowOutsideClick: true
+				}).then(
+				function(isConfirm){ 
+				  if (isConfirm) {
+				    swal("刪除成功！", "","success")
+				    .then(() => {
+					setTimeout(postDelete, 3000);
+					function postDelete(){
+						document.querySelector("#formA").submit();
+					}
+				 }); 
+				  } else { 
+				    swal("刪除取消！", "",
+				"error"); 
+				  } 
+				});
+		})
+	}
+	
+	
+	
+	let favouritePost = document.querySelector("#favouritePost");
+	favouritePost.addEventListener("click", function() {
+		swal("❤已加入文章收藏", "", "success");
+		setTimeout(inLovePost, 3000);
+		function inLovePost() {
+			document.querySelector("#formLove").submit();
+		}
+	});
+	
+	
+	
+	let msgSubmit = document.querySelector("#msgSubmit");
+	msgSubmit.addEventListener("click", function() {
+		if (msgform.forumMsg.value != "") {
+
+			swal("留言成功！", "", "success");
+			setTimeout(returnPost, 3000);
+			function returnPost() {
+				document.querySelector("#forumMsgForm").submit();
+			}
+
+		} else {
+
+			swal("留言內容空白！", "", "warning");
+			setTimeout(3000);
+		}
+	});
+	
+	
+	
+	
+	
+	
+	</script>
 	<script type="text/javascript">
 		var filereader_support = typeof FileReader != 'undefined';
 

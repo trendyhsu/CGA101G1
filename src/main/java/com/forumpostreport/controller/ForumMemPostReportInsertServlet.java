@@ -39,7 +39,6 @@ public class ForumMemPostReportInsertServlet extends HttpServlet {
 		// 1.接收請求參數
 		Integer forumPostReportType = Integer.valueOf(request.getParameter("forumPostReportType").trim());
 		Integer forumPostNo = Integer.valueOf(request.getParameter("forumPostNo").trim());
-
 		String forumPostReportWhy = request.getParameter("forumPostReportWhy").trim();
 		if (forumPostReportWhy == null || forumPostReportWhy.trim().length() == 0) {
 			errorMsgs.put("forumPostReportWhy", ": 請勿空白");

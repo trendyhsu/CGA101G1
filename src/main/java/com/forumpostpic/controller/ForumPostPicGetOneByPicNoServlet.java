@@ -24,7 +24,6 @@ public class ForumPostPicGetOneByPicNoServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("image/gif");
 
 		Integer forumPostPicNo = Integer.valueOf(request.getParameter("forumPostPicNo").trim());
 
@@ -33,7 +32,7 @@ public class ForumPostPicGetOneByPicNoServlet extends HttpServlet {
 
 		ServletOutputStream out = response.getOutputStream();
 		out.write(forumPostPicVO.getForumPic());
-		
+
 		out.close();
 	}
 

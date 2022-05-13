@@ -137,7 +137,7 @@ ForumPostReportVO forumPostReportVO = new ForumPostReportVO();
 	<section name="pd_information" id="pd_description">
 		<FORM method="post"
 			action="<%=request.getContextPath()%>/forum/forumMemPostReportInsert"
-			name="form1">
+			name="form1" id="form1">
 			<div>
 				<div>
 
@@ -151,10 +151,11 @@ ForumPostReportVO forumPostReportVO = new ForumPostReportVO();
 				</div>
 			</div>
 			<div style="height: 8px;"></div>
-			<input type="hidden" name="forumPostReportType" value="0"> <input
-				class="acess" type="submit" value="送出" id="submit1"><input
-				type="hidden" name="forumPostNo" value="${forumPostVO.forumPostNo}">
-			<input class="acess" type="reset" value="重設">
+			<input type="hidden" name="forumPostReportType" value="0">
+			<button type="button" class="button1" id="submit1">送出</button>
+			<input type="hidden" name="forumPostNo"
+				value="${forumPostVO.forumPostNo}"> <input class="acess"
+				type="reset" value="重設">
 			<div style="display: inline-block;">
 				<a
 					href="
@@ -205,5 +206,24 @@ ForumPostReportVO forumPostReportVO = new ForumPostReportVO();
 	<!-- 外來區over -->
 	<!-- custom js file link-->
 	<script src="/CGA101G1/frontend/mainCss/js/script.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		let submit1 = document.querySelector("#submit1");
+		submit1.addEventListener("click", function() {
+			if (form1.forumPostReportWhy.value != "") {
+
+				swal("已收到您的文章檢舉！", "我們會盡快處理", "success");
+				setTimeout(returnPost, 3000);
+				function returnPost() {
+					document.querySelector("#form1").submit();
+				}
+
+			} else {
+
+				swal("檢舉內容空白！", "", "warning");
+				setTimeout(3000);
+			}
+		});
+	</script>
 </body>
 </html>

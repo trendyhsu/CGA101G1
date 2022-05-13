@@ -200,17 +200,17 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 		<div style="height: 8px"></div>
 
 
-		<div id="delete-form" style="position: relative;">
+		<div id="delete-form" style="position: relative;height:auto;width: auto;">
 			<form method="post"
 				ACTION="<%=request.getContextPath()%>/forum/forumPostPicDelete"
 				onsubmit="return checkConfirm();"
-				style="display: flex; align-items: center">
+				style="display: flex; align-items: center;">
 				<br>
 				<c:if test="${forumPostPicVOs.size() != 0}">
 
 					<c:forEach var="forumPostPicVO" items="${forumPostPicVOs}">
 						<div
-							style="border-style: solid; padding: 10px; border-radius: 10px">
+							style="border-style: solid; padding: 10px; border-radius: 10px;">
 							<input class="form-check-input"
 								style="width: 15px; height: 15px; margin-top: 55px;"
 								type="checkbox" name="forumPostPicNos"
@@ -223,8 +223,16 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 						&emsp;
 					</c:forEach>
 					<div style="display: block;">
-						<input type="hidden" name="forumPostNo"
-							value="${forumPostVO.forumPostNo}"> <input
+						<input type="hidden" name="forumNo"
+							value="${forumPostVO.forumNo}">
+							<input type="hidden" name="forumPostNo"
+							value="${forumPostVO.forumPostNo}">
+							<input type="hidden" name="forumPostType"
+							value="${forumPostVO.forumPostType}">
+							<input type="hidden" name="forumPostTitle"
+							value="${forumPostVO.forumPostTitle}">
+							<input type="hidden" name="forumPostContent"
+							value="${forumPostVO.forumPostContent}"> <input
 							class="button1" type="submit" style="margin-left: 10px;"
 							value="刪除">
 					</div>

@@ -35,6 +35,7 @@ public class ForumMemPostEditUpdateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面
@@ -98,7 +99,7 @@ public class ForumMemPostEditUpdateServlet extends HttpServlet {
 		// 使用 (is.available() > 1024) 過濾一起帶過來的文字資料
 		for (Part part : list) {
 			bis = new BufferedInputStream(part.getInputStream());
-			if (bis.available() > 1024) {
+			if (bis.available() > 10240) {
 				forumPostImgs = new byte[bis.available()];
 				bis.read(forumPostImgs);
 				forumPostPicSvc.addForumPostPic(forumPostNo, forumPostImgs);

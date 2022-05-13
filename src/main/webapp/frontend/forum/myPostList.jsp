@@ -183,12 +183,13 @@ input:active {
 							<td>
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/forum/myPostDelete"
-									style="margin-bottom: 0px;">
-									<input type="submit" value="刪除"
-										style="width: 37px; height: 37px;"> <input
-										type="hidden" name="forumPostNo"
-										value="${forumPostVO.forumPostNo}"> <input
-										type="hidden" name="memNo" value="${memVO.memNo}">
+									style="margin-bottom: 0px;"
+									id="deleteForm${forumPostVO.forumPostNo}">
+									<input type="button" value="刪除"
+										style="width: 37px; height: 37px;" class="deletePost"
+										id="${forumPostVO.forumPostNo}"> <input type="hidden"
+										name="forumPostNo" value="${forumPostVO.forumPostNo}">
+									<input type="hidden" name="memNo" value="${memVO.memNo}">
 								</FORM>
 							</td>
 						</tr>
@@ -216,6 +217,52 @@ input:active {
 	<!--Table -->
 	</main>
 	<!-- End Main -->
+
+
+	<script
+		src="https://cdn.bootcdn.net/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontend/mainCss/assets/js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+	// 刪除
+let deletePost = $(".deletePost");
+var targetNum = 0;
+if(deletePost){
+	deletePost.click(function(e){
+		targetNum = e.target.id;
+		swal({ 
+			  title: "確定刪除嗎？", 
+			  text: "", 
+			  type: "warning",
+			  showCancelButton: true, 
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "確定！", 
+			  cancelButtonText: "取消！",
+			  closeOnConfirm: false, 
+			  closeOnCancel: false  
+			}).then(
+			function(isConfirm){ 
+			  if (isConfirm) {
+			    swal("刪除成功！", "","success")
+			    .then(() => {
+				setTimeout(returnPostList, 3000);
+				function returnPostList(){
+					let deleteFormName = "#deleteForm"+targetNum;
+					document.querySelector(deleteFormName).submit();
+				}
+			 }); 
+			  } else { 
+			    swal("刪除取消！", "",
+			"error"); 
+			  } 
+			});
+	})
+}
+</script>
+
+
+
+
 </body>
 </html>
 <%@include file="/frontend/frontfoot.jsp"%>
