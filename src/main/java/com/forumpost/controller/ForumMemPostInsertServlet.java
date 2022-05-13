@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.plaf.metal.MetalBorders.Flush3DBorder;
 
 import com.forum.model.ForumService;
 import com.forum.model.ForumVO;
@@ -56,6 +55,10 @@ public class ForumMemPostInsertServlet extends HttpServlet {
 		Integer forumPostState = Integer.valueOf(request.getParameter("forumPostState").trim());
 		Integer forumPostType = Integer.valueOf(request.getParameter("forumPostType").trim());
 		Integer forumPostFeatured = Integer.valueOf(request.getParameter("forumPostFeatured").trim());
+
+		if (forumPostType.equals(Integer.valueOf(1))) {
+			forumPostFeatured = Integer.valueOf(1);
+		}
 
 		String forumPostTitle = request.getParameter("forumPostTitle").trim();
 

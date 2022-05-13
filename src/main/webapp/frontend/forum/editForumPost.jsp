@@ -10,6 +10,7 @@
 
 <%
 ForumVO forumVO = (ForumVO) request.getAttribute("forumVO");
+
 ForumPostVO forumPostVO = (ForumPostVO) request.getAttribute("forumPostVO");
 
 List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribute("forumPostPicVOs");
@@ -154,23 +155,54 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 						<div>
 							<c:if test="${memVO.memNo==forumVO.memNo}">
 								<input type="radio" id="master" name="forumPostType" value="1"
-									style="width: 16px; height: 16px">
+									style="width: 16px; height: 16px" checked="checked">
 								<label for="master" style="font-size: 15PX;">版主文章</label>
 
 							</c:if>
+							<c:if test="${forumPostVO.forumPostType==2}">
+								<input type="radio" id="attack" name="forumPostType" value="2"
+									style="width: 16px; height: 16px" checked="checked">
+								<label for="attack" style="font-size: 15PX;">攻略文章</label>
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType!=2}">
+								<input type="radio" id="attack" name="forumPostType" value="2"
+									style="width: 16px; height: 16px">
+								<label for="attack" style="font-size: 15PX;">攻略文章</label>
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType==3}">
+								<input type="radio" id="message" name="forumPostType" value="3"
+									style="width: 16px; height: 16px" checked="checked">
+								<label for="message" style="font-size: 15PX;">情報</label>
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType!=3}">
+								<input type="radio" id="message" name="forumPostType" value="3"
+									style="width: 16px; height: 16px">
+								<label for="message" style="font-size: 15PX;">情報</label>
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType==4}">
 
-							<input type="radio" id="attack" name="forumPostType" value="2"
-								checked style="width: 16px; height: 16px"> <label
-								for="attack" style="font-size: 15PX;">攻略文章</label> <input
-								type="radio" id="message" name="forumPostType" value="3"
-								style="width: 16px; height: 16px"> <label for="message"
-								style="font-size: 15PX;">情報</label> <input type="radio"
-								id="chat" name="forumPostType" value="4"
-								style="width: 16px; height: 16px"> <label for="chat"
-								style="font-size: 15PX;">閒聊</label> <input type="radio"
-								id="other" name="forumPostType" value="5"
-								style="width: 16px; height: 16px"> <label for="other"
-								style="font-size: 15PX;">其他</label>
+								<input type="radio" id="chat" name="forumPostType" value="4"
+									style="width: 16px; height: 16px" checked="checked">
+								<label for="chat" style="font-size: 15PX;">閒聊</label>
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType!=4}">
+
+								<input type="radio" id="chat" name="forumPostType" value="4"
+									style="width: 16px; height: 16px">
+								<label for="chat" style="font-size: 15PX;">閒聊</label>
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType==5}">
+								<input type="radio" id="other" name="forumPostType" value="5"
+									style="width: 16px; height: 16px" checked="checked">
+								<label for="other" style="font-size: 15PX;">其他</label>
+
+							</c:if>
+							<c:if test="${forumPostVO.forumPostType!=5}">
+								<input type="radio" id="other" name="forumPostType" value="5"
+									style="width: 16px; height: 16px">
+								<label for="other" style="font-size: 15PX;">其他</label>
+
+							</c:if>
 						</div>
 						<div class="col-sm-12" style="width: 90%">
 							<label class="form-label" style="font-size: 18px;">內容${errorMsgs.forumPostContent}</label>
@@ -192,6 +224,10 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 			<div style="display: inline-block;">
 				<a
 					href="
+			<%=request.getContextPath()%>/forum/forumPostMyPostMemNo">
+					<button class="button1" form="fake">返回我的文章</button>
+				</a> <a
+					href="
 			<%=request.getContextPath()%>/forum/selectOneForumAllPost?forumNo=${forumPostVO.forumNo}">
 					<button class="button1" form="fake">返回討論區</button>
 				</a>
@@ -200,7 +236,8 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 		<div style="height: 8px"></div>
 
 
-		<div id="delete-form" style="position: relative;height:auto;width: auto;">
+		<div id="delete-form"
+			style="position: relative; height: auto; width: auto;">
 			<form method="post"
 				ACTION="<%=request.getContextPath()%>/forum/forumPostPicDelete"
 				onsubmit="return checkConfirm();"
@@ -223,15 +260,13 @@ List<ForumPostPicVO> forumPostPicVOs = (List<ForumPostPicVO>) request.getAttribu
 						&emsp;
 					</c:forEach>
 					<div style="display: block;">
-						<input type="hidden" name="forumNo"
-							value="${forumPostVO.forumNo}">
-							<input type="hidden" name="forumPostNo"
-							value="${forumPostVO.forumPostNo}">
-							<input type="hidden" name="forumPostType"
-							value="${forumPostVO.forumPostType}">
-							<input type="hidden" name="forumPostTitle"
-							value="${forumPostVO.forumPostTitle}">
-							<input type="hidden" name="forumPostContent"
+						<input type="hidden" name="forumNo" value="${forumPostVO.forumNo}">
+						<input type="hidden" name="forumPostNo"
+							value="${forumPostVO.forumPostNo}"> <input type="hidden"
+							name="forumPostType" value="${forumPostVO.forumPostType}">
+						<input type="hidden" name="forumPostTitle"
+							value="${forumPostVO.forumPostTitle}"> <input
+							type="hidden" name="forumPostContent"
 							value="${forumPostVO.forumPostContent}"> <input
 							class="button1" type="submit" style="margin-left: 10px;"
 							value="刪除">

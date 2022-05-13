@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.forum.model.ForumService;
+import com.forum.model.ForumVO;
 import com.forumpost.model.ForumPostService;
 import com.forumpost.model.ForumPostVO;
 import com.forumpostpic.model.ForumPostPicService;
@@ -42,6 +44,9 @@ public class ForumMemPostOneServlet extends HttpServlet {
 		ForumPostService forumPostSvc = new ForumPostService();
 		ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(forumPostNo);
 
+		ForumService forumSvc = new ForumService();
+		ForumVO forumVO = forumSvc.getOneForum(forumPostVO.getForumNo());
+
 		ForumPostPicService forumPostPicSvc = new ForumPostPicService();
 
 		List<ForumPostPicVO> forumPostPicVOs = forumPostPicSvc.getOneForumTotalPostPic(forumPostNo);
@@ -50,6 +55,7 @@ public class ForumMemPostOneServlet extends HttpServlet {
 		// 從資料庫取forumPostVO 物件, 存入 request 中
 		request.setAttribute("forumPostVO", forumPostVO);
 		request.setAttribute("forumPostPicVOs", forumPostPicVOs);
+		request.setAttribute("forumVO", forumVO);
 
 		String url = "/frontend/forum/editForumPost.jsp";
 		// 成功轉交 editForumPost.jsp

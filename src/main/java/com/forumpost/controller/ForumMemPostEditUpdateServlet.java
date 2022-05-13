@@ -35,7 +35,6 @@ public class ForumMemPostEditUpdateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
 
 		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		// 存放錯誤訊息 以防我們需要丟出錯誤訊息到頁面

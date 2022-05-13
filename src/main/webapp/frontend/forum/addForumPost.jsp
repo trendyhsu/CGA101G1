@@ -151,23 +151,30 @@ ForumPostVO forumPostVO = new ForumPostVO();
 						<div>
 							<c:if test="${memVO.memNo==forumVO.memNo}">
 								<input type="radio" id="master" name="forumPostType" value="1"
-									style="width: 16px; height: 16px">
+									style="width: 16px; height: 16px" checked="checked">
 								<label for="master" style="font-size: 15PX;">版主文章</label>
 
 							</c:if>
 
 							<input type="radio" id="attack" name="forumPostType" value="2"
-								checked style="width: 16px; height: 16px"> <label
-								for="attack" style="font-size: 15PX;">攻略文章</label> <input
-								type="radio" id="message" name="forumPostType" value="3"
+								style="width: 16px; height: 16px"> <label for="attack"
+								style="font-size: 15PX;">攻略文章</label> <input type="radio"
+								id="message" name="forumPostType" value="3"
 								style="width: 16px; height: 16px"> <label for="message"
 								style="font-size: 15PX;">情報</label> <input type="radio"
 								id="chat" name="forumPostType" value="4"
 								style="width: 16px; height: 16px"> <label for="chat"
-								style="font-size: 15PX;">閒聊</label> <input type="radio"
-								id="other" name="forumPostType" value="5"
-								style="width: 16px; height: 16px"> <label for="other"
-								style="font-size: 15PX;">其他</label>
+								style="font-size: 15PX;">閒聊</label>
+							<c:if test="${memVO.memNo!=forumVO.memNo}">
+								<input type="radio" id="other" name="forumPostType" value="5"
+									style="width: 16px; height: 16px" checked="checked">
+								<label for="other" style="font-size: 15PX;">其他</label>
+							</c:if>
+							<c:if test="${memVO.memNo==forumVO.memNo}">
+								<input type="radio" id="other" name="forumPostType" value="5"
+									style="width: 16px; height: 16px">
+								<label for="other" style="font-size: 15PX;">其他</label>
+							</c:if>
 						</div>
 						<div class="col-sm-12" style="width: 90%">
 							<label class="form-label" style="font-size: 18px;">內容${errorMsgs.forumPostContent}</label>
