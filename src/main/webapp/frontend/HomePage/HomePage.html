@@ -15,8 +15,8 @@
     <link rel="stylesheet" href=".\\css\\headerStyle.css">
     <link rel="stylesheet" href=".\\css\\footerStyle.css">
     <link rel="stylesheet" href=".\\css\\headerFunctionStyle.css">
-
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
 </head>
 
 <body>
@@ -75,29 +75,25 @@
 		<div class="OneService">
 			<span>Don't worry! I'm here!</span> <img src=".\\images\\robot_hover.png">
 		</div>
-        <form class="mailForm">
+        <div class="mailForm">
 
             <div>
                 <i class="fas fa-solid fa-at"></i>
-
-                <!-- <label for="from"> 聯絡信箱</label> -->
-                <input type="text" id="from" placeholder="您的聯絡信箱">
+                <input type="email" id="from" placeholder="您的聯絡信箱">
             </div>
             <div>
                 <i class="fa-regular fa-envelope"></i>
-                <!-- <label for="title"> 信件標題</label> -->
                 <input type="text" id="title" placeholder="信件標題">
             </div>
             <div>
                 <i class="fas fa-regular fa-pencil"></i>
-                <!-- <label for="content">信件內容</label> -->
                 <textarea name="" id="content" cols="30" rows="10" placeholder="請將問題告訴我們!"></textarea>
             </div>
-            <button>
-                <i class="fas fa-regular fa-rocket" id="mailFormBtn"></i>送出
+            <button id="mailFormBtn">
+                <i class="fas fa-regular fa-rocket" ></i>送出
             </button>
 
-        </form>
+        </div>
 
 		<div class="callService">
 			<div><label>線上客服人員</label></div>
@@ -144,83 +140,6 @@
     </div>
 
     <!-- Robot div ends -->
-
-    <!--Login starts-->
-
-    <div action="" id="login-form">
-        <i class="fas fa-times" id="login-close"></i>
-
-
-        <div class="form-box">
-            <div class="button-box">
-                <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Log
-                    in</button>
-                <button type="button" class="toggle-btn" onclick="register()">Register</button>
-            </div>
-
-            <form id="login" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i> <input type="text" class="input-field"
-                        placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i> <input type="password" class="input-field"
-                        placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box"> <span>Remeber
-                        Password</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Log in</button>
-            </form>
-
-            <form id="register" class="input-group">
-                <div class="input-div">
-                    <i class="fas fa-solid fa-user-astronaut"></i> <input type="text" class="input-field"
-                        placeholder="Username" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-envelope"></i> <input type="email" class="input-field"
-                        placeholder="E-mail" required>
-                </div>
-                <div class="input-div">
-                    <i class="fas fa-solid fa-lock"></i> <input type="password" class="input-field"
-                        placeholder="Password" required>
-                </div>
-
-                <div class="others">
-                    <input type="checkbox" class="check-box"> <span>I
-                        agree to the terms & conditions</span>
-                </div>
-
-                <button type="submit" class="submit-btn">Register</button>
-            </form>
-
-        </div>
-
-    </div>
-
-    <!-- Login ends -->
-
-    <!-- search form starts-->
-
-    <form action="" id="search-form">
-        <div class="search-group">
-
-            <input type="search" placeholder="search here..." name="" id="search-box"> <label for="search-box"
-                class="fas fa-search"></label>
-
-        </div>
-
-
-        <i class="fas fa-times" id="search-close"></i>
-    </form>
-
-    <!-- search form ends-->
-
 
 
     <!-- shopping-cart div starts -->

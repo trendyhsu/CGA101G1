@@ -198,7 +198,7 @@ function showTop9Items(data){
 			str += `<div class="box">
                     <div class="flag">${count}</div>
                     <div class="trangle"></div>
-                    <a href="#" class="fas fa-heart"></a>
+                    <i class="fas fa-heart"></i>
                     <a class="item-img-container" href="${item.productDetailPageURL}">
                         <img src="${item.imgURL}" alt="">
                     </a>
@@ -217,6 +217,7 @@ function showTop9Items(data){
 		count++;
 	}
 	boxContainer.innerHTML = str;
+	
 	let top9btns = document.querySelectorAll('button.btn-3');
 	top9btns.forEach(function(btn){
 		btn.addEventListener('click',(e)=>{
@@ -231,6 +232,17 @@ function showTop9Items(data){
 			setTimeout(()=>{document.querySelector('#shopping-cart').classList.remove('active');},2000);
 		})
 	})
+	
+//	let hearts = document.querySelectorAll('#items .box-container .box i');
+//	hearts.forEach(function(heart){
+//		heart.addEventListener('click',()=>{
+//			$.ajax({
+//				
+//			})
+//			
+//			
+//		})
+//	})
 }
 
 

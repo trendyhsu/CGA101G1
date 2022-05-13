@@ -91,7 +91,6 @@ $('.service-form').click(function(event) {
 	/*----------------------------------------*/
 })
 function emailBackToChat() {
-	console.log("yes");
 	emailForm.style.display = 'none';
 	chatContent.style.display = 'flex';
 	serviceMenu.addEventListener('click', serviceTog);
@@ -102,9 +101,25 @@ function emailBackToChat() {
 }
 
 /*表單回報送出按鈕*/
-let mailBtn = document.querySelector('#mailFormbtn');
+let mailBtn = document.querySelector('#mailFormBtn');
 mailBtn.addEventListener('click', () => {
-	emailForm.style.display = 'none';
+	let receiver = document.getElementById('from');
+	let title = document.getElementById('title');
+	let content = document.getElementById('content');
+
+	$.ajax({
+		url: `/CGA101G1/service/mailform?receiver=${receiver.value}&title=${title.value}&content=${content.value}`,
+		type: 'post',
+		success: function(data) {
+			robotMessage(data);
+			if(data=="阿帕已成功幫您寄出信件囉!"){
+			document.getElementById('from').value = '';
+			document.getElementById('title').value = '';
+			document.getElementById('content').value = '';
+			}
+		}
+	})
+	emailBackToChat();
 });
 
 /*-----------------------------Service客服聊天室--------------------------------*/
@@ -347,7 +362,7 @@ function chooseFile() {
 		fileReader.onload = function(e) {
 			if (webSocket !== null) {
 				console.log(e.target.result);
-//				e.target.result.replace(replacements);
+				//				e.target.result.replace(replacements);
 				let jsonObj = {
 					"type": "picture",
 					"sender": self,

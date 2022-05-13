@@ -60,7 +60,6 @@ function showCart(data) {
     let trashs = document.querySelectorAll('#shopping-cart i');
 	trashs.forEach(function(trash){
 	trash.addEventListener('click',(e)=>{
-		console.log("here to delete item");
 		let productNo = e.target.getAttribute('productno');
 		let productSales = e.target.getAttribute('productsales');
 		let productName = e.target.getAttribute('productname');
@@ -75,8 +74,9 @@ function showCart(data) {
 		type: 'post',
 		success: function(data) {
 			showCart(data);
-		}
-	});
+			}
+		});
+
 	})
 })
 
