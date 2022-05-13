@@ -34,10 +34,10 @@ public class ForumPostMyPostMemNoServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		ForumPostService forumPostSvc = new ForumPostService();
-		List<ForumPostVO> forumPostVOs = forumPostSvc.findMyPost(memNo);
+		List<ForumPostVO> forumPostSessionVOs = forumPostSvc.findMyPost(memNo);
 
 		// 將過濾好的VO放置於request scope內
-		request.setAttribute("forumPostVOs", forumPostVOs);
+		request.getSession().setAttribute("forumPostSessionVOs", forumPostSessionVOs);
 		request.setAttribute("memVO", memVO);
 
 		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/myPostList.jsp");
