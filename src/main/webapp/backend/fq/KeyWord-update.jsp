@@ -35,10 +35,13 @@
 						<li><label style="text-decoration: line-through;">關鍵字編號</label></li>
 						<li><input type="text" disabled value="${fqKeyWordVO.fqKeyWordNo}"></li>
 						<li><label>關鍵字</label></li>
-						<li><input type="text" name="fqKeyWordContent" value="${fqKeyWordVO.fqKeyWordContent}"></li>
+						<li><input type="text" name="fqKeyWordContent" value="${fqKeyWordVO.fqKeyWordContent}" required></li>
 						<li><label>回應內容</label></li>
-						<li><input type="text" name="answerContent" value="${fqKeyWordVO.answerContent}"></li>
-					<li><input type="hidden" name="fqKeyWordNo" readonly value="${fqKeyWordVO.fqKeyWordNo}"></li>
+						<li><input type="text" name="answerContent" value="${fqKeyWordVO.answerContent}" required></li>
+					<li><input type="hidden" name="fqKeyWordNo" value="${fqKeyWordVO.fqKeyWordNo}"></li>
+					<li><input type="hidden" name="requestURL" value="<%=request.getRequestURI()%>"></li>  
+					<li>${errorMsgs.fqKeyWordContent}</li>
+					<li>${errorMsgs.answerContent}</li>
 						
 					</ul>
 

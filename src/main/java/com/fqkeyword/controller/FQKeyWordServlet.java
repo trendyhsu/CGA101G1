@@ -98,7 +98,6 @@ public class FQKeyWordServlet extends HttpServlet{
 			try {
 				/***************************1.接收請求參數****************************************/
 				Integer fqKeyWordNo = Integer.valueOf(req.getParameter("fqKeyWordNo"));
-				
 				/***************************2.開始查詢資料****************************************/
 				FQKeyWordService fqSvc = new FQKeyWordService();
 				FQKeyWordVO fqKeyWordVO = fqSvc.getOne(fqKeyWordNo);
@@ -138,11 +137,9 @@ public class FQKeyWordServlet extends HttpServlet{
 					errorMsgs.put("answerContent","【回應內容】請勿空白");
 				}
 												
-				// Send the use back to the form, if there were errors
-				String location = req.getParameter("requestURL");
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher(location);
+							.getRequestDispatcher("/backend/fq/KeyWord-update.jsp");
 					failureView.forward(req, resp);
 					return; //程式中斷
 				}

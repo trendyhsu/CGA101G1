@@ -33,3 +33,9 @@ section {
     margin: 3rem;
 
 }
+
+@media ( max-width :550px) {
+	.news-title {
+    font-size: 28px;
+	}
+}

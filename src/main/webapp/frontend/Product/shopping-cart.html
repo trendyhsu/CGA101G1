@@ -44,12 +44,6 @@
 
 <body>
 
-    <!-- Preload -->
-    <!-- <div id="loading" class="preloader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div> -->
     <!-- End Preload -->
     <!-- header section starts-->
 
@@ -57,7 +51,7 @@
 
         <div class="logo-div">
             <img src="/CGA101G1/frontend/mainCss/images/logo.png" alt="">
-            <a href="/CGA101G1/frontend/HomePage.html" class="logo">帕Game</a>
+            <a href="/CGA101G1/frontend/HomePage/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
@@ -123,13 +117,14 @@
             <div class="container">
                 <!-- Cart Table -->
                 <div class="table-content table-responsive cart-table-content">
+                    <H2>購物車明細</H2>
                     <table class="table table-bordered align-middle">
                         <thead>
-                            <tr class="text-uppercase">
+                            <tr class="text-uppercase" style="font-size: large;">
                                 <th class="text-dark text-center fw-500 text-nowrap">遊戲名稱</th>
                                 <th class="text-dark text-center fw-500 text-nowrap">單價</th>
                                 <th class="text-dark text-center fw-500 text-nowrap">數量</th>
-                                <th class="text-dark text-center fw-500 text-nowrap">總數</th>
+                                <th class="text-dark text-center fw-500 text-nowrap">總金額</th>
                                 <th class="text-dark fw-500 text-center text-nowrap">移除購買項目</th>
                             </tr>
                         </thead>
@@ -186,26 +181,26 @@
                 <div v-if="(this.datastore.length != 0)">
                     <form class="card mt-5" action="/CGA101G1/order/addtoOrderAndOrderlist" method="post">
                         <div class="card-header py-3">
-                            <h6 class="m-0">請填寫訂購資料</h6>
+                            <h4 class="m-0">請填寫訂購資料</h4>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="ReceiverName">收件人姓名</label>
+                                    <label class="form-label" style="font-size: 1.5em;" for="ReceiverName">收件人姓名</label>
                                     <input class="form-control" type="text" id="ReceiverName" required
                                         name="ReceiverName" @change="nameCheck($event)" v-model="memInfo.memName">
                                     <div style="color: red;" :style="{visibility: nameInput ? 'visible' : 'hidden'}">
                                         請輸入正確格式的名字，不應包含特殊符號、數字或是只填空格!!</div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="ReceiverPhone">聯絡手機</label>
+                                    <label class="form-label" for="ReceiverPhone" style="font-size: 1.5em;">聯絡手機</label>
                                     <input class="form-control" type="number" id="ReceiverPhone" required
                                         name="ReceiverPhone" @change="phoneCheck($event)" v-model="memInfo.memMobile">
                                     <div style="color: red;" :style="{visibility: phoneInput ? 'visible' : 'hidden'}">
                                         請輸入正確的手機格式!!</div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="Rod">地址</label>
+                                    <label class="form-label" for="Rod" style="font-size: 1.5em;">地址</label>
                                     <input class="js-demeter-tw-zipcode-selector form-control" data-city="#city4"
                                         data-dist="#dist4" placeholder="請輸入郵遞區號" v-model="postNo" hidden>
                                     <select id="city4" placeholder="請選擇縣市" class="form-select" name="city" required>
@@ -218,13 +213,13 @@
                                         請輸入正確格式的地址，不應包含特殊符號及英文或是只填空格!!</div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="PickupMethod">取貨方式</label>
+                                    <label class="form-label" for="PickupMethod" style="font-size: 1.5em;">取貨方式</label>
                                     <select class="form-select" id="PickupMethod" required name="PickupMethod"
                                         @change="feeCheck($event)">
                                         <option value="0">宅配</option>
                                         <option value="1">超商取貨</option>
                                     </select>
-                                    <label class="form-label" for="shippingFee">運費</label>
+                                    <label class="form-label" for="shippingFee" style="font-size: 1.5em;">運費</label>
                                     <select class="form-select" id="shippingFee" disabled name="shippingFee"
                                         :value="shippingFeeCal">
                                         <option value="0">宅配運費:100元</option>
@@ -232,38 +227,37 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="payMethod">付款方式</label>
+                                    <label class="form-label" for="payMethod" style="font-size: 1.5em;">付款方式</label>
                                     <select class="form-select" id="payMethod" required name="payMethod">
                                         <option value="0">信用卡</option>
                                         <option value="1">超商取貨付款</option>
                                         <option value="2">匯款</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6 col-lg-8">
-                                    <div class="card">
-                                        <div class="card-header bg-transparent py-3">
-                                            <h6 class="m-0">Use Coupon Code</h6>
-                                        </div>
-                                        <div class="card-body ">
-                                            <div class="form-group mb-3">
-                                                <label class="form-label">優惠券</label>
-                                                <select class="form-select" id="MemCouponNo" required
-                                                    @change="getCoup($event)">
-                                                    <option value="0">不使用優惠券</option>
-                                                    <option v-for="(item, index) in coupons" :key="index"
-                                                        :value="item.discountPrice+a+item.couponTypeNo">
-                                                        {{item.couponTypeNo}}：優惠金額-{{item.discountPrice}}</option>
-                                                </select>
-                                                <input :value="memCouponNo" name="MemCouponNo">
-                                                <input :value="selectCouponNo" name="couponTypeNo">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 col-lg-8" style="width: 50%;">
+                                    <!-- <div class="card"> -->
+                                    <!-- <div class="card-header bg-transparent py-3" style="padding-bottom:0;">
+                                            <h3>使用優惠券</h3>
+                                        </div> -->
+                                    <!-- <div class="card-body ">
+                                        <div class="form-group mb-3"> -->
+                                    <label class="form-label" style="font-size: 1.5em;">我的優惠券清單</label>
+                                    <select class="form-select" id="MemCouponNo" required @change="getCoup($event)">
+                                        <option value="0">不使用優惠券</option>
+                                        <option v-for="(item, index) in coupons" :key="index"
+                                            :value="item.discountPrice+a+item.couponTypeNo">
+                                            優惠券編號：{{item.couponTypeNo}}：優惠金額-{{item.discountPrice}}</option>
+                                    </select>
+                                    <input :value="memCouponNo" name="MemCouponNo" hidden>
+                                    <input :value="selectCouponNo" name="couponTypeNo" hidden>
+                                    <!-- </div>
+                                    </div> -->
+                                    <!-- </div> -->
                                 </div>
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-sm-6" style="width: 49%;">
                                     <div class="card">
                                         <div class="card-header bg-transparent py-3">
-                                            <h6 class="m-0 mb-1">Order Total</h6>
+                                            <h6 class="m-0 mb-1" style="font-size: 1.8em;">本次訂單</h6>
                                         </div>
                                         <!-- 結帳 -->
                                         <div class="card-body ">
@@ -282,22 +276,32 @@
                                                 </li>
                                                 <li
                                                     class="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
-                                                    <h6 class="me-2">最後所需支付總價</h6>
-                                                    <input type="text" :value="totalPrice-selectCoupon+shipFeeConfirm"
-                                                        name="OrderTotalPrice">
+                                                    <h6 class="me-2" style="font-size: 1.8em;">最後所需支付總價： <input
+                                                            type="text" :value="totalPrice-selectCoupon+shipFeeConfirm"
+                                                            name="OrderTotalPrice"></h6>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="submit" value="送出訂單" class="btn btn-primary" v-show="ckeckoutOK">
+                                    <input type="submit" value="送出訂單" class="btn btn-primary" v-show="ckeckoutOK"
+                                        @click="return foo();">
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+                <div v-if="loading"
+                    style="position:fixed;left: 40%; top: 40%;background-color: rgb(87, 98, 107); width: 20%;">
+                    <div style="margin-left: 35%; margin-top: 5%">
+                        <h3 style="color: white;">成立訂單中....</h3>
+                    </div>
 
+                    <div class="spinner-border text-info" style="margin-left: 45%; margin-top: 2%" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Cart Table -->
@@ -392,6 +396,7 @@
                 memCouponNo: 0,
                 postNo: 0,
                 form: false,
+                loading: false,
                 a: ",",
                 //表單驗證用
                 nameInput: false,
@@ -533,6 +538,10 @@
 
                 }
             },
+            foo() {
+                this.loading = true;
+                return true;
+            }
 
 
 
