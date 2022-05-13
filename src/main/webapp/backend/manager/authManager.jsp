@@ -88,16 +88,16 @@ h3 {
 				<!-- 		主要修改資訊區 -->
 				<div>
 					<form method="post"
-						action="<%=request.getContextPath()%>/managerauth/managerEditAuth"
+						action="<%=request.getContextPath()%>/managerAuth/managerAuthCR"
 						name="form1">
 						<table>
 						
 						<thead>
 							<tr>
-								<th><i class="fa fa-camera"></i>權限種類</th>
-								<th><i class="fa fa-camera"></i>新增權限</th>
-							<tr>
-					
+								<th><i class="fa-solid fa-align-left"></i> 權限種類</th>
+								<th><i class="fa-solid fa-check"></i> 新增權限</th>
+							</tr>
+						</thead>
 <jsp:useBean id="managerAuthSvc" scope="page" class="com.managerauthrizationfunction.model.ManagerAuthrizationFunctionService" />
 							<tr>
 							

@@ -60,16 +60,16 @@ Integer memNo = memVO.getMemNo();
 
         <div class="logo-div">
             <img src="<%=request.getContextPath()%>/frontend/mainCss/images/logo.png" alt="">
-            <a href="<%=request.getContextPath()%>/frontend/HomePage.html" class="logo">帕Game</a>
+            <a href="/CGA101G1/frontend/HomePage/HomePage.html" class="logo">帕Game</a>
         </div>
 
 
         <nav class="navbar">
             <!-- 上方標籤列 -->
-            <a class="active" href="<%=request.getContextPath()%>/frontend/HomePage.html">首頁</a>
+            <a class="active" href="/CGA101G1/frontend/HomePage/HomePage.html">首頁</a>
             <a href="<%=request.getContextPath()%>/frontend/Product/HomePageinshop.html" class="nav-link">遊戲商城</a>
             <a href="<%=request.getContextPath()%>/frontend/bid/listallbid.html" class="nav-link">二手競標商城</a>
-            <a href="<%=request.getContextPath()%>/frontend/forum/ForumAllHome.html" class="nav-link">遊戲討論區</a>
+            <a href="/CGA101G1/frontend/forum/forumHomePage.jsp" class="nav-link">遊戲討論區</a>
         </nav>
 
         <div class="icons">

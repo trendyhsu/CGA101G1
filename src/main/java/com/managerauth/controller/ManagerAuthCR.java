@@ -56,6 +56,7 @@ public class ManagerAuthCR extends HttpServlet {
 		ManagerAuthService managerAuthService = new ManagerAuthService();
 		List<ManagerAuthVO> list = managerAuthService.getFunction(managerNo);
 		System.out.println(list);
+
 		// 刪除所有managerNo的權限
 		managerAuthService.deleteOneManagerAuthrizationFunction(managerNo);
 		

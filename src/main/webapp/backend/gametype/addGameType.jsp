@@ -14,28 +14,76 @@
 
 <style>
 table {
-/* 	background-color: white; */
-	margin-bottom: 5px;
-	font-size: 13px;
-	color:black;
+	border-collapse: collapse;
 }
 
-table, th, td {
-	border-bottom: 1px solid #CCC;
-	font-weight:bold;
+th {
+	font-size: larger;
+	margin: 1em auto;
 }
 
 th, td {
-	padding: 5px;
-	text-align: left;
-}
-.uploadedImg{
-padding: 10px
+	padding: .65em;
 }
 
-h3{
-font-weight: bold;
-color: #547492;
+th {
+	background: rgb(84,117,147);
+	color: #fff;
+}
+
+th:first-child {
+	border-radius: 9px 0 0 0;
+}
+
+th:last-child {
+	border-radius: 0 9px 0 0;
+}
+
+tr:last-child td:first-child {
+	border-radius: 0 0 0 9px;
+}
+
+tr:last-child td:last-child {
+	border-radius: 0 0 9px 0;
+}
+
+tbody tr:hover {
+	background: linear-gradient(#E0E7E9, #B2CDCC);
+}
+
+#pageNumber, #dataNumber {
+	float: right;
+}
+
+input {
+	background-color: #E0E7E9;
+	border-radius: 5px
+}
+
+input:active {
+	background-color: #fff;
+}
+
+.button1 {
+	display: inline-block;
+	padding: 3px 7px;
+	font-size: 10px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+}
+
+.button1:hover {
+	background-color: #A3C6C4
+}
+
+.button1:active {
+	background-color: #E0E7E9;
 }
 </style>
 

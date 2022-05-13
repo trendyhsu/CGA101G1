@@ -20,18 +20,77 @@ pageContext.setAttribute("list", list);
 <title>管理員管理</title>
 
 <style type="text/css">
+table {
+	border-collapse: collapse;
+}
+
 th {
-	border-bottom-style: solid;
-	background-color: #b2cdcc;
+	font-size: larger;
+	margin: 1em auto;
 }
 
-td {
-	border-bottom-style: solid;
+th, td {
+	padding: .65em;
 }
 
-h3 {
-	font-weight: bold;
-	color: #547492;
+th {
+	background: rgb(84,117,147);
+	color: #fff;
+}
+
+th:first-child {
+	border-radius: 9px 0 0 0;
+}
+
+th:last-child {
+	border-radius: 0 9px 0 0;
+}
+
+tr:last-child td:first-child {
+	border-radius: 0 0 0 9px;
+}
+
+tr:last-child td:last-child {
+	border-radius: 0 0 9px 0;
+}
+
+tbody tr:hover {
+	background: linear-gradient(#E0E7E9, #B2CDCC);
+}
+
+#pageNumber, #dataNumber {
+	float: right;
+}
+
+input {
+	background-color: #E0E7E9;
+	border-radius: 5px
+}
+
+input:active {
+	background-color: #fff;
+}
+
+.button1 {
+	display: inline-block;
+	padding: 3px 7px;
+	font-size: 10px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #547492;
+	border: none;
+	border-radius: 7px;
+}
+
+.button1:hover {
+	background-color: #A3C6C4
+}
+
+.button1:active {
+	background-color: #E0E7E9;
 }
 </style>
 
@@ -39,7 +98,7 @@ h3 {
 <body>
 	<!--main content start-->
 	<section id="main-content">
-		<section class="wrapper">
+		<section class="">
 
 			<div id="bid-content">
 
@@ -64,7 +123,7 @@ h3 {
 				<div class="content-panel">
 					<table class="table table-striped">
 						<h4>
-							<i class="fa fa-angle-right"></i> 管理員列表
+							<i class=""></i> 管理員列表
 							
 						</h4>
 
@@ -85,8 +144,8 @@ h3 {
 								<th><i class="fa fa-camera"></i>照片</th>
 								<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
 								<th><i class="fa fa-bookmark"></i> 姓名</th>
-								<th><i class=" fa fa-edit"></i>手機</th>
-								<th><i class=" fa fa-edit"></i>狀態</th>
+								<th><i class=" fa fa-phone"></i>手機</th>
+								<th><i class=""></i>狀態</th>
 								<th><i class=" fa fa-edit"></i></th>
 								<th></th>
 							</tr>
@@ -101,7 +160,7 @@ h3 {
 									<td class="hidden-phone" style="line-height:100px;">${managerVO.managerNo}</td>
 									<td style="line-height:100px;">${managerVO.managerName}</td>
 									<td style="line-height:100px;">${managerVO.managerPhone}</td>
-									<td style="line-height:100px;"><span class="label label-info label-mini">
+									<td style="line-height:100px;"><span class="label label-info">
 									<c:if test="${managerVO.managerState == 0}">在職</c:if>
 									<c:if test="${managerVO.managerState == 1}">離職</c:if>
 									</span>
@@ -109,20 +168,22 @@ h3 {
 									</td>
 								
 									<td>
-										<div sytle="float:left">
+										<div sytle="">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/manager/managerEdit"
-											style="margin-top: 40px;">
-											<input class="btn btn-primary btn-sm" type="submit" value="修改"> 
+											style="">
+											<input class="btn btn-primary btn-sm" type="submit" value="修改" 
+											style="float:left;margin-top:35px;"> 
 											<input type="hidden"
 												name="managerNo" value="${managerVO.managerNo}">
 										</FORM>
 										</div>
-										<div sytle="float:right">
+										<div sytle="float:left;">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/managerauth/managerEditAuth"
-											style="margin-top: 40px;">
-											<input class="btn btn-primary btn-sm" type="submit" value="權限" sytle=""> 
+											style="">
+											<input class="btn btn-primary btn-sm" type="submit" value="權限" 
+											style="float:left;margin-top:35px;margin-left:6px;"> 
 											<input type="hidden"
 												name="managerNo" value="${managerVO.managerNo}">
 										</div>

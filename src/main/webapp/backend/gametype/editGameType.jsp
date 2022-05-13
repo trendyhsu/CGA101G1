@@ -30,7 +30,7 @@ pageContext.setAttribute("list", list);
 		<table id="table-1">
 			<tr>
 				<td>
-			 		<h3>新增遊戲種類</h3>
+			 		<h3>修改遊戲種類</h3>
 				</td>
 			</tr>
 		</table>
@@ -50,7 +50,7 @@ pageContext.setAttribute("list", list);
 		<form method="post"
 			action="<%=request.getContextPath()%>/gametype/gameTypeEdit"
 			name="form1" enctype="multipart/form-data">
-			<table class="showback">
+			<table class="">
 				<tr>
 				
 					
