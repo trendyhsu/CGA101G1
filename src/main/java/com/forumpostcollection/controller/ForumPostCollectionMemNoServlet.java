@@ -33,10 +33,10 @@ public class ForumPostCollectionMemNoServlet extends HttpServlet {
 		request.setAttribute("errorMsgs", errorMsgs);
 
 		ForumPostCollectionService forumPostCollectionSvc = new ForumPostCollectionService();
-		List<ForumPostCollectionVO> forumPostCollectionVOs = forumPostCollectionSvc.getOwenrAllPostCollection(memNo);
+		List<ForumPostCollectionVO> forumPostCollectionSessionVOs = forumPostCollectionSvc.getOwenrAllPostCollection(memNo);
 
 		// 將過濾好的VO放置於request scope內
-		request.setAttribute("forumPostCollectionVOs", forumPostCollectionVOs);
+		request.getSession().setAttribute("forumPostCollectionSessionVOs", forumPostCollectionSessionVOs);
 
 		RequestDispatcher successView = request.getRequestDispatcher("/frontend/forum/myFavouritePost.jsp");
 		successView.forward(request, response);

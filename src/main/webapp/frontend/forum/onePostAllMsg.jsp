@@ -399,7 +399,7 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 	
-	
+	var memJS ="<c:out value='${memVO.memNo}'/>";
 	let submitA = document.querySelector("#submitA");
 	if(submitA){
 		submitA.addEventListener("click",function(){
@@ -437,10 +437,18 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 	
 	let favouritePost = document.querySelector("#favouritePost");
 	favouritePost.addEventListener("click", function() {
+		
+     if(memJS.length == 0){
+			swal("請先登錄!", "", "warning");
+			setTimeout(3000);
+			
+		} else {
+		
 		swal("❤已加入文章收藏", "", "success");
 		setTimeout(inLovePost, 3000);
 		function inLovePost() {
 			document.querySelector("#formLove").submit();
+		}
 		}
 	});
 	
@@ -448,7 +456,13 @@ pageContext.setAttribute("forumPostPicVOs", forumPostPicVOs);
 	
 	let msgSubmit = document.querySelector("#msgSubmit");
 	msgSubmit.addEventListener("click", function() {
-		if (msgform.forumMsg.value != "") {
+	
+		if(memJS.length == 0){
+			
+			swal("請先登錄!", "", "warning");
+			setTimeout(3000);
+			
+		} else if (msgform.forumMsg.value != "") {
 
 			swal("留言成功！", "", "success");
 			setTimeout(returnPost, 3000);

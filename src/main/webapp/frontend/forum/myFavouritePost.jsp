@@ -7,7 +7,8 @@
 <%@include file="/frontend/fronthead.jsp"%>
 
 <%
-List<ForumPostCollectionVO> list = (List<ForumPostCollectionVO>) request.getAttribute("forumPostCollectionVOs");
+List<ForumPostCollectionVO> list = (List<ForumPostCollectionVO>) request.getSession()
+		.getAttribute("forumPostCollectionSessionVOs");
 pageContext.setAttribute("list", list);
 %>
 
