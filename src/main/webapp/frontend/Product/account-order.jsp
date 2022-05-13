@@ -73,6 +73,16 @@
                                 @skip-page="skipPage" @previous-page="previousPage" @next-page="nextPage">
                             </pagination-list>
                         </nav>
+                <div v-show="loading"
+                    style="position:fixed;left: 40%; top: 40%;background-color: rgb(87, 98, 107); width: 20%;">
+                    <div style="margin-left: 35%; margin-top: 5%">
+                        <h3 style="color: white;">訂單搜尋中</h3>
+                    </div>
+
+                    <div class="spinner-border text-info" style="margin-left: 45%; margin-top: 2%" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                     </div>
                     <!-- End Content -->
                 </div>
@@ -118,6 +128,7 @@
                     gametype: [],
                     gameplatform: [],
                     ProductName: [],
+                    loading: true,
                     //驗證表單用
 
 
@@ -139,8 +150,10 @@
                             )
                         );
                     }
+                    this.loading=!this.loading;
                 },
                 getOrderData() {
+                	
                     const apiUrl = '/CGA101G1/product/showAllOrderAndDetailsByMemNo';
                     axios.get(apiUrl)
                         // 一定要用箭頭函示!!!!
@@ -154,6 +167,7 @@
                                 this.temp.push(e);
                             }
                             this.renderingPage();
+                            
 
 
 
@@ -247,7 +261,9 @@
                 }
             },
             created() {
+            	
                 this.getOrderData();
+               
 
             }
         })

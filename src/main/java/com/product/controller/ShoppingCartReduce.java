@@ -31,8 +31,8 @@ public class ShoppingCartReduce extends HttpServlet {
 		response.setContentType("text/html ; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
-		Integer memNo = memVO.getMemNo();
+//		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
+//		Integer memNo = memVO.getMemNo();
 //		System.out.println("現在登入的會員編號是：" + memNo);
 //		String memNo = "11001";
 //		List<Orderdetail> orderList = new ArrayList<Orderdetail>();
