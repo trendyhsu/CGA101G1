@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.fqkeyword.model.FQKeyWordService;
 import com.fqkeyword.model.FQKeyWordVO;
@@ -138,6 +138,11 @@ public class FQKeyWordServlet extends HttpServlet{
 				}
 												
 				if (!errorMsgs.isEmpty()) {
+					FQKeyWordVO fqKeyWordVO = new FQKeyWordVO();
+					fqKeyWordVO.setFqKeyWordNo(fqKeyWordNo);
+					fqKeyWordVO.setFqKeyWordContent(fqKeyWordContent);
+					fqKeyWordVO.setAnswerContent(answerContent);
+					req.setAttribute("fqKeyWordVO", fqKeyWordVO);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/backend/fq/KeyWord-update.jsp");
 					failureView.forward(req, resp);

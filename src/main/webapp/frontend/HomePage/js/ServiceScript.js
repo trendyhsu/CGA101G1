@@ -159,7 +159,9 @@ function connect() {
 	webSocket = new WebSocket(endPointURL);
 	webSocket.onopen = function(event) {
 		console.log('Connect Success!');//----------------------------------1
-		chatContent.append('已連線!左下角X離開');//--------------------------2
+		chatContent.style.marginTop = '0px';
+		document.querySelector('.marquee').style.display = 'block';
+		
 		serviceMenu.classList.add('fa-times');
 		serviceMenu.removeEventListener('click', serviceTog);
 		serviceMenu.addEventListener('click', function() {
@@ -179,21 +181,24 @@ function connect() {
 			chatContent.scrollTop = chatContent.scrollHeight;
 		}
 
-		if ("picture" === jsonObj.type && jsonObj.sender !== self) {
-			//			let newAnswer = document.querySelector('#service .OneService').cloneNode(true);
-			//			let messageLine = document.createElement('div');
-			//			messageLine.classList.add('messageLine');
-			//			newAnswer.style.display = 'flex';
-			//			newAnswer.firstChild.nextSibling.textContent = answer;
-			//			messageLine.append(newAnswer);
-			//			chatContent.append(messageLine);
-		}
+		if ("picture" === jsonObj.type) {
+				let div = document.createElement('div');
+				div.classList.add('img-messageLine');
+				let img = document.createElement('img');
+				img.setAttribute('src', jsonObj.message);
+				div.append(img);
+				chatContent.append(div);
+				chatContent.scrollTop = chatContent.scrollHeight;		}
 	};
 	webSocket.onclose = function(event) {
 		console.log("Disconnected!");
+		document.querySelector('.marquee').style.display = 'none';
+		chatContent.style.marginTop = '50px';
+		chatContent.innerHTML = '';
 		$('#service .content').on('DOMSubtreeModified', robotApa);
 		serviceMenu.classList.remove('fa-times');
 		serviceMenu.addEventListener('click', serviceTog);
+		webSocket = null;
 	};
 }
 
@@ -223,8 +228,9 @@ function robotApa() {
 			//計算客戶端輸入的文字 在 一個關鍵字之中 有幾個字相同
 			for (let letter of clientTextArr) {
 				for (let keyWordletter of keyWord) {
-					if (letter === keyWordletter) {
+					if (letter.toLowerCase() === keyWordletter.toLowerCase()) {
 						count++;
+						break;
 					}
 				}
 			}
@@ -277,7 +283,6 @@ function callService() {
 
 
 $('.phone-container').first().click(function() {
-	console.log('已接聽客服');
 	$('#service .callService').css('display', 'none');
 	chatContent.innerHTML = '';
 	connect();
@@ -288,7 +293,6 @@ $('.phone-container').first().click(function() {
 })
 
 $('.phone-container').last().click(function() {
-	console.log('已拒絕客服');
 	$('#service .callService').css('display', 'none');
 	chatContent.style.display = 'flex';
 	serviceMenu.addEventListener('click', serviceTog);
@@ -361,8 +365,6 @@ function chooseFile() {
 		fileReader.readAsDataURL(files[0]);
 		fileReader.onload = function(e) {
 			if (webSocket !== null) {
-				console.log(e.target.result);
-				//				e.target.result.replace(replacements);
 				let jsonObj = {
 					"type": "picture",
 					"sender": self,

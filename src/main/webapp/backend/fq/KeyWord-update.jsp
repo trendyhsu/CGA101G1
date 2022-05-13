@@ -40,8 +40,8 @@
 						<li><input type="text" name="answerContent" value="${fqKeyWordVO.answerContent}" required></li>
 					<li><input type="hidden" name="fqKeyWordNo" value="${fqKeyWordVO.fqKeyWordNo}"></li>
 					<li><input type="hidden" name="requestURL" value="<%=request.getRequestURI()%>"></li>  
-					<li>${errorMsgs.fqKeyWordContent}</li>
-					<li>${errorMsgs.answerContent}</li>
+					<li></li><li>${errorMsgs.fqKeyWordContent}</li>
+					<li></li><li>${errorMsgs.answerContent}</li>
 						
 					</ul>
 

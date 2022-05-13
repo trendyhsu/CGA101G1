@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/backend/share.jsp"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,8 +57,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="keyWord" items="${AllQuery}">
-								<tr>
+								<c:forEach var="keyWord" items="${AllQuery}">							<tr>
 
 										<td>${keyWord.fqKeyWordNo}</td>
 										<td>${keyWord.fqKeyWordContent}</td>

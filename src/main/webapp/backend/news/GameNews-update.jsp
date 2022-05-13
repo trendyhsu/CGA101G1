@@ -50,7 +50,7 @@
                                     </c:forEach>
                                 </select></li>
 							<li><label>新聞標題</label></li>
-							<li><input type="text" name="gameNewsTitle" value="${gameNewsVO.gameNewsTitle}"></li>
+							<li><input type="text" name="gameNewsTitle" value="${gameNewsVO.gameNewsTitle}" required></li>
 							<li> <label>新聞封面照片</label></li>
                             <li>
                             <img class="showPic" src="<%=request.getContextPath()%>/gameNews/gameNewsPic?gameNewsNo=${gameNewsVO.gameNewsNo}" >
@@ -59,8 +59,12 @@
                             <li><input type="file" accept="image/jpeg" name="gameNewsPic" onclick="previewImage()" id="upfile"></li>
 							<li><label>新聞內容</label></li>
 							<li><textarea name="gameNewsContent" id="" cols="30"
-									rows="10">${gameNewsVO.gameNewsContent}</textarea></li>
-						
+									rows="10" required>${gameNewsVO.gameNewsContent}</textarea></li>
+							<li></li><li>${errorMsgs.gamePlatformNo}</li>
+							<li></li><li>${errorMsgs.managerNo}</li>
+							<li></li><li>${errorMsgs.gameNewsTitle}</li>
+							<li></li><li>${errorMsgs.gameNewsContent}</li>
+							
 						</ul>
 						
 						<input type="hidden" name="gameNewsNo" value="${gameNewsVO.gameNewsNo}">
