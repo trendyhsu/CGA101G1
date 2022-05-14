@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 
-
+<%
+String memEmail=request.getParameter("memEmail");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,7 +119,7 @@
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/mem/NewPasswordServlet" name="form1">
 
-			<input type="hidden" name="memEmail" id="memEmail" />
+			<input type="hidden" name="memEmail" id="memEmail" value="<%= memEmail%>" />
  <div>
  
  
@@ -126,7 +128,7 @@
                 <label class="form-label col" for="memNewPassword">請輸入您的新密碼: 
                 <span class="text-danger">*</span></label>
                   </div>
-					<input type="text" class="form-control" id="memNewPassword" placeholder="輸入新密碼"
+					<input type="password" class="form-control" id="memNewPassword" placeholder="輸入新密碼"
                          style="text-transform: none;" name="memNewPassword"> 
                   </div>
  
@@ -141,10 +143,10 @@
                 <label class="form-label col" for="confNewPassword">新密碼確認:
                 <span class="text-danger">*</span></label>
                   </div>
-					<input type="text" class="form-control" id="confNewPassword" placeholder="輸入新密碼"
+					<input type="password" class="form-control" id="confNewPassword" placeholder="輸入新密碼"
                          style="text-transform: none;" name="confNewPassword"> 
                   </div>
-        
+        		
 <!--          <div> -->
 <!--             <label for="confNewPassword">新密碼確認: </label> -->
 <!--             <input type="password" name="confNewPassword" id="confNewPassword" /> -->

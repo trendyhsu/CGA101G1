@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.member.model.MemVO;
+
 @WebServlet("/mem/logoutServlet")
 public class logoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +20,7 @@ public class logoutServlet extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().invalidate();
+		request.getSession().removeAttribute("memVO");
 		String url = "/frontend/memLogin/login.html";
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);

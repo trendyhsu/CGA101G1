@@ -39,6 +39,7 @@
 		<filter-name>MemberLoginFilter</filter-name>
 		<url-pattern>/frontend/memCoupon/lookUpOneMemCoupon.jsp</url-pattern>
 		<url-pattern>/frontend/mem/updateMemberData.html</url-pattern>
+		<url-pattern>/mem/MemEditServlet</url-pattern>
 		<url-pattern>/bid/bidApplyListInsert</url-pattern>
 		<url-pattern>/bid/bidApplyListMemNo</url-pattern>
 		<url-pattern>/bid/bidApplyListSeller</url-pattern>
