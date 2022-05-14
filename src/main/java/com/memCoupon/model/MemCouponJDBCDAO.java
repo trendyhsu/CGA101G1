@@ -376,6 +376,7 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 				memCouponVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
 				memCouponVO.setMemNo(rs.getInt("memNo"));
 				memCouponVO.setCouponState(rs.getInt("couponState"));
+				memCouponVO.setCouponDate(rs.getDate("couponDate"));
 				list.add(memCouponVO);
 			}
 			

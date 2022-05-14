@@ -35,7 +35,7 @@ public class MemJDBCDAO implements MemDAO_interface {
 
 	private static final String EMAIL_FOR_LOGIN = "SELECT * FROM mem WHERE memEmail= ? and memPassword= ? ";
 	
-	private static final String SELECT_MEM_ACCOUNT = "SELECT memAccount FROM mem WHERE memAccount=?";
+	private static final String SELECT_MEM_ACCOUNT = "SELECT memAccount, memNo, memStatus, memVrfed, memName,memEmail FROM mem WHERE memAccount=?";
 
 	private static final String SELECT_MEM_EMAIL = "SELECT memEmail FROM mem WHERE memEmail=?";
 
@@ -770,7 +770,12 @@ public class MemJDBCDAO implements MemDAO_interface {
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					memVO = new MemVO();
+					memVO.setMemNo(rs.getInt("memNo"));
 					memVO.setMemAccount(rs.getString("memAccount"));
+					memVO.setMemStatus(rs.getInt("memStatus"));
+					memVO.setMemVrfed(rs.getInt("memVrfed"));
+					memVO.setMemName(rs.getString("memName"));
+					memVO.setMemEmail(rs.getString("memEmail"));
 					return memVO;
 				}
 			}

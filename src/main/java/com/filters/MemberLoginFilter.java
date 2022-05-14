@@ -1,5 +1,6 @@
 package com.filters;
 
+
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,11 +19,12 @@ public class MemberLoginFilter implements Filter{
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
 		MemVO memVO = (MemVO)session.getAttribute("memVO");
-		if (memVO == null) {
+
+		if (memVO == null ) {
 			session.setAttribute("initlocation", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/frontend/memLogin/login.html");
 			return;
-		} else {
+		}else {
 			chain.doFilter(request, response);
 		}
 	}

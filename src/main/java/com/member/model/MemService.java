@@ -215,4 +215,9 @@ public class MemService {
 		MemVO memVO= dao.selectMemEname(memName);
 		return memVO;
 	}
+	// 用memAccount取得單一會員資料
+		public MemVO getByMemAccount(String memAccount) {
+			MemVO memVO= dao.selectMemAccount(memAccount);
+			return memVO;
+		}
 }

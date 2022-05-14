@@ -37,13 +37,13 @@ public class RegisterServlet extends HttpServlet {
 		//調用service
 		memVO = MEM_SERVICE.register(memVO);
 		//成功即設定session屬性
-		if(memVO.isSuccessful()) {
-			if(request.getSession(false) != null) {
-				request.changeSessionId();
-			}
-			final HttpSession session = request.getSession();
-			session.setAttribute("memVO", memVO);
-		}
+//		if(memVO.isSuccessful()) {
+//			if(request.getSession(false) != null) {
+//				request.changeSessionId();
+//			}
+//			final HttpSession session = request.getSession();
+//			session.setAttribute("memVO", memVO);
+//		}
 		writePojo2Json(response, memVO);
 	}
 
