@@ -29,10 +29,13 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 	private static final String GETONE="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
 			+ "FROM memcoupon WHERE memCouponNo= ? ;";
 	
+	private static final String GET_MEMCOUPON="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
+			+ "FROM memcoupon WHERE couponTypeNo= ? AND memNo=? ;";
+	
 	private static final String GET_WHICH_COUPON="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
 			+ "FROM memcoupon WHERE couponTypeNo= ? ORDER BY memNo;";
 	private static final String GET_WHICH_MEMBER ="SELECT memCouponNo, couponTypeNo, memNo, couponState, CouponDate \r\n"
-			+ "FROM memcoupon WHERE memNo= ? and couponState=0 ORDER BY couponTypeNo;";
+			+ "FROM memcoupon WHERE memNo= ? AND couponState=0 ORDER BY couponTypeNo;";
 	@Override
 	public void insert(MemCouponVO memCouponVO) {
 
@@ -244,6 +247,60 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 			}
 		}
 		return memCouponVO;
+	}
+	
+	public MemCouponVO getMemCouponIsHave(Integer couponTypeNo, Integer memNo) {
+		MemCouponVO memCouponVO=null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			ps = con.prepareStatement(GET_MEMCOUPON);
+
+			ps.setInt(1, couponTypeNo);
+			ps.setInt(2, memNo);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				memCouponVO=new MemCouponVO();
+				memCouponVO.setMemCouponNo(rs.getInt("memCouponNo"));
+				memCouponVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
+				memCouponVO.setMemNo(rs.getInt("memNo"));
+				memCouponVO.setCouponState(rs.getInt("couponState"));
+				return memCouponVO;
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return null;
 	}
 	
 	public List<MemCouponVO> getOneCouponType (Integer memCouponNo) {

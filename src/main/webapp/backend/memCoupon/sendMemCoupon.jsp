@@ -63,6 +63,7 @@ float: right;
 		 <h3>優惠券發放</h3></td><td>
 	</td></tr>
 </table>
+
 <jsp:useBean id="couponTypeService" scope="page" class="com.couponType.model.CouponTypeService" />
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/memCoupon/SendOneMemCouponServlet" name="form">
 <table id="table-1">
@@ -77,8 +78,8 @@ float: right;
 	</tr>
 	<tr>
 		<td>發放數量:</td>
-		<td><input type="TEXT" name="couponQuantity" size="45" 
-			 value="${param.couponQuantity}"/></td><td>${errorMsgs1.couponQuantity}</td>
+		<td><input type="hidden" name="couponQuantity1" size="45" 
+			 value="1"/><label>1</label></td><td>${errorMsgs1.couponQuantity}</td>
 	</tr>
 	
 	
@@ -103,13 +104,17 @@ float: right;
 <div style=" justify-content: center;">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/memCoupon/SendMemCouponServlet" name="form1">
 <table>
+	<jsp:useBean id="memService" scope="page" class="com.member.model.MemService" />
 	<tr>
-		<td>發放數量:</td>
+		<td>目前本網站會員數量:</td>
+		<td><label>${memService.listAllMem().size()}</label></td>
+	</tr>
+	<tr>
+		<td>隨機發放數量:</td>
 		<td><input type="TEXT" name="couponQuantity" size="45" 
 			 value="${param.couponQuantity}"/></td><td>${errorMsgs.couponQuantity}</td>
 	</tr>
 	
-<%-- 	<jsp:useBean id="couponTypeService" scope="page" class="com.couponType.model.CouponTypeService" /> --%>
 	<tr>
 		<td>發放優惠券種類:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="couponTypeNo">

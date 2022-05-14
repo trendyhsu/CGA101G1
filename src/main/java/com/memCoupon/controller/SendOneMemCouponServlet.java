@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.couponType.model.CouponTypeService;
 import com.couponType.model.CouponTypeVO;
 import com.memCoupon.model.MemCouponService;
+import com.memCoupon.model.MemCouponVO;
 import com.member.model.MemVO;
 
 /**
@@ -54,7 +55,7 @@ public class SendOneMemCouponServlet extends HttpServlet {
 		CouponTypeVO couponTypeVO= couponTypeService.listOneCouponType(Integer.parseInt(couponTypeNoStr));
 		Integer couponQuantity = couponTypeVO.getCouponQuantity();
 		//發放出去該優惠券的數量
-		String str = request.getParameter("couponQuantity");
+		String str = request.getParameter("couponQuantity1");
 		Integer sendCouponQuantity = null;
 		try {
 			sendCouponQuantity = Integer.parseInt(str);
@@ -72,6 +73,13 @@ public class SendOneMemCouponServlet extends HttpServlet {
 		}
 		/*************************** 2.開始處理資料 *****************************************/
 		MemCouponService memCouponService = new MemCouponService();
+		MemCouponVO memCouponVO =memCouponService.checkMemCoupon(couponTypeNo, memAccount);
+		if(memCouponVO != null) {
+			errorMsgs1.put("couponQuantity", "該會員已有此優惠券");
+			RequestDispatcher failureView = request.getRequestDispatcher("/backend/memCoupon/sendMemCoupon.jsp");
+			failureView.forward(request, response);
+			return;
+		}
 		MemVO memVO = memCouponService.sendCouponToOneMem(couponQuantity, couponTypeNo, memAccount);
 		if(memVO.getMemStatus() == 0 || memVO.getMemVrfed() == 0) {
 			errorMsgs1.put("memAccount", "該會員已遭停權或尚未驗證帳號");
