@@ -56,6 +56,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
 </style>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -82,13 +83,73 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 				<div class="col-lg-12">
 					<div id="app">
 
-						<div style="width: 30%">
-							<input class="form-control" type="text" name="keysearch" id=""
-								@change="keysearch($event)" placeholder="搜尋遊戲名稱">
-						</div>
+<!-- 						<div style="width: 30%"> -->
+<!-- 							<input class="form-control" type="text" name="keysearch" id="" -->
+<!-- 								@change="keysearch($event)" placeholder="搜尋遊戲名稱"> -->
+<!-- 						</div> -->
 						<div v-show="this.search.length !=0">
 							目前總共<span style="color: blue">{{this.search.length}}</span>筆資料
 						</div>
+						<table class="table table-striped" style="margin-bottom: 0">
+							<thead>
+								<tr>
+									<th style="width: 65px;padding-left: 0;padding-right: 0;padding-bottom: 0">
+										<div>
+											<input class="form-control" type="number" name="NoSearch"
+												id="" @change="NoSearch($event)" v-model="searchNo" placeholder="產品編號" style="padding: 0;border: 0;">
+										</div>
+									</th>
+									<th style="width: 110px;padding-left: 0;padding-right: 0;padding-bottom: 0">
+										<div>
+											<input class="form-control" type="text" name="keysearch"
+												id="" @change="keysearch($event)" v-model="searchName" placeholder="產品名稱" style="padding: 0;border-color: white;">
+										</div>
+									</th>
+									<th style="width: 50px;">價格</th>
+									<th style="width: 80px;">封面</th>
+									<th style="width: 1%">
+										<div>
+											<select name="GameTypeNo" id="gameTypeNo"
+												@change="typesearch($event)" v-model="searchType">
+												<option value="0">遊戲種類	</option>
+												<c:forEach var="gameTypeVO" items="${gameTypeList}">
+													<option value="${gameTypeVO.gameTypeNo}">${gameTypeVO.gameTypeName}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</th>
+
+									<th style="width: 100px;">
+										<div>
+											<select name="GamePlatformNo" id="gamePlatformNo"
+												@change="Platformsearch($event)" v-model="searchPlatform">
+												<option value="0">平台種類</option>
+												<c:forEach var="gamePlatformTypeVO"
+													items="${gamePlatformTypeList}">
+													<option value="${gamePlatformTypeVO.gamePlatformNo}">${gamePlatformTypeVO.gamePlatformName}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</th>
+									<th style="width: 120px">遊戲公司</th>
+									<th style="width: 1%">
+										<div>
+											<select name="ProductState" id="productState"
+												@change="Statesearch($event)" v-model="searchState">
+												<option value="2">銷售狀態</option>
+												<option value="0">未上架</option>
+												<option value="1">販售中</option>
+											</select>
+										</div>
+									</th>
+									<th style="width: 120px;">產品描述</th>
+									<th style="width: 110px">UpcNum</th>
+									<th>產品圖片2</th>
+									<th>產品圖片3</th>
+									<th style="text-align: center;">編輯</th>
+								</tr>
+							</thead>
+						</table>
 						<div v-if="loadingState">
 							<div style="margin-left: 47%; margin-top: 20%">
 								<h3>資料讀取中......</h3>
@@ -153,10 +214,10 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 										<label for="productState" class="form-label">銷售狀態</label> <input
 											type="radio" id="productStateUn" name="ProductState"
 											v-model="temp.productState" value="0" checked=""> <label
-											for="productStateUn" class="form-label">未上架</label> <input
+											for="productStateUn" class="form-label">下架</label> <input
 											type="radio" id="productStateS" name="ProductState"
 											v-model="temp.productState" value="1"> <label
-											for="productStateS" class="form-label">已上架</label>
+											for="productStateS" class="form-label">上架</label>
 									</div>
 
 									<div class="col">
@@ -292,14 +353,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 	</section>
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script src="assets/js/jquery.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-	<script class="include" type="text/javascript"
-		src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-	<script src="assets/js/jquery.scrollTo.min.js"></script>
-	<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+
 
 
 	<!--common script for all pages-->
@@ -333,7 +387,11 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                                 },
                             ],
 
-
+                            searchName:'',
+                            searchNo:'',
+                            searchType:0,
+                            searchPlatform:0,
+                            searchState:2,
 
 
 
@@ -473,16 +531,99 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                             console.log("insert完畢");
                         },
                         keysearch(e) {
+                        	this.searchNo='';
+                        	this.searchType=0;
+                        	this.searchPlatform=0;
+                        	this.searchState=2;
                         	this.loadingState=true;
-                            console.log(e.target.value);
+                            this.searchName=e.target.value;
                             this.search = [];
                             this.datastore.filter(item => {
+                            	console.log(item.productName);
                                 if (item.productName.indexOf(e.target.value) !== -1) {
                                     this.search.push(item);
                                 }
                             });
                             this.renderData = [];
                             this.renderingPage();
+
+                        },
+                        NoSearch(e) {
+                        	this.searchName='';
+                        	this.searchType=0;
+                        	this.searchPlatform=0;
+                        	this.searchState=2;
+                        	this.loadingState=true;
+                        	this.searchNo=e.target.value;
+                            this.search = [];
+                            this.datastore.filter(item => {
+                                if (item.productNo.toString().indexOf(e.target.value) !== -1) {
+                                    this.search.push(item);
+                                }
+                            });
+                            this.renderData = [];
+                            this.renderingPage();
+
+                        },
+                        typesearch(e) {
+                        	this.searchName='';
+                        	this.searchNo='';
+                        	this.searchPlatform=0;
+                        	this.searchState=2;
+                        	this.loadingState=true;
+                            console.log(e.target.value);
+                            this.search = [];
+                            this.datastore.filter(item => {
+                                if (item.gameTypeNo.toString().indexOf(e.target.value) !== -1) {
+                                    this.search.push(item);
+                                }
+                            });
+                            this.renderData = [];
+                            this.renderingPage();
+
+                        },
+                        Platformsearch(e) {
+                        	this.searchName='';
+                        	this.searchNo='';
+                        	this.searchType=0;
+                        	this.searchState=2;
+                        	this.loadingState=true;
+                            console.log(e.target.value);
+                            this.search = [];
+                            this.datastore.filter(item => {
+                                if (item.gamePlatformNo.toString().indexOf(e.target.value) !== -1) {
+                                    this.search.push(item);
+                                }
+                            });
+                            this.renderData = [];
+                            this.renderingPage();
+
+                        },
+                        Statesearch(e) {
+                        	this.searchName='';
+                        	this.searchNo='';
+                        	this.searchType=0;
+                        	this.searchPlatform=0;
+                        	this.loadingState=true;
+                            console.log(e.target.value);
+                            console.log(e.target.value == 2);
+                            this.search = [];
+                            if(e.target.value == 2){
+                                for (product of this.datastore) {
+                                    this.search.push(product);
+                                }
+	                            this.renderData = [];
+	                            this.renderingPage();
+                            }
+                            else{
+	                            this.datastore.filter(item => {
+	                                if (item.productState.toString().indexOf(e.target.value) !== -1) {
+	                                    this.search.push(item);
+	                                }
+	                            });
+	                            this.renderData = [];
+	                            this.renderingPage();
+                            }
 
                         },
                         edit(para) {
@@ -529,7 +670,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                             if (!rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                                 this.nameInput = true;
                                 this.btn = true;
-                            } else {
+                            } else if(this.nameInput+this.priceInput+this.upcNumInput+this.descriptInput==0) {
                                 this.btn = false;
                             }
                         },
@@ -538,7 +679,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                             if ((e.target.value).trim().length >= 5 || (e.target.value).trim().length <= 2) {
                                 this.priceInput = true;
                                 this.btn = true;
-                            } else {
+                            } else  if(this.nameInput+this.priceInput+this.upcNumInput+this.descriptInput==0){
                                 this.btn = false;
                             }
                         },
@@ -548,7 +689,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                             if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                                 this.upcNumInput = true;
                                 this.btn = true;
-                            } else {
+                            } else  if(this.nameInput+this.priceInput+this.upcNumInput+this.descriptInput==0){
                                 this.btn = false;
                             }
                         },
@@ -557,7 +698,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                             if ((e.target.value).trim().length ==0) {
                                 this.descriptInput = true;
                                 this.btn = true;
-                            } else {
+                            } else  if(this.nameInput+this.priceInput+this.upcNumInput+this.descriptInput==0){
                                 this.btn = false;
                             }
                         },
@@ -590,45 +731,28 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                         },
                     },
                     template: `  <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>產品編號</th>
-                                        <th>產品名稱</th>
-                                        <th>價格</th>
-                                        <th>封面</th>
-                                        <th>遊戲種類</th>
-                                        <th>平台種類</th>
-                                        <th>遊戲公司</th>
-                                        <th>銷售狀態</th>
-                                        <th>產品描述</th>
-                                        <th>UpcNum</th>
-                                        <th>產品圖片2</th>
-                                        <th>產品圖片3</th>
-                                        <th>編輯</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr v-for="item in readData[nowPage]" :key="item.productNo"
                                         v-bind:class="{'table-success':item.onStock}">
-                                        <td>{{item.productNo}}</td>
-                                        <td>{{item.productName}}</td>
-                                        <td>{{item.productPrice}}</td>
-                                        <td>
-                                            <img :src="item.picList[0].imageUrl" alt="" height="100">
+                                        <td style="width: 62px;padding-left: 0;padding-right: 0;">{{item.productNo}}</td>
+                                        <td style="width: 110px">{{item.productName}}</td>
+                                        <td style="width: 50px">{{item.productPrice}}</td>
+                                        <td style="width: 20px">
+                                            <img :src="item.picList[0].imageUrl" alt="" width="66">
                                         </td>
-                                        <td>{{item.gameTypeName}}</td>
-                                        <td>{{item.gamePlatformName}}</td>
-                                        <td>{{item.gameCompanyName}}</td>
-                                        <td>{{item.StatusName}}</td>
-                                        <td class="descriptionArea" style="width: 100px;">
+                                        <td style="width: 120px">{{item.gameTypeName}}</td>
+                                        <td style="width: 100px">{{item.gamePlatformName}}</td>
+                                        <td style="width: 120px">{{item.gameCompanyName}}</td>
+                                        <td style="width: 80px">{{item.StatusName}}</td>
+                                        <td class="descriptionArea" style="width: 120px;">
                                         <div style="width: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4;-webkit-box-orient: vertical;">{{item.itemProdDescription}}</div>
                                         </td>
                                         <td>{{item.upcNum}}</td>
                                         <td>
-                                            <img :src="item.picList[1].imageUrl" alt="" height="100">
+                                            <img :src="item.picList[1].imageUrl" alt="" width="120">
                                         </td>
                                         <td>
-                                            <img :src="item.picList[2].imageUrl" alt="" height="100">
+                                            <img :src="item.picList[2].imageUrl" alt="" width="120">
                                         </td>
                                         <td><button type="button" class="btn btn-secondary"
                                                 @click="webcamSendRequestButton(item)">編輯</button></td>

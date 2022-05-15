@@ -491,7 +491,7 @@
 
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.nameInput = true;
-                } else {
+                } else if (this.nameInput + this.phoneInput + this.RodInput == 0) {
                     // this.nameCheckN = 1;
                     // if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
                     this.ckeckoutOK = true;
@@ -505,7 +505,7 @@
                 const rules = /^09\d{8}$/;
                 if (!rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.phoneInput = true;
-                } else {
+                } else if (this.nameInput + this.phoneInput + this.RodInput == 0) {
                     // this.phoneCheckN = 1;
                     // if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
                     this.ckeckoutOK = true;
@@ -519,7 +519,7 @@
                 const rules = new RegExp('[+-/^~{}:@$!%*?&a-zA-Z]')
                 if (rules.test(e.target.value) || (e.target.value).trim().length == 0) {
                     this.RodInput = true;
-                } else {
+                } else if (this.nameInput + this.phoneInput + this.RodInput == 0) {
                     // this.RodCheckN = 1;
                     // if (this.nameCheckN + this.RodCheckN + this.phoneCheckN == 3) {
                     this.ckeckoutOK = true;

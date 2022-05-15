@@ -12,6 +12,9 @@ import com.gameplatformtype.model.GamePlatformTypeVO;
 import com.gametype.model.GameTypeDAO_interface;
 import com.gametype.model.GameTypeJDBCDAO;
 import com.gametype.model.GameTypeVO;
+import com.productPic.model.ProductPicDAO_interface;
+import com.productPic.model.ProductPicJDBCDAO;
+import com.productPic.model.ProductPicVO;
 
 public class ProductVO implements java.io.Serializable{
 	private Integer productNo;
@@ -99,7 +102,19 @@ public class ProductVO implements java.io.Serializable{
 		return dao.findByPrimaryKey(gameTypeNo);
 	}
 	
+	public GameTypeVO getOneGameType() {
+		GameTypeDAO_interface dao=new GameTypeJDBCDAO();
+		return dao.findByPrimaryKey(gameTypeNo);
+	}
+	
+	
+	
 	public GamePlatformTypeVO getOneGamePlatformType(Integer gamePlatformNo) {
+		GamePlatformTypeDAO_interface dao = new GamePlatformTypeJDBCDAO();
+		return dao.findByPrimaryKey(gamePlatformNo);
+	}
+	
+	public GamePlatformTypeVO getOneGamePlatformType() {
 		GamePlatformTypeDAO_interface dao = new GamePlatformTypeJDBCDAO();
 		return dao.findByPrimaryKey(gamePlatformNo);
 	}
@@ -107,6 +122,23 @@ public class ProductVO implements java.io.Serializable{
 	public GameCompanyVO getOneGameCompanyVO(Integer gameCompanyNo) {
 		GameCompanyDAO_interface dao = new GameCompanyJDBCDAO();
 		return dao.findByPrimaryKey(gameCompanyNo);
+	}
+	
+	public GameCompanyVO getOneGameCompanyVO() {
+		GameCompanyDAO_interface dao = new GameCompanyJDBCDAO();
+		return dao.findByPrimaryKey(gameCompanyNo);
+	}
+	
+	
+	
+	public List<ProductPicVO> getPicsNo() {
+		ProductPicDAO_interface dao = new ProductPicJDBCDAO();
+		return dao.getOneProductPics(productNo);
+	}
+	
+	public List<ProductPicVO> getPicsNo(Integer productNo) {
+		ProductPicDAO_interface dao = new ProductPicJDBCDAO();
+		return dao.getOneProductPics(productNo);
 	}
 
 }

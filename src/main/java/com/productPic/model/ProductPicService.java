@@ -54,6 +54,11 @@ public class ProductPicService {
 		return dao.GetOneCoverByProductNo(productPicNo);
 	}
 	
+	//取得一張封面圖片
+	public ProductPicVO onePicByPicNo(Integer productPicNo) {
+		return dao.GetOnePicByPicNo(productPicNo);
+	}
+	
 	
 	
 	//取得一個商品全部的照片byBase64
@@ -61,6 +66,11 @@ public class ProductPicService {
 		return dao.findByPrimaryKeyInBase64(productNo);
 	}
 	
+	
+	//取得一個商品全部的照片的號碼
+	public List<ProductPicVO> productAllPicsNo(Integer productNo){
+		return dao.getOneProductPics(productNo);
+	}
 
 	
 	

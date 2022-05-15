@@ -870,8 +870,9 @@ public class OrderDAO implements OrderDAO_interface {
 		for (String value : valueSet) {
 			String keyValue = map.get(value)[0];
 			if (keyValue != null && keyValue.trim().length() != 0 && !"action".equals(value)) {
-				count++;
+				
 				if (!value.equals("memName")) {
+					count++;
 					String aCondition = get_aCondition_For_myDB(value, keyValue.trim());
 
 					if (count == 1) {
@@ -925,7 +926,7 @@ public class OrderDAO implements OrderDAO_interface {
 
 		String aCondition = null;
 
-		if ("orderNo".equals(columnName) || "memNo".equals(columnName)) // 用於其他
+		if ("orderNo".equals(columnName) || "memNo".equals(columnName)|| "orderState".equals(columnName)) // 用於其他
 			aCondition = columnName + "=" + value;
 		else if ("receiverName".equals(columnName)) // 用於varchar
 			aCondition = columnName + " like '%" + value + "%'";
