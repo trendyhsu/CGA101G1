@@ -194,6 +194,7 @@ public class GetParameter extends HttpServlet {
 					resultset.close();
 					preparedStatement0.close();
 
+					productVO.setProductNo(productNo);
 
 					ProductService productService = new ProductService();
 					productService.updateProductAndSold(productNo, gameTypeNo, gamePlatformNo, gameCompanyNo,
@@ -246,13 +247,16 @@ public class GetParameter extends HttpServlet {
 						out.print("圖片3沒有更新");
 					}
 
-					response.sendRedirect("/CGA101G1/backend/product/productMod.jsp");
-					// 重導 response.sendRedirect("backend/product/productUpAndMod.html");
-//					response.setHeader("Refresh",
-//							"2;URL=http://localhost:8081/CGA101G1/backend/product/productMod.jsp");
+					request.setAttribute("productVO", productVO);
+					RequestDispatcher failureView = request.getRequestDispatcher("/backend/product/ShowOneProduct.jsp");
+					failureView.forward(request, response);
+					return; // 程式中斷
+					
+//					response.sendRedirect("/CGA101G1/backend/product/productMod.jsp");
+
 
 				} else {
-
+					productVO.setProductNo(productNo);
 					/*--------------要更新且下架--------------------*/
 					resultset.close();
 					preparedStatement0.close();
@@ -317,10 +321,12 @@ public class GetParameter extends HttpServlet {
 					}
 
 					// 重導
+					request.setAttribute("productVO", productVO);
+					RequestDispatcher failureView = request.getRequestDispatcher("/backend/product/ShowOneProduct.jsp");
+					failureView.forward(request, response);
+					return; // 程式中斷
+//					response.sendRedirect("/CGA101G1/backend/product/productMod.jsp");
 
-					response.sendRedirect("/CGA101G1/backend/product/productMod.jsp");
-//					response.setHeader("Refresh",
-//							"2;URL=http://localhost:8081/CGA101G1/backend/product/productMod.jsp");
 
 				}
 

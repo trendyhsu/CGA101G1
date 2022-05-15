@@ -41,30 +41,32 @@ public class ShowMemFavoritelist extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemVO memVO = (MemVO) (session.getAttribute("memVO"));
 		Integer memNo = memVO.getMemNo();
-//		String memNo = "11003";
+//		Integer memNo = 11001;
 
 		
 		/*-----------先查項目---------------*/
 		MyfavoritelistService myfavoritelist = new MyfavoritelistService();
-		List<MyfavoritelistVo> myfavoritelistVoList= myfavoritelist.getAllByOneMem(memNo);
-		List<ProductVO> productVOs = new ArrayList<ProductVO>();
-		ProductService productService = new ProductService();
+//		List<MyfavoritelistVo> myfavoritelistVoList= myfavoritelist.getAllByOneMem(memNo);
+		List<Object> list =myfavoritelist.getAllByOneMemInJoin(memNo);
+//		List<ProductVO> productVOs = new ArrayList<ProductVO>();
+//		ProductService productService = new ProductService();
 		
 //		List<ProductPicVO> productPicVOs =new ArrayList<ProductPicVO>();
 //		ProductPicService productpicService = new ProductPicService();
 		
 		
 		/*------------查產品---------------*/
-		for(MyfavoritelistVo myfavoritelistVo:myfavoritelistVoList) {
-			Integer productNo=myfavoritelistVo.getProductNo();
-			ProductVO productVO= productService.GetOne(productNo);
-			productVOs.add(productVO);
+//		for(MyfavoritelistVo myfavoritelistVo:myfavoritelistVoList) {
+//			Integer productNo=myfavoritelistVo.getProductNo();
+//			ProductVO productVO= productService.GetOne(productNo);
+//			productVOs.add(productVO);
 //			
 //			ProductPicVO productPicVO = productpicService.getAllCovers(request);
-		}
+//		}
 		
 		Gson gson = new Gson();
-		String json = gson.toJson(productVOs);
+//		String json = gson.toJson(productVOs);
+		String json = gson.toJson(list);
 		out.print(json);
 		
 		

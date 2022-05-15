@@ -107,7 +107,7 @@
 						<tr v-for="(item, index) in jsonData" :key="index">
 							<td class="product-thumbnail"><a class="text-reset"
 								:href="`/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo"><img
-									:src=item.picList[0].imageUrl class="img-fluid" width="60"
+									:src=item.imageUrl class="img-fluid" width="60"
 									alt=""></a></td>
 							<td class="product-name"><a class="text-reset"
 								:href="`/CGA101G1/frontend/Product/HomePageinProduct.html?ProductNo=`+item.productNo">{{item.productName}}</a>
@@ -213,35 +213,8 @@
                             // console.log(response.data.data.XML_Head.Infos.Info);
                             this.jsonData = response.data;//塞進去
                             console.log("datastore讀取資料ok");
-                            this.getPicData();
-                            this.renderingPage();
+                            this.loading=false;
                         });
-                },
-                getPicData() {
-                    const apiUrl = '/CGA101G1/product/GetAllCovers';
-                    axios.get(apiUrl)
-                        // 一定要用箭頭函示!!!!
-                        .then((response) => {
-                            console.log("取pic的狀態：" + response.status); //狀態碼
-
-                            this.picData = response.data;//塞進去
-                            this.insertPic(this.picData);
-
-                        });
-                },
-                insertPic(picData) {
-                    console.log("insertPic開始");
-                    for (j = 0; j < this.jsonData.length; j++) {
-                        this.jsonData[j].picList = [];
-                        for (i = 0; i < picData.length; i++) {
-                            if (picData[i].productNo == this.jsonData[j].productNo) {
-                                this.jsonData[j].picList.push(picData[i]);
-                            }
-                        }
-                    }
-                    this.picData = [];
-                    console.log("insert完畢");
-                    this.loading=false;
                 },
                 webcamSendRequestButton(e) {
                     this.totalItemOfCart = 0;

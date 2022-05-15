@@ -150,7 +150,7 @@
                             )
                         );
                     }
-                    this.loading=!this.loading;
+                    this.loading=false;
                 },
                 getOrderData() {
                 	

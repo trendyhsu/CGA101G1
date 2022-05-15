@@ -46,13 +46,17 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 			"select ProductNo,ProductPicNO,ProductPicContent from productpic where ProductNo = ?";
 //OK	                  1           2               3                                             4
 		
+		
 		//		                    圖片修改
 		private static final String UPDATE = 
 			"UPDATE productpic SET ProductPicContent = ? WHERE ProductPicNO = ?;";
 		                       //                      1                      2            
 	
 		private static final String GetoneInByte = " select ProductPicContent from productpic where ProductPicNO=?";
-                                    //OK	
+                                    //OK
+		
+		private static final String getPicNos = " select ProductPicNO FROM cga101g1.productpic where ProductNo= ?";
+        //OK	
 	
 	@Override
 	public void insert(ProductPicVO ProductPicVO) {
@@ -356,7 +360,6 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 
 	
 	
-	
 	@Override
 	public ProductPicVO GetOneCoverByProductNo(Integer productNO) {
 	
@@ -369,6 +372,97 @@ public class ProductPicJDBCDAO implements  ProductPicDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			PreparedStatement ps = con.prepareStatement(GET_OneCover);
 			ps.setInt(1, productNO);
+			rs = ps.executeQuery();
+			while (rs.next()) {			
+				productPicVO.setProductPicContentByte(rs.getBytes("ProductPicContent"));
+				return productPicVO;
+			}
+			
+
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+
+	@Override
+	public List<ProductPicVO> getOneProductPics(Integer productNO) {
+		List<ProductPicVO> list = new ArrayList<>();
+		ProductPicVO productPicVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(getPicNos, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			pstmt.setInt(1, productNO);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				
+				productPicVO = new ProductPicVO();
+				productPicVO.setProductPicNo(rs.getInt("ProductPicNo"));
+
+				list.add(productPicVO);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	@Override
+	public ProductPicVO GetOnePicByPicNo(Integer productPicNo) {
+	
+		ProductPicVO productPicVO = new ProductPicVO();
+		Connection con = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			PreparedStatement ps = con.prepareStatement(GetoneInByte);
+			ps.setInt(1, productPicNo);
 			rs = ps.executeQuery();
 			while (rs.next()) {			
 				productPicVO.setProductPicContentByte(rs.getBytes("ProductPicContent"));

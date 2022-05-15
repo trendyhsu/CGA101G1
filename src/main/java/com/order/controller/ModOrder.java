@@ -71,7 +71,7 @@ public class ModOrder extends HttpServlet {
 
 		/******* 收件人電話 **********/
 		String receiverPhone = request.getParameter("ReceiverPhone");
-		String phoneRule = "^\\d{8,15}$";
+		String phoneRule = "^\\d{8,10}$";
 		if (receiverPhone.trim().length() == 0 || receiverPhone == null) {
 			errorMsgs.add("收件人電話: 不能空白");
 		} else if (!receiverPhone.trim().matches(phoneRule)) {

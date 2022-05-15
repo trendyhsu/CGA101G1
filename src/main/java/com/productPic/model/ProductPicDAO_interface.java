@@ -10,7 +10,9 @@ public interface ProductPicDAO_interface {
 //  取單圖
     public List<ProductPicVO> findByPrimaryKeyInBase64(Integer productPicNo);
     public ProductPicVO findByPrimaryKeyInByte(Integer productPicNo);
+    public List<ProductPicVO> getOneProductPics(Integer productNO);
     public List<ProductPicVO> getAll(HttpServletRequest request);
     public List<ProductPicVO> getAllCovers(HttpServletRequest request);
     public ProductPicVO GetOneCoverByProductNo(Integer productNO);
+	ProductPicVO GetOnePicByPicNo(Integer productPicNo);
 }

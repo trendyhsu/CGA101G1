@@ -56,7 +56,8 @@ public class ShowOrdersBySearch extends HttpServlet {
 
 		List<OrderVO> list = orderService.findOrdersBysearch(map);
 
-		request.setAttribute("CompositeQuery", list); // 資料庫取出的list物件,存入request
+		
+		request.getSession().setAttribute("CompositeQuery", list); // 資料庫取出的list物件,存入Session
 		RequestDispatcher successView = request.getRequestDispatcher("/backend/product/orderQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
 		successView.forward(request, response);
 

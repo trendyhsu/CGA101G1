@@ -38,6 +38,43 @@ pageContext.setAttribute("list", list);
 			<div class="accordion" id="accordionExample">
 				<div class="col-lg-9 main-chart" style="width: 100%">
 					<h1>訂單管理</h1>
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch"
+						name="form1">
+						<div style="text-align: right;" class="row">
+							<div class="col">
+								<h3>
+									<span style="color: blue">訂單查詢:</span>
+								</h3>
+							</div>
+							<div class="col">
+								<b>訂單編號:</b> <input type="text" name="orderNo" value=""
+									placeholder="24001">
+							</div>
+							<input type="text" name="memNo" value="" hidden>
+							<div class="col" style="text-align: center;">
+								<b>會員姓名:</b> <input type="text" name="memName" value=""
+									placeholder="請填入完整性名">
+							</div>
+							<div class="col" style="text-align: center;">
+								<b>訂單狀態:</b>
+								<select name="orderState" id="orderState">
+								<option value="">請選擇訂單狀態</option>
+								<option value="0">未出貨</option>
+								<option value="1">已出貨</option>
+								<option value="2">完成訂單</option>
+								<option value="3">退貨</option>
+								<option value="4">作廢</option>
+								</select>
+							</div>
+							<div class="col">
+								<b>收件人姓名:</b> <input type="text" name="receiverName" value=""
+									placeholder="可填入關鍵字"> <input type="submit" value="開始搜尋"
+									class="btn btn-outline-secondary"> <input type="hidden"
+									name="action" value="CompositeQuery">
+							</div>
+						</div>
+					</FORM>
 
 
 					<%@ include file="page1.file"%>
@@ -48,7 +85,7 @@ pageContext.setAttribute("list", list);
 								<th style="width: 6%">訂單編號</th>
 								<th style="width: 6%">會員姓名</th>
 								<th style="width: 10%">會員優惠券編號</th>
-								<th  style="width: 6%">總價</th>
+								<th style="width: 6%">總價</th>
 								<th style="width: 15%">下單日期時間</th>
 								<th style="width: 6%">訂單狀態</th>
 								<th style="width: 6%">收件人姓名</th>
@@ -81,7 +118,9 @@ pageContext.setAttribute("list", list);
 								<td>${orderVO.receiverName}</td>
 								<td>${orderVO.receiverAddress}</td>
 								<td>${orderVO.receiverPhone}</td>
-								<td><c:if test="${orderVO.orderState != 2 && orderVO.orderState != 4}" var="condition">
+								<td><c:if
+										test="${orderVO.orderState != 2 && orderVO.orderState != 4}"
+										var="condition">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/product/turnModOrder"
 											style="margin-bottom: 0px;">
@@ -117,8 +156,7 @@ pageContext.setAttribute("list", list);
 										</tr>
 									</thead>
 									<c:forEach var="orderDetailVO"
-										items="${orderVO.getAllDetailByOrderNo(orderVO.getOrderNo())}"
-										>
+										items="${orderVO.getAllDetailByOrderNo(orderVO.getOrderNo())}">
 										<tbody>
 											<tr>
 												<td class="p-3">${orderDetailVO.productNo}</td>
@@ -139,21 +177,7 @@ pageContext.setAttribute("list", list);
 					<%@ include file="page2.file"%>
 				</div>
 			</div>
-			<div style="text-align: right;">
-				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch"
-					name="form1">
-					<b><font color=blue>訂單查詢:</font></b> <br> 
-					<b>輸入訂單編號:</b> <input
-						type="text" name="orderNo" value="24001"> <br> <br>
-					<input type="text" name="memNo" value="" hidden>
-					<b>輸入會員姓名:</b> <input type="text" name="memName" value="請輸入完整姓名"><br>
-					<br> <b>輸入收件人姓名:</b> <input type="text" name="receiverName"
-						value="王大明"><br> <br> <input type="submit"
-						value="送出"> <input type="hidden" name="action"
-						value="CompositeQuery">
-				</FORM>
-			</div>
+
 
 
 			<!-- /col-lg-9 END SECTION MIDDLE -->

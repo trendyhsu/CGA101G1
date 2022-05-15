@@ -10,7 +10,7 @@
 <%
 
 
-List<OrderVO> list = (List<OrderVO>)(request.getAttribute("CompositeQuery"));
+List<OrderVO> list = (List<OrderVO>)(request.getSession().getAttribute("CompositeQuery"));
 pageContext.setAttribute("list", list);
 
 %>
@@ -40,10 +40,46 @@ pageContext.setAttribute("list", list);
 			<div class="accordion" id="accordionExample">
 				<div class="col-lg-9 main-chart" style="width: 100%">
 					<h1>訂單查詢結果</h1>
-
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch"
+						name="form1">
+						<div style="text-align: right;" class="row">
+							<div class="col">
+								<h3>
+									<span style="color: blue">訂單查詢:</span>
+								</h3>
+							</div>
+							<div class="col">
+								<b>訂單編號:</b> <input type="text" name="orderNo" value=""
+									placeholder="24001">
+							</div>
+							<input type="text" name="memNo" value="" hidden>
+							<div class="col" style="text-align: center;">
+								<b>會員姓名:</b> <input type="text" name="memName" value=""
+									placeholder="請填入完整性名">
+							</div>
+							<div class="col" style="text-align: center;">
+								<b>訂單狀態:</b>
+								<select name="orderState" id="orderState">
+								<option value="">請選擇訂單狀態</option>
+								<option value="0">未出貨</option>
+								<option value="1">已出貨</option>
+								<option value="2">完成訂單</option>
+								<option value="3">退貨</option>
+								<option value="4">作廢</option>
+								</select>
+							</div>
+							<div class="col">
+								<b>收件人姓名:</b> <input type="text" name="receiverName" value=""
+									placeholder="可填入關鍵字"> <input type="submit" value="開始搜尋"
+									class="btn btn-outline-secondary"> <input type="hidden"
+									name="action" value="CompositeQuery">
+							</div>
+						</div>
+					</FORM>
 
 					<%@ include file="page1.file"%>
-					<c:forEach var="orderVO" items="${CompositeQuery}" begin="<%=pageIndex%>"
+					<c:forEach var="orderVO" items="${list}" begin="<%=pageIndex%>"
 						end="<%=pageIndex+rowsPerPage-1%>">
 						<table class="table table-striped table-hover">
 							<tr>
@@ -83,7 +119,7 @@ pageContext.setAttribute("list", list);
 								<td>${orderVO.receiverName}</td>
 								<td>${orderVO.receiverAddress}</td>
 								<td>${orderVO.receiverPhone}</td>
-								<td><c:if test="${orderVO.orderState != 2}" var="condition">
+								<td><c:if test="${orderVO.orderState != 2 && orderVO.orderState != 4}" var="condition">
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/product/turnModOrder"
 											style="margin-bottom: 0px;">

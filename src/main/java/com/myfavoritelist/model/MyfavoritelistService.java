@@ -25,4 +25,8 @@ public class MyfavoritelistService {
 		return dao.getAllByOneMem(memNo);
 	};
 	
+	
+	public List<Object> getAllByOneMemInJoin(Integer memNo) {
+		return dao.getAllByOneMemInJoin(memNo);
+	};
 }
