@@ -24,7 +24,7 @@ robot.addEventListener('click', () => {
 	});
 
 	if (firstMeet) {
-		setTimeout(() => { robotMessage('您好我是阿帕～有問題就儘管問我吧！') }, 1000);
+		setTimeout(() => { robotMessage('您好我是阿帕～有問題就儘管問我吧(*ﾟ∀ﾟ*)！') }, 1000);
 		firstMeet = false;
 	}
 
@@ -65,7 +65,7 @@ $('.service-form').click(function(event) {
 			chatInput.value = $(event.target).attr('value');
 		}
 		sendMessage();
-
+		scroll();
 	} else {
 		//將email的表單打開(更改display)
 
@@ -217,7 +217,7 @@ function robotApa() {
 		//拿來判斷客戶端輸入的字有沒有在關鍵字群裡
 		let result = true;
 		//拿來儲存目前最高機率的關鍵字，預設為不明白
-		let mostLikeKeyWord = '不太明白您的意思';
+		let mostLikeKeyWord = '蛤(*´･д･)?';
 		//機率，預設為0.3
 		let approximation = 0.3;
 
@@ -331,25 +331,25 @@ function robotMessage(answer) {
 	let messageLine = document.createElement('div');
 	messageLine.classList.add('messageLine');
 	newAnswer.style.display = 'flex';
-	newAnswer.firstChild.nextSibling.textContent = answer;
+	newAnswer.firstChild.nextSibling.innerHTML = answer;
 	messageLine.append(newAnswer);
 	chatContent.append(messageLine);
 
 }
 /*-------------機器人點開後，聊天室的自動卷軸---------------*/
-//let box, boxHeight;
-//box = document.querySelector('#service .content');
-//
-////捲到底(公式): box.scrollTop + boxHeight = box.scrollHeight
-////取得高度
-//boxHeight = window.getComputedStyle(box).getPropertyValue("height");
-//boxHeight = parseInt(boxHeight);
-//
-//function scroll() {
-//	if (box.scrollTop + boxHeight < box.scrollHeight) {
-//		box.scrollTop = box.scrollHeight; //向下捲動至最底
-//	}
-//}
+let box, boxHeight;
+box = document.querySelector('#service .content');
+
+//捲到底(公式): box.scrollTop + boxHeight = box.scrollHeight
+//取得高度
+boxHeight = window.getComputedStyle(box).getPropertyValue("height");
+boxHeight = parseInt(boxHeight);
+
+function scroll() {
+	if (box.scrollTop + boxHeight < box.scrollHeight) {
+		box.scrollTop = box.scrollHeight; //向下捲動至最底
+	}
+}
 //測試視窗高度用
 // setInterval(() => {
 //     console.log("box.scrollTop= " + box.scrollTop);

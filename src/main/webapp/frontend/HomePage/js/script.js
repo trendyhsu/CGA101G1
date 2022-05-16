@@ -198,7 +198,7 @@ function showTop9Items(data){
 			str += `<div class="box">
                     <div class="flag">${count}</div>
                     <div class="trangle"></div>
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart" value="${item.productNo}"></i>
                     <a class="item-img-container" href="${item.productDetailPageURL}">
                         <img src="${item.imgURL}" alt="">
                     </a>
@@ -233,16 +233,20 @@ function showTop9Items(data){
 		})
 	})
 	
-//	let hearts = document.querySelectorAll('#items .box-container .box i');
-//	hearts.forEach(function(heart){
-//		heart.addEventListener('click',()=>{
-//			$.ajax({
-//				
-//			})
-//			
-//			
-//		})
-//	})
+	let hearts = document.querySelectorAll('#items .box-container .box i');
+	hearts.forEach(function(heart){
+		heart.addEventListener('click',(e)=>{
+			$.ajax({
+				url:`/CGA101G1/product/AddProduct2Fav?ProductNo=${e.target.value}`,
+				type:'post',
+				success: function(data){
+					console.log(JSON.parse(data));
+				}
+			})
+		
+			
+		})
+	})
 }
 
 

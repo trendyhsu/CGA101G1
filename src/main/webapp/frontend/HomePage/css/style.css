@@ -353,6 +353,10 @@ section:nth-child(even) {
 	max-width: 222px;
 }
 
+#service .OneService span a{
+	color:blue;
+	text-decoration: underline;
+}
 #service .service-form {
 	/* border: 2px solid red; */
 	display: none;
@@ -418,24 +422,17 @@ section:nth-child(even) {
 	/* border: 2px solid purple; */
 }
 
-#service .mailForm div label {
-	/* margin: 2px 0; */
-	margin: 0 3px;
-	white-space: nowrap;
-	font-weight: bold;
-	font-size: 14px;
-}
 
 #service .mailForm div i {
 	margin: 2px 7px;
-	font-size: 16px;
+	font-size: 20px;
 }
 
 #service .mailForm div input {
 	border-radius: 4px;
 	width: 85%;
 	text-transform: none;
-	font-size: 16px;
+	font-size: 18px;
 	padding-left: 4px;
 }
 
@@ -447,9 +444,9 @@ section:nth-child(even) {
 	border-radius: 4px;
 	resize: none;
 	width: 85%;
-	font-size: 16px;
+	font-size: 18px;
 	padding-left: 4px;
-	height: 210px;
+	height: 230px;
 }
 
 #service .mailForm div textarea:focus {
@@ -466,7 +463,7 @@ section:nth-child(even) {
 	font-weight: bold;
 	align-self: center;
 	cursor: pointer;
-	margin: 5px 0;
+	margin: 10px 0;
 	font-size: 16px;
 }
 
