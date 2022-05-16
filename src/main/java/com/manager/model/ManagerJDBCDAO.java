@@ -7,8 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.member.model.MemVO;
+import com.utils.CompositeQuery_BidProduct;
 import com.utils.DButil;
 
 
@@ -469,6 +471,68 @@ public class ManagerJDBCDAO extends DButil implements ManagerDAO_interface{
 			}
 		}
 		return managerVO;
+	}
+	@Override
+	public List<ManagerVO> getAll(Map<String, String[]> map) {
+		List<ManagerVO> list = new ArrayList<ManagerVO>();
+		ManagerVO managerVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			Class.forName(getDriver());
+			con = DriverManager.getConnection(getUrl(), getUserid(), getPassword());
+			String finalSQL = "select * from manager "
+			          + CompositeQuery_BidProduct.get_WhereCondition(map)
+			          + "order by managerNo";
+				pstmt = con.prepareStatement(finalSQL);
+				System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+				rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				managerVO = new ManagerVO();
+				managerVO.setManagerNo(rs.getInt("managerNo"));
+				managerVO.setManagerAccount(rs.getString("managerAccount"));
+				managerVO.setManagerPassword(rs.getString("managerPassword"));
+				managerVO.setManagerName(rs.getString("managerName"));
+				managerVO.setManagerPhone(rs.getString("managerPhone"));
+				managerVO.setMyManagerPic(rs.getBytes("myManagerPic"));
+				managerVO.setManagerState(rs.getInt("managerState"));
+				
+				list.add(managerVO); // Store the row in the list
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 	
 	public static void main(String[] args) {

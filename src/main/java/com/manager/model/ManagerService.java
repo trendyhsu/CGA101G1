@@ -1,6 +1,7 @@
 package com.manager.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.member.model.MemVO;
 
@@ -131,5 +132,7 @@ private ManagerJDBCDAO dao;
 			
 			}
 		}
-		
+		public List<ManagerVO> getAll(Map<String, String[]> map) {
+			return dao.getAll(map);
+		}
 }

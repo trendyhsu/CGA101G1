@@ -17,7 +17,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理員管理</title>
+<title>管理員搜尋</title>
 
 <style type="text/css">
 table {
@@ -105,7 +105,7 @@ input:active {
 				<table id="table-1">
 					<tr>
 
-						<h3><i class="fa-solid fa-people-roof"></i>管理員管理</h3>
+						<h3><i class="fa-solid fa-people-roof"></i>管理員搜尋結果</h3>
 
 					</tr>
 				</table>
@@ -128,18 +128,7 @@ input:active {
 						</h4>
 
 						<hr>
-						<thead>
-						
-							<td>
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/backend/manager/addManager.jsp">
-									<input type="submit" value="新增" class="btn btn-success btn-beside"
-									> 
-									<input type="hidden"
-										name="managerNo" value="${managerVO.managerNo}">
-								</FORM>
-							</td>
-						
+						<thead>		
 							<tr>
 								<th><i class="fa fa-camera"></i>照片</th>
 								<th class=" hidden-phone"><i class="fa fa-barcode"></i> 編號</th>
@@ -194,11 +183,9 @@ input:active {
 							
 
 						</c:forEach>
-						
+
 					</table>
 					<%@ include file="page2.file"%>
-					
-
 				</div>
 			</div>
 		</section>
