@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Context>
+ 
+	<Resource name="jdbc/javaFramework" type="javax.sql.DataSource"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        jdbcUrl="jdbc:mysql://35.194.146.30:3306/cga101g1?serverTimezone=Asia/Taipei"
+        username="tibame"
+        password="tibame"
+        factory="com.zaxxer.hikari.HikariJNDIFactory"
+        minimumIdle="5"
+        maximumPoolSize="10"
+        connectionTimeout="30000"
+   />
+
+<Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="10" maxTotal="20" maxWaitMillis="-1" name="jdbc/TestDB" password="tibame" type="javax.sql.DataSource" url="jdbc:mysql://35.194.146.30:3306/cga101g1?serverTimezone=Asia/Taipei" username="tibame"/>
+
+</Context>
