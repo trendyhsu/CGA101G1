@@ -1,3 +1,5 @@
+<%@page import="com.bidrecord.model.BidRecordVO"%>
+<%@page import="com.member.model.MemVO"%>
 <%@page import="com.bidproduct.model.BidProductVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.bidproduct.model.BidProductService"%>
@@ -8,7 +10,19 @@
 <%@include file="/frontend/fronthead.jsp" %>
 
 <%
+MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+Integer memNo = memVO.getMemNo();
 List<BidProductVO> list = (List<BidProductVO>)request.getAttribute("bidProductVOs");
+List<BidRecordVO> bidRecordVOByProductNos = (List<BidRecordVO>)request.getAttribute("bidRecordVOByProductNos");
+
+if(list == null){
+	list = (List<BidProductVO>)request.getSession().getAttribute("bidProductVOs");
+}
+if(bidRecordVOByProductNos == null){
+	bidRecordVOByProductNos = (List<BidRecordVO>)request.getSession().getAttribute("bidRecordVOByProductNos");
+}
+request.getSession().setAttribute("bidProductVOs", list);
+request.getSession().setAttribute("bidRecordVOByProductNos", bidRecordVOByProductNos);
 pageContext.setAttribute("list", list);
 %>
 
@@ -27,7 +41,7 @@ border-bottom: solid;
 th{
 background-color: #b2cdcc;
 }
-#pageNumber, #dataNumber{
+#pageNumber, #dataNumber, #pageChange{
 float: right;
 }
 </style>
@@ -95,13 +109,13 @@ float: right;
 					<td style="width:10%; word-wrap: break-word"><fmt:formatDate value="${bidProductVO.bidSoldTime}"
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td><c:if test="${bidProductVO.bidState == 0}" var="condition">
-							<c:out value="0<br>競標中" escapeXml="false"></c:out>
+							<c:out value="競標中" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 1}" var="condition">
-							<c:out value="1<br>截標" escapeXml="false"></c:out>
+							<c:out value="截標" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 2}" var="condition">
-							<c:out value="2<br>流標" escapeXml="false"></c:out>
+							<c:out value="流標" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 3}" var="condition">
-							<c:out value="3<br>棄標" escapeXml="false"></c:out>
+							<c:out value="棄標" escapeXml="false"></c:out>
 						</c:if></td>
 
 				</tr>
@@ -109,6 +123,11 @@ float: right;
 			
 		</table>
 		<%@ include file="page2.file"%>
+			<c:if test="${list.size() == 0}" var="condition">
+				<div style="text-align: center; color: red; display: block;">
+					<p>目前無出價商品</p>
+				</div>
+			</c:if>
 	</div>
 
                         </div>
