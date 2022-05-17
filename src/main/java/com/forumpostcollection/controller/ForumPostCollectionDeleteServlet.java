@@ -47,11 +47,11 @@ public class ForumPostCollectionDeleteServlet extends HttpServlet {
 
 		/*************************** 3.收尋資料 ***************************************/
 
-		List<ForumPostCollectionVO> forumPostCollectionVOs = forumPostCollectionSvc.getOwenrAllPostCollection(memNo);
+		List<ForumPostCollectionVO> forumPostCollectionSessionVOs = forumPostCollectionSvc.getOwenrAllPostCollection(memNo);
 
 		/*************************** 4.新增完成,準備轉交(Send the Success view) ***********/
 
-		request.setAttribute("forumPostCollectionVOs", forumPostCollectionVOs);
+		request.getSession().setAttribute("forumPostCollectionSessionVOs", forumPostCollectionSessionVOs);
 		String url = "/frontend/forum/myFavouritePost.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url);
 		successView.forward(request, response);

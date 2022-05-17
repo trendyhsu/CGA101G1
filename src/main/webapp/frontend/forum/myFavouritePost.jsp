@@ -210,7 +210,7 @@ if(deletePost){
 			  if (isConfirm) {
 			    swal("刪除成功！", "","success")
 			    .then(() => {
-				setTimeout(returnPostList, 3000);
+				setTimeout(returnPostList, 2000);
 				function returnPostList(){
 					let deleteFormName = "#deleteForm"+targetNum;
 					document.querySelector(deleteFormName).submit();
