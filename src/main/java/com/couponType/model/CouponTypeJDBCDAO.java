@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Transaction;
+
 public class CouponTypeJDBCDAO implements CouponType_interface{
 
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -31,294 +33,328 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 	
 	@Override
 	public void insert(CouponTypeVO couponTypeVO) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(INSERT);
-			
-			ps.setString(1, couponTypeVO.getCouponName());
-			ps.setInt(2, couponTypeVO.getDiscountPrice());
-			ps.setDate(3, couponTypeVO.getCouponDeadline());
-			ps.setInt(4, couponTypeVO.getCouponQuantity());
-			ps.setString(5, couponTypeVO.getCouponDescription());
-			ps.executeUpdate();
+//		Transaction trans=getSession().beginTransaction();
+		getSession().save(couponTypeVO);
+//		   trans.commit();
 		
-		}catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
 		
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		}  finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(INSERT);
+//			
+//			ps.setString(1, couponTypeVO.getCouponName());
+//			ps.setInt(2, couponTypeVO.getDiscountPrice());
+//			ps.setDate(3, couponTypeVO.getCouponDeadline());
+//			ps.setInt(4, couponTypeVO.getCouponQuantity());
+//			ps.setString(5, couponTypeVO.getCouponDescription());
+//			ps.executeUpdate();
+//		
+//		}catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		}  finally {
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
 	}
 	
 	@Override
 	public void update(CouponTypeVO couponTypeVO) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(UPDATE);
-			
-			ps.setString(1, couponTypeVO.getCouponName());
-			ps.setInt(2, couponTypeVO.getDiscountPrice());
-			ps.setDate(3, couponTypeVO.getCouponDeadline());
-			ps.setInt(4, couponTypeVO.getCouponQuantity());
-			ps.setString(5, couponTypeVO.getCouponDescription());
-			ps.setInt(6, couponTypeVO.getCouponTypeNo());
-			ps.executeUpdate();
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		
-		}  finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+		final String UPDATE1 ="UPDATE coupontype SET  CouponName = :couponName,\r\n"
+				+ "DiscountPrice= :discountPrice , CouponDeadline = :couponDeadline, CouponQuantity= :couponQuantity, CouponDescription= :couponDescription\r\n"
+				+ "WHERE CouponTypeNo= :couponTypeNo";
+		 getSession().createSQLQuery(UPDATE1)
+		.setParameter("couponName", couponTypeVO.getCouponName())
+		.setParameter("discountPrice", couponTypeVO.getDiscountPrice())
+		.setParameter("couponDeadline", couponTypeVO.getCouponDeadline())
+		.setParameter("couponQuantity", couponTypeVO.getCouponQuantity())
+		.setParameter("couponDescription", couponTypeVO.getCouponDescription())
+		.setParameter("couponTypeNo", couponTypeVO.getCouponTypeNo())
+		.executeUpdate();
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(UPDATE);
+//			
+//			ps.setString(1, couponTypeVO.getCouponName());
+//			ps.setInt(2, couponTypeVO.getDiscountPrice());
+//			ps.setDate(3, couponTypeVO.getCouponDeadline());
+//			ps.setInt(4, couponTypeVO.getCouponQuantity());
+//			ps.setString(5, couponTypeVO.getCouponDescription());
+//			ps.setInt(6, couponTypeVO.getCouponTypeNo());
+//			ps.executeUpdate();
+//
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		
+//		}  finally {
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
 	}
 
 	@Override
 	public void delete(Integer couponTypeNo) {
-
-		Connection con = null;
-		PreparedStatement ps = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(DELETE);
-			ps.setInt(1, couponTypeNo);
-			ps.executeUpdate();
-			
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
+		final String delete1="DELETE FROM coupontype WHERE CouponTypeNo= :couponTypeNo";
+		getSession().createSQLQuery(delete1)
+		.setParameter("couponTypeNo", couponTypeNo)
+		.executeUpdate();
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(DELETE);
+//			ps.setInt(1, couponTypeNo);
+//			ps.executeUpdate();
+//			
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//		} finally {
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}	
 			
 	}
 	
 	
 	public CouponTypeVO getOne(Integer couponTypeNo) {
-
-		CouponTypeVO couponTypeVO= null;
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(GETONE);
-			
-			ps.setInt(1, couponTypeNo);
-			rs=ps.executeQuery();
-			
-			while(rs.next()) {
-				couponTypeVO=new CouponTypeVO();
-				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
-				couponTypeVO.setCouponName(rs.getString("couponName"));
-				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
-				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
-				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
-				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
-			}
-		
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return couponTypeVO;
+		final String GETONE1="SELECT couponTypeNo, couponName, discountPrice, couponDeadline, couponQuantity, CouponDescription\r\n"
+				+ "FROM coupontype WHERE couponTypeNo = :couponTypeNo ;";
+		return (CouponTypeVO)getSession().createSQLQuery(GETONE1)
+			  .addEntity(CouponTypeVO.class)
+			  .setParameter("couponTypeNo", couponTypeNo)
+			  .uniqueResult();
+//		CouponTypeVO couponTypeVO= null;
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(GETONE);
+//			
+//			ps.setInt(1, couponTypeNo);
+//			rs=ps.executeQuery();
+//			
+//			while(rs.next()) {
+//				couponTypeVO=new CouponTypeVO();
+//				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
+//				couponTypeVO.setCouponName(rs.getString("couponName"));
+//				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
+//				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
+//				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
+//				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
+//			}
+//		
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return couponTypeVO;
 	}
 	
 	
-	public CouponTypeVO getOneName(String couponName) {
-
-		CouponTypeVO couponTypeVO= null;
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(GET_ONE_NAME);
-			
-			ps.setString(1, couponName);
-			rs=ps.executeQuery();
-			
-			while(rs.next()) {
-				couponTypeVO=new CouponTypeVO();
-				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
-				couponTypeVO.setCouponName(rs.getString("couponName"));
-				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
-				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
-				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
-				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
-			}
-		
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return couponTypeVO;
+	public List<CouponTypeVO> getOneName(String couponName) {
+		final String GET_ONE_NAME1 ="SELECT couponTypeNo, couponName, discountPrice, couponDeadline, couponQuantity, CouponDescription\r\n"
+				+ "FROM coupontype WHERE couponName = :couponName ;";
+		return (List<CouponTypeVO>)getSession().createSQLQuery(GET_ONE_NAME1)
+			  .addEntity(CouponTypeVO.class)	
+			  .setParameter("couponName", couponName)
+			  .list();
+//		CouponTypeVO couponTypeVO= null;
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(GET_ONE_NAME);
+//			
+//			ps.setString(1, couponName);
+//			rs=ps.executeQuery();
+//			
+//			while(rs.next()) {
+//				couponTypeVO=new CouponTypeVO();
+//				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
+//				couponTypeVO.setCouponName(rs.getString("couponName"));
+//				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
+//				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
+//				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
+//				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
+//			}
+//		
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return couponTypeVO;
 	}
 	
 	@Override
 	public List<CouponTypeVO> getAll() {
-		List<CouponTypeVO> list =new ArrayList<CouponTypeVO>();
-		CouponTypeVO couponTypeVO=null;
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			ps = con.prepareStatement(GETALL);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				couponTypeVO=new CouponTypeVO();
-				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
-				couponTypeVO.setCouponName(rs.getString("couponName"));
-				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
-				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
-				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
-				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
-				list.add(couponTypeVO);
-			}			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
+		final String GETALL1="SELECT CouponTypeNo, CouponName, DiscountPrice, CouponDeadline, CouponQuantity, couponDescription\r\n"
+				+ "FROM coupontype ORDER BY couponTypeNo ;";
+		return (List<CouponTypeVO>)getSession().createSQLQuery(GETALL1)
+			  .addEntity(CouponTypeVO.class)
+			  .list();
+//		List<CouponTypeVO> list =new ArrayList<CouponTypeVO>();
+//		CouponTypeVO couponTypeVO=null;
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			ps = con.prepareStatement(GETALL);
+//			rs = ps.executeQuery();
+//			
+//			while(rs.next()) {
+//				couponTypeVO=new CouponTypeVO();
+//				couponTypeVO.setCouponTypeNo(rs.getInt("couponTypeNo"));
+//				couponTypeVO.setCouponName(rs.getString("couponName"));
+//				couponTypeVO.setDiscountPrice(rs.getInt("discountPrice"));	
+//				couponTypeVO.setCouponDeadline(rs.getDate("couponDeadline"));
+//				couponTypeVO.setCouponQuantity(rs.getInt("couponQuantity"));
+//				couponTypeVO.setCouponDescription(rs.getString("couponDescription"));
+//				list.add(couponTypeVO);
+//			}			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (rs != null) {
+//				try {
+//					rs.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (ps != null) {
+//				try {
+//					ps.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return list;
 	}
 
 	public static void main(String[] args) {

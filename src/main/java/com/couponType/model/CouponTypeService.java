@@ -22,9 +22,9 @@ public class CouponTypeService {
 	}
 
 	//比對優惠券名稱
-	public CouponTypeVO selectOneName(String couponName) {
-		CouponTypeVO couponTypeVO = dao.getOneName(couponName);
-		return couponTypeVO;
+	public List<CouponTypeVO> selectOneName(String couponName) {
+		List<CouponTypeVO> list = dao.getOneName(couponName);
+		return list;
 	}
 	// 新增優惠券
 	public void addNewCouponTypeVO(String couponTypeName, Integer discountPrice,Date couponDeadline, Integer couponQuantity, String couponDescription ) {

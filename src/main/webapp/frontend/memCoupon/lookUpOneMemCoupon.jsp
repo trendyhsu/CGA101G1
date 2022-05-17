@@ -90,6 +90,8 @@
 <%-- 			<td>${memCouponVO.memCouponNo}</td> --%>
 			<td>${memCouponVO.couponTypeVO.couponName}</td>
 			<td>${memCouponVO.couponTypeVO.discountPrice}</td>
+<%-- 			<td>${couponTypeVO.couponName}</td> --%>
+<%-- 			<td>${couponTypeVO.discountPrice}</td> --%>
 			<td>
 			<c:if test="${memCouponVO.couponState == 0 }" var="true">
 			未使用

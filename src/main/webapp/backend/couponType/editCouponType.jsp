@@ -76,18 +76,19 @@ float: right;
 		<table>
 			<tr>
 				<td>優惠券編號:<font color=red><b>*</b></font></td>
-				<td>${param.couponTypeNo}</td>
+				<td>${couponTypeVO.couponTypeNo}</td>
 			</tr>
 			<tr>
-				<td>優惠券名稱:</td>
-				<td><input type="TEXT" name="couponName" size="45"
-					value="${param.couponName}" /></td>
+				<td>優惠券名稱:<font color=red><b>*</b></td>
+				<td>${couponTypeVO.couponName}</td>
+				<td><input type="hidden" name="couponName" size="45"
+					value="${couponTypeVO.couponName}" /></td>
 				<td>${errorMsgs.couponName}</td>
 			</tr>
 			<tr>
 				<td>優惠券折價價格:</td>
 				<td><input type="TEXT" name="discountPrice" size="45"
-					value="${param.discountPrice}" /></td>
+					value="${couponTypeVO.discountPrice}" /></td>
 				<td>${errorMsgs.discountPrice}</td>
 			</tr>
 			<tr>
@@ -99,13 +100,13 @@ float: right;
 			<tr>
 				<td>優惠券數量:</td>
 				<td><input type="TEXT" name="couponQuantity" size="45"
-					value="${param.couponQuantity}" /></td>
+					value="${couponTypeVO.couponQuantity}" /></td>
 				<td>${errorMsgs.couponQuantity}</td>
 			</tr>
 			<tr>
 				<td>優惠券描述:</td>
 				<td><textarea name="couponDescription"
-						style="min-height: 100px; min-width: 300px; max-height: 50px; max-width: 70px;"></textarea></td>
+						style="min-height: 100px; min-width: 300px; max-height: 50px; max-width: 70px;">${couponTypeVO.couponDescription}</textarea></td>
 				<td>${errorMsgs.comm}</td>
 			</tr>
 
@@ -125,7 +126,7 @@ float: right;
 <%
 java.sql.Date couponDeadline = null;
 try {
-	couponDeadline = java.sql.Date.valueOf(request.getParameter("couponDeadline").trim());
+	couponDeadline = couponTypeVO.getCouponDeadline();
 } catch (Exception e) {
 	couponDeadline = new java.sql.Date(System.currentTimeMillis());
 }
@@ -153,7 +154,7 @@ try {
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: new Date()  		<%-- // value:  <%--  new Date(), '<%=hiredate%>' --%>
+		   value: new Date()		<%-- // value:  <%--  new Date(), '<%=couponDeadline%>' --%>
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            //minDate:               '-1970-01-01', // 去除今日(不含)之前

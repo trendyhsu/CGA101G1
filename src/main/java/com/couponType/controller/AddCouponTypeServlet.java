@@ -38,8 +38,8 @@ public class AddCouponTypeServlet extends HttpServlet {
 		CouponTypeService couponTypeService = new CouponTypeService();
 		String couponName = request.getParameter("couponName");
 		
-		CouponTypeVO couponTypeVO=couponTypeService.selectOneName(couponName);
-		if(couponTypeVO != null) {
+		List<CouponTypeVO> list=couponTypeService.selectOneName(couponName);
+		if(list.size() > 0) {
 			errorMsgs.put("Dup", "優惠券名稱不得重複");
 		}
 		if (couponName == null || couponName.trim().length() == 0) {
@@ -79,8 +79,8 @@ public class AddCouponTypeServlet extends HttpServlet {
 		/***************************3.新增完成,準備轉交(Send the Success view)***********/
 		String url = "/backend/couponType/listAllCouponType.jsp";
 		MemCouponService memCouponService = new MemCouponService();
-		List<MemCouponVO> list = memCouponService.showAllMemCoupon();
-		getServletContext().setAttribute("list", list);
+		List<MemCouponVO> list1 = memCouponService.showAllMemCoupon();
+		getServletContext().setAttribute("list", list1);
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 新增成功後轉交
 		successView.forward(request, response);
 		

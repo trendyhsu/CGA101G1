@@ -2,13 +2,42 @@ package com.memCoupon.model;
 
 import java.sql.Date;
 
-public class MemCouponVO {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import com.couponType.model.CouponTypeVO;
+import com.member.model.MemVO;
+
+@Entity
+@Table(name = "memcoupon")
+public class MemCouponVO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MemCouponNo")
 	private Integer memCouponNo;
+	@Column(name = "CouponTypeNo")
 	private Integer couponTypeNo;
+	@Column(name = "MemNo")
 	private Integer memNo;
+	@Column(name = "CouponState", insertable = false)
 	private Integer couponState;
+	@Column(name = "CouponDate")
 	private Date couponDate;
+	@ManyToOne
+	@JoinColumn(name = "CouponTypeNo", 
+				insertable = false, updatable = false)
+	private CouponTypeVO couponTypeVO;
+	@ManyToOne
+	@JoinColumn(name = "MemNo",
+				insertable = false, updatable = false)
+	private MemVO memVO;
+	
 	
 	public Date getCouponDate() {
 		return couponDate;
@@ -39,6 +68,18 @@ public class MemCouponVO {
 	}
 	public void setCouponState(Integer couponState) {
 		this.couponState = couponState;
+	}
+//	public CouponTypeVO getCouponTypeVO() {
+//		return couponTypeVO;
+//	}
+	public void setCouponTypeVO(CouponTypeVO couponTypeVO) {
+		this.couponTypeVO = couponTypeVO;
+	}
+//	public MemVO getMemVO() {
+//		return memVO;
+//	}
+	public void setMemVO(MemVO memVO) {
+		this.memVO = memVO;
 	}
 	
 	// join 
