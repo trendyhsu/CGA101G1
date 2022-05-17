@@ -107,16 +107,21 @@ font-weight: bold;
 							pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<td>${bidApplyListVO.upcNum}</td>
 					<td><c:if test="${bidApplyListVO.applyState == 0}" var="condition">
-							<c:out value="0<br>待處理" escapeXml="false"></c:out>
+							<c:out value="待處理" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidApplyListVO.applyState == 1}" var="condition">
-							<c:out value="1<br>已上架" escapeXml="false"></c:out>
+							<c:out value="已上架" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidApplyListVO.applyState == 2}" var="condition">
-							<c:out value="2<br>已退貨" escapeXml="false"></c:out>
+							<c:out value="已退貨" escapeXml="false"></c:out>
 						</c:if></td>
 				</tr>
 			</c:forEach>
 		</table>
 		<%@ include file="page2.file"%>
+			<c:if test="${list.size() == 0}" var="condition">
+				<div style="text-align: center; color: red; display: block;">
+					<p>目前無申請單</p>
+				</div>
+			</c:if>
 	</div>
 
                         </div>

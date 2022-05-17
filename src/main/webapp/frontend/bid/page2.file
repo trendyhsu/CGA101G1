@@ -12,7 +12,6 @@
         <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">至最後一頁</A>&nbsp;
     <%}%>
   <%}%>  
-<div>
   <%if (pageNumber>1) {%>
     <FORM METHOD="post" ACTION="<%=request.getRequestURI()%>">   
        <select size="1" name="whichPage">
@@ -23,3 +22,4 @@
        <input type="submit" class="btn btn-primary btn-sm" value="確定" >  
     </FORM>
   <%}%>
+</div>

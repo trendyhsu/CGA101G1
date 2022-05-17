@@ -1,3 +1,5 @@
+<%@page import="com.bidproduct.model.BidProductService"%>
+<%@page import="com.member.model.MemVO"%>
 <%@page import="com.bidproduct.model.BidProductVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,7 +9,10 @@
 <%@include file="/frontend/fronthead.jsp" %>
 
 <%
-List<BidProductVO> list = (List<BidProductVO>)request.getAttribute("bidProductVOs");
+MemVO memVO = (MemVO)request.getSession().getAttribute("memVO");
+Integer memNo = memVO.getMemNo();
+BidProductService bidProductSvc = new BidProductService();
+List<BidProductVO> list = bidProductSvc.getAllBySellerNo(memNo);
 pageContext.setAttribute("list", list);
 %>
 
@@ -93,29 +98,29 @@ float: right;
 					<td>${bidProductVO.bidWinnerPrice}</td>
 					<td>
 						<c:if test="${bidProductVO.bidState == 0}" var="condition">
-							<c:out value="0<br>競標中" escapeXml="false"></c:out>
+							<c:out value="競標中" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 1}" var="condition">
-							<c:out value="1<br>截標" escapeXml="false"></c:out>
+							<c:out value="截標" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 2}" var="condition">
-							<c:out value="2<br>流標" escapeXml="false"></c:out>
+							<c:out value="流標" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.bidState == 3}" var="condition">
-							<c:out value="3<br>棄標" escapeXml="false"></c:out>
+							<c:out value="棄標" escapeXml="false"></c:out>
 						</c:if></td>
 					<td>
 						<c:if test="${bidProductVO.orderState == 0}">
-							<c:out value="0<br>未出貨" escapeXml="false"></c:out>
+							<c:out value="未出貨" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 1}">
-							<c:out value="1<br>訂單處理中" escapeXml="false"></c:out>
+							<c:out value="訂單處理中" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 2}">
-							<c:out value="2<br>已出貨" escapeXml="false"></c:out>
+							<c:out value="已出貨" escapeXml="false"></c:out>
 						</c:if> <c:if test="${bidProductVO.orderState == 3}">
-							<c:out value="3<br>取回處理中" escapeXml="false"></c:out>
+							<c:out value="取回處理中" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 4}">
-							<c:out value="4<br>已重新申請上架" escapeXml="false"></c:out>
+							<c:out value="已重新申請上架" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 5}">
-							<c:out value="5<br>已收貨" escapeXml="false"></c:out>
+							<c:out value="已收貨" escapeXml="false"></c:out>
 						</c:if><c:if test="${bidProductVO.orderState == 6}">
-							<c:out value="6<br>已撥款" escapeXml="false"></c:out>
+							<c:out value="已撥款" escapeXml="false"></c:out>
 						</c:if>
 					</td>
 					<td>
@@ -149,6 +154,11 @@ float: right;
 			
 		</table>
 		<%@ include file="page2.file"%>
+			<c:if test="${list.size() == 0}" var="condition">
+				<div style="text-align: center; color: red; display: block;">
+					<p>目前無上架中競標商品</p>
+				</div>
+			</c:if>
 	</div>
 
                         </div>
