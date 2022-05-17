@@ -2,6 +2,7 @@ package com.memCoupon.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -73,12 +74,14 @@ public class SendOneMemCouponServlet extends HttpServlet {
 		}
 		/*************************** 2.開始處理資料 *****************************************/
 		MemCouponService memCouponService = new MemCouponService();
-		MemCouponVO memCouponVO =memCouponService.checkMemCoupon(couponTypeNo, memAccount);
-		if(memCouponVO != null) {
-			errorMsgs1.put("couponQuantity", "該會員已有此優惠券");
-			RequestDispatcher failureView = request.getRequestDispatcher("/backend/memCoupon/sendMemCoupon.jsp");
-			failureView.forward(request, response);
-			return;
+		List<MemCouponVO> list =memCouponService.checkMemCoupon(couponTypeNo, memAccount);
+		for(MemCouponVO checkMemCouponVO : list ) {
+			if(checkMemCouponVO.getCouponState() == 0) {
+				errorMsgs1.put("couponQuantity", "該會員已有此優惠券");
+				RequestDispatcher failureView = request.getRequestDispatcher("/backend/memCoupon/sendMemCoupon.jsp");
+				failureView.forward(request, response);
+				return;
+			}
 		}
 		MemVO memVO = memCouponService.sendCouponToOneMem(couponQuantity, couponTypeNo, memAccount);
 		if(memVO.getMemStatus() == 0 || memVO.getMemVrfed() == 0) {

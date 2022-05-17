@@ -37,8 +37,8 @@ public class EditCouponTypeServlet extends HttpServlet {
 		String couponName = request.getParameter("couponName");
 		CouponTypeService couponTypeService = new CouponTypeService();
 		
-		CouponTypeVO couponTypeVO=couponTypeService.selectOneName(couponName);
-		if(couponTypeVO != null) {
+		List<CouponTypeVO> list=couponTypeService.selectOneName(couponName);
+		if(list.size() > 1) {
 			errorMsgs.put("Dup", "優惠券名稱不得重複");
 		}
 		if (couponName == null || couponName.trim().length() == 0) {
@@ -73,14 +73,14 @@ public class EditCouponTypeServlet extends HttpServlet {
 		}
 		
 		/*************************** 2.開始修改資料 ***************************************/
-		couponTypeVO=couponTypeService.editCouponType(couponName, discountPrice, couponDeadline, couponQuantity,
+		CouponTypeVO couponTypeVO =couponTypeService.editCouponType(couponName, discountPrice, couponDeadline, couponQuantity,
 				couponDescription, couponTypeNo);
 		/***************************3.修改完成,準備轉交(Send the Success view)*************/
 		request.setAttribute("CouponTypeVO", couponTypeVO); // 資料庫update成功
 		String url = "/backend/couponType/listAllCouponType.jsp";
 		MemCouponService memCouponService = new MemCouponService();
-		List<MemCouponVO> list = memCouponService.showAllMemCoupon();
-		getServletContext().setAttribute("list", list);
+		List<MemCouponVO> list1 = memCouponService.showAllMemCoupon();
+		getServletContext().setAttribute("list", list1);
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 修改成功後,轉交
 		successView.forward(request, response);
 	

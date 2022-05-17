@@ -2,13 +2,29 @@ package com.couponType.model;
 
 import java.sql.Date;
 
-public class CouponTypeVO {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "coupontype")
+public class CouponTypeVO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CouponTypeNo")
 	private Integer couponTypeNo;
+	@Column(name = "CouponName")
 	private String couponName;
+	@Column(name = "DiscountPrice")
 	private Integer discountPrice;
+	@Column(name = "CouponDeadline")
 	private Date couponDeadline;
+	@Column(name = "CouponQuantity")
 	private Integer couponQuantity;
+	@Column(name = "CouponDescription")
 	private String couponDescription;
 	
 	public Integer getCouponTypeNo() {

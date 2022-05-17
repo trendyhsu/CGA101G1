@@ -2,33 +2,68 @@ package com.member.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.core.javaBeans.Core;
 
+import lombok.Data;
+@Entity
+@Data
+@Table(name = "mem")
 public class MemVO extends Core{
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MemNo")
 	private Integer memNo;
+	@Column(name = "MemAccount")
 	private String memAccount;
+	@Column(name = "MemPassword")
 	private String memPassword;
+	@Column(name = "MemStatus")
 	private Integer memStatus;
+	@Column(name = "MemVrfed")
 	private Integer memVrfed;
+	@Column(name = "MemNoVrftime")
 	private Date memNoVrftime;
+	@Column(name = "MemName")
 	private String memName;
+	@Column(name = "MemMobile")
 	private String memMobile;
+	@Column(name = "MemCity")
 	private String memCity;
+	@Column(name = "MemDist")
 	private String memDist;
+	@Column(name = "MemAdd")
 	private String memAdd;
+	@Column(name = "MemEmail")
 	private String memEmail;
+	@Column(name = "MemBirth")
 	private Date memBirth;
+	@Column(name = "MemJoinTime")
 	private Date memJoinTime;
+	@Column(name = "CreditcardNo")
 	private String creditcardNo;
+	@Column(name = "CreditcardDate")
 	private String creditcardDate;
+	@Column(name = "CreditcardSecurityNo")
 	private String creditcardSecurityNo;
+	@Column(name = "BankAccount")
 	private String bankAccount;
+	@Column(name = "BankAccountOwner")
 	private String bankAccountOwner;
+	@Column(name = "UserStatus")
 	private Integer userStatus;
+	@Column(name = "MyPic")
 	private byte[] myPic;
+	@Column(name = "IsMute")
 	private Integer isMute;
+	
 	public Integer getIsMute() {
 		return isMute;
 	}

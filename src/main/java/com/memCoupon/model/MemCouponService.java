@@ -77,22 +77,25 @@ public class MemCouponService {
 		// 放進Set集合
 		Set<Integer> mem = new HashSet<Integer>();
 		while (mem.size() < couponQuantity) {
-			int memNoSet = (int) (Math.random() * couponQuantity) + 11001;
+			int memNoSet = (int) (Math.random() * memQuantity) + 11001;
 			mem.add(memNoSet);
 		}
 		// 取得優惠券期限
 		CouponTypeService couponTypeService = new CouponTypeService();
 		Date date = couponTypeService.listOneCouponType(couponTypeNo).getCouponDeadline();
+		MemCouponVO memCouponVO=new MemCouponVO();
 		// 發送給這些會員
-		MemCouponVO memCouponVO = new MemCouponVO();
 		for (Integer memNo : mem) {
 			// 取得會員VO
 			MemVO memVO = memService.getMemVObyMemNo(memNo);
 			// 查看是否該會員已有優惠券
-			memCouponVO = dao.getMemCouponIsHave(couponTypeNo, memNo);
-			boolean DontHave = false;
-			if(memCouponVO == null) {
-			DontHave = true;
+			List<MemCouponVO> list = dao.getMemCouponIsHave(couponTypeNo, memNo);
+			boolean DontHave = true;
+			for(MemCouponVO checkMemCouponVO : list) {
+				if(checkMemCouponVO.getCouponState() == 0) {
+				DontHave = false;
+				break;
+				}
 			}
 			// 寄信通知，帳號非停權以及驗證過後才執行
 			if (memVO.getMemStatus() != 0 && memVO.getMemVrfed() != 0 && DontHave) {
@@ -116,11 +119,11 @@ public class MemCouponService {
 	}
 
 	// 查看該會員是否已有此優惠券
-	public MemCouponVO checkMemCoupon(Integer couponTypeNo, String memAccount) {
+	public List<MemCouponVO> checkMemCoupon(Integer couponTypeNo, String memAccount) {
 		MemService memService = new MemService();
 		MemVO memVO = memService.getByMemAccount(memAccount);
 		Integer memNo = memVO.getMemNo();
-		MemCouponVO memCouponVO = dao.getMemCouponIsHave(couponTypeNo, memNo);
-		return memCouponVO;
+		List<MemCouponVO> list = dao.getMemCouponIsHave(couponTypeNo, memNo);
+		return list;
 	}
 }

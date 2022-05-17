@@ -21,7 +21,7 @@ public class MemberLoginFilter implements Filter{
 		MemVO memVO = (MemVO)session.getAttribute("memVO");
 
 		if (memVO == null ) {
-			session.setAttribute("initlocation", req.getRequestURI());
+			session.setAttribute("initlocationMem", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/frontend/memLogin/login.html");
 			return;
 		}else {
