@@ -3,8 +3,6 @@ package com.gamenews.model;
 import java.util.List;
 import java.util.Map;
 
-import com.fqkeyword.model.FQKeyWordVO;
-
 public class GameNewsService {
 
 	private GameNewsDAOImpl dao;

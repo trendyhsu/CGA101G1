@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 //@WebServlet(value = "/initializeResources", loadOnStartup = 1)
-public class startupRedis extends HttpServlet {
+public class StartupRedis extends HttpServlet {
 
 	/**
 	 * 
