@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  
+<!--   <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property> -->
+<!--   <property name="hibernate.connection.password">1234</property> -->
+<!--   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/JAVA_FRAMEWORK</property> -->
+<!--   <property name="hibernate.connection.username">dba</property> -->
+  
+  <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+  <property name="hibernate.connection.url">jdbc:mysql://35.194.146.30:3306/cga101g1</property>
+  <property name="hibernate.connection.username">tibame</property>
+  <property name="hibernate.connection.password">tibame</property>
+  <property name="hibernate.connection.provider_class">
+   com.zaxxer.hikari.hibernate.HikariConnectionProvider
+  </property>
+  <property name="hibernate.hikari.minimumIdle">5</property>
+  <property name="hibernate.hikari.maximumPoolSize">10</property>
+  <property name="hibernate.hikari.idleTimeout">30000</property>
+  
+  
+  
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.format_sql">true</property>
+<!--   連線工廠用 -->
+  <property name="hibernate.current_session_context_class">thread</property> 
+  
+  <mapping class="com.couponType.model.CouponTypeVO"/>
+  <mapping class="com.member.model.MemVO"/>
+  <mapping class="com.memCoupon.model.MemCouponVO"/>
+  
+<!--   <mapping class="web.shop.entity.Product"/> -->
+<!--   <mapping class="web.shop.entity.Book"/> -->
+  
+<!--   <mapping class="web.shop.entity.Order"/> -->
+<!--   <mapping class="web.shop.entity.Customer"/> -->
+  
+ </session-factory>
+</hibernate-configuration>
