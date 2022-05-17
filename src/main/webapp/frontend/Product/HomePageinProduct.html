@@ -311,7 +311,10 @@
         ;bottom: 30%; left: 95%;">
             <a href="/CGA101G1/frontend/Product/shopping-cart.html">
                 <div style="position:relative;top:18px;left:4px">
-                    <p style="margin-bottom: 0;padding-left:5px;"><span
+                    <p v-if="this.totalItemOfCart<10" style="margin-bottom: 0;padding-left:5px;"><span
+                            style="color: #CC6D3D;font-weight: 1000; font-size: 2em;">{{this.totalItemOfCart}}</span>
+                    </p>
+                    <p v-else style="margin-bottom: 0;padding-left:1.5px;"><span
                             style="color: #CC6D3D;font-weight: 1000; font-size: 2em;">{{this.totalItemOfCart}}</span>
                     </p>
                 </div>

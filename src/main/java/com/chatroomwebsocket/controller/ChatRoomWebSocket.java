@@ -48,7 +48,7 @@ public class ChatRoomWebSocket {
 		// 將這個連線放進去session中，之後可以廣播
 		connectedSessions.add(userSession);
 		String text = String.format("Session ID = %s, 連線進來了; forumNo = %s", userSession.getId(), forumNo);
-		System.out.println(text);
+//		System.out.println(text);
 	}
 
 	// 當收到訊息時
@@ -78,7 +78,7 @@ public class ChatRoomWebSocket {
 		stringBuilder.append(" 對大家說: ");
 		stringBuilder.append(message);
 		JSONObject chatAll = new JSONObject();
-		System.out.println(stringBuilder.toString());
+//		System.out.println(stringBuilder.toString());
 		chatAll.put("sendMemNo", memVO.getMemNo());
 		chatAll.put("message", stringBuilder.toString());
 		
@@ -88,7 +88,7 @@ public class ChatRoomWebSocket {
 		JSONArray jsonArray = new JSONArray(chatRoomBanListVOs);
 		chatAll.put("chatRoomBanListVOs", jsonArray);
 		
-		System.out.println(chatAll.toString());
+//		System.out.println(chatAll.toString());
 		
 		for (Session session : connectedSessions) {
 			if (session.isOpen())
@@ -102,7 +102,7 @@ public class ChatRoomWebSocket {
 		connectedSessions.remove(userSession);
 		String text = String.format("session ID = %s, 連線離開了; close code = %d; reason phrase = %s",
 				userSession.getId(), reason.getCloseCode().getCode(), reason.getReasonPhrase());
-		System.out.println(text);
+//		System.out.println(text);
 	}
 
 	// 當發生錯誤時
