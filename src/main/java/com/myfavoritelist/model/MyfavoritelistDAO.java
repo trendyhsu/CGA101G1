@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+
+import com.core.utils.HibernateUtil;
+
 public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -33,45 +38,58 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 	@Override
 	public void delete(Integer memNo,Integer productNo) {
 		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-
-			pstmt = con.prepareStatement(deleteOne);
-			pstmt.setInt(1, memNo);
-			pstmt.setInt(2, productNo);					
-			pstmt.executeUpdate();
-
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		NativeQuery<?> nativeQuery  = session.createSQLQuery("DELETE FROM `cga101g1`.`myfavoritelist` WHERE (MemNo = :MemNo) and (ProductNo = :ProductNo) ")
+				.setParameter("MemNo", memNo)
+				.setParameter("ProductNo", productNo);
+		int row = nativeQuery.executeUpdate();	
+		System.out.println("刪除了"+row+"筆");	
+		
+		
+		
+		
+		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//
+//			pstmt = con.prepareStatement(deleteOne);
+//			pstmt.setInt(1, memNo);
+//			pstmt.setInt(2, productNo);					
+//			pstmt.executeUpdate();
+//
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
 		
 	}
 
@@ -228,10 +246,7 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 		return list;
 	}
 
-	
-	
-	
-	
+		
 	@Override
 	public List<Object> getAllByOneMemInJoin(Integer memNo) {
 		
