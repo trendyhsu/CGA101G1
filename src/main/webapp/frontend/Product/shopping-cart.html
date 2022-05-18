@@ -140,7 +140,7 @@
                                         <a class="dec qty-btn"
                                             :href="`/CGA101G1/product/shoppingCartReduce?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`">-</a>
                                         <input class="cart-qty-input form-control" type="text" name="qtybutton"
-                                            :value="item.productSales">
+                                            :value="item.productSales" readonly>
                                         <!-- 尚未測試++ -->
                                         <a class="inc qty-btn"
                                             :href="`/CGA101G1/product/shoppingCartModAdd?ProductNo=${item.productNo}&ProductSales=1&ProductTotalPrice=${item.productTotalPrice/item.productSales}&ProductName=${item.productName}`">+</a>
