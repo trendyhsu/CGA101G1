@@ -34,11 +34,4 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/resources</name>
-			<type>2</type>
-			<location>C:/Hibernate/Hibernate_workspace/CGA101G1.zip_expanded/CGA101G1/src/main/resources</location>
-		</link>
-	</linkedResources>
 </projectDescription>
