@@ -178,7 +178,7 @@
                 <div class="row flex-row-reverse pt-4">
 
                 </div>
-                <div v-if="(this.datastore.length != 0)">
+                <div v-show="(this.datastore.length != 0)">
                     <form class="card mt-5" action="/CGA101G1/order/addtoOrderAndOrderlist" method="post">
                         <div class="card-header py-3">
                             <h4 class="m-0">請填寫訂購資料</h4>
@@ -451,6 +451,7 @@
             },
             getPostData() {
                 const apiUrl = 'https://demeter.5fpro.com/tw/zipcodes.json';
+                console.log("getPostData啟動");
                 axios.get(apiUrl)
                     // 一定要用箭頭函示!!!!
                     .then((response) => {
