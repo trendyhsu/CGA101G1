@@ -27,7 +27,7 @@ public class BidRecordGetSessionServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		String bidProductNo = request.getParameter("bidProductNo");
 		System.out.println(bidProductNo);
-		request.getSession().setAttribute("initlocation", request.getContextPath() + "/frontend/bid/listonebid.html?bidProductNo="+bidProductNo);
+		request.getSession().setAttribute("initlocationMem", request.getContextPath() + "/frontend/bid/listonebid.html?bidProductNo="+bidProductNo);
 		
 		Writer out = response.getWriter();
 		HttpSession session = request.getSession();
