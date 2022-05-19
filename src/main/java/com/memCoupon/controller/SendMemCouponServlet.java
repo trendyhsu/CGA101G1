@@ -33,7 +33,6 @@ public class SendMemCouponServlet extends HttpServlet {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 		//發放優惠券的種類
 		String couponTypeNoStr = request.getParameter("couponTypeNo");
-		
 		Integer couponTypeNo = null;
 		try {
 			couponTypeNo = Integer.parseInt(couponTypeNoStr);
@@ -55,7 +54,6 @@ public class SendMemCouponServlet extends HttpServlet {
 		} catch (Exception e) {
 			errorMsgs.put("couponQuantity", "發放數量格式不正確");
 		}
-		
 		if (!errorMsgs.isEmpty()) {
 			RequestDispatcher failureView = request.getRequestDispatcher("/backend/memCoupon/sendMemCoupon.jsp");
 			failureView.forward(request, response);

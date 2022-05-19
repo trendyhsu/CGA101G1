@@ -38,7 +38,15 @@ public class MemCouponJDBCDAO implements MemCoupon_interface{
 			+ "FROM memcoupon WHERE memNo= ? AND couponState=0 ORDER BY couponTypeNo;";
 	@Override
 	public void insert(MemCouponVO memCouponVO) {
-		getSession().save(memCouponVO);
+//		getSession().merge(memCouponVO);
+		final String INSERT1="INSERT INTO memcoupon(couponTypeNo, memNo, couponDate) \r\n"
+				+ "VALUES (:couponTypeNo , :memNo, :couponDate) ;";
+		getSession().createSQLQuery(INSERT1)
+		.setParameter("couponTypeNo", memCouponVO.getCouponTypeNo())
+		.setParameter("memNo", memCouponVO.getMemNo())
+		.setParameter("couponDate", memCouponVO.getCouponDate())
+		.executeUpdate();
+		
 //		Connection con = null;
 //		PreparedStatement ps = null;
 //		try {
