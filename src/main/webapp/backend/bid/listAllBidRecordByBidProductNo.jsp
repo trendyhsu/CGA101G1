@@ -53,7 +53,7 @@ h3{
 font-weight: bold;
 color: #547492;
 }
-#pageNumber, #dataNumber{
+#pageNumber, #dataNumber, #pageChange{
 float: right;
 }
 </style>
@@ -91,14 +91,7 @@ float: right;
 		<th>出價金額</th>
 		<th>出價時間</th>
 	</tr>
-<%@ include file="page1.file" %> 
-	<c:if test="${list == null}">
-	<tr>
-		<td colspan="5">
-		目前尚無資料!
-		</td>
-	</tr>
-	</c:if>
+<%@ include file="page3.file" %> 
 	<c:forEach var="bidRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr align='center' valign="middle">
@@ -111,6 +104,11 @@ float: right;
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
+			<c:if test="${list.size() == 0}" var="condition">
+				<div style="text-align: center; color: red; display: block;">
+					<p>目前無競標出價紀錄</p>
+				</div>
+			</c:if>
 <div style="text-align: center;">
 	<a href="<%=request.getContextPath()%>/backend/bid/listAllBid.jsp" style="font-size: 1.5rem ;font-weight: bold;">回競標商品列表</a>
 </div>
