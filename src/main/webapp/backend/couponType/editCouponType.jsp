@@ -6,6 +6,7 @@
 
 <%
 CouponTypeVO couponTypeVO = (CouponTypeVO) request.getAttribute("couponTypeVO");//存入req的物件
+// request.setAttribute("couponTypeVO", couponTypeVO);
 %>
 
 <!DOCTYPE html>
