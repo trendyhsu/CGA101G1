@@ -48,6 +48,9 @@ public class AddCouponTypeServlet extends HttpServlet {
 		Integer discountPrice = null;
 		try {
 			discountPrice = Integer.valueOf(request.getParameter("discountPrice").trim());
+			if(discountPrice<0) {
+				errorMsgs.put("discountPrice", "折價金額不得為負數");
+			}
 		} catch (NumberFormatException e) {
 			errorMsgs.put("discountPrice", "折價金額請填數字");
 		}
@@ -60,6 +63,9 @@ public class AddCouponTypeServlet extends HttpServlet {
 		Integer couponQuantity = null;
 		try {
 			couponQuantity = Integer.valueOf(request.getParameter("couponQuantity").trim());
+			if(couponQuantity<1) {
+				errorMsgs.put("couponQuantity", "數量不得為0或負數");
+			}
 		} catch (NumberFormatException e) {
 			errorMsgs.put("couponQuantity", "數量請填數字");
 		}
