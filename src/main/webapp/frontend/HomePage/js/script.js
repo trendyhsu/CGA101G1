@@ -236,19 +236,47 @@ function showTop9Items(data){
 	let hearts = document.querySelectorAll('#items .box-container .box i');
 	hearts.forEach(function(heart){
 		heart.addEventListener('click',(e)=>{
+			let value = e.target.getAttribute('value');
 			$.ajax({
-				url:`/CGA101G1/product/AddProduct2Fav?ProductNo=${e.target.value}`,
+				url:`/CGA101G1/product/AddProduct2Fav?ProductNo=${value}`,
 				type:'post',
 				success: function(data){
-					console.log(JSON.parse(data));
+					plusHeart(data);
 				}
-			})
-		
-			
+			})	
 		})
 	})
 }
 
+function plusHeart(data){
+	let status = Number(data);
+	switch(status){
+		case 0:
+			Swal.fire({
+  				icon: 'warning',
+  				title: '請先登入會員',
+  				confirmButtonColor: 'rgb(84, 117, 147)',
+  				footer: '<a href="/CGA101G1/frontend/memLogin/login.html">點此登入</a>'
+			})
+			break;
+		case 1:
+			Swal.fire({
+  				icon: 'success',
+  				title: '成功加入我的最愛',
+  				confirmButtonColor: 'rgb(84, 117, 147)'
+			})
+			break;
+		case 2:
+			Swal.fire({
+  				icon: 'warning',
+  				title: '重複加入我的最愛',
+  				confirmButtonColor: 'rgb(84, 117, 147)'
+			})
+			break;
+		default:
+			console.log('broken');
+	}
+}
 
 
 function showStar(stars, count){
