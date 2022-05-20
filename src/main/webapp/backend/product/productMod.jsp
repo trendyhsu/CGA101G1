@@ -99,16 +99,16 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 												id="" @change="NoSearch($event)" v-model="searchNo" placeholder="產品編號" style="padding: 0;border: 0;">
 										</div>
 									</th>
-									<th style="width: 110px;padding-left: 0;padding-right: 0;padding-bottom: 0">
-										<div>
+									<th style="width: 80px;padding-left: 0;padding-right: 0;padding-bottom: 0">
+										<div style="width: 80px">
 											<input class="form-control" type="text" name="keysearch"
-												id="" @change="keysearch($event)" v-model="searchName" placeholder="產品名稱" style="padding: 0;border-color: white;">
+												id="" @change="keysearch($event)" v-model="searchName" placeholder="產品名稱" style="width: 100px;margin:0;padding: 0;border-color: white;">
 										</div>
 									</th>
 									<th style="width: 50px;">價格</th>
 									<th style="width: 80px;">封面</th>
-									<th style="width: 1%">
-										<div>
+									<th style="width: 80px;padding-left: 0 ;padding-right: 0">
+										<div style="width: 80px;padding-left: 0 ;padding-right: 0">
 											<select name="GameTypeNo" id="gameTypeNo"
 												@change="typesearch($event)" v-model="searchType">
 												<option value="0">遊戲種類	</option>
@@ -119,7 +119,7 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 										</div>
 									</th>
 
-									<th style="width: 100px;">
+									<th style="width: 60px;padding-left: 0 ;padding-right: 0">
 										<div>
 											<select name="GamePlatformNo" id="gamePlatformNo"
 												@change="Platformsearch($event)" v-model="searchPlatform">
@@ -131,9 +131,9 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 											</select>
 										</div>
 									</th>
-									<th style="width: 120px">遊戲公司</th>
-									<th style="width: 1%">
-										<div>
+									<th style="width: 80px;padding-left: 0;padding-right: 0">遊戲公司</th>
+									<th style="width: 40px;padding-left: 0;padding-right: 0">
+										<div style="width: 100%;margin: 0">
 											<select name="ProductState" id="productState"
 												@change="Statesearch($event)" v-model="searchState">
 												<option value="2">銷售狀態</option>
@@ -142,11 +142,11 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
 											</select>
 										</div>
 									</th>
-									<th style="width: 120px;">產品描述</th>
-									<th style="width: 110px">UpcNum</th>
-									<th>產品圖片2</th>
-									<th>產品圖片3</th>
-									<th style="text-align: center;">編輯</th>
+									<th style="width: 80px;padding-left: 0;padding-right: 0">產品描述</th>
+									<th style="width: 110px;padding-left: 0;padding-right: 0">UpcNum</th>
+									<th style="width: 100px">產品圖片2</th>
+									<th style="width: 100px">產品圖片3</th>
+									<th style="text-align: center;width: 50px">編輯</th>
 								</tr>
 							</thead>
 						</table>
@@ -735,26 +735,26 @@ pageContext.setAttribute("gamePlatformTypeList", gamePlatformTypeList);
                                     <tr v-for="item in readData[nowPage]" :key="item.productNo"
                                         v-bind:class="{'table-success':item.onStock}">
                                         <td style="width: 62px;padding-left: 0;padding-right: 0;">{{item.productNo}}</td>
-                                        <td style="width: 110px">{{item.productName}}</td>
+                                        <td style="width: 120px">{{item.productName}}</td>
                                         <td style="width: 50px">{{item.productPrice}}</td>
                                         <td style="width: 20px">
-                                            <img :src="item.picList[0].imageUrl" alt="" width="66">
+                                            <img :src="item.picList[0].imageUrl" alt="" width="100">
                                         </td>
-                                        <td style="width: 120px">{{item.gameTypeName}}</td>
+                                        <td style="width: 100px">{{item.gameTypeName}}</td>
                                         <td style="width: 100px">{{item.gamePlatformName}}</td>
-                                        <td style="width: 120px">{{item.gameCompanyName}}</td>
-                                        <td style="width: 80px">{{item.StatusName}}</td>
+                                        <td style="width: 100px">{{item.gameCompanyName}}</td>
+                                        <td style="width: 60px">{{item.StatusName}}</td>
                                         <td class="descriptionArea" style="width: 120px;">
                                         <div style="width: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4;-webkit-box-orient: vertical;">{{item.itemProdDescription}}</div>
                                         </td>
-                                        <td>{{item.upcNum}}</td>
+                                        <td style="width: 110px">{{item.upcNum}}</td>
                                         <td>
                                             <img :src="item.picList[1].imageUrl" alt="" width="120">
                                         </td>
                                         <td>
                                             <img :src="item.picList[2].imageUrl" alt="" width="120">
                                         </td>
-                                        <td><button type="button" class="btn btn-secondary"
+                                        <td style="width: 50px"><button type="button" class="btn btn-secondary"
                                                 @click="webcamSendRequestButton(item)">編輯</button></td>
                                     </tr>
                                 </tbody>
