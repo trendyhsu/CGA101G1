@@ -409,9 +409,9 @@ section:nth-child(even) {
 	display: flex;
 	flex-direction: column;
 /* 	    border: 2px solid red; */
-	/* z-index: 1006; */
 	display: none;
 	height:100%;
+	min-height:80px;
 	margin-top: 50px;
 	padding: 5px 0;
 }
@@ -446,7 +446,7 @@ section:nth-child(even) {
 	width: 85%;
 	font-size: 18px;
 	padding-left: 4px;
-	height: 230px;
+	height: 200px;
 }
 
 #service .mailForm div textarea:focus {
