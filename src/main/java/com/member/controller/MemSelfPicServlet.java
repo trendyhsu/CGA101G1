@@ -29,7 +29,7 @@ public class MemSelfPicServlet extends HttpServlet {
 		//取得會員
 		Integer memNo =Integer.parseInt(request.getParameter("memNo"));
 		//取得專案路徑的照片 小吳老師教的
-		InputStream defaultPicStream = getServletContext().getResourceAsStream("/common/trendy.jpg");
+		InputStream defaultPicStream = getServletContext().getResourceAsStream("/common/POP_GAME_QR.png");
 		MemVO memVO = MEM_SERVICE.showMemPic(memNo, defaultPicStream);
 		out.write(memVO.getMyPic());
 	}
