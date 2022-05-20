@@ -9,8 +9,12 @@ import com.connection.model.ConnectionDAO;
 public interface BidProductDAO_interface extends ConnectionDAO {
 	// BidProductDAO_interface 定義介面
 	public Integer insert(BidProductVO bidProductVO);
+	
+	public Integer insertWithoutProduct(BidProductVO bidProductVO);
 
 	public void update(BidProductVO bidProductVO);
+	
+	public void updateWithoutProduct(BidProductVO bidProductVO);
 
 	public void delete(Integer bidProductNo);
 
@@ -53,6 +57,9 @@ public interface BidProductDAO_interface extends ConnectionDAO {
 
 	// 後臺更新競標資訊
 	public void updateByBackend(BidProductVO bidProductVO);
+	
+	// 後臺更新競標資訊 沒有一手商品
+	public void updateByBackendWithoutProduct(BidProductVO bidProductVO);
 	
 	// 萬用複合查詢(傳入參數型態Map)(回傳 List)
 	public List<BidProductVO> getAll(Map<String, String[]> map);
