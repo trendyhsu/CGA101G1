@@ -33,7 +33,6 @@ public class GetWhichOneUpdateServlet extends HttpServlet {
 		/***************************2.開始查詢資料****************************************/
 		CouponTypeService couponTypeService=new CouponTypeService();
 		CouponTypeVO couponTypeVO =couponTypeService.listOneCouponType(couponTypeNo);
-		System.out.println(couponTypeVO.getCouponName());
 		/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 		request.setAttribute("couponTypeVO", couponTypeVO); // 資料庫取出的物件,存入req
 		String url = "/backend/couponType/editCouponType.jsp";

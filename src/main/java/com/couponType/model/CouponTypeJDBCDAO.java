@@ -174,8 +174,8 @@ public class CouponTypeJDBCDAO implements CouponType_interface{
 	
 	
 	public CouponTypeVO getOne(Integer couponTypeNo) {
-		final String GETONE1="SELECT couponTypeNo, couponName, discountPrice, couponDeadline, couponQuantity, CouponDescription\r\n"
-				+ "FROM coupontype WHERE couponTypeNo = :couponTypeNo ;";
+		final String GETONE1="SELECT couponTypeNo, couponName, discountPrice, couponDeadline, couponQuantity, CouponDescription \r\n"
+				+ " FROM coupontype WHERE couponTypeNo = :couponTypeNo ;";
 		return (CouponTypeVO)getSession().createSQLQuery(GETONE1)
 			  .addEntity(CouponTypeVO.class)
 			  .setParameter("couponTypeNo", couponTypeNo)

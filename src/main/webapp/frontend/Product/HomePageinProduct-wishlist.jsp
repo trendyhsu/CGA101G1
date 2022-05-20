@@ -129,10 +129,15 @@
 			</div>
 			<div class="shoppingCartimg">
 				<a href="/CGA101G1/frontend/Product/shopping-cart.html">
-					<p style="margin-bottom: 0; padding-left: 15px;">
-						<span
+					<p  style="margin-bottom: 0; padding-left: 15px;">
+						<span v-if="this.totalItemOfCart<10"
 							style="color: #CC6D3D; font-weight: 1000; font-size: 2em; position: absolute; bottom: 70%; left: 12%;">{{this.totalItemOfCart}}</span>
-					</p> <img src="../mainCss/assets/img/shoppingCart2.png"
+						<span v-else
+							style="color: #CC6D3D; font-weight: 1000; font-size: 2em; position: absolute; bottom: 70%; left: 6%;">{{this.totalItemOfCart}}</span>
+					</p> 
+
+
+					<img src="../mainCss/assets/img/shoppingCart2.png"
 					style="width: 50%; height: 50%;" alt="">
 					<p>$:{{this.totalPriceOfCart}}</p>
 				</a>

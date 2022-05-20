@@ -92,9 +92,14 @@ public class MemCouponService {
 			List<MemCouponVO> list = dao.getMemCouponIsHave(couponTypeNo, memNo);
 			boolean DontHave = true;
 			for(MemCouponVO checkMemCouponVO : list) {
-				if(checkMemCouponVO.getCouponState() == 0) {
-				DontHave = false;
-				break;
+				try {
+					if(checkMemCouponVO.getCouponState() == 0) {
+					DontHave = false;
+					break;
+					}
+				} catch (NullPointerException e) {
+					DontHave = false;
+					break;
 				}
 			}
 			// 寄信通知，帳號非停權以及驗證過後才執行
