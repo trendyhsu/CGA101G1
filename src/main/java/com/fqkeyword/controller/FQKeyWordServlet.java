@@ -67,7 +67,6 @@ public class FQKeyWordServlet extends HttpServlet{
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				RequestDispatcher successView = req.getRequestDispatcher("/backend/fq/KeyWord-listAll.jsp");
 				successView.forward(req, resp);
-				
 			}
 		}
 		

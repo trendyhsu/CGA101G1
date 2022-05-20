@@ -57,7 +57,7 @@ function saveKeyWord(data) {
 }
 $('.service-form').click(function(event) {
 
-	if (event.target.id !== 'emailQ') {
+	if (event.target.id !== 'emailQ' && event.target.id !== 'emailTag') {
 
 		if ($(event.target).attr('value') === undefined) {
 			chatInput.value = $(event.target).parent().attr('value');
