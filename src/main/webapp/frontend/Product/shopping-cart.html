@@ -286,7 +286,7 @@
                                 </div>
                                 <div class="col-12">
                                     <input type="submit" value="送出訂單" class="btn btn-primary" v-show="ckeckoutOK"
-                                        @click="return foo();">
+                                        @click="return foo();" v-on:keyup.enter="enterBlock">
                                 </div>
                             </div>
                         </div>
@@ -542,6 +542,9 @@
             foo() {
                 this.loading = true;
                 return true;
+            },
+            enterBlock() {
+                return null;
             }
 
 
