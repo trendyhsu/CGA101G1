@@ -203,10 +203,17 @@ public class BidProductEditUpdateServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			BidProductService bidProductSvc = new BidProductService();
-			bidProductSvc.updateByBackend(bidProductNo, bidApplyListNo, productNo
-					, bidName, bidProdDescription, initialPrice, bidState,
-					 bidPriceIncrement, bidLaunchedTime, bidSoldTime,
-					 orderState, receiverName, receiverAddress, receiverPhone);
+			if(productNo != 0) {
+				bidProductSvc.updateByBackend(bidProductNo, bidApplyListNo, productNo
+						, bidName, bidProdDescription, initialPrice, bidState,
+						bidPriceIncrement, bidLaunchedTime, bidSoldTime,
+						orderState, receiverName, receiverAddress, receiverPhone);
+			}else {
+				bidProductSvc.updateByBackendWithoutProduct(bidProductNo, bidApplyListNo
+						, bidName, bidProdDescription, initialPrice, bidState,
+						bidPriceIncrement, bidLaunchedTime, bidSoldTime,
+						orderState, receiverName, receiverAddress, receiverPhone);
+			}
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			// 從資料庫讀取 bidPicVOs 存入 list 中

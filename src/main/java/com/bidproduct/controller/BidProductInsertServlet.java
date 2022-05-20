@@ -180,10 +180,17 @@ public class BidProductInsertServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			// 新增競標商品資料 並回傳新商品編號
+			Integer nextBidProductNo = 0;
 			BidProductService bidProductSvc = new BidProductService();
-			Integer nextBidProductNo = bidProductSvc.addBidProduct(bidApplyListNo, productNo, bidName,
+			if( productNo != 0) {
+				nextBidProductNo = bidProductSvc.addBidProduct(bidApplyListNo, productNo, bidName,
 					bidProdDescription, sellerNo, initialPrice, bidState,
 					bidLaunchedTime, bidSoldTime, bidPriceIncrement, orderState);
+			}else {
+				nextBidProductNo = bidProductSvc.addBidProductWithoutProduct(bidApplyListNo, bidName,
+						bidProdDescription, sellerNo, initialPrice, bidState,
+						bidLaunchedTime, bidSoldTime, bidPriceIncrement, orderState);
+			}
 
 			// 新增圖片資料
 			BidPicService bidPicSvc = new BidPicService();

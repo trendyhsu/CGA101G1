@@ -31,6 +31,26 @@ public class BidProductService {
 		Integer nextBidProductNo = dao.insert(bidProductVO);
 		return nextBidProductNo;
 	}
+	
+	public Integer addBidProductWithoutProduct(Integer bidApplyListNo, String bidName, String bidProdDescription,
+			Integer sellerNo, Integer initialPrice, Integer bidState, Timestamp bidLaunchedTime, Timestamp bidSoldTime,
+			Integer bidPriceIncrement, Integer orderState) {
+
+		BidProductVO bidProductVO = new BidProductVO();
+		bidProductVO.setBidApplyListNo(bidApplyListNo);
+		bidProductVO.setBidName(bidName);
+		bidProductVO.setBidProdDescription(bidProdDescription);
+		bidProductVO.setSellerNo(sellerNo);
+		bidProductVO.setInitialPrice(initialPrice);
+		bidProductVO.setBidState(bidState);
+		bidProductVO.setBidLaunchedTime(bidLaunchedTime);
+		bidProductVO.setBidSoldTime(bidSoldTime);
+		bidProductVO.setBidPriceIncrement(bidPriceIncrement);
+		bidProductVO.setOrderState(orderState);
+
+		Integer nextBidProductNo = dao.insertWithoutProduct(bidProductVO);
+		return nextBidProductNo;
+	}
 
 	// 預留給 Struts 2 或 Spring MVC 用
 //	public Integer addBidProduct(BidProductVO bidProductVO) {
@@ -66,6 +86,36 @@ public class BidProductService {
 
 		return dao.findByPrimaryKey(bidProductNo);
 	}
+	
+	public BidProductVO updateBidProductWithoutProduct(Integer bidProductNo, Integer bidApplyListNo,
+			String bidName, String bidProdDescription, Integer buyerNo, Integer sellerNo, Integer initialPrice,
+			Integer bidState, Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer bidWinnerPrice,
+			Integer bidPriceIncrement, Integer orderState, String receiverName, String receiverAddress,
+			String receiverPhone) {
+
+		BidProductVO bidProductVO = new BidProductVO();
+		bidProductVO.setBidProductNo(bidProductNo);
+		bidProductVO.setBidApplyListNo(bidApplyListNo);
+		bidProductVO.setBidName(bidName);
+		bidProductVO.setBidProdDescription(bidProdDescription);
+		bidProductVO.setBuyerNo(buyerNo);
+		bidProductVO.setSellerNo(sellerNo);
+		bidProductVO.setInitialPrice(initialPrice);
+		bidProductVO.setBidState(bidState);
+		bidProductVO.setBidLaunchedTime(bidLaunchedTime);
+		bidProductVO.setBidSoldTime(bidSoldTime);
+		bidProductVO.setBidWinnerPrice(bidWinnerPrice);
+		bidProductVO.setBidPriceIncrement(bidPriceIncrement);
+		bidProductVO.setOrderState(orderState);
+		bidProductVO.setReceiverName(receiverName);
+		bidProductVO.setReceiverAddress(receiverAddress);
+		bidProductVO.setReceiverPhone(receiverPhone);
+
+		dao.updateWithoutProduct(bidProductVO);
+
+		return dao.findByPrimaryKey(bidProductNo);
+	}
+
 
 	// 預留給 Struct 2 用的
 //	public void updateBidProduct(BidProductVO bidProductVO) {
@@ -183,6 +233,29 @@ public class BidProductService {
 		bidProductVO.setReceiverPhone(receiverPhone);
 
 		dao.updateByBackend(bidProductVO);
+	}
+	// 後臺更新競標資訊
+	public void updateByBackendWithoutProduct(Integer bidProductNo, Integer bidApplyListNo, String bidName,
+			String bidProdDescription, Integer initialPrice, Integer bidState, Integer bidPriceIncrement,
+			Timestamp bidLaunchedTime, Timestamp bidSoldTime, Integer orderState, String receiverName,
+			String receiverAddress, String receiverPhone) {
+
+		BidProductVO bidProductVO = new BidProductVO();
+		bidProductVO.setBidProductNo(bidProductNo);
+		bidProductVO.setBidApplyListNo(bidApplyListNo);
+		bidProductVO.setBidName(bidName);
+		bidProductVO.setBidProdDescription(bidProdDescription);
+		bidProductVO.setInitialPrice(initialPrice);
+		bidProductVO.setBidState(bidState);
+		bidProductVO.setBidPriceIncrement(bidPriceIncrement);
+		bidProductVO.setBidLaunchedTime(bidLaunchedTime);
+		bidProductVO.setBidSoldTime(bidSoldTime);
+		bidProductVO.setOrderState(orderState);
+		bidProductVO.setReceiverName(receiverName);
+		bidProductVO.setReceiverAddress(receiverAddress);
+		bidProductVO.setReceiverPhone(receiverPhone);
+
+		dao.updateByBackendWithoutProduct(bidProductVO);
 	}
 
 	public List<BidProductVO> getAll(Map<String, String[]> map) {
