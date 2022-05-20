@@ -95,7 +95,41 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 
 	@Override
 	public MyfavoritelistVo getOneByOneMem(Integer memNo, Integer productNo) {
-		MyfavoritelistVo myfavoritelistVo = new MyfavoritelistVo();
+
+		MyfavoritelistVo  myfavoritelistVo =new MyfavoritelistVo();
+		
+		
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//
+//		NativeQuery<MyfavoritelistVo> nativeQuery = session.createSQLQuery("select * from `cga101g1`.`myfavoritelist` WHERE (MemNo = :MemNo) and (ProductNo = :ProductNo) ")
+//		.setParameter("MemNo", memNo)
+//		.setParameter("ProductNo", productNo)
+//		.addEntity(MyfavoritelistVo.class);
+//		
+//		
+//		List<MyfavoritelistVo>  list = (List<MyfavoritelistVo>) nativeQuery.list();
+//		if(list.isEmpty()) {
+////			myfavoritelistVo.setMemNo(memNo);
+////			myfavoritelistVo.setProductNo(0);
+//			System.out.println("查詢成功沒有重複");
+//			return myfavoritelistVo;
+//		}
+//		else {
+//			System.out.println("查詢成功有重複");
+//			return myfavoritelistVo;
+//		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -154,45 +188,74 @@ public class MyfavoritelistDAO implements MyfavoritelistDAO_Interface{
 	@Override
 	public void insert(Integer memNo, Integer productNo) {
 		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-
-			pstmt = con.prepareStatement(addOneInMem);
-			pstmt.setInt(1, memNo);
-			pstmt.setInt(2, productNo);					
-			pstmt.executeUpdate();
-
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+		
+		
+		
+		MyfavoritelistVo myfavoritelistVo = new MyfavoritelistVo();
+		myfavoritelistVo.setMemNo(memNo);
+		myfavoritelistVo.setProductNo(productNo);
+		Session session =HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		/*** 在com.filter的 HibernateFilter 已經設定每筆都有transaction機制 ***/
+//		Transaction transaction = session.beginTransaction();
+//		session.save(myfavoritelistVo);
+//		transaction.commit();
+		
+		NativeQuery<?> nativeQuery = session.createSQLQuery("INSERT INTO `cga101g1`.`myfavoritelist` VALUES (:MemNo , :ProductNo)")
+				.setParameter("MemNo",memNo)
+				.setParameter("ProductNo", productNo);
+		Integer row =  nativeQuery.executeUpdate();
+		System.out.println("新增了"+row);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//
+//		try {
+//
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//
+//			pstmt = con.prepareStatement(addOneInMem);
+//			pstmt.setInt(1, memNo);
+//			pstmt.setInt(2, productNo);					
+//			pstmt.executeUpdate();
+//
+//
+//			// Handle any driver errors
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//			// Handle any SQL errors
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//			// Clean up JDBC resources
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
 	}
 
 	@Override
