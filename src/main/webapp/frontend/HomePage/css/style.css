@@ -126,10 +126,10 @@ section:nth-child(even) {
 
 #service {
 	position: fixed;
-	top: 12%;
+	bottom: 12%;
 	right: 8rem;
 	width: 300px;
-	height: 75%;
+	height: 430px;
 	background: rgb(154, 180, 204);
 	box-shadow: var(--box-shadow);
 	padding: .5rem .5rem;
@@ -693,7 +693,7 @@ section:nth-child(even) {
 /*Popular Items的排列*/
 .items .box-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+	grid-template-columns: repeat(3, minmax(28rem, 1fr));
 	/*商品及商品中間的空隙*/
 	gap: 1.5rem;
 }
@@ -781,7 +781,7 @@ section:nth-child(even) {
 	background: white;
 	border-radius: .5rem;
 	padding: .5rem .5rem;
-	/* height: 100%; */
+	height: fit-content;
 	/* box-shadow: var(--box-shadow); */
 }
 
@@ -822,26 +822,24 @@ section:nth-child(even) {
 }
 
 .news .news-slider .wrapper .slide {
-	/* border: 2px solid purple; */
+/* 	border: 2px solid purple; */
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-rows: 46% 46%;
+	grid-template-columns: repeat(3, minmax(28rem, 1fr));
 	grid-row-gap: 0;
-	/* background: #fff; */
-	/* height: fit-content; */
-	/* padding: 0 3rem; */
+	margin-top:10px;
 }
 
 .news .news-slider .wrapper .slide a {
-	/* border: .1rem solid rgba(0, 0, 0, .2); */
+/* 	border: .1rem solid rgba(0, 0, 0, .2); */
 	padding: 1rem;
-	/* background: #fff; */
-	/* height: 25rem; */
+	display: flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
 }
 
 .news .news-slider .wrapper .slide a .text-container {
-	/* border: 2px solid blue; */
-	height: 40%;
+/* 	border: 2px solid blue; */
 	font-size: 1.6rem;
 	overflow: hidden;
 	display: -webkit-box;
@@ -849,6 +847,7 @@ section:nth-child(even) {
 	-webkit-line-clamp: 2;
 	line-height: 20px;
 	height: 40px;
+	max-width: 335px;
 	color: var(--light-color);
 	/* word-break: keep-all; */
 }
