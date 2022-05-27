@@ -7,10 +7,6 @@ var swiper = new Swiper(".home-slider", { /*變數名*/
 		delay: 7500,
 		disableOnInteraction: false,
 	},
-	pagination: {
-		el: ".swiper-pagination",
-		clickable: true,
-	},
 	loop: true,
 });
 
@@ -26,10 +22,6 @@ var newsSwiper = new Swiper(".news-slider", { /*變數名*/
 	autoplay: {
 		delay: 5500,
 		disableOnInteraction: false,
-	},
-	pagination: {
-		el: ".swiper-pagination",
-		clickable: true,
 	},
 	loop: true,
 });
